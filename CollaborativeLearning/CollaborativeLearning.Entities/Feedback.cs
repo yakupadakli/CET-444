@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class Feedback:Base
+    public class Feedback:BaseEntity
     {
         public int submittedWorkID { get; set; }
         public virtual SubmittedWork SubmittedWork { get; set; }
@@ -28,7 +27,5 @@ namespace CollaborativeLearning.Entities
         public int parentID { get; set; }
 
         public virtual Feedback parent { get; set; }
-
-
     }
 }

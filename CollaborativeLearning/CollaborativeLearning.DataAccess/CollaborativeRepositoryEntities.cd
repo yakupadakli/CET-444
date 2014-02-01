@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborativeLearning.DataAccess.GenericRepository&lt;TEntity&gt;">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAEAAAAAAAABAAAAAAAAAAAEAAAAACAAAgAAABAA=</HashCode>
+      <FileName>GenericRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.FeedbackRepository">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FeedbackRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.UnitOfWork">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAYCQIAAQCAgAAASAABAACAQQACAAIAggAAAAIIAAAA=</HashCode>
+      <FileName>UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.UserRepository">
+    <Position X="10.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ActionPlanListRepository">
+    <Position X="10.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ActionPlanListRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.FileRepository">
+    <Position X="10.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.GroupRepository">
+    <Position X="12.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GroupRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ReflectionRepository">
+    <Position X="14.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReflectionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ResourceFileRepository">
+    <Position X="16.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceFileRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ResourceListRepository">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceListRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.RoleRepository">
+    <Position X="14.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoleRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ScenarioRepository">
+    <Position X="11.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScenarioRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.ScenarioTaskRepository">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScenarioTaskRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.SemesterRepository">
+    <Position X="4.5" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="CollaborativeLearning.DataAccess.GenericRepository&lt;TEntity&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="7.75" Y="3.401" />
+        <Point X="7.75" Y="6.875" />
+        <Point X="4.125" Y="6.875" />
+        <Point X="4.125" Y="8.483" />
+        <Point X="4.5" Y="8.483" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SemesterRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.SemesterWorkDueDateRepository">
+    <Position X="17.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SemesterWorkDueDateRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.StatusRepository">
+    <Position X="9" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatusRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.SubmittedWorkRepository">
+    <Position X="17.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubmittedWorkRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.SubmittedWorkStatusRepository">
+    <Position X="19.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubmittedWorkStatusRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.DataAccess.WorkRepository">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WorkRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CollaborativeLearning.DataAccess.IRepository&lt;TEntity&gt;">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAAAAAAAAEAAAAAAAAAgAAABAA=</HashCode>
+      <FileName>IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

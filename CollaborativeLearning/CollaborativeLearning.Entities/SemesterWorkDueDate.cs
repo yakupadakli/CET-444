@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class SemesterWorkDueDate:Base
+    public class SemesterWorkDueDate:BaseEntity
     {
         public int semesterID { get; set; }
         public virtual Semester Semester { get; set; }
@@ -18,6 +17,5 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "Bitiş Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Bitiş Tarihi")]
         public DateTime dueDate { get; set; }
-
     }
 }

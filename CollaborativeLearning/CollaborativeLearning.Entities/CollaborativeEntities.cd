@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborativeLearning.Entities.ActionPlanList">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAgAAAAIAAAAAAAAAAACCAAAAAAAAAAAAA=</HashCode>
+      <FileName>ActionPlanList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.BaseEntity">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Feedback">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAAAABAAAAAgAAAAAAACCAAAAAgAAAAIAA=</HashCode>
+      <FileName>Feedback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.File">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Group">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAASAEAAAgAAAAIAAAAAAAAAAACAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Reflection">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEQAAAAAAAKAAAAAAAABAACAAAAAAAAAAAgQA=</HashCode>
+      <FileName>Reflection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.ResourceFile">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>ResourceFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.ResourceList">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAIAAAAAAAAAAFCAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ResourceList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Scenario">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAggAAAAIAAAAAAAggAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scenario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.ScenarioTask">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScenarioTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Semester">
+    <Position X="9.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAAAAAAAAAAAgCAAAAAACAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Semester.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.SemesterWorkDueDate">
+    <Position X="9" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAFoAA=</HashCode>
+      <FileName>SemesterWorkDueDate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Status">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.SubmittedWork">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAIA=</HashCode>
+      <FileName>SubmittedWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.SubmittedWorkStatus">
+    <Position X="11.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAE=</HashCode>
+      <FileName>SubmittedWorkStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.User">
+    <Position X="14" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAEAChIAIAAAQEAAAgYAgCEAAJCAACBAAAAAAg=</HashCode>
+      <FileName>User.cs</FileName>
+      <NewMemberFileName>Use.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Work">
+    <Position X="15" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAEAAAAAAAAAAAAAAAAAAAACAAACAAAAAAAAAI=</HashCode>
+      <FileName>Work.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.Role">
+    <Position X="16" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.DataContextInitializer">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataContextInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborativeLearning.Entities.GroupWork">
+    <Position X="20.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAFAAA=</HashCode>
+      <FileName>GroupWork.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

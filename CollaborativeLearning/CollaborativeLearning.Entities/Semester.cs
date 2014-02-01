@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class Semester:Base
+    public class Semester:BaseEntity
     {
-        
         [Required(ErrorMessage = "Yıl alanı boş bırakılamaz")]
         [Display(Name = "Yıl")]
         public DateTime year { get; set; }
@@ -27,7 +24,5 @@ namespace CollaborativeLearning.Entities
         public virtual Status Status { get; set; }
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
-
     }
-    
 }

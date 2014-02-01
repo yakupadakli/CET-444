@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class Work:Base
+    public class Work:BaseEntity
     {
-
         [Required(ErrorMessage = "İş Adı alanı boş bırakılamaz")]
         [Display(Name = "İş Adı")]
         [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
@@ -20,7 +18,5 @@ namespace CollaborativeLearning.Entities
 
         public int statusID { get; set; }
         public virtual Status Status { get; set; }
-
-
     }
 }

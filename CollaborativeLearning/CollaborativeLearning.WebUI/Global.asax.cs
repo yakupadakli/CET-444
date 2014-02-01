@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.WebUI
 {
@@ -42,6 +43,9 @@ namespace CollaborativeLearning.WebUI
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            System.Data.Entity.Database.SetInitializer<DataContext>(new DataContextInitializer());
+
         }
     }
 }

@@ -39,6 +39,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,9 +65,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -847,6 +851,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CollaborativeLearning.DataAccess\CollaborativeLearning.DataAccess.csproj">
+      <Project>{df08f18a-1fec-4820-a417-b5ca789117dc}</Project>
+      <Name>CollaborativeLearning.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CollaborativeLearning.Entities\CollaborativeLearning.Entities.csproj">
+      <Project>{71600ed9-9c43-4fc1-b4f2-c70b9463d164}</Project>
+      <Name>CollaborativeLearning.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CollaborativeLearning.WebUI.OpenAccess\CollaborativeLearning.WebUI.OpenAccess.csproj">
       <Project>{6F9C2621-695C-4BDE-881B-157DCAA75C07}</Project>
       <Name>CollaborativeLearning.WebUI.OpenAccess</Name>

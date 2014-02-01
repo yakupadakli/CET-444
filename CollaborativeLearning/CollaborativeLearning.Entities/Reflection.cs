@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class Reflection:Base
+    public class Reflection
     {
         public int semesterID { get; set; }
         public virtual Semester Semester { get; set; }
@@ -30,6 +29,5 @@ namespace CollaborativeLearning.Entities
         public virtual Status Status { get; set; }
 
         public Boolean isRead { get; set; }
-
     }
 }

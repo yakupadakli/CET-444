@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class ResourceList:Base
+    public class ResourceList
     {
-
         [Required(ErrorMessage = "Kaynak Adı alanı boş bırakılamaz")]
         [Display(Name = "Kaynak Adı")]
         [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
@@ -36,6 +33,5 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Kaynak Tipi")]
         [MaxLength(25, ErrorMessage = "{0} karakterden uzun olamaz")]
         public string type { get; set; }
-
     }
 }

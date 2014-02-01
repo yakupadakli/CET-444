@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class Scenario : Base
+    public class Scenario:BaseEntity
     {
-        
-
         [Required(ErrorMessage = "Senaryo Adı alanı boş bırakılamaz")]
         [Display(Name = "Senaryo Adı")]
         [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
@@ -33,6 +29,5 @@ namespace CollaborativeLearning.Entities
 
         public virtual ICollection<Semester> Semesters { get; set; }
         public virtual ICollection<ActionPlanList> ActionPlanLists { get; set; }
-
     }
 }

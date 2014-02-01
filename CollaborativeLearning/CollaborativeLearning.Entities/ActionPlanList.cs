@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    class ActionPlanList:Base
+    public class ActionPlanList:BaseEntity
     {
         [Required(ErrorMessage = "Tanım alanı boş bırakılamaz")]
         [Display(Name = "Tanım")]
@@ -23,6 +22,5 @@ namespace CollaborativeLearning.Entities
         public virtual Status Status { get; set; }
 
         public virtual ICollection<Semester> Semesters { get; set; }
-
     }
 }
