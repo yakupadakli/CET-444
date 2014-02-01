@@ -6,8 +6,8 @@ namespace CollaborativeLearning.DataAccess
 {
     public class UnitOfWork : IDisposable
     {
-        public static DataContext context = new DataContext();
-        public static FeedbackRepository feedbackRepository;
+        public DataContext context = new DataContext();
+        public FeedbackRepository feedbackRepository;
         private UserRepository userRepository;
         private ActionPlanListRepository actionPlanListRepository;
         private FileRepository fileRepository;

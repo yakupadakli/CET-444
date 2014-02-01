@@ -8,6 +8,11 @@ namespace CollaborativeLearning.Entities
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+            : base("DataContext")
+        {
+
+        }
         public DbSet<ActionPlanList> ActionPlanLists { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<File> Files { get; set; }
@@ -26,5 +31,34 @@ namespace CollaborativeLearning.Entities
         public DbSet<Role> Roles { get; set; }
         public DbSet<Work> Works { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Work>()
+                .HasRequired(w => w.Status)
+                .WithMany(s => s.Works)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Work>()
+                .HasRequired(w => w.Scenario)
+                .WithMany(s => s.Works)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Semester>()
+                .HasRequired(s => s.Status)
+                .WithMany(s => s.Semesters)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GroupWork>()
+                .HasRequired(gw => gw.Status)
+                .WithMany(s => s.GroupWorks)
+                .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<ActionPlanList>()
+            //    .HasRequired(apl => apl.Status)
+            //    .WithMany(s => s.ActionPlanLists)
+            //    .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
