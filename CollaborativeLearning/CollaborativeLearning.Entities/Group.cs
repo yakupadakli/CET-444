@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -8,6 +9,12 @@ namespace CollaborativeLearning.Entities
 {
     public class Group
     {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        public int regUserID { get; set; }
         [Required(ErrorMessage = "Grup Adı alanı boş bırakılamaz")]
         [Display(Name = "Grup Adı")]
         [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]

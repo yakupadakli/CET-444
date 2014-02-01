@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CollaborativeLearning.DataAccess;
+using CollaborativeLearning.WebUI.Filters;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
-    
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
 
@@ -17,7 +18,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-
+            
             return View();
         }
 
