@@ -16,6 +16,7 @@ namespace CollaborativeLearning.Entities
                     new Status {value = "Unread", regDate=DateTime.Now,regUserID = 1}
                 };
 
+
             status.ForEach(p => context.Statuses.Add(p));
 
             

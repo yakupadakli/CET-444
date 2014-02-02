@@ -46,6 +46,7 @@ namespace CollaborativeLearning.WebUI
 
             System.Data.Entity.Database.SetInitializer<DataContext>(new DataContextInitializer());
 
+
         }
     }
 }

@@ -12,10 +12,10 @@ namespace CollaborativeLearning.Entities
     {
         [Key]
         [Display(Name = "No")]
-        public virtual Guid UserId { get; set; }
+        public virtual int UserId { get; set; }
 
         [Required]
-        [Display(Name = "Kullanıcı Adı")]
+        [Display(Name = "User Name")]
         public virtual String Username { get; set; }
 
         [Display(Name = "Email")]
