@@ -10,17 +10,26 @@ namespace CollaborativeLearning.Entities
     {
         protected override void Seed(DataContext context)
         {
-            var status = new List<Status>
-                {
-                    new Status {value = "Read", regDate=DateTime.Now,regUserID = 1},
-                    new Status {value = "Unread", regDate=DateTime.Now,regUserID = 1}
-                };
+            //var roles = new List<Role>
+            //{
+            //    new Role{RoleName="Instructor", Description="Teacher"},
+                    
+            //    new Role{RoleName="Mentor", Description="Assistant"},
+                
+            //    new Role{RoleName="Student", Description="Default User Type"}
+            //};
 
+            //roles.ForEach(r => context.Roles.Add(r));
 
-            status.ForEach(p => context.Statuses.Add(p));
+            //var status = new List<Status>
+            //{
+            //    new Status{Value="Read"},
+            //    new Status{Value="Unread"}
+            //};
 
-            
-            context.SaveChanges();
+            //status.ForEach(r => context.Statuses.Add(r));
+
+            //context.SaveChanges();
 
 
         }

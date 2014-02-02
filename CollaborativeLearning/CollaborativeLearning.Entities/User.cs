@@ -18,6 +18,7 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "User Name")]
         public virtual String Username { get; set; }
 
+        [Required]
         [Display(Name = "Email")]
         public virtual String Email { get; set; }
 
@@ -25,21 +26,22 @@ namespace CollaborativeLearning.Entities
         [Required, DataType(DataType.Password)]
         public virtual String Password { get; set; }
 
+        [Required]
         [Display(Name = "Adı")]
         public virtual String FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Soyadı")]
         public virtual String LastName { get; set; }
 
         [Display(Name = "Adı Soyadı")]
         public virtual string FullName { get { return FirstName + " " + LastName; } }
 
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Yorum")]
-        public virtual String Comment { get; set; }
-
-        [Display(Name = "Onay Durumu")]
+        [Display(Name = "Is Approved")]
         public virtual Boolean IsApproved { get; set; }
+
+        [Display(Name = "Is Active")]
+        public virtual Boolean IsLockedOut { get; set; }
 
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }
 
@@ -62,12 +64,12 @@ namespace CollaborativeLearning.Entities
         public virtual String ConfirmationToken { get; set; }
 
 
-        [Display(Name = "Kayıt Tarihi")]
+        [Display(Name = "Register Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime? CreateDate { get; set; }
 
-        [Display(Name = "Kayıt Tarihi")]
+        [Display(Name = "Register Date")]
         public virtual string ShortCreateDate
         {
             get
@@ -81,72 +83,20 @@ namespace CollaborativeLearning.Entities
             }
         }
 
-        public virtual Boolean IsLockedOut { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime? LastPasswordChangedDate { get; set; }
+
         public virtual String PasswordVerificationToken { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime? PasswordVerificationTokenExpirationDate { get; set; }
-        public virtual string LastLoginIP { get; set; }
 
+        public virtual string LastLoginIP { get; set; }
 
         [Display(Name = "Roller")]
         public virtual ICollection<Role> Roles { get; set; }
     }
 
-    //public class LocalPasswordModel
-    //{
-    //    [Required]
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "Current password")]
-    //    public string OldPassword { get; set; }
-
-    //    [Required]
-    //    [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "New password")]
-    //    public string NewPassword { get; set; }
-
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "Confirm new password")]
-    //    [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-    //    public string ConfirmPassword { get; set; }
-    //}
-
-    //public class LoginModel
-    //{
-    //    [Required]
-    //    [Display(Name = "User name")]
-    //    public string UserName { get; set; }
-
-    //    [Required]
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "Password")]
-    //    public string Password { get; set; }
-
-    //    [Display(Name = "Remember me?")]
-    //    public bool RememberMe { get; set; }
-    //}
-
-    //public class RegisterModel
-    //{
-    //    [Required]
-    //    [Display(Name = "User name")]
-    //    public string UserName { get; set; }
-
-    //    [Required]
-    //    [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "Password")]
-    //    public string Password { get; set; }
-
-    //    [DataType(DataType.Password)]
-    //    [Display(Name = "Confirm password")]
-    //    [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-    //    public string ConfirmPassword { get; set; }
-    //}
 }

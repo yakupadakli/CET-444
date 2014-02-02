@@ -72,7 +72,6 @@ using CollaborativeLearning.WebUI.Filters;
 
         public ActionResult Register()
         {
-            ViewData["roleName"] = new SelectList(Roles.GetAllRoles(), "roleName");
             return View();
         }
         public ActionResult _Register()
@@ -92,27 +91,14 @@ using CollaborativeLearning.WebUI.Filters;
                 try
                 {
                     MembershipCreateStatus createStatus;
-                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                    Membership.CreateUser(model.UserName, model.Password, model.Email, model.FirsName, model.LastName, true, null, out createStatus);
 
                     if (createStatus == MembershipCreateStatus.Success)
                     {
-                        Roles.AddUserToRole(model.UserName, Request.Form["roleName"]);
+                        Roles.AddUserToRole(model.UserName, "Student");
 
-                        User user = new User();
-                        var u = unitOfWork.UserRepository.Get();
-                        foreach (var item in u)
-                        {
-                            if (item.Email == model.Email)
-                                user = item;
-                        }
-
-                        user.FirstName = model.FirsName;
-                        user.LastName = model.LastName;
-                        user.IsApproved = true;
-                        unitOfWork.Save();
-
-                        FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                        return RedirectToAction("Setting", "Home");
+                        FormsAuthentication.SetAuthCookie(model.UserName, false);
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {

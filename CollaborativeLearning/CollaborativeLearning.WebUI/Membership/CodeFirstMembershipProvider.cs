@@ -66,7 +66,7 @@ using CollaborativeLearning.Entities;
 
         #region Functions
 
-        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
+        public override MembershipUser CreateUser(string username, string password, string email, string firstName, string lastName, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -107,7 +107,8 @@ using CollaborativeLearning.Entities;
 
                 User NewUser = new User
                 {
-                    UserId = Guid.NewGuid(),
+                    FirstName = firstName,
+                    LastName = lastName,
                     Username = username,
                     Password = HashedPassword,
                     IsApproved = isApproved,
@@ -454,7 +455,6 @@ using CollaborativeLearning.Entities;
 
                 User NewUser = new User
                 {
-                    UserId = Guid.NewGuid(),
                     Username = userName,
                     Password = hashedPassword,
                     IsApproved = !requireConfirmationToken,

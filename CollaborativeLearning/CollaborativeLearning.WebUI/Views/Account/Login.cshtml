@@ -1,43 +1,41 @@
-﻿@{
+﻿@model CollaborativeLearning.WebUI.Models.AccountModels.LoginModel
+@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
           <h1 class="navbar-brand" style="padding:0px;" >CET 314: Computer Networks & Commuication</h1>
       </div><!-- /.container -->
     </nav>
-    <div class="container" style="margin-top: 5%">	
-      <form class="form-signin">
+    <div class="container" style="margin-top: 5%">
+    @using (Html.BeginForm("Login", "Account",
+        new { ReturnUrl = ViewBag.ReturnUrl },
+        FormMethod.Post, new { @class = "form-signin"}))
+        {
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level form-control" placeholder="Username">
-        <input type="password" class="input-block-level form-control	" placeholder="Password">
+
+        @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level form-control", @placeholder = "Enter First Name", required = "required " })
+        @Html.ValidationMessageFor(m => m.UserName)
+        @Html.PasswordFor(m => m.Password, new { @class = "input-block-level form-control", @placeholder = "Enter Password", required = "required " })        
+        @Html.ValidationMessageFor(m => m.Password)
         
         <button class="btn btn-large btn-success" type="submit">Login</button>
-        <a href="register.html" class="btn btn-large btn-primary">Register</a>
-        </br></br>
-        <label class="control-label" for="firstname">
-          <a href="forget_password.html"> Forget Password? </a>
-        </label>
-      </form>
 
+        @Html.ActionLink("Register", "Register", "Account", new { @class = "btn btn-large btn-primary" })
+        @*<a href="register.html" class="btn btn-large btn-primary">Register</a>*@
+        <br/><br/>
+        <label class="control-label" for="firstname">
+            @Html.ActionLink("Forget Password?", "ForgetPassword", "Account")
+@*          <a href="forget_password.html"> Forget Password? </a>*@
+        </label>
+        }
     </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-<!--	
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap-transition.js"></script>
-    <script src="js/bootstrap-alert.js"></script>
-    <script src="js/bootstrap-modal.js"></script>
-    <script src="js/bootstrap-dropdown.js"></script>
-    <script src="js/bootstrap-scrollspy.js"></script>
-    <script src="js/bootstrap-tab.js"></script>
-    <script src="js/bootstrap-tooltip.js"></script>
-    <script src="js/bootstrap-popover.js"></script>
-    <script src="js/bootstrap-button.js"></script>
-    <script src="js/bootstrap-collapse.js"></script>
-    <script src="js/bootstrap-carousel.js"></script>
-    <script src="js/bootstrap-typeahead.js"></script>  -->
+    
