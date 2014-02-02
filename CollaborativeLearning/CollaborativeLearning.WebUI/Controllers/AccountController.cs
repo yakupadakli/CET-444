@@ -7,25 +7,30 @@ using System.Web.Mvc;
 using System.Web.Security;
 using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
+using CollaborativeLearning.WebUI.Filters;
 
-namespace CollaborativeLearning.WebUI.Controllers
-{
+
+    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
         //
         // GET: /Account/LogOn
 
-        public ActionResult LogOn()
+        public ActionResult Login()
         {
             return View();
         }
 
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
         //
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(CollaborativeLearning.WebUI.Models.AccountModels.LogOnModel model, string returnUrl)
+        public ActionResult Login(CollaborativeLearning.WebUI.Models.AccountModels.LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -344,4 +349,3 @@ namespace CollaborativeLearning.WebUI.Controllers
 
 
     }
-}

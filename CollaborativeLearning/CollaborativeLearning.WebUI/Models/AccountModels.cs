@@ -26,11 +26,11 @@ namespace CollaborativeLearning.WebUI.Models
 
             [DataType(DataType.Password)]
             [Display(Name = "Yeni şifre tekrar")]
-            [Compare("NewPassword", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
+            [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
             public string ConfirmPassword { get; set; }
         }
 
-        public class LogOnModel
+        public class LoginModel
         {
             [Required]
             [Display(Name = "Kullanıcı Adı")]
@@ -65,7 +65,7 @@ namespace CollaborativeLearning.WebUI.Models
             [Required]
             [DataType(DataType.Password)]
             [Display(Name = "Şifre Tekrar")]
-            [Compare("Password", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
+            [System.Web.Mvc.Compare("Password", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
             public string ConfirmPassword { get; set; }
 
             [Required]

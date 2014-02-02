@@ -9,23 +9,25 @@ using CollaborativeLearning.WebUI.Filters;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
-    [InitializeSimpleMembership]
+
     public class HomeController : Controller
     {
 
         private UnitOfWork unitOfWork = new UnitOfWork();
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult About()
         {
             return View();
         }
 
-        public ActionResult LogOn()
+        public ActionResult Login()
         {
             return View();
         }
