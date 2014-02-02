@@ -9,8 +9,6 @@ using System.Web.Security;
 using System.Web.Helpers;
 using CollaborativeLearning.Entities;
 
-namespace CollaborativeLearning.WebUI.Membership
-{
     public class CodeFirstMembershipProvider : MembershipProvider
     {
         #region Properties
@@ -123,7 +121,7 @@ namespace CollaborativeLearning.WebUI.Membership
                     IsLockedOut = false,
                     LastPasswordFailureDate = DateTime.UtcNow
                 };
-
+                
                 Context.Users.Add(NewUser);
                 Context.SaveChanges();
                 status = MembershipCreateStatus.Success;
@@ -536,4 +534,3 @@ namespace CollaborativeLearning.WebUI.Membership
 
         #endregion
     }
-}
