@@ -12,5 +12,6 @@ namespace CollaborativeLearning.DataAccess
             : base(context)
         {
         }
+
     }
 }

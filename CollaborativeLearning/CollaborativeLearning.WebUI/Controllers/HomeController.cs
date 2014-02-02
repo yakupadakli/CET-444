@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CollaborativeLearning.DataAccess;
+using CollaborativeLearning.Entities;
 using CollaborativeLearning.WebUI.Filters;
 
 namespace CollaborativeLearning.WebUI.Controllers
@@ -16,13 +17,15 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Index()
         {
-            
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-            
             return View();
         }
 
         public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult LogOn()
         {
             return View();
         }

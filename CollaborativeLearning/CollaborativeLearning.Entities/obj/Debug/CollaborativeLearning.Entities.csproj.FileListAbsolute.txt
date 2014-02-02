@@ -8,3 +8,13 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll.config
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.pdb
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.dll
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.dll
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.xml
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
+D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
