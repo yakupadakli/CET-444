@@ -100,6 +100,7 @@ namespace CollaborativeLearning.WebUI.Filters
                         }
 
                     }
+                    WebSecurity.InitializeDatabaseConnection("DataContext", "User", "UserID", "Username", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

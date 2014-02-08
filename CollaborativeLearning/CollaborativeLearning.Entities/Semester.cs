@@ -21,7 +21,7 @@ namespace CollaborativeLearning.Entities
         public int regUserID { get; set; }
         [Required(ErrorMessage = "Yıl alanı boş bırakılamaz")]
         [Display(Name = "Yıl")]
-        public DateTime year { get; set; }
+        public int year { get; set; }
 
 
         [Required(ErrorMessage = "Dönem alanı boş bırakılamaz")]
@@ -35,5 +35,7 @@ namespace CollaborativeLearning.Entities
         public virtual Status Status { get; set; }
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
     }
 }
