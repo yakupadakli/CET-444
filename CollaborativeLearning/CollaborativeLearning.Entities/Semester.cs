@@ -36,5 +36,7 @@ namespace CollaborativeLearning.Entities
         public virtual Status Status { get; set; }
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
     }
 }

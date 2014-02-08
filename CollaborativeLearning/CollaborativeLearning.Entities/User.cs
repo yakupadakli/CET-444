@@ -97,6 +97,8 @@ namespace CollaborativeLearning.Entities
 
         [Display(Name = "Roller")]
         public virtual ICollection<Role> Roles { get; set; }
+
+        public virtual Semester semester { get; set; }
     }
 
 }

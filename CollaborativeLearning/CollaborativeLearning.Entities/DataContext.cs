@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 
@@ -33,6 +35,8 @@ namespace CollaborativeLearning.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
+
             modelBuilder.Entity<Work>()
                 .HasRequired(w => w.Status)
                 .WithMany(s => s.Works)
