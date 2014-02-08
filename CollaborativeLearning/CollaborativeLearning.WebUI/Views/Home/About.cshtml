@@ -1,8 +1,89 @@
 ﻿@{
     ViewBag.Title = "About Us";
 }
+<div id="forecast">
+    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Paris")
+                  .Selected(true)
+                  
+                  .Content(@<text>
+                    <div class="weather">
+                         @Editorforo()
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
 
-<h2>About</h2>
-<p>
-     Put content here.
-</p>
+              tabstrip.Add().Text("New York")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>29<span>&ordm;C</span></h2>
+                        <p>Sunny weather in New York.</p>
+                    </div>
+                    <span class="sunny">&nbsp;</span>
+                  </text>);
+
+              tabstrip.Add().Text("Moscow")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>16<span>&ordm;C</span></h2>
+                        <p>Cloudy weather in Moscow.</p>
+                    </div>
+                    <span class="cloudy">&nbsp;</span>
+                  </text>);
+
+              tabstrip.Add().Text("Sydney")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>17<span>&ordm;C</span></h2>
+                        <p>Rainy weather in Sidney.</p>
+                        <p>Rainy weather in Sidney.</p>
+                        <p>Rainy weather in Sidney.</p><p>Rainy weather in Sidney.</p>
+                        <p>Rainy weather in Sidney.</p>
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
+          })
+    )
+
+
+@helper Editorforo()
+{
+     @(Html.Kendo().Editor()
+      .Name("editor")
+      .HtmlAttributes(new { style = "width: 740px;height:440px" })
+      .Value(@<text>
+            <p>
+               <img src="@Url.Content("~/content/web/editor/kendo-ui-web.png")" alt="Editor for ASP.NET MVC logo" style="display:block;margin-left:auto;margin-right:auto;" />
+            </p>
+            <p>
+                Kendo UI Editor allows your users to edit HTML in a familiar, user-friendly way.<br />
+                In this version, the Editor provides the core HTML editing engine, which includes basic text formatting, hyperlinks, lists,
+                and image handling. The widget <strong>outputs identical HTML</strong> across all major browsers, follows
+                accessibility standards and provides API for content manipulation.
+            </p>
+            <p>Features include:</p>
+            <ul>
+                <li>Text formatting &amp; alignment</li>
+                <li>Bulleted and numbered lists</li>
+                <li>Hyperlink and image dialogs</li>
+                <li>Cross-browser support</li>
+                <li>Identical HTML output across browsers</li>
+                <li>Gracefully degrades to a <code>textarea</code> when JavaScript is turned off</li>
+            </ul>
+            <p>
+                Read <a href="http://docs.telerik.com/kendo-ui">more details</a> or send us your
+                <a href="http://www.telerik.com/forums">feedback</a>!
+            </p>
+      </text>)
+.ImageBrowser(imageBrowser => imageBrowser
+    .Image("~/Content/UserFiles/Images/{0}")    
+    .Read("Read", "ImageBrowser")
+    .Create("Create", "ImageBrowser")
+    .Destroy("Destroy", "ImageBrowser")
+    .Upload("Upload", "ImageBrowser")
+    .Thumbnail("Thumbnail", "ImageBrowser"))
+)    
+}
