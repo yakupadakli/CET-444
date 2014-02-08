@@ -1,18 +1,16 @@
-﻿using System;
+﻿using CollaborativeLearning.Entities;
+using CollaborativeLearning.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CollaborativeLearning.Entities;
-using CollaborativeLearning.DataAccess;
-using CollaborativeLearning.WebUI.Filters;
-using CollaborativeLearning.Entities;
-using CollaborativeLearning.DataAccess;
-using CollaborativeLearning.WebUI.Filters;
+
 namespace CollaborativeLearning.WebUI.Controllers
 {
     public class SemesterController : Controller
     {
+        private UnitOfWork unitOfWork = new UnitOfWork();
         //
         // GET: /Semester/
 
@@ -33,7 +31,9 @@ namespace CollaborativeLearning.WebUI.Controllers
         // GET: /Semester/Create
 
         public ActionResult Create()
-        {
+        {           
+            
+            
             return View();
         }
 
@@ -41,18 +41,35 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Semester/Create
 
         [HttpPost]
-        public ActionResult Create(Scenario collection)
+        public ActionResult Create(Semester collection)
         {
-            try
+            Semester semester = new Semester();
+            
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                try
+                {
+                    Semester semesterItem = new Semester();
+                    semesterItem.year = collection.year;
+                    semesterItem.semester = collection.semester;
 
-                return RedirectToAction("Index");
+                    string semesterCode = "cet" + collection.year.ToString();
+                    semesterItem.specialCode = semesterCode;
+
+                    semesterItem.regUserID = unitOfWork.UserRepository.Get(u => u.Username == WebSecurity.User.Identity.Name).First().UserId;
+                    semesterItem.regDate = DateTime.Today;
+            
+
+                    return View("SemesterSummaryPartial", semester);
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(collection);
+
+           
         }
 
         //
@@ -67,7 +84,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Semester/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, Scenario collection)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
@@ -93,7 +110,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Semester/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, Semester collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {

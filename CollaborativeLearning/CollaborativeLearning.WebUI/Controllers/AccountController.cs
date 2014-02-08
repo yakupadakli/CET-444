@@ -10,7 +10,9 @@ using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
 
 
+    
     [InitializeSimpleMembership]
+
     public class AccountController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();

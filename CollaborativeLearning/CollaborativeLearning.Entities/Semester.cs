@@ -20,8 +20,9 @@ namespace CollaborativeLearning.Entities
         [Required]
         public int regUserID { get; set; }
         [Required(ErrorMessage = "Yıl alanı boş bırakılamaz")]
+        
         [Display(Name = "Yıl")]
-        public DateTime year { get; set; }
+        public int year { get; set; }
 
 
         [Required(ErrorMessage = "Dönem alanı boş bırakılamaz")]

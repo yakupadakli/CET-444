@@ -9,7 +9,8 @@ using CollaborativeLearning.WebUI.Filters;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
-
+  
+    [InitializeSimpleMembership]
     public class HomeController : Controller
     {
 
