@@ -7,24 +7,26 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class File:BaseEntity
+    public class File
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
+        public int Id { get; set; }
+              
+        [Required(ErrorMessage = "Dosya Adı alanı boş bırakılamaz")]
+        [Display(Name = "Dosya Adı")]
+        [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
+        public string FileName { get; set; }
+        
+        public int FileSize { get; set; }
+      
+        public string FileType { get; set; }
+       
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]
         public DateTime regDate { get; set; }
 
         [Required]
         public int regUserID { get; set; }
-        [Required(ErrorMessage = "Dosya Adı alanı boş bırakılamaz")]
-        [Display(Name = "Dosya Adı")]
-        [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
-        public string fileName { get; set; }
-
-        public int FileSize { get; set; }
-        public string FileType { get; set; }
     }
 }

@@ -20,8 +20,6 @@ namespace CollaborativeLearning.DataAccess
         private ScenarioTaskRepository scenarioTaskRepository;
         private SemesterRepository semesterRepository;
         private SemesterWorkDueDateRepository semesterWorkDueDateRepository;
-        private StatusRepository statusRepository;
-        private SubmittedWorkRepository submittedWorkRepository;
         private SubmittedWorkStatusRepository submittedWorkStatusRepository;
         private WorkRepository workRepository;
 
@@ -181,30 +179,8 @@ namespace CollaborativeLearning.DataAccess
                 return semesterWorkDueDateRepository;
             }
         }
-        public StatusRepository StatusRepository
-        {
-            get
-            {
-
-                if (this.statusRepository == null)
-                {
-                    this.statusRepository = new StatusRepository(context);
-                }
-                return statusRepository;
-            }
-        }
-        public SubmittedWorkRepository SubmittedWorkRepository
-        {
-            get
-            {
-
-                if (this.submittedWorkRepository == null)
-                {
-                    this.submittedWorkRepository = new SubmittedWorkRepository(context);
-                }
-                return submittedWorkRepository;
-            }
-        }
+      
+       
         public SubmittedWorkStatusRepository SubmittedWorkStatusRepository
         {
             get

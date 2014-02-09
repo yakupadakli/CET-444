@@ -7,36 +7,45 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class Semester:BaseEntity
+    public class Semester
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
+
+         [Required(ErrorMessage = "The year field cannot be empty!")]
+        [Display(Name = "Year")]
+        public int year { get; set; }
+
+
+        [Required(ErrorMessage = "The semester field cannot be empty!")]
+        [Display(Name = "Semester")]
+        public int semester { get; set; }
+
+        public virtual string semesterName {
+            get 
+            { 
+                return year.ToString() + "-" + semester.ToString();
+            }
+        }
+        [Display(Name = "Register Code")]
+        public string registerCode { get; set; }
+
+        public bool isActive { get; set; }
+
+        [Required(ErrorMessage = "Register Date cannot be empty!")]
+        [Display(Name = "Regiter Date")]
         public DateTime regDate { get; set; }
 
         [Required]
         public int regUserID { get; set; }
-        [Required(ErrorMessage = "Yıl alanı boş bırakılamaz")]
-        
-        [Display(Name = "Yıl")]
-        public int year { get; set; }
+    
 
-
-        [Required(ErrorMessage = "Dönem alanı boş bırakılamaz")]
-        [Display(Name = "Dönem")]
-        public int semester { get; set; }
-
-        [Display(Name = "Özel Kod")]
-        public string specialCode { get; set; }
-
-        public int statusID { get; set; }
-        public virtual Status Status { get; set; }
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

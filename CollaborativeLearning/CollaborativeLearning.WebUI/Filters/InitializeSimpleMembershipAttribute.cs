@@ -62,19 +62,7 @@ namespace CollaborativeLearning.WebUI.Filters
                                 Db.RoleRepository.Insert(role);
                             }
                             
-                            var status = new List<Status>
-                            {
-                                new Status{Value="Read"},
-                                new Status{Value="Unread"}
-                            };
-
-                            foreach (var item in status)
-                            {
-                                Db.StatusRepository.Insert(item);       
-                            }
-
-
-                            Db.Save();
+                           Db.Save();
 
                             User user = new User
                             {
@@ -86,7 +74,8 @@ namespace CollaborativeLearning.WebUI.Filters
                                 IsLockedOut = false,
                                 Password = Crypto.HashPassword("123456"),
                                 CreateDate = DateTime.UtcNow,
-                                PasswordFailuresSinceLastSuccess = 0
+                                PasswordFailuresSinceLastSuccess = 0,
+                                RoleID = Db.RoleRepository.Get(r=>r.RoleName=="Instructor").FirstOrDefault().RoleId
                             };
 
 
@@ -100,7 +89,7 @@ namespace CollaborativeLearning.WebUI.Filters
                         }
 
                     }
-                    WebSecurity.InitializeDatabaseConnection("DataContext", "User", "UserId", "Username", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("DataContext", "User", "Id", "Username", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

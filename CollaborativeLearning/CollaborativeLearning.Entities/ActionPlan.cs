@@ -7,27 +7,26 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class ActionPlanList:BaseEntity
+    public class ActionPlan
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Required]
-        public int regUserID { get; set; }
+       
         [Required(ErrorMessage = "Tanım alanı boş bırakılamaz")]
         [Display(Name = "Tanım")]
         [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
-        public string value { get; set; }
+        public string Content { get; set; }
 
+        [Required]
+        public int RegUserId { get; set; }
+        [Required]
+        public DateTime RegDate { get; set; }
 
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
-        public DateTime regDate { get; set; }
-
-        public int statusID { get; set; }
-        public virtual Status Status { get; set; }
-
+        public bool isActive { get; set; }
         public virtual ICollection<Semester> Semesters { get; set; }
+        public virtual ICollection<Scenario> Scenarios { get; set; }
+
     }
 }

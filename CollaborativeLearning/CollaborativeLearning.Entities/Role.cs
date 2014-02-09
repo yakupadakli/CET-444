@@ -12,6 +12,7 @@ namespace CollaborativeLearning.Entities
         public virtual int RoleId { get; set; }
 
         [Required]
+        [Display(Name = "User Role")]
         public virtual string RoleName { get; set; }
 
         public virtual string Description { get; set; }

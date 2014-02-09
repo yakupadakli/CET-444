@@ -7,38 +7,35 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class Scenario:BaseEntity
+    public class Scenario
     {
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Scenario name cannot be empty!")]
+        [Display(Name = "Scenario Name")]
+        [MaxLength(50, ErrorMessage = "Length must be {0} character(s) ")]
+        public string Name { get; set; }
+                     
+        [Display(Name = "Short Description")]
+        [MaxLength(140, ErrorMessage = "Length must be {0} character(s) ")]
+        public string ShortDescription { get; set; }
+
+        public bool isActive { get; set; }
 
 
         [Required]
+        public DateTime regDate { get; set; }
+        [Required]
         public int regUserID { get; set; }
 
-        [Required(ErrorMessage = "Senaryo Adı alanı boş bırakılamaz")]
-        [Display(Name = "Senaryo Adı")]
-        [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
-        public string ScenarioName { get; set; }
-
-
-        [Required(ErrorMessage = "Kısa Tanım alanı boş bırakılamaz")]
-        [Display(Name = "Kısa Tanım")]
-        [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
-        public string ShortDescription { get; set; }
-
-        public int statusID { get; set; }
-        public virtual Status Status { get; set; }
-
-
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
-        public DateTime regDate { get; set; }
-
         public virtual ICollection<Semester> Semesters { get; set; }
-        public virtual ICollection<ActionPlanList> ActionPlanLists { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<ActionPlan> ActionPlanLists { get; set; }
         public virtual ICollection<Work> Works { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Resource> Resources { get; set; }
     }
 }

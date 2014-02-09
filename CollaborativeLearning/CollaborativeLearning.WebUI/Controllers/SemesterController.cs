@@ -54,9 +54,9 @@ namespace CollaborativeLearning.WebUI.Controllers
                     semesterItem.semester = collection.semester;
 
                     string semesterCode = "cet" + collection.year.ToString();
-                    semesterItem.specialCode = semesterCode;
+                    semesterItem.registerCode = semesterCode;
 
-                    semesterItem.regUserID = unitOfWork.UserRepository.Get(u => u.Username == WebSecurity.User.Identity.Name).First().UserId;
+                    semesterItem.regUserID = unitOfWork.UserRepository.Get(u => u.Username == WebSecurity.User.Identity.Name).First().Id;
                     semesterItem.regDate = DateTime.Today;
             
 

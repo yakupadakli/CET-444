@@ -6,7 +6,7 @@ using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.DataAccess
 {
-    public class ResourceListRepository : GenericRepository<ResourceList>
+    public class ResourceListRepository : GenericRepository<Resource>
     {
         public ResourceListRepository(DataContext context)
             : base(context)

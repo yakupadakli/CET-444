@@ -7,11 +7,22 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class SubmittedWorkStatus:BaseEntity
+    public class SubmittedWorkStatus
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
+
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
+        public int GroupWorkkID { get; set; }
+        public virtual GroupWork GroupWork { get; set; }
+
+        public Boolean isSeen { get; set; }
+
+        [Required(ErrorMessage = " Son Görülme Tarihi alanı boş bırakılamaz")]
+        [Display(Name = "Son Görülme Tarihi")]
+        public DateTime lastSeenDate { get; set; }
 
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]
@@ -19,13 +30,5 @@ namespace CollaborativeLearning.Entities
 
         [Required]
         public int regUserID { get; set; }
-        public int submittedWorkID { get; set; }
-        public virtual SubmittedWork SubmittedWork { get; set; }
-
-        public Boolean isSeen { get; set; }
-
-        [Required(ErrorMessage = " Son Görülme Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Son Görülme Tarihi")]
-        public DateTime lastSeenDate { get; set; }
     }
 }

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class ScenarioTask:BaseEntity
+    public class ScenarioTask
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]

@@ -66,7 +66,8 @@ namespace CollaborativeLearning.WebUI.Membership
                 {
                     return false;
                 }
-                return User.Roles.Contains(Role);
+                return (User.Role.RoleName == Role.RoleName) ? true : false;
+                
             }
         }
 
@@ -99,6 +100,7 @@ namespace CollaborativeLearning.WebUI.Membership
             }
         }
 
+
         public override string[] GetRolesForUser(string username)
         {
             if (string.IsNullOrEmpty(username))
@@ -111,7 +113,9 @@ namespace CollaborativeLearning.WebUI.Membership
                 User = Context.Users.FirstOrDefault(Usr => Usr.Username == username);
                 if (User != null)
                 {
-                    return User.Roles.Select(Rl => Rl.RoleName).ToArray();
+                  //  return User.Role.Select(Rl => Rl.RoleName).ToArray();
+                    return null;
+
                 }
                 else
                 {
@@ -119,6 +123,7 @@ namespace CollaborativeLearning.WebUI.Membership
                 }
             }
         }
+       
 
         public override string[] FindUsersInRole(string roleName, string usernameToMatch)
         {
@@ -193,47 +198,48 @@ namespace CollaborativeLearning.WebUI.Membership
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            using (DataContext Context = new DataContext())
-            {
-                List<User> Users = Context.Users.Where(Usr => usernames.Contains(Usr.Username)).ToList();
-                List<Role> Roles = Context.Roles.Where(Rl => roleNames.Contains(Rl.RoleName)).ToList();
-                foreach (User user in Users)
-                {
-                    foreach (Role role in Roles)
-                    {
-                        if (!user.Roles.Contains(role))
-                        {
-                            user.Roles.Add(role);
-                        }
-                    }
-                }
-                Context.SaveChanges();
-            }
+            //using (DataContext Context = new DataContext())
+            //{
+            //    List<User> Users = Context.Users.Where(Usr => usernames.Contains(Usr.Username)).ToList();
+            //    List<Role> Roles = Context.Roles.Where(Rl => roleNames.Contains(Rl.RoleName)).ToList();
+            //    foreach (User user in Users)
+            //    {
+            //        foreach (Role role in Roles)
+            //        {
+            //            if (!user.Roles.Contains(role))
+            //            {
+            //                user.Roles.Add(role);
+            //            }
+            //        }
+            //    }
+            //    Context.SaveChanges();
+            //}
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
         {
-            using (DataContext Context = new DataContext())
-            {
-                foreach (String username in usernames)
-                {
-                    String us = username;
-                    User user = Context.Users.FirstOrDefault(U => U.Username == us);
-                    if (user != null)
-                    {
-                        foreach (String roleName in roleNames)
-                        {
-                            String rl = roleName;
-                            Role role = user.Roles.FirstOrDefault(R => R.RoleName == rl);
-                            if (role != null)
-                            {
-                                user.Roles.Remove(role);
-                            }
-                        }
-                    }
-                }
-                Context.SaveChanges();
-            }
+            //using (DataContext Context = new DataContext())
+            //{
+            //    foreach (String username in usernames)
+            //    {
+            //        String us = username;
+            //        User user = Context.Users.FirstOrDefault(U => U.Username == us);
+            //        if (user != null)
+            //        {
+            //            foreach (String roleName in roleNames)
+            //            {
+            //                String rl = roleName;
+            //                Role role = user.Roles.FirstOrDefault(R => R.RoleName == rl);
+            //                if (role != null)
+            //                {
+            //                    user.Roles.Remove(role);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    Context.SaveChanges();
+            //}
         }
+       
     }
 }

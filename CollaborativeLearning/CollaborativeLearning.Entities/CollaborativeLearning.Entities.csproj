@@ -48,8 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionPlanList.cs" />
-    <Compile Include="BaseEntity.cs" />
+    <Compile Include="ActionPlan.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitializer.cs" />
     <Compile Include="Feedback.cs" />
@@ -63,16 +62,15 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Reflection.cs" />
     <Compile Include="ResourceFile.cs" />
-    <Compile Include="ResourceList.cs" />
+    <Compile Include="Resource.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="ScenarioTask.cs" />
     <Compile Include="Semester.cs" />
     <Compile Include="SemesterWorkDueDate.cs" />
-    <Compile Include="Status.cs" />
-    <Compile Include="SubmittedWork.cs" />
     <Compile Include="SubmittedWorkStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Work.cs" />
   </ItemGroup>

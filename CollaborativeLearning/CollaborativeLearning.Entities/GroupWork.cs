@@ -7,27 +7,33 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class GroupWork:BaseEntity
+    public class GroupWork
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
+        
+
+        public int WorkId { get; set; }
+        public virtual Work Works { get; set; }
+
+        public int GroupID { get; set; }
+        public virtual Group Groups { get; set; }
+
+        [Required(ErrorMessage = "This field cannot be empty!")]
+        [Display(Name = "Submission Date")]
+        public DateTime SubmissionDate { get; set; }
+
+        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+
+       
+        [Required(ErrorMessage = "This field cannot be empty!")]
         public DateTime regDate { get; set; }
 
         [Required]
         public int regUserID { get; set; }
-
-        public int workID { get; set; }
-        public virtual Work Works { get; set; }
-
-        public int groupID { get; set; }
-        public virtual Group Groups { get; set; }
-
-
-        public int statusID { get; set; }
-        public virtual Status Status { get; set; }
+       
     }
 }

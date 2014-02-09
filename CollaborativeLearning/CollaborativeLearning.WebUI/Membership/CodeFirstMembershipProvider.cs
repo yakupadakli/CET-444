@@ -126,7 +126,7 @@ using CollaborativeLearning.Entities;
                 Context.Users.Add(NewUser);
                 Context.SaveChanges();
                 status = MembershipCreateStatus.Success;
-                return new MembershipUser(Membership.Provider.Name, NewUser.Username, NewUser.UserId, NewUser.Email, null, null, NewUser.IsApproved, NewUser.IsLockedOut, NewUser.CreateDate.Value, NewUser.LastLoginDate.Value, NewUser.LastActivityDate.Value, NewUser.LastPasswordChangedDate.Value, NewUser.LastLockoutDate.Value);
+                return new MembershipUser(Membership.Provider.Name, NewUser.Username, NewUser.Id, NewUser.Email, null, null, NewUser.IsApproved, NewUser.IsLockedOut, NewUser.CreateDate.Value, NewUser.LastLoginDate.Value, NewUser.LastActivityDate.Value, NewUser.LastPasswordChangedDate.Value, NewUser.LastLockoutDate.Value);
             }
         }
 
@@ -213,7 +213,7 @@ using CollaborativeLearning.Entities;
                         User.LastActivityDate = DateTime.UtcNow;
                         Context.SaveChanges();
                     }
-                    return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.IsApproved, User.IsLockedOut, User.CreateDate.Value, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
+                    return new MembershipUser(Membership.Provider.Name, User.Username, User.Id, User.Email, null, null, User.IsApproved, User.IsLockedOut, User.CreateDate.Value, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
                 }
                 else
                 {
@@ -241,7 +241,7 @@ using CollaborativeLearning.Entities;
                         User.LastActivityDate = DateTime.UtcNow;
                         Context.SaveChanges();
                     }
-                    return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.IsApproved, User.IsLockedOut, User.CreateDate.Value, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
+                    return new MembershipUser(Membership.Provider.Name, User.Username, User.Id, User.Email, null, null, User.IsApproved, User.IsLockedOut, User.CreateDate.Value, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
                 }
                 else
                 {
@@ -385,7 +385,7 @@ using CollaborativeLearning.Entities;
                 IQueryable<User> Users = Context.Users.Where(Usr => Usr.Email == emailToMatch).OrderBy(Usrn => Usrn.Username).Skip(pageIndex * pageSize).Take(pageSize);
                 foreach (User user in Users)
                 {
-                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.UserId, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
+                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.Id, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
                 }
             }
             return MembershipUsers;
@@ -400,7 +400,7 @@ using CollaborativeLearning.Entities;
                 IQueryable<User> Users = Context.Users.Where(Usr => Usr.Username == usernameToMatch).OrderBy(Usrn => Usrn.Username).Skip(pageIndex * pageSize).Take(pageSize);
                 foreach (User user in Users)
                 {
-                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.UserId, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
+                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.Id, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
                 }
             }
             return MembershipUsers;
@@ -415,7 +415,7 @@ using CollaborativeLearning.Entities;
                 IQueryable<User> Users = Context.Users.OrderBy(Usrn => Usrn.Username).Skip(pageIndex * pageSize).Take(pageSize);
                 foreach (User user in Users)
                 {
-                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.UserId, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
+                    MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.Id, user.Email, null, null, user.IsApproved, user.IsLockedOut, user.CreateDate.Value, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
                 }
             }
             return MembershipUsers;

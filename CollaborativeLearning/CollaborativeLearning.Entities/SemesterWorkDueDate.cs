@@ -7,26 +7,27 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class SemesterWorkDueDate:BaseEntity
+    public class SemesterWorkDueDate
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
-        public DateTime regDate { get; set; }
-
-        [Required]
-        public int regUserID { get; set; }
-        public int semesterID { get; set; }
+        public int Id { get; set; }
+             
+        public int SemesterID { get; set; }
         public virtual Semester Semester { get; set; }
 
-        public int workID { get; set; }
+        public int WorkID { get; set; }
         public virtual Work Works { get; set; }
 
         [Required(ErrorMessage = "Bitiş Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Bitiş Tarihi")]
-        public DateTime dueDate { get; set; }
+        public DateTime DueDate { get; set; }
+
+        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
+        [Display(Name = "Kayıt Tarihi")]
+        public DateTime RegDate { get; set; }
+
+        [Required]
+        public int RegUserID { get; set; }
     }
 }

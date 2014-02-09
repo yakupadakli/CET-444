@@ -28,7 +28,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             var results = from Ord in unitOfWork.UserRepository.Get()
                           select new
                           {
-                              UserId = Ord.UserId,
+                              UserId = Ord.Id,
                               FirstName = Ord.FirstName,
                               LastName = Ord.LastName
                           };

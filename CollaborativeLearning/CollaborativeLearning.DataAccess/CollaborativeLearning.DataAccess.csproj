@@ -61,8 +61,6 @@
     <Compile Include="ScenarioTaskRepository.cs" />
     <Compile Include="SemesterRepository.cs" />
     <Compile Include="SemesterWorkDueDateRepository.cs" />
-    <Compile Include="StatusRepository.cs" />
-    <Compile Include="SubmittedWorkRepository.cs" />
     <Compile Include="SubmittedWorkStatusRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserRepository.cs" />

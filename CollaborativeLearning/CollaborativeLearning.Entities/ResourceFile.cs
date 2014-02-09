@@ -7,11 +7,18 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class ResourceFile:BaseEntity
+    public class ResourceFile
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
+
+       
+        public int ResourceID { get; set; }
+        public virtual Resource Resource { get; set; }
+
+        public int fileID { get; set; }
+        public virtual File File { get; set; }
 
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]
@@ -19,10 +26,5 @@ namespace CollaborativeLearning.Entities
 
         [Required]
         public int regUserID { get; set; }
-        public int resourceID { get; set; }
-        public virtual ResourceList ResourceList { get; set; }
-
-        public int fileID { get; set; }
-        public virtual File Files { get; set; }
     }
 }
