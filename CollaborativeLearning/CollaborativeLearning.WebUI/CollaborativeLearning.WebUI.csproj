@@ -362,6 +362,7 @@
     <Compile Include="Membership\Crypto.cs" />
     <Compile Include="Membership\WebSecurity.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\SemesterModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -886,7 +887,9 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Views\Shared\login.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -922,6 +925,8 @@
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Semester\Create.cshtml" />
     <Content Include="Views\Semester\SemesterSummaryPartial.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Semester.cshtml" />
+    <Content Include="Views\Semester\_PartialGetSemesterGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

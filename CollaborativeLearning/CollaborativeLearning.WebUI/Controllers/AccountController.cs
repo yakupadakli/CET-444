@@ -97,8 +97,8 @@ using CollaborativeLearning.WebUI.Filters;
 
                     if (createStatus == MembershipCreateStatus.Success)
                     {
-                        Roles.AddUserToRole(model.UserName, "Student");
-
+                        //Roles.AddUserToRole(model.UserName, "Student");
+                        
                         FormsAuthentication.SetAuthCookie(model.UserName, false);
                         return RedirectToAction("Index", "Home");
                     }

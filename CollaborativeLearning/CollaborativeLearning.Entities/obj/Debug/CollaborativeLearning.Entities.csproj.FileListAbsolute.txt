@@ -30,3 +30,5 @@ C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\Col
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.CET444.resources
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.CET444.resources
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache

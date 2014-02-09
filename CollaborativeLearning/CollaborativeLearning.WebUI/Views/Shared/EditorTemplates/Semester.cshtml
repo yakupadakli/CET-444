@@ -1,0 +1,62 @@
+@model CollaborativeLearning.WebUI.Models.SemesterModels
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+
+
+    List<SelectListItem> yearList = new List<SelectListItem>();
+    int presentYear = DateTime.Now.Year;
+    for (int i = 0; i < 5; i++)
+    {
+        yearList.Add(new SelectListItem { Text = (presentYear + i).ToString(), Value = (presentYear + i).ToString() });
+    }
+    List<SelectListItem> semesterList = new List<SelectListItem>();
+    semesterList.Add(new SelectListItem { Text = "Güz", Value = "1" });
+    semesterList.Add(new SelectListItem { Text = "Bahar", Value = "2" });
+    semesterList.Add(new SelectListItem { Text = "Yaz", Value = "3" });
+
+}
+<section id="CreateSemesterForm">
+    <h2>Create</h2>
+@using (Html.BeginForm()) { 
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.year)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.year, yearList)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(m => m.year)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.semester)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.semester, semesterList)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(m => m.semester)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+    <script>
+
+    </script>
+</section>
