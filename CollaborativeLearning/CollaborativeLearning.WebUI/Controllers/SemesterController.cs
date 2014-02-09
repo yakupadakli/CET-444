@@ -1,10 +1,10 @@
-﻿using CollaborativeLearning.Entities;
-using CollaborativeLearning.DataAccess;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using CollaborativeLearning.DataAccess;
+using CollaborativeLearning.Entities;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
@@ -18,6 +18,15 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return View();
         }
+
+
+        //
+
+        public ActionResult _PartialGetSemesterGrid()
+        {
+            return PartialView();
+        }
+
 
         //
         // GET: /Semester/Details/5
@@ -123,5 +132,97 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return View();
             }
         }
+
+
+
+        public ActionResult Semesters_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var results = from Ord in unitOfWork.SemesterRepository.Get()
+                          select new
+                          {
+                              Id = Ord.Id,
+                              semester = Ord.semester,
+                              year = Ord.year,
+                              semesterName = Ord.semesterName,
+                              StudentCount = Ord.Users.Where(u => u.Role.RoleName == "Student").Count(),
+                              MentorCount = Ord.Users.Where(u => u.Role.RoleName == "Mentor").Count(),
+                          };
+
+
+            DataSourceResult result = results.ToList().ToDataSourceResult(request);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Semester_Create([DataSourceRequest] DataSourceRequest request, Semester semesterModel)
+        {
+            if (semesterModel.year != null && semesterModel.semester != null)
+            {
+                try
+                {
+
+                    Semester semesterItem = new Semester();
+                    semesterItem.year = semesterModel.year;
+                    semesterItem.semester = semesterModel.semester;
+
+                    //string semesterCode = "cet" + semesterModel.year.ToString() + HelperController.GetRandomString(4);
+                    string semesterCode = "cet" + semesterModel.year.ToString();
+                    semesterItem.registerCode = semesterCode;
+
+                    //semesterItem.regUserID = HelperController.GetCurrentUserId();
+                    semesterItem.regUserID = 1;
+
+                    semesterItem.regDate = DateTime.Today;
+
+
+                    unitOfWork.SemesterRepository.Insert(semesterItem);
+                    unitOfWork.Save();
+
+                    unitOfWork = new UnitOfWork();
+                    var u = unitOfWork.UserRepository.GetByID(10);
+                    var s = unitOfWork.SemesterRepository.GetByID(semesterItem.Id);
+                    s.Users.Add(u);
+                    unitOfWork.Save();
+
+                    ViewData["Succes"] = true;
+
+                    semesterModel = s;
+                    return Semesters_Read(request);
+                }
+                catch
+                {
+                    ViewData["Succes"] = false;
+                    return View(semesterModel);
+                }
+            }
+            ViewData["Succes"] = false;
+            return Semesters_Read(request);
+        }
+
+
+        public ActionResult Semester_Update([DataSourceRequest] DataSourceRequest request, Semester semesterModel)
+        {
+            if (semesterModel.year != null && semesterModel.semester != null)
+            {
+                var semester = unitOfWork.SemesterRepository.GetByID(semesterModel.Id);
+                semester.year = semesterModel.year;
+                semester.semester = semesterModel.semester;
+                unitOfWork.SemesterRepository.Update(semester);
+                unitOfWork.Save();
+            }
+            return Semesters_Read(request);
+        }
+
+
+        public ActionResult Semester_Destroy([DataSourceRequest] DataSourceRequest request, Semester semesterModel)
+        {
+            if (semesterModel != null)
+            {
+                unitOfWork.SemesterRepository.Delete(semesterModel.Id);
+            }
+            return Semesters_Read(request);
+        }
+
     }
 }
