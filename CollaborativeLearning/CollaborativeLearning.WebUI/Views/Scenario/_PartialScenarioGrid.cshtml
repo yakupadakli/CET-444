@@ -1,0 +1,66 @@
+﻿<h4>Scenarios</h4>
+
+<div class="demo-section">
+    <h2>Scenarios</h2>
+
+    @(Html.Kendo().ComboBox()
+          .Name("scenarios")
+          .DataTextField("scenarioName")
+          .DataValueField("scenarioID")
+          .HtmlAttributes(new { style = "width:250px" })
+          .Filter("contains")
+          .AutoBind(false)
+          .MinLength(3)
+          .DataSource(source => {
+              source.Read(read =>
+              {
+                  read.Action("GetScenarios", "Scenario");
+              })
+              .ServerFiltering(true);
+          })
+    )
+</div>
+
+<div id="scenariosDb">
+    @(Html.Kendo().Grid<CollaborativeLearning.Entities.Semester>()
+        .Name("scenarios")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.semester).Width(140);
+            columns.Bound(c => c.Id).Width(140);
+        })
+        .HtmlAttributes(new { style = "height: 380px;" })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read => read.Action("Customers_Read", "Home"))
+        )
+    )
+</div>
+
+
+<style scoped>
+    #scenariosDb {
+        width: 692px;
+        height: 413px;
+        margin: 30px auto;
+        padding: 51px 4px 0 4px;
+        background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;
+    }
+        .demo-section {
+        width: 250px;
+        margin: 35px auto 50px;
+        padding: 30px;
+    }
+    .demo-section h2 {
+        text-transform: uppercase;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+</style>

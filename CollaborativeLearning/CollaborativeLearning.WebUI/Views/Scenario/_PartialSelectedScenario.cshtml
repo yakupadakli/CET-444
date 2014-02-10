@@ -1,52 +1,50 @@
-﻿@{
-    ViewBag.Title = "About Us";
-    Layout = "~/Views/Shared/_SemesterLayout.cshtml";
-
-}
-<div id="forecast">
+﻿<div id="forecast">
     @(Html.Kendo().TabStrip()
           .Name("tabstrip")
           .Items(tabstrip =>
           {
-              tabstrip.Add().Text("Paris")
+              tabstrip.Add().Text("Student Task")
                   .Selected(true)
                   
                   .Content(@<text>
                     <div class="weather">
-                         @Editorforo()
+                         Task
                     </div>
                     <span class="rainy">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("New York")
+              tabstrip.Add().Text("Action Plan")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>29<span>&ordm;C</span></h2>
-                        <p>Sunny weather in New York.</p>
+                        Action Plan
                     </div>
                     <span class="sunny">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("Moscow")
+              tabstrip.Add().Text("Resources")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>16<span>&ordm;C</span></h2>
-                        <p>Cloudy weather in Moscow.</p>
+                        Resources
                     </div>
                     <span class="cloudy">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("Sydney")
+              tabstrip.Add().Text("Submitted Work")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p><p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p>
+                        Submitted Work
                     </div>
                     <span class="rainy">&nbsp;</span>
                   </text>);
+        
+              tabstrip.Add().Text("Mentor Feedback")
+                  .Content(@<text>
+                    <div class="weather">
+                        Mentor Feedback
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
+        
           })
     )
 
@@ -89,3 +87,4 @@
     .Thumbnail("Thumbnail", "ImageBrowser"))
 )    
 }
+    </div>
