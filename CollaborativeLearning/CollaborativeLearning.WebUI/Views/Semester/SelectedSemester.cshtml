@@ -1,52 +1,63 @@
 ﻿@{
-    ViewBag.Title = "About Us";
+    ViewBag.Title = "SelectedSemester";
     Layout = "~/Views/Shared/_SemesterLayout.cshtml";
-
 }
+
 <div id="forecast">
     @(Html.Kendo().TabStrip()
           .Name("tabstrip")
           .Items(tabstrip =>
           {
-              tabstrip.Add().Text("Paris")
+              tabstrip.Add().Text("Scenarios")
                   .Selected(true)
                   
                   .Content(@<text>
                     <div class="weather">
-                         @Editorforo()
+                         Senaryoların grid view ü partial olarak gelecek
                     </div>
                     <span class="rainy">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("New York")
+              tabstrip.Add().Text("Users")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>29<span>&ordm;C</span></h2>
-                        <p>Sunny weather in New York.</p>
+                        Kullanıcıların grid view ü partial olarak gelecek
                     </div>
                     <span class="sunny">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("Moscow")
+              tabstrip.Add().Text("Groups")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>16<span>&ordm;C</span></h2>
-                        <p>Cloudy weather in Moscow.</p>
+                        Grupların grid view ü partial olarak gelecek
                     </div>
                     <span class="cloudy">&nbsp;</span>
                   </text>);
 
-              tabstrip.Add().Text("Sydney")
+              tabstrip.Add().Text("Mentor")
                   .Content(@<text>
                     <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p><p>Rainy weather in Sidney.</p>
-                        <p>Rainy weather in Sidney.</p>
+                        Mentorlerin grid view ü partial olarak gelecek
                     </div>
                     <span class="rainy">&nbsp;</span>
                   </text>);
+        
+              tabstrip.Add().Text("Submitted Work")
+                  .Content(@<text>
+                    <div class="weather">
+                        Submitted Work grid view ü partial olarak gelecek
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
+        
+               tabstrip.Add().Text("Reflection")
+                  .Content(@<text>
+                    <div class="weather">
+                        Reflection grid view ü partial olarak gelecek
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
+        
           })
     )
 
@@ -89,3 +100,4 @@
     .Thumbnail("Thumbnail", "ImageBrowser"))
 )    
 }
+    </div>
