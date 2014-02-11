@@ -21,7 +21,7 @@
               tabstrip.Add().Text("Scenario")
                   .Content(@<text>
                     <div class="weather">
-                        _PartialScenarioGrid Çağrılacak
+                         @Html.Action("_PartialGetScenarioGrid", "Scenario")
                     </div>
                     <span class="sunny">&nbsp;</span>
                   </text>);

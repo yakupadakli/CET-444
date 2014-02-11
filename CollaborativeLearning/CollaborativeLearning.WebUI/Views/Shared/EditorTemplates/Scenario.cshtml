@@ -1,0 +1,61 @@
+@model CollaborativeLearning.Entities.Scenario
+@{
+    ViewBag.Title = "Create";
+}
+
+<section id="CreateSemesterForm">
+    <h2>Create</h2>
+@using (Html.BeginForm()) { 
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Name)
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.Name)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(m => m.ShortDescription)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.ShortDescription)
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.ShortDescription)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(m => m.isActive)
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    @Html.LabelFor(m => m.isActive)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(m => m.isActive)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(m => m.ShortDescription)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+    <script>
+
+    </script>
+</section>

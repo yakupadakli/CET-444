@@ -351,8 +351,17 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActionPlanController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MentorController.cs" />
+    <Compile Include="Controllers\ReflectionController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\ScenarioController.cs" />
     <Compile Include="Controllers\SemesterController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -927,6 +936,13 @@
     <Content Include="Views\Semester\SemesterSummaryPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Semester.cshtml" />
     <Content Include="Views\Semester\_PartialGetSemesterGrid.cshtml" />
+    <Content Include="Views\Scenario\_PartialGetScenarioGrid.cshtml" />
+    <Content Include="Views\Shared\_SemesterLayout.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Account\_PartialMentorsGrid.cshtml" />
+    <Content Include="Views\Account\_PartialUsersGrid.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Scenario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

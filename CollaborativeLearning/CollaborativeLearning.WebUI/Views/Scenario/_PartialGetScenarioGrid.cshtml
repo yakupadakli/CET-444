@@ -1,0 +1,19 @@
+﻿
+@model CollaborativeLearning.Entities.Scenario
+@{
+    ViewBag.Title = "Semester";
+}
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#example').dataTable({
+            "bProcessing": true,
+            "sAjaxSource": '@Html.Action("Json", "Scenario")'
+        });
+    });
+
+</script>

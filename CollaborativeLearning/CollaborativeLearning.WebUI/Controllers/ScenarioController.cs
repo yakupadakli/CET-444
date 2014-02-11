@@ -6,10 +6,15 @@ using System.Web.Mvc;
 using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+
 namespace CollaborativeLearning.WebUI.Controllers
 {
     public class ScenarioController : Controller
     {
+        private UnitOfWork unitOfWork = new UnitOfWork();
+
         //
         // GET: /Scenario/
 
@@ -17,6 +22,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return View();
         }
+        
+        //
+
+        public ActionResult _PartialGetScenarioGrid()
+        {
+            return PartialView();
+        }
+
 
         //
         // GET: /Scenario/Details/5
@@ -103,5 +116,48 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return View();
             }
         }
+
+
+
+        public ActionResult Scenarios_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var results = from Ord in unitOfWork.ScenarioRepository.Get()
+                          select new
+                          {
+                              Id = Ord.Id,
+                              ShortDescription = Ord.ShortDescription,
+                              Name = Ord.Name,
+                              isActive = Ord.isActive,
+                              //StudentCount = Ord.Semesters.Where(u => u.Role.RoleName == "Student").Count(),
+                              //MentorCount = Ord.Users.Where(u => u.Role.RoleName == "Mentor").Count(),
+                          };
+
+
+            DataSourceResult result = results.ToList().ToDataSourceResult(request);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Scenario_Create([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
+        {
+            
+            return Scenarios_Read(request);
+        }
+
+
+        public ActionResult Scenario_Update([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
+        {
+           
+            return Scenarios_Read(request);
+        }
+
+
+        public ActionResult Scenario_Destroy([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
+        {
+           
+            return Scenarios_Read(request);
+        }
+
     }
 }
