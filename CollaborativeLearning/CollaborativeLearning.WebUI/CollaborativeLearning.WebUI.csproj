@@ -575,6 +575,14 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\Datatable\css\demo_page.css" />
+    <Content Include="Content\Datatable\css\demo_table.css" />
+    <Content Include="Content\Datatable\css\demo_table_jui.css" />
+    <Content Include="Content\Datatable\css\jquery.dataTables.css" />
+    <Content Include="Content\Datatable\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\Datatable\js\jquery.dataTables.js" />
+    <Content Include="Content\Datatable\js\jquery.dataTables.min.js" />
+    <Content Include="Content\Datatable\js\jquery.js" />
     <Content Include="Content\kendo\2013.2.918\Black\editor.png" />
     <Content Include="Content\kendo\2013.2.918\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2013.2.918\Black\loading-image.gif" />
@@ -943,6 +951,7 @@
     <Content Include="Views\Account\_PartialMentorsGrid.cshtml" />
     <Content Include="Views\Account\_PartialUsersGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Scenario.cshtml" />
+    <Content Include="Views\Scenario\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

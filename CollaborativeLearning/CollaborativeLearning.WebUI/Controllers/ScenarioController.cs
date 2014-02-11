@@ -30,6 +30,28 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView();
         }
 
+        public ActionResult ScenarioAjaxHandler()
+        {
+            var results = from Ord in unitOfWork.SemesterRepository.Get()
+                          select new
+                          {
+                              Id = Ord.Id,
+                              semester = Ord.semester,
+                              year = Ord.year,
+                              semesterName = Ord.semesterName,
+                              StudentCount = Ord.Users.Where(u => u.Role.RoleName == "Student").Count(),
+                              MentorCount = Ord.Users.Where(u => u.Role.RoleName == "Mentor").Count(),
+                          };
+
+
+
+            return Json(new {
+                iTotalRecords = results.Count(),
+                iTotalDisplayRecords = results.Count(),
+                aaData = results
+            }, JsonRequestBehavior.AllowGet);
+
+        }
 
         //
         // GET: /Scenario/Details/5
@@ -70,7 +92,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Semester model = unitOfWork.SemesterRepository.GetByID(id);
+            return PartialView(model);
         }
 
         //
@@ -115,48 +138,6 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 return View();
             }
-        }
-
-
-
-        public ActionResult Scenarios_Read([DataSourceRequest]DataSourceRequest request)
-        {
-            var results = from Ord in unitOfWork.ScenarioRepository.Get()
-                          select new
-                          {
-                              Id = Ord.Id,
-                              ShortDescription = Ord.ShortDescription,
-                              Name = Ord.Name,
-                              isActive = Ord.isActive,
-                              //StudentCount = Ord.Semesters.Where(u => u.Role.RoleName == "Student").Count(),
-                              //MentorCount = Ord.Users.Where(u => u.Role.RoleName == "Mentor").Count(),
-                          };
-
-
-            DataSourceResult result = results.ToList().ToDataSourceResult(request);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-
-        public ActionResult Scenario_Create([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
-        {
-            
-            return Scenarios_Read(request);
-        }
-
-
-        public ActionResult Scenario_Update([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
-        {
-           
-            return Scenarios_Read(request);
-        }
-
-
-        public ActionResult Scenario_Destroy([DataSourceRequest] DataSourceRequest request, Scenario semesterModel)
-        {
-           
-            return Scenarios_Read(request);
         }
 
     }
