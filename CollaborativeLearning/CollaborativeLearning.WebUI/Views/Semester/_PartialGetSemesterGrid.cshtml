@@ -1,108 +1,103 @@
-﻿
-@model CollaborativeLearning.WebUI.Models.SemesterModels
+﻿@model CollaborativeLearning.WebUI.Models.SemesterModels
 @{
     ViewBag.Title = "Semester";
 }
-@(Html.Kendo().Grid<CollaborativeLearning.WebUI.Models.SemesterModels>()
-    .Name("semesters")
-    .Columns(columns =>
+<br />
+@if (ViewBag.Message=="true")
+{
+    if (ViewBag.MessageType == "SuccessAddSemester")
     {
-        columns.Bound(s => s.Id).Hidden().HtmlAttributes(new { name="Id", Id="gridRowId" });
-        columns.Bound(s => s.semesterName).Width(70);
-        columns.Bound(s => s.StudentCount).Width(70);
-        columns.Bound(s => s.MentorCount).Width(70);
-        columns.Command(command => { command.Edit(); command.Destroy(); command.Custom("Select").Click("select"); }).Width(160);
-    })
-        //.ToolBar(t=> t.Custom().Text("Yeni Kullanıcı Ekle").Action("_Register","Account"))
-    .ToolBar(toolbar => toolbar.Create())
-    .Events(events => events.Save("save").DataBinding("dataBind").Change("onChange"))
-    .Selectable(selectable => selectable
-            .Mode(GridSelectionMode.Single)
-            .Type(GridSelectionType.Row))
-    .Editable(editable => editable.Mode(Kendo.Mvc.UI.GridEditMode.PopUp).TemplateName("Semester"))
-    .Pageable(pageable => pageable
-            .Refresh(true)
-            .PageSizes(true)
-            .ButtonCount(5))
-        .Sortable()
-    .Scrollable()
-    .HtmlAttributes(new { style = "height:260px; width:600px;" })
-    .DataSource(dataSource => dataSource
-        .Ajax()
-        .PageSize(4)
-        .Events(events => events.Error("error_handler"))
-        .Model(model => model.Id(p => p.Id))
+        <text>
+                <div class="alert alert-warning alert-dismissable" id="CreateSemesterSuccess">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Well Done!</strong>@ViewBag.Alert
+                </div>
+        </text>
+    }
+    if (ViewBag.MessageType == "FailureAddSemester")
+    {
+        <text>
+            <div class="alert alert-warning alert-dismissable" id="CreateSemesterFailure">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Oh Snap!</strong> @ViewBag.Alert
+            </div>
+
+        </text>
+    }
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="btn-group ">
+            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_semesterCreate">
+                <span class="glyphicon glyphicon-plus"></span> Add Semester
+            </button>
+        </div>
         
-                .Create(update => update.Action("Semester_Create", "Semester"))
-                .Read(read => read.Action("Semesters_Read", "Semester"))
-                .Update(update => update.Action("Semester_Update", "Semester"))
-                .Destroy(update => update.Action("Semester_Destroy", "Semester"))
-    )
-    
-)
+      <div id="CreateSemesterPartialDiv">
+          @Html.Action("_PartialCreate", "Semester")
+      </div>  
+     
+    </div>
+</div>
 
-<script type="text/javascript">
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ('errors' in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-    }
-</script>
+<table id="SemesterTable" class="display clearfix">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Semester Name</th>
+            <th>Year</th>
+            <th>Semester</th>
+            <th>Group</th>
+            <th>Students</th>
+            <th>Mentors</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody class="clearfix">
 
-<script type="text/javascript">
+    </tbody>
+</table>
 
-    var FullName = [];
-    function dataBind(arg) {
-        if (FullName != "" ) {
-            $.each(arg.items, function (key, value) {
-                value.semesterName = FullName[key];
-            });
-        }
-        FullName = [];
-    }
-    
-    function save(arg) {
-       
-        $.each(arg.sender._data, function (key, value) {
-            value.semesterName = value.year + "-" + value.semester;
-            FullName.push(value.semesterName);
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#SemesterTable').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "Semester/SemesterAjaxHandler",
+            "aoColumns": [
+                    {
+                        "mData": "Id",
+                        "bSearchable": false,
+                        "bSortable": false,
+                    },
+                     { "mData": "SemesterName" },
+                     { "mData": "Year" },
+                     { "mData": "Semester" },
+                     { "mData": "Group" },
+                     { "mData": "Students" },
+                     { "mData": "Mentors" },
+                     { "mData": "Active" },
+                     {
+                         "mData": "Action",
+                         "fnRender": function (oObj) {
+                             return "<a href='#' id='" + oObj.aData.Id + "' class='deneme btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#myModal'>" +
+                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
+                                    "</a>" +
+                                    "<a href='#' type='button' class='btn btn-default btn-xs'>" +
+                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
+                                    "</a>";
+                         }
+                     }
+            ]
         });
-    }
-
-    function onChange(arg) {
-        var selected = $.map(this.select(), function (item) {
-            console.log($(item).find("#gridRowId"));
-
-            return $(item).find("#gridRowId").val();
-        });
-    }
-    function select(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        console.log(dataItem);
-        alert(dataItem.Id);
-        window.location.href = '@(Url.Action("Index","Semester"))?Id=' + dataItem.Id;
-        
-
-    }
-
+    });
 </script>
-
-
-<style scoped>
-    #clientsDb {
-        width: 692px;
-        height: 413px;
-        margin: 30px auto;
-        padding: 51px 4px 0 4px;
-        background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;
-    }
-</style>
