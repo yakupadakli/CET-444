@@ -1,24 +1,24 @@
-﻿@model CollaborativeLearning.Entities.Scenario
+﻿@model CollaborativeLearning.Entities.Task
 @{
-    ViewBag.Title = "Scenario";
+    ViewBag.Title = "Tasks";
 }
 <br />
 @if (ViewBag.Message=="true")
 {
-    if (ViewBag.MessageType == "SuccessAddScenario")
+    if (ViewBag.MessageType == "SuccessAddTask")
     {
         <text>
-                <div class="alert alert-warning alert-dismissable" id="CreateScenarioSuccess">
+                <div class="alert alert-warning alert-dismissable" id="CreateTaskSuccess">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <strong>Well Done!</strong>@ViewBag.Alert
                 </div>
         </text>
     }
     
-    if (ViewBag.MessageType == "FailureAddScenario")
+    if (ViewBag.MessageType == "FailureAddTask")
     {
         <text>
-            <div class="alert alert-warning alert-dismissable" id="CreateScenarioFailure">
+            <div class="alert alert-warning alert-dismissable" id="CreateTaskFailure">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <strong>Oh Snap!</strong> @ViewBag.Alert
             </div>
@@ -29,19 +29,19 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="btn-group ">
-            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_scenarioCreate">
-                <span class="glyphicon glyphicon-plus"></span> Add Scenario
+            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_taskCreate">
+                <span class="glyphicon glyphicon-plus"></span> Add Task
             </button>
         </div>
         
-      <div id="CreateScenarioPartialDiv">
-          @Html.Action("_PartialCreate", "Scenario")
+      <div id="CreateTaskPartialDiv">
+          @Html.Action("_PartialTaskCreate", "Task", new {id = ViewBag.id})
       </div>  
      
     </div>
 </div>
 <br />
-    <table id="scenario" class="display clearfix">
+    @*<table id="scenario" class="display clearfix">
         <thead>
             <tr>
                 <th>Scenario Name</th>
@@ -54,12 +54,12 @@
         </thead>
         <tbody class="clearfix"> 
         </tbody>
-    </table>
+    </table>*@
 
 
 
 
-<script>
+@*<script>
 
     $(document).ready(function () {
 
@@ -145,4 +145,5 @@ function confirm_click()
       
     </div>
   </div>
-</div>
+</div>*@
+

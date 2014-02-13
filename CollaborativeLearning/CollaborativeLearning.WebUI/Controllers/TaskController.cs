@@ -10,7 +10,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 {
     public class TaskController : Controller
     {
-        //
+
+        private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: /Task/
 
         public ActionResult Index()
@@ -18,6 +19,51 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
+        public ActionResult _PartialStudentTask(int id)
+        {
+            ViewBag.id = id;
+            return PartialView();
+        }
+        public ActionResult _PartialTaskCreate(int? scenarioId)
+        {
+            if (scenarioId != null)
+                ViewBag.scenarioId = scenarioId;
+            return PartialView();
+        }
+
+        //
+        // POST: /Scenario/Create
+
+        [HttpPost]
+        public ActionResult _PartialTaskCreate(Task task)
+        {
+            try
+            {
+                //if (task != null)
+                //{
+                //    task.RegUserId = HelperController.GetCurrentUserId();
+                //    task.RegDateTime = DateTime.Now;
+                //    unitOfWork.TaskRepository.Insert(task);
+                //    unitOfWork.Save();
+
+                //    if(ViewBag.scenarioId != null)
+                //    {
+                //        unitOfWork = new UnitOfWork();
+                //        Scenario s = unitOfWork.ScenarioRepository.GetByID(ViewBag.scenarioId);
+                //        unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
+                //        unitOfWork.Save();
+                //        return RedirectToAction("Details", "Scenario",ViewBag.scenarioId);
+                //    }
+                //    else
+                //        return RedirectToAction("Details", "Scenario");
+                //}
+            }
+            catch
+            {
+                return View();
+            }
+            return PartialView(task);
+        }
         //
         // GET: /Task/Details/5
 
