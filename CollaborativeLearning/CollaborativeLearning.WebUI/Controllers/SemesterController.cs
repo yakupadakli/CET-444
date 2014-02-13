@@ -28,7 +28,12 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.Message = "false";
             return PartialView();
         }
-
+        public ActionResult SelectSemester(String GoToSemesterID)
+        {
+            Semester model = new Semester();
+            
+           return RedirectToAction("Indxex", model);
+        }
 
         //
         // GET: /Semester/Details/5
@@ -52,7 +57,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Semester/Create
 
         [HttpPost]
-        public PartialViewResult _PartialCreate(Semester model)
+        public ActionResult Create(Semester model)
         {
             ViewBag.Message = "true";
             Semester semester = new Semester();
@@ -74,19 +79,22 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
+                       
                         semesterItem.Users.Add(unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId()));
                         unitOfWork.SemesterRepository.Insert(semesterItem);
                         unitOfWork.Save();
+
+
                         ViewBag.MessageType = "SuccessAddSemester";
-                        ViewBag.Alert = "This Semester have beed added. You cannot dublicate.";
-                        return PartialView("_PartialGetSemesterGrid");
+                        ViewBag.Alert = "This Semester is added.";
+                        return RedirectToAction("Index","Home");
                     }
                     else
                     {
                         model = null;
                         ViewBag.MessageType = "FailureAddSemester";
                         ViewBag.Alert = "This Semester have beed added. You cannot dublicate.";
-                        return PartialView("_PartialGetSemesterGrid");
+                        return RedirectToAction("Index","Home");
 
                     }
                     
@@ -97,14 +105,15 @@ namespace CollaborativeLearning.WebUI.Controllers
                     model = null;
                     ViewBag.MessageType = "FailureAddSemester";
                     ViewBag.Alert = "There is a porblem. Please try again.";
-                    return PartialView("_PartialGetSemesterGrid");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return PartialView();
 
 
         }
-        [HttpGet]
+
+       
         public ActionResult _PartialCreate() {
                                       
             return PartialView();

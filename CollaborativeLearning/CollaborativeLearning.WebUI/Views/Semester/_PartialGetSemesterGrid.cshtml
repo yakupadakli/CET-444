@@ -3,15 +3,15 @@
     ViewBag.Title = "Semester";
 }
 <br />
-@if (ViewBag.Message=="true")
+@if (ViewBag.Message == "true")
 {
     if (ViewBag.MessageType == "SuccessAddSemester")
     {
         <text>
-                <div class="alert alert-warning alert-dismissable" id="CreateSemesterSuccess">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Well Done!</strong>@ViewBag.Alert
-                </div>
+            <div class="alert alert-warning alert-dismissable" id="CreateSemesterSuccess">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Well Done!</strong>@ViewBag.Alert
+            </div>
         </text>
     }
     if (ViewBag.MessageType == "FailureAddSemester")
@@ -30,16 +30,22 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="btn-group ">
-            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_semesterCreate">
-                <span class="glyphicon glyphicon-plus"></span> Add Semester
-            </button>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="btn-group ">
+                    <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_semesterCreate">
+                        <span class="glyphicon glyphicon-plus"></span> Add Semester
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-6 rightColumn">
+                @Html.Partial("_PartialGoToSemester")
+            </div>
         </div>
-        
-      <div id="CreateSemesterPartialDiv">
-          @Html.Action("_PartialCreate", "Semester")
-      </div>  
-     
+        <div id="CreateSemesterPartialDiv">
+            @Html.Action("_PartialCreate", "Semester")
+        </div>
+
     </div>
 </div>
 
@@ -57,9 +63,7 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody class="clearfix">
-
-    </tbody>
+    <tbody class="clearfix"></tbody>
 </table>
 
 

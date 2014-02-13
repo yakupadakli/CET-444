@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm("SelectSemester", "Semester"))
+{
+  <div class="input-group">
+      <select  id="GoToSemesterID" class="form-control">
+          <option value="1">2014-2</option>
+            </select>
+        
+       <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">Go!</button>
+       </span>
+
+</div><!-- /input-group -->
+}
+<script>
+    $("#GoToSemesterID").select2();
+</script>
