@@ -105,6 +105,7 @@ using CollaborativeLearning.Entities;
                     return null;
                 }
 
+
                 User NewUser = new User
                 {
                     FirstName = firstName,
@@ -120,7 +121,8 @@ using CollaborativeLearning.Entities;
                     LastActivityDate = DateTime.UtcNow,
                     LastLockoutDate = DateTime.UtcNow,
                     IsLockedOut = false,
-                    LastPasswordFailureDate = DateTime.UtcNow
+                    LastPasswordFailureDate = DateTime.UtcNow,
+                    RoleID = 3
                 };
                 
                 Context.Users.Add(NewUser);

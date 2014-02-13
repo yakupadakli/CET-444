@@ -85,13 +85,16 @@ using CollaborativeLearning.WebUI.Filters;
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(CollaborativeLearning.WebUI.Models.AccountModels.RegisterModel model)
+        public ActionResult Register(CollaborativeLearning.WebUI.Models.AccountModels.RegisterModel model,string registr_code)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
+                    Semester semester = unitOfWork.SemesterRepository.Get(s => s.registerCode == registr_code).FirstOrDefault();
+
+
                     MembershipCreateStatus createStatus;
                     Membership.CreateUser(model.UserName, model.Password, model.Email, model.FirsName, model.LastName, true, null, out createStatus);
 
@@ -146,8 +149,8 @@ using CollaborativeLearning.WebUI.Filters;
                 try
                 {
                     MembershipCreateStatus createStatus;
-                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
+                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true,null,out createStatus);
+                   
                     if (createStatus == MembershipCreateStatus.Success)
                     {
                         Roles.AddUserToRole(model.UserName, Request.Form["roleName"]);

@@ -13,6 +13,9 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /Mentor/
 
+        private UnitOfWork unitOfWork = new UnitOfWork();
+
+
         public ActionResult Index()
         {
             return View();
@@ -57,20 +60,23 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            User model = unitOfWork.UserRepository.GetByID(id);
+            return PartialView(model);
         }
 
         //
         // POST: /Mentor/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, User user)
         {
             try
             {
-                // TODO: Add update logic here
+                unitOfWork.UserRepository.Update(user);
+                unitOfWork.Save();
 
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index","Home");
             }
             catch
             {
@@ -83,25 +89,62 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            User user = unitOfWork.UserRepository.GetByID(id);
+            if (user != null)
+            {
+                unitOfWork.UserRepository.Delete(id);
+                unitOfWork.Save();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
-        //
-        // POST: /Mentor/Delete/5
+        ////
+        //// POST: /Mentor/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        public ActionResult _PartialGetMentorGrid()
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return PartialView();
         }
+
+        public ActionResult MentorAjaxHandler()
+        {
+            //var allMentor = unitOfWork.UserRepository.Get();
+            var allMentor = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 2).ToList();
+            var mentorList = from q in allMentor
+                               select (new
+
+                               {
+                                   Id = q.Id,
+                                   MentorName = q.FullName,
+                                   UserName = q.Username,
+                                   eMail = q.Email,
+                                   GroupCount = q.Groups.Count(),
+                                   Action = ""
+                               });
+
+            return Json(new
+            {
+                iTotalRecords = allMentor.Count(),
+                iTotalDisplayRecords = mentorList.Count(),
+                aaData = mentorList
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }
