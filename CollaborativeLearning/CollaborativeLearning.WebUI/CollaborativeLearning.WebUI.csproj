@@ -354,6 +354,7 @@
     <Compile Include="Controllers\ActionPlanController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MentorController.cs" />
     <Compile Include="Controllers\ReflectionController.cs" />
@@ -952,6 +953,8 @@
     <Content Include="Views\Account\_PartialUsersGrid.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Scenario.cshtml" />
     <Content Include="Views\Scenario\Edit.cshtml" />
+    <Content Include="Views\Mentor\_PartialGetMentorGrid.cshtml" />
+    <Content Include="Views\Mentor\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

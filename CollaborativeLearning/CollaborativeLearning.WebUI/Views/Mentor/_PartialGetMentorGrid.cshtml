@@ -1,0 +1,99 @@
+﻿@model CollaborativeLearning.Entities.User
+@{
+    ViewBag.Title = "Mentor";
+}
+<br />
+
+    <table id="mentor" class="display clearfix">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Mentor Name</th>
+                <th>User Name</th>
+                <th>E-Mail</th>
+                <th>Group Count</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="clearfix"> 
+        </tbody>
+    </table>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#mentor').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "Mentor/MentorAjaxHandler",
+            "aoColumns": [
+                    
+                    {
+                        "mData": "Id",
+                        "bSearchable": false,
+                        "bSortable": false,
+                    },
+                    { "mData": "MentorName" },
+                    { "mData": "UserName" },
+                    { "mData": "eMail" },
+                     { "mData": "GroupCount" },
+                    {
+                        "mData": "Action",
+                        "fnRender": function (oObj) {
+                            return "<a href='#' id='" + oObj.aData.Id + "' class='editMentor btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#editMentorPartialModal'>" +
+                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
+                                    "</a>" +
+                                    "<a href='../Mentor/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
+                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
+                                    "</a>";
+                        }
+                    }
+            ]
+        });
+
+        
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".editMentor").click(function () {
+                console.log("oldu");
+                $.ajax({
+                    url: "/Mentor/Edit/" + $(this).attr('id')
+                })
+                .success(function (result) {
+                    $("#editMentorPartial").html(result);
+                });
+            });
+        }, 2000);
+    });
+
+</script>
+
+<script type="text/javascript">
+    function confirm_click() {
+        return confirm("Are you sure to delete this mentor?");
+    }
+
+</script>
+
+
+<div class="modal fade" id="editMentorPartialModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Mentor</h4>
+      </div>
+
+      <div id="editMentorPartial"class="modal-body">
+         
+      </div>
+     
+    </div>
+  </div>
+</div>
