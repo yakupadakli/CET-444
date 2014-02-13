@@ -6,9 +6,9 @@ using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.DataAccess
 {
-    public class ScenarioTaskRepository : GenericRepository<ScenarioTask>
+    public class TaskRepository : GenericRepository<Task>
     {
-        public ScenarioTaskRepository(DataContext context)
+        public TaskRepository(DataContext context)
             : base(context)
         {
         }

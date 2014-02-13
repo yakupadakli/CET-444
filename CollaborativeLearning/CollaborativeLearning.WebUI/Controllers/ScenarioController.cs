@@ -32,15 +32,16 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult ScenarioAjaxHandler()
         {
-            var results = from Ord in unitOfWork.SemesterRepository.Get()
+            var results = from scenario in unitOfWork.ScenarioRepository.Get()
                           select new
                           {
-                              Id = Ord.Id,
-                              semester = Ord.semester,
-                              year = Ord.year,
-                              semesterName = Ord.semesterName,
-                              StudentCount = Ord.Users.Where(u => u.Role.RoleName == "Student").Count(),
-                              MentorCount = Ord.Users.Where(u => u.Role.RoleName == "Mentor").Count(),
+                              Id = scenario.Id,
+                              Name = scenario.Name,
+                              ShortDescription = scenario.ShortDescription,
+                              isActive = scenario.isActive,
+                              ResourcesCount = scenario.Resources.Count(),
+                              SemestersCount = scenario.Semesters.Count(),
+                              Action = scenario.Id
                           };
 
 
@@ -58,41 +59,47 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Details(int id)
         {
+
             return View();
         }
 
         //
-        // GET: /Scenario/Create
-
-        public ActionResult Create()
+        
+        public ActionResult _PartialCreate()
         {
-            return View();
+            return PartialView();
         }
 
         //
         // POST: /Scenario/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult _PartialCreate(Scenario scenario)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (scenario != null)
+                {
+                    scenario.regUserID = HelperController.GetCurrentUserId();
+                    scenario.regDate = DateTime.Now;
+                    unitOfWork.ScenarioRepository.Insert(scenario);
+                    unitOfWork.Save();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch
             {
                 return View();
             }
+            return PartialView(scenario);
         }
-
         //
         // GET: /Scenario/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult _PartialEdit(int id)
         {
-            Semester model = unitOfWork.SemesterRepository.GetByID(id);
+            Scenario model = unitOfWork.ScenarioRepository.GetByID(id);
             return PartialView(model);
         }
 
@@ -100,13 +107,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult _PartialEdit(int id, Scenario scenario)
         {
             try
             {
-                // TODO: Add update logic here
+                unitOfWork.ScenarioRepository.Update(scenario);
+                unitOfWork.Save();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             catch
             {
@@ -119,26 +127,30 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            Scenario scenario = unitOfWork.ScenarioRepository.GetByID(id);
+            if (scenario != null)
+            {
+                unitOfWork.ScenarioRepository.Delete(id);
+                unitOfWork.Save();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
-        //
-        // POST: /Scenario/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult _PartialActionPlan()
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return PartialView();
         }
-
+        public ActionResult _PartialResources()
+        {
+            return PartialView();
+        }
+        public ActionResult _PartialSubmitedWorks()
+        {
+            return PartialView();
+        }
+        public ActionResult _PartialFeedbacks()
+        {
+            return PartialView();
+        }
     }
 }

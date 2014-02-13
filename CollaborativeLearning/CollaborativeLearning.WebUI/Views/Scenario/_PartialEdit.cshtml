@@ -1,0 +1,90 @@
+﻿@model CollaborativeLearning.Entities.Scenario
+
+@Model.Id
+
+            @using (Ajax.BeginForm("_PartialEdit", "Scenario", new AjaxOptions {HttpMethod="POST" }))
+            {
+                <div class="modal-body">
+
+                    <section id="UpdateScenarioForm">
+
+
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(m=>m.Id)
+                        @Html.HiddenFor(m=>m.regDate)
+                        @Html.HiddenFor(m=>m.regUserID)
+
+                        <fieldset>
+                            <table>
+                                <tr>
+                                    <td width="100">
+                                        @Html.LabelFor(m => m.Name)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Name)
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        @Html.ValidationMessageFor(m => m.Name)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(m => m.ShortDescription)
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShortDescription)
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        @Html.ValidationMessageFor(m => m.ShortDescription)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(m => m.isActive)
+                                    </td>
+                                    <td>
+                                        @Html.CheckBoxFor(m => m.isActive)
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        @Html.ValidationMessageFor(m => m.isActive)
+                                    </td>
+                                </tr>
+                               
+                            </table>
+                        </fieldset>
+
+
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update Scenario</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    
+                </div>
+            }
+<!-- /.modal -->
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#UpdateScenarioSuccess").hide();
+        $("#UpdateScenarioFailure").hide();
+        
+    });
+    function UpdateScenarioSuccess() {
+        alert("success");
+     }
+    function UpdateScenarioFailure() {
+        alert("fail");
+    }
+</script>
