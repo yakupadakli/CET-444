@@ -31,6 +31,12 @@ namespace CollaborativeLearning.Entities
         }
         [Display(Name = "Register Code")]
         public string registerCode { get; set; }
+        public virtual string mentorRegisterCode
+        {
+            get {
+                return (registerCode + "!MN");
+            }
+        }
 
         public bool isActive { get; set; }
 

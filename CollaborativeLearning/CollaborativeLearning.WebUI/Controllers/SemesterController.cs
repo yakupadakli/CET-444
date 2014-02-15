@@ -5,6 +5,7 @@ using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.Entities;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using System.Collections.Generic;
 
 
 namespace CollaborativeLearning.WebUI.Controllers
@@ -170,6 +171,8 @@ namespace CollaborativeLearning.WebUI.Controllers
                                    SemesterName = q.semesterName,
                                    Year = q.year,
                                    Semester = q.semester,
+                                   Registration = q.registerCode,
+                                   MentorCode = q.mentorRegisterCode,
                                    Group = q.Groups.Count(),
                                    Students = q.Users.Where(s => s.RoleID == 3).Count(),
                                    Mentors = q.Users.Where(s => s.RoleID == 2).Count(),
@@ -187,8 +190,29 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialSelectScenarios(int id) {
             ViewBag.ID = id;
-            var s = unitOfWork.ScenarioRepository.Get();
-            ViewBag.AllScenarios = s;
+            var ScenarioSemesterList = unitOfWork.SemesterRepository.GetByID(id).Scenarios.ToList();
+            var AllList = unitOfWork.ScenarioRepository.Get();
+            bool t = false;
+            List<Scenario> ScenarioList = new List<Scenario>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in ScenarioSemesterList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    ScenarioList.Add(listItem);
+                }
+            }
+
+
+
+            ViewBag.AllScenarios = ScenarioList;
             return PartialView();
         }
         public ActionResult AddSceneriosToSemester(int SemesterID, string[] ScenarioMultiSelect)
@@ -202,7 +226,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             ViewBag.ID = SemesterID;
             ViewBag.AllScenarios = unitOfWork.ScenarioRepository.Get();
-            return PartialView();
+            return RedirectToAction("Index");
         }
 
     }

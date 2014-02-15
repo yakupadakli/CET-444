@@ -76,6 +76,14 @@ namespace CollaborativeLearning.WebUI.Models
             [Display(Name = "Soyadınız")]
             public string LastName { get; set; }
 
+            [Required]
+            [Display(Name = "Gender")]
+            public String Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Phone")]
+            public String PhoneNumber { get; set; }      
+
         }
 
     }

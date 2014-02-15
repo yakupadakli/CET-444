@@ -37,6 +37,14 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Full Name")]
         public virtual string FullName { get { return FirstName + " " + LastName; } }
 
+        [Required]
+        [Display(Name = "Gender")]
+        public String Gender { get; set; }
+        
+        [Required]
+        [Display(Name = "Phone")]
+        public String PhoneNumber{get; set;}      
+  
         [Display(Name = "Is Approved")]
         public virtual Boolean IsApproved { get; set; }
 

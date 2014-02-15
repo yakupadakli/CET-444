@@ -70,6 +70,8 @@ namespace CollaborativeLearning.WebUI.Filters
                                 FirstName = "Hamdi",
                                 LastName = "Erkunt",
                                 Email = "erkunt@boun.edu.tr",
+                                PhoneNumber="05009990909",
+                                Gender ="Male",
                                 IsApproved = true,
                                 IsLockedOut = false,
                                 Password = Crypto.HashPassword("123456"),

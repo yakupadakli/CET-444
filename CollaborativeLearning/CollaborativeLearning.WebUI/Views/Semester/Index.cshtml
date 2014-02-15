@@ -3,15 +3,16 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SemesterLayout.cshtml";
 }
+<div class="page-header">
+    <h3> @Model.semesterName</h3>
+</div>
 @section BreadCrump{
 <li>@Html.ActionLink("Home", "Index", "Home")</li>
 <li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
 <li class="active">@Model.semesterName</li>
     }
 
-<div class="page-header">
-    <h3> @Model.semesterName</h3>
-</div>
+
 <ul class="nav nav-tabs">
     <li><a href="#Groups" data-toggle="tab">Groups</a></li>
     <li class="active"><a href="#scenarios" data-toggle="tab">Scenarios</a></li>
