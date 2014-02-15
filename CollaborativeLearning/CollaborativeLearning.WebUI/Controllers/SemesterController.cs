@@ -78,9 +78,12 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
-                       
-                        semesterItem.Users.Add(unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId()));
+
                         unitOfWork.SemesterRepository.Insert(semesterItem);
+                        unitOfWork.Save();
+                        unitOfWork = new UnitOfWork();
+                        unitOfWork.SemesterRepository.GetByID(semesterItem.Id).Users.Add(unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId()));
+                                   
                         unitOfWork.Save();
 
 
@@ -226,7 +229,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             ViewBag.ID = SemesterID;
             ViewBag.AllScenarios = unitOfWork.ScenarioRepository.Get();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index"new{id=SemesterID});
         }
 
     }
