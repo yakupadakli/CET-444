@@ -48,32 +48,32 @@ namespace CollaborativeLearning.WebUI.Models
         public class RegisterModel
         {
             [Required]
-            [Display(Name = "Kullanıcı Adı")]
+            [Display(Name = "Username")]
             public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.EmailAddress)]
-            [Display(Name = "Email Adresi")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "{0} en az {2} karatkterden oluşmalı.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Password must be {0} {2} characters.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Şifre")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Şifre Tekrar")]
-            [System.Web.Mvc.Compare("Password", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
+            [Display(Name = "Password Confirmation")]
+            [System.Web.Mvc.Compare("Password", ErrorMessage = "Passwords do not match.")]
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [Display(Name = "Adınız")]
+            [Display(Name = "Name")]
             public string FirsName { get; set; }
 
             [Required]
-            [Display(Name = "Soyadınız")]
+            [Display(Name = "Surname")]
             public string LastName { get; set; }
 
             [Required]
