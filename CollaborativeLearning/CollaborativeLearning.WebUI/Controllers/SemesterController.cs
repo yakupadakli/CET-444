@@ -229,7 +229,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             ViewBag.ID = SemesterID;
             ViewBag.AllScenarios = unitOfWork.ScenarioRepository.Get();
-            return RedirectToAction("Index"new{id=SemesterID});
+            return RedirectToAction("Index",new{id=SemesterID});
         }
 
     }
