@@ -1,0 +1,59 @@
+﻿@model CollaborativeLearning.Entities.Semester
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SemesterLayout.cshtml";
+}
+@section BreadCrump{
+<li>@Html.ActionLink("Home", "Index", "Home")</li>
+<li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
+<li class="active">@Model.semesterName</li>
+    }
+
+<div class="page-header">
+    <h3> @Model.semesterName</h3>
+</div>
+<ul class="nav nav-tabs">
+    <li><a href="#Groups" data-toggle="tab">Groups</a></li>
+    <li class="active"><a href="#scenarios" data-toggle="tab">Scenarios</a></li>
+    <li><a href="#Students" data-toggle="tab">Students</a></li>
+    <li><a href="#Submitted" data-toggle="tab">Submitted Works</a></li>
+    <li><a href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
+    <li><a href="#Mentors" data-toggle="tab">Mentors</a></li>
+    
+  
+</ul>
+<div class="tab-content">
+    <div class="tab-pane clearfix" id="Groups">
+        Groups
+    </div>
+    <div class="tab-pane active" id="scenarios">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Used Scenarios</h3>
+            </div>
+            <div class="panel-body" id="scenartioTable">
+                
+                @Html.Action("_PartialGetScenariosBySemester", "Scenario", new { id = Model.Id })
+
+            </div>
+            <div class="panel-body">
+                @Html.Action("_PartialSelectScenarios", "Semester", new { id = Model.Id })
+            </div>
+
+        </div>
+    </div>
+    <div class="tab-pane active" id="Students">
+        Students
+
+    </div>
+    <div class="tab-pane clearfix" id="Submitted">
+        Submitted
+    </div>
+    <div class="tab-pane clearfix" id="Feedbacks">
+        Feedbacks
+    </div>
+    <div class="tab-pane clearfix" id="Mentors">
+        Mentors
+    </div>
+</div>
+

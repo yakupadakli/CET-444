@@ -1,13 +1,26 @@
-﻿@using (Html.BeginForm("SelectSemester", "Semester"))
+﻿@model CollaborativeLearning.Entities.Semester
+@{
+    CollaborativeLearning.DataAccess.UnitOfWork uw = new CollaborativeLearning.DataAccess.UnitOfWork();
+    List<SelectListItem> SemesterList = new List<SelectListItem>();
+    foreach (var item in uw.SemesterRepository.Get())
+    {
+        SemesterList.Add(new SelectListItem { Text = item.semesterName, Value = item.Id.ToString() });
+	}
+   
+}
+
+
+@using (Html.BeginForm("SelectSemester", "Semester"))
 {
   <div class="input-group">
-      <select  id="GoToSemesterID" class="form-control">
-          <option value="1">2014-2</option>
-            </select>
         
-       <span class="input-group-btn">
-              <button class="btn btn-default" type="submit">Go!</button>
-       </span>
+         @Html.DropDownListFor(Model => Model.Id, SemesterList, new{ @class="form-control"})
+      <span class="input-group-addon">
+          <input type="submit" value="GO">
+      </span>
+       
+             
+      
 
 </div><!-- /input-group -->
 }

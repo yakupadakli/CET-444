@@ -1,55 +1,57 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>CET 314: Computer Networks & Commuication</title>
+    <script src="~/Content/Template/js/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="@Url.Content("~/Content/Template/css/bootstrap.css")" rel="stylesheet" />
-    <!-- Add custom CSS here -->
-    <link href="@Url.Content("~/Content/Template/css/style.css")" rel="stylesheet" />
+    <link href="~/Content/Template/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Template/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Template/css/bootstrap-responsive.css" rel="stylesheet" />
+    <script src="~/Content/Template/js/bootstrap.js"></script>
 
+
+
+    <link href="~/Content/Datatable/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Content/Datatable/js/jquery.dataTables.min.js"></script>
     
-	<link href="~/Content/kendo/2013.2.918/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/2013.2.918/kendo.default.min.css" rel="stylesheet" />
-    <script src="~/Scripts/kendo/2013.2.918/jquery.min.js"></script>
-    <script src="~/Scripts/kendo/2013.2.918/kendo.all.min.js"></script>
-    <script src="~/Scripts/kendo/2013.2.918/kendo.grid.min.js"></script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @(Html.Telerik().ScriptRegistrar().jQuery(false))
-    @(Html.Telerik().StyleSheetRegistrar())
+    <link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
+    <link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/select2-3.4.5/select2.js"></script>
 </head>
 
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-          <h1 class="navbar-brand" style="padding:0px;" >CET 314: Computer Networks & Commuication</h1>
+            <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
         </div><!-- /.container -->
-        </nav>
-        <div class="container">
+    </nav>
+    <div class="container">
 
         <div class="row">
 
             <div class="col-md-3">
-          
-            <div class="list-group" style="">
-                Semester Operations
-                <a href="#" class="list-group-item">Users</a>
-                <a href="scenario.html" class="list-group-item">Groups</a>
-                <a href="groups.html" class="list-group-item">Scenarios</a>
-                <a href="users.html" class="list-group-item">Submitted Works</a>
-                <a href="mentors.html" class="list-group-item">Reflections</a>
-            </div>
+
+                <div class="list-group" style="">
+                    Semester Operations
+                    <a href="#" class="list-group-item">Users</a>
+                    <a href="scenario.html" class="list-group-item">Groups</a>
+                    <a href="groups.html" class="list-group-item">Scenarios</a>
+                    <a href="users.html" class="list-group-item">Submitted Works</a>
+                    <a href="mentors.html" class="list-group-item">Reflections</a>
+                </div>
                 <div class="list-group" style="">
                     Admininstrative Operations
-                <a href="scenario.html" class="list-group-item">Semester</a>
-                <a href="groups.html" class="list-group-item">Scenarios</a>
-                <a href="users.html" class="list-group-item">Resources</a>
-            </div>
+                    <a href="scenario.html" class="list-group-item">Semester</a>
+                    <a href="groups.html" class="list-group-item">Scenarios</a>
+                    <a href="users.html" class="list-group-item">Resources</a>
+                </div>
 
 
             </div>
@@ -59,32 +61,32 @@
                         @RenderSection("featured", required: false)
                         <section id="main">
                             <ol class="breadcrumb">
-                                <li><a href="@Url.Action("Index","Home")">Home</a></li>
-                                <li class="active">Selected Semester Name Gelecek</li>
+                                @RenderSection("BreadCrump", false)
+
                             </ol>
-			                @RenderBody()
-		                </section>
+                            @RenderBody()
+                        </section>
                     </div>
                 </div>
             </div>
         </div>
 
-        </div>
+    </div>
 
-        <div class="container">
+    <div class="container">
 
         <hr>
 
         <footer>
             <div class="row">
-            <div class="col-lg-12">
-                <p><strong>Copyright &copy;</strong></p>
-            </div>
+                <div class="col-lg-12">
+                    <p><strong>Copyright &copy;</strong></p>
+                </div>
             </div>
         </footer>
 
-        </div>
-        
+    </div>
+
     @RenderSection("scripts", required: false)
-    </body>
+</body>
 </html>

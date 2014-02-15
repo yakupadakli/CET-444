@@ -152,5 +152,11 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return PartialView();
         }
+        public ActionResult _PartialGetScenariosBySemester(int id) {
+
+            var scenarioList = unitOfWork.ScenarioRepository.Get(s => s.Semesters.Where(se=>se.Id==id).Count()>0);
+            
+            return PartialView(scenarioList);
+        }
     }
 }

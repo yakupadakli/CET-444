@@ -1,0 +1,27 @@
+﻿@using (Ajax.BeginForm(
+    "AddSceneriosToSemester",
+    "Semester",
+    null,
+    new AjaxOptions{HttpMethod="POST",UpdateTargetId="scenartioTable" }
+))
+{  
+    @Html.Hidden("SemesterID",(int)ViewBag.ID )
+    <select multiple="multiple" style="min-width:150px" id="ScenarioMultiSelect" name="ScenarioMultiSelect">
+
+
+        @foreach (var item in ViewBag.AllScenarios as List<CollaborativeLearning.Entities.Scenario>)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+<input type="submit" value="Add"/>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#ScenarioMultiSelect").select2({
+            placeholder: "Start type Scenario Name"
+           
+        });
+    });
+</script>

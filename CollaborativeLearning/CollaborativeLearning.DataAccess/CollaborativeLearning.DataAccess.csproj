@@ -52,23 +52,29 @@
     <Compile Include="GenericRepository.cs" />
     <Compile Include="GroupRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionRepository.cs" />
     <Compile Include="ResourceFileRepository.cs" />
     <Compile Include="ResourceListRepository.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="ScenarioRepository.cs" />
-    <Compile Include="ScenarioTaskRepository.cs" />
     <Compile Include="SemesterRepository.cs" />
     <Compile Include="SemesterWorkDueDateRepository.cs" />
     <Compile Include="SubmittedWorkStatusRepository.cs" />
+    <Compile Include="TaskRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="WorkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bin\Debug\CollaborativeLearning.DataAccess.dll.config" />
     <None Include="CollaborativeRepositoryEntities.cd" />
+    <None Include="obj\Debug\CollaborativeLearning.DataAccess.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +82,23 @@
       <Project>{71600ed9-9c43-4fc1-b4f2-c70b9463d164}</Project>
       <Name>CollaborativeLearning.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CollaborativeLearning.DataAccess.dll" />
+    <Content Include="bin\Debug\CollaborativeLearning.DataAccess.pdb" />
+    <Content Include="bin\Debug\CollaborativeLearning.Entities.dll" />
+    <Content Include="bin\Debug\CollaborativeLearning.Entities.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="obj\Debug\CollaborativeLearning.DataAccess.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\CollaborativeLearning.DataAccess.dll" />
+    <Content Include="obj\Debug\CollaborativeLearning.DataAccess.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

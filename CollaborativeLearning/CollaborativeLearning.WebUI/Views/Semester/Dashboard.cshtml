@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_SemesterLayout.cshtml";
+}
+@section BreadCrump{
+    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+    <li class="active">Semester</li>
+}
+<div class="page-header">
+    <h1><small> Dashboard</small></h1>
+</div>
+@Html.Action("_PartialGetSemesterGrid")

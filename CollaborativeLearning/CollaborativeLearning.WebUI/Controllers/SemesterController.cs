@@ -12,39 +12,40 @@ namespace CollaborativeLearning.WebUI.Controllers
     public class SemesterController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        //
-        // GET: /Semester/
-
-        public ActionResult Index()
+      
+        [Authorize]
+        public ActionResult Index(Semester m)
         {
-            return View();
+            if (m.Id==0)
+            {
+                return View("Dashboard");
+            }
+            Semester model = unitOfWork.SemesterRepository.GetByID(m.Id);
+            return View(model);
         }
-
-
-        //
-
+    
         public ActionResult _PartialGetSemesterGrid()
         {
+            ViewData["SemesterList"] = unitOfWork.SemesterRepository.Get().ToList();
             ViewBag.Message = "false";
             return PartialView();
         }
-        public ActionResult SelectSemester(String GoToSemesterID)
+        public ActionResult _PartialGoToSemester()
         {
-            Semester model = new Semester();
-            
-           return RedirectToAction("Indxex", model);
+            return PartialView();   
         }
-
-        //
-        // GET: /Semester/Details/5
-
+        public ActionResult SelectSemester(Semester m)
+        {
+            Semester model = unitOfWork.SemesterRepository.GetByID(m.Id);
+            
+           return RedirectToAction("Index", model);
+        }
+              
         public ActionResult Details(int id)
         {
             return View();
         }
-
-        //
-        // GET: /Semester/Create
+              
 
         public ActionResult Create()
         {
@@ -53,10 +54,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
-        //
-        // POST: /Semester/Create
-
-        [HttpPost]
+       [HttpPost]
         public ActionResult Create(Semester model)
         {
             ViewBag.Message = "true";
@@ -118,16 +116,11 @@ namespace CollaborativeLearning.WebUI.Controllers
                                       
             return PartialView();
         }
-        //
-        // GET: /Semester/Edit/5
 
         public ActionResult Edit(int id)
         {
             return View();
         }
-
-        //
-        // POST: /Semester/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -144,17 +137,13 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
         }
 
-        //
-        // GET: /Semester/Delete/5
-
+  
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        //
-        // POST: /Semester/Delete/5
-
+  
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -196,6 +185,25 @@ namespace CollaborativeLearning.WebUI.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult _PartialSelectScenarios(int id) {
+            ViewBag.ID = id;
+            var s = unitOfWork.ScenarioRepository.Get();
+            ViewBag.AllScenarios = s;
+            return PartialView();
+        }
+        public ActionResult AddSceneriosToSemester(int SemesterID, string[] ScenarioMultiSelect)
+        {
+            var semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            foreach (var item in ScenarioMultiSelect)
+            {
+                var s = unitOfWork.ScenarioRepository.GetByID(int.Parse(item));
+                semester.Scenarios.Add(s);
+            }
+            unitOfWork.Save();
+            ViewBag.ID = SemesterID;
+            ViewBag.AllScenarios = unitOfWork.ScenarioRepository.Get();
+            return PartialView();
+        }
 
     }
 }
