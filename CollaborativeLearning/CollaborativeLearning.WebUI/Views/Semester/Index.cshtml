@@ -3,6 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SemesterLayout.cshtml";
 }
+@section BreadCrump{
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
+    <li class="active">@Model.semesterName</li>
+}
 @section Header{
     <div class="page-header" style="margin: -20px 0 20px;">
         @{
@@ -21,14 +26,8 @@
          }
     </div>
 }
-@section BreadCrump{
 
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
-    <li class="active">@Model.semesterName</li>
-
-}
-
+<br />
 
 <ul class="nav nav-tabs">
     <li><a href="#Groups" data-toggle="tab">Groups</a></li>
@@ -44,25 +43,22 @@
     <div class="tab-pane clearfix" id="Groups">
         Groups
     </div>
+    <br />
     <div class="tab-pane active" id="scenarios">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Used Scenarios</h3>
             </div>
             <div class="panel-body" id="scenartioTable">
-                
                 @Html.Action("_PartialGetScenariosBySemester", "Scenario", new { id = Model.Id })
-
             </div>
             <div class="panel-body">
                 @Html.Action("_PartialSelectScenarios", "Semester", new { id = Model.Id })
             </div>
-
         </div>
     </div>
-    <div class="tab-pane active" id="Students">
+    <div class="tab-pane" id="Students">
         Students
-
     </div>
     <div class="tab-pane clearfix" id="Submitted">
         Submitted

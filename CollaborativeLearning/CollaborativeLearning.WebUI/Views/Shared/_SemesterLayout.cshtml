@@ -57,15 +57,14 @@
                 <div class="thumbnail">
                     <div class="caption-full">
                         @RenderSection("featured", required: false)
+                        <ol class="breadcrumb">
+                            @RenderSection("BreadCrump", false)
+                        </ol>
+                        <br />
                         <h2>
                             @RenderSection("Header", false)
-                            
                         </h2>
                         <section id="main">
-                            <ol class="breadcrumb">
-                                @RenderSection("BreadCrump", false)
-
-                            </ol>
                             @RenderBody()
                         </section>
                     </div>

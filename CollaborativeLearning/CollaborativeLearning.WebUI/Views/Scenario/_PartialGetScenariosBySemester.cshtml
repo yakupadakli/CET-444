@@ -2,39 +2,31 @@
 
 
 @{
-
     if (Model.Count != 0)
     {
-        <table class="table-striped">
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
             <thead>
                 <tr>
-                    <td width="15%">
-                        ID
+                    <td width="30%">Scenario Name
                     </td>
-                    <td width="30%">
-                        Scenario Name
+                    <td width="30%">Description
                     </td>
-                    <td width="30%">
-                        Description
+                    <td width="15%">Group Count
                     </td>
-                    <td width="15%">
-                        group count
-                    </td>
-                    <td width="15%">
-                        Action
+                    <td width="15%">Action
                     </td>
                 </tr>
             </thead>
-            <tbody class="table-striped">
+            <tbody>
                 @foreach (var item in Model)
                 {
-
                     <tr>
                         <td>
-                           <a href="@Url.Action("Scenario","Semester",new {id=item.Id})">@item.Id</a> 
-                        </td>
-                        <td>
-                            @item.Name
+                            @*@Ajax.BeginForm("Show"){
+                            
+                            }*@
+                            <a href="@Url.Action("Scenario", "Semester", new { id = item.Id })">@item.Name</a>
                         </td>
                         <td>
                             @item.ShortDescription
@@ -43,13 +35,16 @@
                             @item.Groups.Count()
                         </td>
                         <td>
-                           <a>Remove</a>
+                            <a href="@Url.Action("Remove", "Semester", new { id = item.Id })" class="btn btn-danger btn-sm">
+                                <span class='glyphicon glyphicon-remove'></span>
+                                Remove
+                            </a>
                         </td>
                     </tr>
-
                 }
             </tbody>
         </table>
+    </div>
     }
     else
     {
