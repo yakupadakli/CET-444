@@ -52,13 +52,15 @@
                     <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
                     <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
                 </div>
-
-
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
                     <div class="caption-full">
                         @RenderSection("featured", required: false)
+                        <h2>
+                            @RenderSection("Header", false)
+                            
+                        </h2>
                         <section id="main">
                             <ol class="breadcrumb">
                                 @RenderSection("BreadCrump", false)

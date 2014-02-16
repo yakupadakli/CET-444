@@ -3,14 +3,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SemesterLayout.cshtml";
 }
-<div class="page-header">
-    <h3> @Model.semesterName</h3>
-</div>
+@section Header{
+    <div class="page-header" style="margin: -20px 0 20px;">
+        @{
+            if (Model.semester == 1)
+            {
+                <h3>Güz - @Model.year Dönemi  </h3>        
+            }
+            else if (Model.semester == 2)
+            {
+                <h3>Bahar - @Model.year Dönemi</h3>        
+            }
+            else if (Model.semester == 3)
+            {
+                <h3>Yaz - @Model.year Dönemi</h3>        
+            }
+         }
+    </div>
+}
 @section BreadCrump{
-<li>@Html.ActionLink("Home", "Index", "Home")</li>
-<li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
-<li class="active">@Model.semesterName</li>
-    }
+
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
+    <li class="active">@Model.semesterName</li>
+
+}
 
 
 <ul class="nav nav-tabs">
