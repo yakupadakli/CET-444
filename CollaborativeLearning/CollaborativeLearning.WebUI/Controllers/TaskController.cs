@@ -14,20 +14,34 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: /Task/
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult _PartialStudentTask(int id)
         {
             ViewBag.id = id;
-            return PartialView();
+            IEnumerable<Task> Tasks;
+            Tasks = GetTask(id);
+            //return Json(Tasks, JsonRequestBehavior.AllowGet);
+
+            return PartialView(Tasks);
+        }
+        private IEnumerable<Task> GetTask(int? id)
+        {
+            IEnumerable<CollaborativeLearning.Entities.Task> tasks;
+            
+            if (id.HasValue)
+            {
+                tasks = unitOfWork.ScenarioRepository.GetByID(id).Tasks.OrderByDescending(t => t.RegDateTime);
+            }
+            else
+            {
+                tasks = unitOfWork.TaskRepository.Get().OrderByDescending(t => t.RegDateTime);
+            }
+
+            return tasks;
         }
         public ActionResult _PartialTaskCreate(int? scenarioId)
         {
             if (scenarioId != null)
-                ViewBag.scenarioId = scenarioId;
+                TempData["scenarioId"] = scenarioId;
             return PartialView();
         }
 
@@ -35,119 +49,100 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
-        public ActionResult _PartialTaskCreate(Task task)
+        public JsonResult _PartialTaskCreate(Task task, int? scenarioId)
         {
             try
             {
-                //if (task != null)
-                //{
-                //    task.RegUserId = HelperController.GetCurrentUserId();
-                //    task.RegDateTime = DateTime.Now;
-                //    unitOfWork.TaskRepository.Insert(task);
-                //    unitOfWork.Save();
+                if (task != null)
+                {
+                    task.RegUserId = HelperController.GetCurrentUserId();
+                    task.RegDateTime = DateTime.Now;
+                    unitOfWork.TaskRepository.Insert(task);
+                    unitOfWork.Save();
 
-                //    if(ViewBag.scenarioId != null)
-                //    {
-                //        unitOfWork = new UnitOfWork();
-                //        Scenario s = unitOfWork.ScenarioRepository.GetByID(ViewBag.scenarioId);
-                //        unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
-                //        unitOfWork.Save();
-                //        return RedirectToAction("Details", "Scenario",ViewBag.scenarioId);
-                //    }
-                //    else
-                //        return RedirectToAction("Details", "Scenario");
-                //}
+                    if (TempData["scenarioId"] != null )
+                    {
+                        unitOfWork = new UnitOfWork();
+                        Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
+                        unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
+                        unitOfWork.Save();
+                        //return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
+                        IEnumerable<Task> Tasks;
+                        Tasks = GetTask((int)TempData["scenarioId"]);
+                        return Json(unitOfWork.TaskRepository.Get().Select(a=>a.TaskName), JsonRequestBehavior.AllowGet);
+                    }
+                    //else
+                    //    return RedirectToAction("Index", "Scenario");
+                }
             }
             catch
             {
-                return View();
+                //return View();
             }
-            return PartialView(task);
+
+            IEnumerable<Task> Taskdd = GetTask((int)TempData["scenarioId"]);
+            return Json(Taskdd, JsonRequestBehavior.AllowGet);
         }
-        //
-        // GET: /Task/Details/5
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /Task/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Task/Create
-
-        [HttpPost]
-        public ActionResult Create(TaskController collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Task/Edit/5
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Task/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, TaskController collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        
         //
         // GET: /Task/Delete/5
 
         public ActionResult Delete(int id)
         {
-            return View();
+            unitOfWork.TaskRepository.Delete(id);
+            unitOfWork.Save();
+            if (TempData["scenarioId"] != null)
+                return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
+            return RedirectToAction("Index","Scenario");
+        }
+
+
+        [HttpGet]
+        public ActionResult _PartialTaskUpdate(int id, int scenarioId)
+        {
+            if (id != null)
+            {
+                Task task = unitOfWork.TaskRepository.GetByID(id);
+                if (scenarioId != null)
+                    TempData["scenarioId"] = scenarioId;
+                return PartialView(task);
+            }
+            return RedirectToAction("Index","Scenario");
         }
 
         //
-        // POST: /Task/Delete/5
+        // POST: /Scenario/Create
 
         [HttpPost]
-        public ActionResult Delete(int id, TaskController collection)
+        public ActionResult _PartialTaskUpdate(Task task)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (task != null)
+                {
+                    Task t = unitOfWork.TaskRepository.GetByID(task.Id);
 
-                return RedirectToAction("Index");
+                    t.TaskName = task.TaskName;
+                    t.Content = task.Content;
+
+                    unitOfWork.TaskRepository.Update(t);
+                    unitOfWork.Save();
+                    if (TempData["scenarioId"] != null)
+                    {
+                        int id = (int)TempData["scenarioId"];
+                        IEnumerable<Task> Tasks;
+                        Tasks = GetTask(id);
+                        //return Json(Tasks, JsonRequestBehavior.AllowGet);
+                        return PartialView();
+                    }
+                    return RedirectToAction("Index", "Scenario");
+                }
             }
             catch
             {
-                return View();
+                return PartialView(task);
             }
+            return PartialView(task);
         }
     }
 }

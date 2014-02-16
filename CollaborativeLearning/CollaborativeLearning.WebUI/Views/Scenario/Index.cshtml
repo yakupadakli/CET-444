@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Detail";
+}
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#task" data-toggle="tab">Student Tasks</a></li>
+  <li><a href="#action" data-toggle="tab">Action Plan</a></li>
+  <li><a href="#resources" data-toggle="tab">Resources</a></li>
+  <li><a href="#works" data-toggle="tab">Submited Works</a></li>
+  <li><a href="#feedback" data-toggle="tab">Mento Feedbacks</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="task">
+      <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="btn-group ">
+                    <button type="button" class="btn-xs btn-success" id="taskAdd">
+                        <span class="glyphicon glyphicon-plus"></span> Add Task
+                    </button>
+                    <button type="button" class="btn-xs btn-danger right" id="taskRemove" hidden="false">
+                        <span class="glyphicon glyphicon-remove"></span> Close
+                    </button>
+                </div>
+                <div id="addPanel" hidden="false" style="padding-bottom:10px">
+                    @Html.Action("_PartialTaskCreate", "Task", new {scenarioId = ViewBag.scenarioId})
+                </div>      
+                
+            </div>
+            
+        </div>
+        <div id="myPartialViewDiv">
+        @Html.Action("_PartialStudentTask", "Task", new {scenarioId = ViewBag.scenarioId})
+            </div>
+  </div>
+  <div class="tab-pane clearfix" id="action">
+      <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="btn-group ">
+                    <button type="button" class="btn-xs btn-success" id="actionPlanAdd">
+                        <span class="glyphicon glyphicon-plus"></span> Add Action Plan
+                    </button>
+                    <button type="button" class="btn-xs btn-danger right" id="actionPlanRemove" hidden="false">
+                        <span class="glyphicon glyphicon-remove"></span> Close
+                    </button>
+                </div>
+                <div id="addActionPlanPanel" hidden="false" style="padding-bottom:10px">
+                    @Html.Action("_PartialActionPlanCreate", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
+                </div>   
+            </div>
+        </div>
+        
+        @Html.Action("_PartialActionPlan", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
+  </div>
+  <div class="tab-pane" id="resources">
+
+      @Html.Action("_PartialResources", "Scenario")
+
+  </div>
+  <div class="tab-pane" id="works">
+      <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="btn-group ">
+                    <button type="button" class="btn-xs btn-success" id="workAdd">
+                        <span class="glyphicon glyphicon-plus"></span> Add Submited Work
+                    </button>
+                    <button type="button" class="btn-xs btn-danger right" id="workRemove" hidden="false">
+                        <span class="glyphicon glyphicon-remove"></span> Close
+                    </button>
+                </div>
+                <div id="addWorkPanel" hidden="false" style="padding-bottom:10px">
+                    @Html.Action("_PartialWorkCreate", "Work", new {scenarioId = ViewBag.scenarioId})
+                </div>      
+                
+            </div>
+            
+        </div>
+        
+        @Html.Action("_PartialWork", "Work", new {scenarioId = ViewBag.scenarioId})
+
+  </div>
+  <div class="tab-pane" id="feedback">
+      @Html.Action("_PartialFeedbacks", "Scenario")
+
+  </div>
+</div>
+
+<script>
+    $("#taskAdd").click(function () {
+        $("#addPanel").show(100, function () {
+            $("#taskAdd").hide(100);
+            $("#taskRemove").show(100);
+        });
+    });
+    $("#taskRemove").click(function () {
+        $("#addPanel").hide(100, function () {
+            $("#taskRemove").hide(100);
+            $("#taskAdd").show(100);
+        });
+    });
+    $("#actionPlanAdd").click(function () {
+        $("#addActionPlanPanel").show(100, function () {
+            $("#actionPlanAdd").hide(100);
+            $("#actionPlanRemove").show(100);
+        });
+    });
+    $("#actionPlanRemove").click(function () {
+        $("#actionPlanPanel").hide(100, function () {
+            $("#actionPlanRemove").hide(100);
+            $("#actionPlanAdd").show(100);
+        });
+    });
+    $("#workAdd").click(function () {
+        $("#addWorkPanel").show(100, function () {
+            $("#workAdd").hide(100);
+            $("#workRemove").show(100);
+        });
+    });
+    $("#workRemove").click(function () {
+        $("#addWorkPanel").hide(100, function () {
+            $("#workRemove").hide(100);
+            $("#workAdd").show(100);
+        });
+    });
+
+    function searchAdmin() {
+        alert("geldi");
+        var URL = "Task/_PartialStudentTask";
+
+        $.get(URL, function (data) {
+            $("#myPartialViewDiv").html(data);
+        })
+    }
+</script>

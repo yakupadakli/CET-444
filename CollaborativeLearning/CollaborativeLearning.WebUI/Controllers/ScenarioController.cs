@@ -15,16 +15,7 @@ namespace CollaborativeLearning.WebUI.Controllers
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
 
-        //
-        // GET: /Scenario/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
         
-        //
-
         public ActionResult _PartialGetScenarioGrid()
         {
             return PartialView();
@@ -57,9 +48,9 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /Scenario/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Index(int id)
         {
-
+            ViewBag.scenarioId = id;
             return View();
         }
 
