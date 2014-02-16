@@ -14,6 +14,38 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: /Task/
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult TaskAjaxHandler()
+        {
+            var results = from task in unitOfWork.TaskRepository.Get()
+                          select new
+                          {
+                              Id = task.Id,
+                              TaskName = task.TaskName,
+                              Content = task.Id,
+                              ScenariosCount = task.Scenarios.Count(),
+                              Action = task.Id
+                          };
+
+
+
+            return Json(new
+            {
+                iTotalRecords = results.Count(),
+                iTotalDisplayRecords = results.Count(),
+                aaData = results
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult _PartialTaskShow(int id)
+        {
+            Task model = unitOfWork.TaskRepository.GetByID(id);
+            return PartialView(model);
+        }
+        
         public ActionResult _PartialStudentTask(int id)
         {
             ViewBag.id = id;
@@ -98,7 +130,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
 
         [HttpGet]
-        public ActionResult _PartialTaskUpdate(int id, int scenarioId)
+        public ActionResult _PartialTaskUpdate(int id, int? scenarioId = null)
         {
             if (id != null)
             {
