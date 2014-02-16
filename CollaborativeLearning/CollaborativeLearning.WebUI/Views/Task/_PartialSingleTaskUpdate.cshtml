@@ -1,0 +1,72 @@
+﻿@model CollaborativeLearning.Entities.Task
+
+
+@using (Ajax.BeginForm("_PartialTaskUpdate", "Task", new AjaxOptions { HttpMethod = "POST" }))
+{
+    <div class="modal-body">
+
+        <section id="UpdateTaskForm">
+
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(m=>m.Id)
+            <fieldset>
+                <table>
+                    <tr>
+                        <td width="100">
+                            @Html.LabelFor(m => m.TaskName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.TaskName)
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(m => m.TaskName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Content)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Content)
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(m => m.Content)
+                        </td>
+                    </tr>
+                                                               
+                </table>
+            </fieldset>
+
+
+        </section>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Task</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    
+    </div>
+}
+        
+<script>
+    $(document).ready(function ()
+    {
+        $("#UpdateTaskSuccess").hide();
+        $("#UpdateTaskFailure").hide();
+        
+    });
+    function UpdateTaskSuccess() {
+        alert("success");
+     }
+    function UpdateTaskFailure() {
+        alert("fail");
+    }
+
+</script>
