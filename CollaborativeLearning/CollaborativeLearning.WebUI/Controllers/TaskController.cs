@@ -125,9 +125,14 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             if (TempData["scenarioId"] != null)
                 return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-            return RedirectToAction("Index","Scenario");
+            return RedirectToAction("Index","Task");
         }
-
+        [HttpGet]
+        public ActionResult _PartialSingleTaskUpdate(int id)
+        {
+            Task task = unitOfWork.TaskRepository.GetByID(id);
+            return PartialView(task);
+        }
 
         [HttpGet]
         public ActionResult _PartialTaskUpdate(int id, int? scenarioId = null)
@@ -165,9 +170,9 @@ namespace CollaborativeLearning.WebUI.Controllers
                         IEnumerable<Task> Tasks;
                         Tasks = GetTask(id);
                         //return Json(Tasks, JsonRequestBehavior.AllowGet);
-                        return PartialView();
+                        return RedirectToAction("Index", "Scenario", new {id= id });
                     }
-                    return RedirectToAction("Index", "Scenario");
+                    return RedirectToAction("Index", "Task");
                 }
             }
             catch
