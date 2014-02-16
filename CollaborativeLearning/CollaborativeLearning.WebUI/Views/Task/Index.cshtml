@@ -1,0 +1,122 @@
+﻿@model CollaborativeLearning.Entities.Task
+ <table id="task" class="display clearfix">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Content</th>
+                <th>Scenarios Count</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="clearfix"> 
+        </tbody>
+    </table>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var taskTable = $('#task').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "Task/TaskAjaxHandler",
+            "aoColumns": [
+                    
+                    {"mData": "TaskName"},
+                    {
+                        "mData": "Content",
+                        "fnRender": function (oObj) {
+                            return "<a href='#' id='" + oObj.aData.Id + "' class='contentShow btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#modal_contentShow'>" +
+                                      "<span class='glyphicon glyphicon-eye-open'></span> Show Content" +
+                                    "</a>";
+                        }
+                    },
+                    { "mData": "ScenariosCount" },
+                    {
+                        "mData": "Action",
+                        "fnRender": function (oObj) {
+                            return "<a href='#' id='" + oObj.aData.Id + "' class='taskEdit btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#modal_taskUpdate'>" +
+                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
+                                    "</a>" +
+                                    "<a href='../Task/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
+                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
+                                    "</a>";
+                        }
+                    }
+            ],
+            "oTableTools": {
+                "sRowSelect": "single",
+
+                "fnRowSelected": function ( node ) {
+                    alert("Clicked");
+                }
+            }   
+        });
+       
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function() {
+            $(".taskEdit").click(function () {
+                $.ajax({
+                    url: "/Task/_PartialTaskUpdate/" + $(this).attr('id')
+                })
+                .success(function (result) {
+                    $("#editTaskPartial").html(result);
+                });
+            });
+            $(".contentShow").click(function () {
+                $.ajax({
+                    url: "/Task/_PartialTaskShow/" + $(this).attr('id')
+                })
+                .success(function (result) {
+                    $("#showTaskPartial").html(result);
+                });
+            });
+
+        }, 2000);
+    });
+      
+</script>
+
+<script type="text/javascript">
+function confirm_click()
+{
+    return confirm("Are you sure to delete this task?");
+}
+
+</script>
+
+
+
+<div class="modal fade" id="modal_taskUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Task Update</h4>
+            </div>
+          <div id="editTaskPartial"class="modal-body">
+         
+          </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_contentShow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="showTaskPartial"class="modal-body">
+                
+            </div>
+      
+    </div>
+  </div>
+</div>
