@@ -7,7 +7,7 @@
   <li><a href="#action" data-toggle="tab">Action Plan</a></li>
   <li><a href="#resources" data-toggle="tab">Resources</a></li>
   <li><a href="#works" data-toggle="tab">Submited Works</a></li>
-  <li><a href="#feedback" data-toggle="tab">Mento Feedbacks</a></li>
+  @*<li><a href="#feedback" data-toggle="tab">Mento Feedbacks</a></li>*@
 </ul>
 
 <!-- Tab panes -->
@@ -19,9 +19,10 @@
                     <button type="button" class="btn-xs btn-success" id="taskAdd">
                         <span class="glyphicon glyphicon-plus"></span> Add Task
                     </button>
-                    <button type="button" class="btn-xs btn-danger right" id="taskRemove" hidden="false">
+                    <button type="button" class="btn-xs btn-danger" id="taskRemove" hidden="false">
                         <span class="glyphicon glyphicon-remove"></span> Close
                     </button>
+                     - @Html.ActionLink("See All Tasks","Index","Task")
                 </div>
                 <div id="addPanel" hidden="false" style="padding-bottom:10px">
                     @Html.Action("_PartialTaskCreate", "Task", new {scenarioId = ViewBag.scenarioId})
@@ -80,10 +81,10 @@
         @Html.Action("_PartialWork", "Work", new {scenarioId = ViewBag.scenarioId})
 
   </div>
-  <div class="tab-pane" id="feedback">
+  @*<div class="tab-pane" id="feedback">
       @Html.Action("_PartialFeedbacks", "Scenario")
 
-  </div>
+  </div>*@
 </div>
 
 <script>

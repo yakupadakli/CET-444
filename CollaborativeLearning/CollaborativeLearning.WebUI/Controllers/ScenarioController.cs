@@ -18,9 +18,19 @@ namespace CollaborativeLearning.WebUI.Controllers
         
         public ActionResult _PartialGetScenarioGrid()
         {
+            ViewData["ScenarioList"] = unitOfWork.ScenarioRepository.Get().ToList();
             return PartialView();
         }
+        public ActionResult _PartialGoToScenario()
+        {
+            return PartialView();
+        }
+        public ActionResult SelectScenario(Scenario m)
+        {
+            Scenario model = unitOfWork.ScenarioRepository.GetByID(m.Id);
 
+            return RedirectToAction("Index", new { id = model.Id });
+        }
         public ActionResult ScenarioAjaxHandler()
         {
             var results = from scenario in unitOfWork.ScenarioRepository.Get()
@@ -48,8 +58,10 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /Scenario/Details/5
 
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id=null)
         {
+            if (id == null)
+                return RedirectToAction("Index","Home");
             ViewBag.scenarioId = id;
             return View();
         }

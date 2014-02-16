@@ -16,6 +16,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Index()
         {
+            TempData["scenarioId"] = null;
             return View();
         }
         public ActionResult TaskAjaxHandler()
@@ -81,7 +82,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
-        public JsonResult _PartialTaskCreate(Task task, int? scenarioId)
+        public ActionResult _PartialTaskCreate(Task task, int? scenarioId)
         {
             try
             {
@@ -98,14 +99,15 @@ namespace CollaborativeLearning.WebUI.Controllers
                         Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
                         unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
                         unitOfWork.Save();
-                        //return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-                        IEnumerable<Task> Tasks;
-                        Tasks = GetTask((int)TempData["scenarioId"]);
-                        return Json(unitOfWork.TaskRepository.Get().Select(a=>a.TaskName), JsonRequestBehavior.AllowGet);
+                        return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
+                        //IEnumerable<Task> Tasks;
+                        //Tasks = GetTask((int)TempData["scenarioId"]);
+                        //return Json(unitOfWork.TaskRepository.Get().Select(a=>a.TaskName), JsonRequestBehavior.AllowGet);
                     }
                     //else
-                    //    return RedirectToAction("Index", "Scenario");
+                    return RedirectToAction("Index", "Task");
                 }
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

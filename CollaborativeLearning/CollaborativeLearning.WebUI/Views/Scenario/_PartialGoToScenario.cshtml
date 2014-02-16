@@ -1,0 +1,27 @@
+﻿@model CollaborativeLearning.Entities.Scenario
+@{
+    CollaborativeLearning.DataAccess.UnitOfWork uw = new CollaborativeLearning.DataAccess.UnitOfWork();
+    List<SelectListItem> ScenarioList = new List<SelectListItem>();
+    foreach (var item in uw.ScenarioRepository.Get())
+    {
+        ScenarioList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+    }
+   
+}
+
+
+@using (Html.BeginForm("SelectScenario", "Scenario"))
+{
+    @Html.AntiForgeryToken()
+    <div class="input-group">
+        
+        @Html.DropDownListFor(Model => Model.Id, ScenarioList, new { @class = "form-control" })
+        <span class="input-group-addon" style="padding:1px;">
+            <input type="submit" value="GO" class="btn btn-primary btn-sm" />
+        </span>
+    </div><!-- /input-group -->
+}
+
+<script>
+    $("#GoToScenarioID").select2();
+</script>

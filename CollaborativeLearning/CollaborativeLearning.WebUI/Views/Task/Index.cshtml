@@ -65,7 +65,7 @@
         setTimeout(function() {
             $(".taskEdit").click(function () {
                 $.ajax({
-                    url: "/Task/_PartialTaskUpdate/" + $(this).attr('id')
+                    url: "/Task/_PartialSingleTaskUpdate/" + $(this).attr('id')
                 })
                 .success(function (result) {
                     $("#editTaskPartial").html(result);
@@ -103,7 +103,7 @@ function confirm_click()
                 <h4 class="modal-title">Task Update</h4>
             </div>
           <div id="editTaskPartial"class="modal-body">
-         
+         sdsd
           </div>
       
     </div>
