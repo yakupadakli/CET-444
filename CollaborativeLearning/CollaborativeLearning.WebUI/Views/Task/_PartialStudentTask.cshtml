@@ -1,149 +1,53 @@
-﻿@model CollaborativeLearning.Entities.Task
+﻿@model IEnumerable<CollaborativeLearning.Entities.Task>
 @{
     ViewBag.Title = "Tasks";
 }
-<br />
-@if (ViewBag.Message=="true")
+<div id="content">
+@foreach (var item in Model)
 {
-    if (ViewBag.MessageType == "SuccessAddTask")
-    {
-        <text>
-                <div class="alert alert-warning alert-dismissable" id="CreateTaskSuccess">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Well Done!</strong>@ViewBag.Alert
-                </div>
-        </text>
-    }
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <div class="col-lg-4">
+              <div>
+                Task : @item.TaskName
+              </div>
+          </div>
+              <div class="text-right">
+                  <div class="panel-body">
+                    <div class="btn-group ">
+                        <a href='#' class='deneme btn btn-default btn-xs' data-toggle='modal' data-target='#modal_updateTask-@item.Id'>
+                            <span class='glyphicon glyphicon-pencil'></span> Edit 
+                        </a>
+                        @*<button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_updateTask-@item.Id">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>*@
+                        <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-default btn-xs'>
+                           <span class='glyphicon glyphicon-remove'></span> Delete </a>
+                    </div>
+                    <div id="UpdateTaskForm-@item.Id">
+                        @Html.Action("_PartialTaskUpdate", "Task", new {id=item.Id,scenarioId = TempData["scenarioId"] })
+                    </div> 
+                  </div> 
+              </div>
+      </div>
+      <div class="panel-body">
+          Task : @item.Content
+      </div>
+    </div>       
     
-    if (ViewBag.MessageType == "FailureAddTask")
-    {
-        <text>
-            <div class="alert alert-warning alert-dismissable" id="CreateTaskFailure">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong>Oh Snap!</strong> @ViewBag.Alert
-            </div>
-
-        </text>
-    }
 }
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="btn-group ">
-            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_taskCreate">
-                <span class="glyphicon glyphicon-plus"></span> Add Task
-            </button>
-        </div>
-        
-      <div id="CreateTaskPartialDiv">
-          @Html.Action("_PartialTaskCreate", "Task", new {id = ViewBag.id})
-      </div>  
-     
-    </div>
 </div>
-<br />
-    @*<table id="scenario" class="display clearfix">
-        <thead>
-            <tr>
-                <th>Scenario Name</th>
-                <th>Short Description</th>
-                <th>Is Active</th>
-                <th>Resource Count</th>
-                <th>Semester Count</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody class="clearfix"> 
-        </tbody>
-    </table>*@
-
-
-
-
-@*<script>
-
-    $(document).ready(function () {
-
-        var scenarioTable = $('#scenario').dataTable({
-            "bServerSide": true,
-            "sAjaxSource": "Scenario/ScenarioAjaxHandler",
-            "aoColumns": [
-                    
-                    {"mData": "Name",
-                    "fnRender": function (oObj) {
-                        return "<a href='../Scenario/Details/" + oObj.aData.Id + "' class=' btn-default btn-xs'>" +
-                                      oObj.aData.Name +
-                                    "</a>";
-                    }
-                    },
-                    { "mData": "ShortDescription" },
-                    { "mData": "isActive" },
-                    { "mData": "ResourcesCount" },
-                    { "mData": "SemestersCount" },
-                    {
-                        "mData": "Action",
-                        "fnRender": function (oObj) {
-                            return "<a href='#' id='"+ oObj.aData.Id +"' class='deneme btn btn-default btn-xs' " +
-                                    "data-toggle='modal' data-target='#myModal'>" +
-                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
-                                    "</a>" +
-                                    "<a href='../Scenario/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
-                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
-                                    "</a>";
-                        }
-                    }
-            ],
-            "oTableTools": {
-                "sRowSelect": "single",
-
-                "fnRowSelected": function ( node ) {
-                    alert("Clicked");
-                }
-            }   
-        });
-       
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        setTimeout(function() {
-            $(".deneme").click(function () {
-                console.log("oldu");
-                $.ajax({
-                    url: "/Scenario/_PartialEdit/" + $(this).attr('id')
-                })
-                .success(function (result) {
-                    $("#editPartial").html(result);
-                });
-            });
-
-        }, 2000);
-    });
-      
-</script>
-
 <script type="text/javascript">
-function confirm_click()
-{
-    return confirm("Are you sure to delete this scenario?");
-}
+    function confirm_click()
+    {
+        return confirm("Are you sure to delete this task? Note: This task can be assigned more than one scenario.");
+    }
+
+    function success(result) {
+        $("#_PartialTaskUpdate").html(result);
+        alert("geldi");
+        reloadDisplayAverage();
+    }
 
 </script>
-
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Scenario Update</h4>
-      </div>
-      <div id="editPartial"class="modal-body">
-         
-      </div>
-      
-    </div>
-  </div>
-</div>*@
 

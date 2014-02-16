@@ -70,7 +70,7 @@
                     
                     {"mData": "Name",
                     "fnRender": function (oObj) {
-                        return "<a href='../Scenario/Details/" + oObj.aData.Id + "' class=' btn-default btn-xs'>" +
+                        return "<a href='../Scenario/Index/" + oObj.aData.Id + "' class=' btn-default btn-xs'>" +
                                       oObj.aData.Name +
                                     "</a>";
                     }
@@ -82,8 +82,8 @@
                     {
                         "mData": "Action",
                         "fnRender": function (oObj) {
-                            return "<a href='#' id='"+ oObj.aData.Id +"' class='deneme btn btn-default btn-xs' " +
-                                    "data-toggle='modal' data-target='#myModal'>" +
+                            return "<a href='#' id='"+ oObj.aData.Id +"' class='scenarioEdit btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#modal_scenarioUpdate'>" +
                                       "<span class='glyphicon glyphicon-pencil'></span> Edit" +
                                     "</a>" +
                                     "<a href='../Scenario/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
@@ -107,13 +107,12 @@
 <script>
     $(document).ready(function () {
         setTimeout(function() {
-            $(".deneme").click(function () {
-                console.log("oldu");
+            $(".scenarioEdit").click(function () {
                 $.ajax({
                     url: "/Scenario/_PartialEdit/" + $(this).attr('id')
                 })
                 .success(function (result) {
-                    $("#editPartial").html(result);
+                    $("#editScenarioPartial").html(result);
                 });
             });
 
@@ -132,16 +131,16 @@ function confirm_click()
 
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Scenario Update</h4>
-      </div>
-      <div id="editPartial"class="modal-body">
+<div class="modal fade" id="modal_scenarioUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Scenario Update</h4>
+            </div>
+          <div id="editScenarioPartial"class="modal-body">
          
-      </div>
+          </div>
       
     </div>
   </div>

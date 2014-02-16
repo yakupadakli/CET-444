@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CollaborativeLearning.Entities.ActionPlan>
+@{
+    ViewBag.Title = "ActionPlans";
+}
+@foreach (var item in Model)
+{
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <div class="col-lg-4">
+              <div>
+                Action Plan @item.Id
+              </div>
+          </div>
+              <div class="text-right">
+                  <div class="panel-body">
+                    <div class="btn-group ">
+                        <a href='#' class='deneme btn btn-default btn-xs' data-toggle='modal' data-target='#modal_updateActionPlan-@item.Id'>
+                            <span class='glyphicon glyphicon-pencil'></span> Edit 
+                        </a>
+                        @*<button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_updateActionPlan-@item.Id">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>*@
+                        <a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-default btn-xs'>
+                           <span class='glyphicon glyphicon-remove'></span> Delete </a>
+                    </div>
+                    <div id="UpdateActionPlanForm-@item.Id">
+                        @Html.Action("_PartialActionPlanUpdate", "ActionPlan", new {id=item.Id,scenarioId = TempData["scenarioId"] })
+                    </div> 
+                  </div> 
+              </div>
+      </div>
+      <div class="panel-body">
+          ActionPlan : @item.Content
+          <br />
+          
+          Is Active : @item.isActive
+      </div>
+    </div>       
+    
+}
+
+<script type="text/javascript">
+function confirm_click()
+{
+    return confirm("Are you sure to delete this Action Plan? Note: This Action Plan can be assigned more than one scenario.");
+}
+
+</script>

@@ -1,0 +1,23 @@
+﻿@model CollaborativeLearning.Entities.ActionPlan
+@using (Ajax.BeginForm("_PartialActionPlanCreate", "ActionPlan", new AjaxOptions { HttpMethod = "POST" }, new { scenarioId = ViewBag.scenarioId }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            @Html.Label("Action Plan")
+
+        </div>
+        <div class="panel-body">
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", placeholder = "Content" }) @Html.ValidationMessageFor(m => m.Content)
+        </div>
+        <div class="panel-body">
+            @Html.Label("Is Active") : @Html.CheckBoxFor(m => m.isActive) @Html.ValidationMessageFor(m => m.isActive)
+        </div>
+    </div>   
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Action Plan</button>
+                    
+                </div>
+}
