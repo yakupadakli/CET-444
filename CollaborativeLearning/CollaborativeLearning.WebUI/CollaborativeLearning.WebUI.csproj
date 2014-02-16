@@ -1050,6 +1050,9 @@
     <Content Include="Views\ActionPlan\_PartialActionPlan.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanCreate.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanUpdate.cshtml" />
+    <Content Include="Views\Scenario\_PartialGoToScenario.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
