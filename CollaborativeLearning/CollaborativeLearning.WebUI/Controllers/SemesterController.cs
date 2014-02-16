@@ -86,17 +86,18 @@ namespace CollaborativeLearning.WebUI.Controllers
                                    
                         unitOfWork.Save();
 
-
+                        ViewBag.Message = "True";
                         ViewBag.MessageType = "SuccessAddSemester";
                         ViewBag.Alert = "This Semester is added.";
-                        return RedirectToAction("Index","Home");
+                       
                     }
                     else
                     {
                         model = null;
+                        ViewBag.Message = "True";
                         ViewBag.MessageType = "FailureAddSemester";
                         ViewBag.Alert = "This Semester have beed added. You cannot dublicate.";
-                        return RedirectToAction("Index","Home");
+                      
                     }
                     
                     
@@ -104,12 +105,14 @@ namespace CollaborativeLearning.WebUI.Controllers
                 catch
                 {
                     model = null;
+                    ViewBag.Message = "True";
                     ViewBag.MessageType = "FailureAddSemester";
                     ViewBag.Alert = "There is a porblem. Please try again.";
-                    return RedirectToAction("Index", "Home");
+                    return PartialView("_PartialSemesterDataTable");
+
                 }
             }
-            return PartialView();
+            return PartialView("_PartialSemesterDataTable");
 
 
         }
@@ -182,11 +185,12 @@ namespace CollaborativeLearning.WebUI.Controllers
                                    Action = ""
                                });
 
+            var semesterlistOrdered = semesterlist.OrderBy(q => q.Year).ToList();
             return Json(new
             {
                 iTotalRecords = allSemester.Count(),
-                iTotalDisplayRecords = semesterlist.Count(),
-                aaData = semesterlist
+                iTotalDisplayRecords = semesterlistOrdered.Count(),
+                aaData = semesterlistOrdered
             }, JsonRequestBehavior.AllowGet);
         }
 
