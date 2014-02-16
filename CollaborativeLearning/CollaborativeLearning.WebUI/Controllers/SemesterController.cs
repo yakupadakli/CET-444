@@ -15,13 +15,13 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
       
         [Authorize]
-        public ActionResult Index(Semester m)
+        public ActionResult Index(int id)
         {
-            if (m.Id==0)
+            if (id==0)
             {
-                return View("Dashboard");
+                return RedirectToAction("Index", "Home");
             }
-            Semester model = unitOfWork.SemesterRepository.GetByID(m.Id);
+            Semester model = unitOfWork.SemesterRepository.GetByID(id);
             return View(model);
         }
     
@@ -38,8 +38,8 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult SelectSemester(Semester m)
         {
             Semester model = unitOfWork.SemesterRepository.GetByID(m.Id);
-            
-           return RedirectToAction("Index", model);
+
+            return RedirectToAction("Index", new {id=model.Id });
         }
               
         public ActionResult Details(int id)
