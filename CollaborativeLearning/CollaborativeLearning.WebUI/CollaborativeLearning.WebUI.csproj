@@ -1050,6 +1050,9 @@
     <Content Include="Views\ActionPlan\_PartialActionPlan.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanCreate.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanUpdate.cshtml" />
+    <Content Include="Views\Semester\_PartialSemesterDataTable.cshtml" />
+    <Content Include="Views\Shared\_ScenarioLayout.cshtml" />
+    <Content Include="Views\Shared\_GroupLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

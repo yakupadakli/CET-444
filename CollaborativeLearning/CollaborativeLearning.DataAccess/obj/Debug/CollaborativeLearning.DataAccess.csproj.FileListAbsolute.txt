@@ -34,8 +34,6 @@ C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\Collabor
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.dll
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.pdb
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.dll
-C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.dll
-C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.pdb
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.xml
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
