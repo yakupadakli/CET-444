@@ -363,6 +363,7 @@
     <Compile Include="Controllers\SemesterController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -373,9 +374,14 @@
     <Compile Include="Membership\WebSecurity.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\SemesterModels.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\CollaborativeLearning.WebUI.dll" />
+    <Content Include="bin\CollaborativeLearning.WebUI.pdb" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Black\loading.gif" />
@@ -1034,6 +1040,16 @@
     <Content Include="Views\Semester\Dashboard.cshtml" />
     <Content Include="Views\Scenario\_PartialGetScenariosBySemester.cshtml" />
     <Content Include="Views\Semester\_PartialSelectScenarios.cshtml" />
+    <Content Include="Views\Resource\Index.cshtml" />
+    <Content Include="Views\Resource\_PartialAddResource.cshtml" />
+    <Content Include="Views\Resource\_PartialResourceList.cshtml" />
+    <Content Include="Views\Work\_PartialWork.cshtml" />
+    <Content Include="Views\Work\_PartialWorkCreate.cshtml" />
+    <Content Include="Views\Work\_PartialWorkUpdate.cshtml" />
+    <Content Include="Views\Scenario\Index.cshtml" />
+    <Content Include="Views\ActionPlan\_PartialActionPlan.cshtml" />
+    <Content Include="Views\ActionPlan\_PartialActionPlanCreate.cshtml" />
+    <Content Include="Views\ActionPlan\_PartialActionPlanUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
