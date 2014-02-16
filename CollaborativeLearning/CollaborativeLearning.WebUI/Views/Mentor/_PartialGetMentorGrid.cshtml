@@ -4,7 +4,7 @@
 }
 <br />
 
-    <table id="mentor" class="display clearfix">
+    <table id="MentorTable" class="display clearfix">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,7 +24,7 @@
 
     $(document).ready(function () {
 
-        $('#mentor').dataTable({
+        $('#MentorTable').dataTable({
             "bServerSide": true,
             "sAjaxSource": "Mentor/MentorAjaxHandler",
             "aoColumns": [

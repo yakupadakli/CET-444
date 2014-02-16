@@ -5,25 +5,22 @@
     foreach (var item in uw.SemesterRepository.Get())
     {
         SemesterList.Add(new SelectListItem { Text = item.semesterName, Value = item.Id.ToString() });
-	}
+    }
    
 }
 
 
 @using (Html.BeginForm("SelectSemester", "Semester"))
 {
-  <div class="input-group">
+    <div class="input-group">
         
-         @Html.DropDownListFor(Model => Model.Id, SemesterList, new{ @class="form-control"})
-      <span class="input-group-addon">
-          <input type="submit" value="GO">
-      </span>
-       
-             
-      
-
-</div><!-- /input-group -->
+        @Html.DropDownListFor(Model => Model.Id, SemesterList, new { @class = "form-control" })
+        <span class="input-group-addon" style="padding:1px;">
+            <input type="submit" value="GO" class="btn btn-primary btn-sm" />
+        </span>
+    </div><!-- /input-group -->
 }
+
 <script>
     $("#GoToSemesterID").select2();
 </script>

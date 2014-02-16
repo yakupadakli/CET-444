@@ -799,10 +799,13 @@
     <Content Include="Content\select2-3.4.5\select2_locale_vi.js" />
     <Content Include="Content\select2-3.4.5\select2_locale_zh-CN.js" />
     <Content Include="Content\select2-3.4.5\select2_locale_zh-TW.js" />
+    <Content Include="Content\Template\css\bootstrap-formhelpers.min.css" />
     <Content Include="Content\Template\css\bootstrap-responsive.css" />
     <Content Include="Content\Template\css\bootstrap.css" />
     <Content Include="Content\Template\css\style.css" />
     <Content Include="Content\Template\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Template\img\loader.gif" />
+    <Content Include="Content\Template\js\bootstrap-formhelpers.min.js" />
     <Content Include="Content\Template\js\bootstrap.js" />
     <Content Include="Content\Template\js\jquery-1.10.2.js" />
     <Content Include="Global.asax" />
@@ -817,7 +820,6 @@
     <Content Include="Content\select2-3.4.5\release.sh" />
     <Content Include="Content\select2-3.4.5\select2.jquery.json" />
     <Content Include="Content\select2-3.4.5\select2_locale_en.js.template" />
-    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -851,6 +853,9 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.8.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

@@ -114,7 +114,10 @@ namespace CollaborativeLearning.WebUI.Controllers
                 unitOfWork.ScenarioRepository.Update(scenario);
                 unitOfWork.Save();
 
-                return RedirectToAction("Index","Home");
+                return Json(new
+                {
+                    scenario
+                }, JsonRequestBehavior.AllowGet);
             }
             catch
             {

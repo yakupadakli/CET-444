@@ -21,14 +21,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Semester Add</h4>
             </div>
-            @{
-                AjaxOptions ao = new AjaxOptions();
-                ao.HttpMethod = "POST";
-                ao.InsertionMode = InsertionMode.Replace;
-                
-            }
+            @using (Ajax.BeginForm("Create", "Semester", new AjaxOptions
+            {
 
-            @using (Ajax.BeginForm("Create", "Semester", null,ao,null))
+                InsertionMode = InsertionMode.Replace,//target element(#pacientList) will be replace
+                UpdateTargetId = "semesterList"
+
+            }))
             {
                 <div class="modal-body">
 

@@ -28,33 +28,48 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="btn-group ">
-            <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_scenarioCreate">
-                <span class="glyphicon glyphicon-plus"></span> Add Scenario
-            </button>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="span6">
+                    <button type="button" class="btn btn-primary btn-sm" 
+                            data-toggle="modal" data-target="#modal_scenarioCreate">
+                        <span class="glyphicon glyphicon-plus"></span> Add Scenario
+                    </button>
+                </div>
+            </div>
+        
+            <div class="col-lg-6 rightColumn">
+                @Html.Action("_PartialGoToSemester", "Semester")
+            </div>
+        </div>
+        <div class="row">
+            <div id="CreateScenarioPartialDiv">
+                @Html.Action("_PartialCreate", "Scenario")
+            </div>
         </div>
         
-      <div id="CreateScenarioPartialDiv">
-          @Html.Action("_PartialCreate", "Scenario")
-      </div>  
-     
     </div>
 </div>
+
 <br />
-    <table id="scenario" class="display clearfix">
-        <thead>
-            <tr>
-                <th>Scenario Name</th>
-                <th>Short Description</th>
-                <th>Is Active</th>
-                <th>Resource Count</th>
-                <th>Semester Count</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody class="clearfix"> 
-        </tbody>
-    </table>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="ScenarioTable" class="display clearfix">
+            <thead>
+                <tr>
+                    <th>Scenario Name</th>
+                    <th>Short Description</th>
+                    <th>Is Active</th>
+                    <th>Resource Count</th>
+                    <th>Semester Count</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="clearfix"> 
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 
@@ -63,7 +78,7 @@
 
     $(document).ready(function () {
 
-        var scenarioTable = $('#scenario').dataTable({
+        var scenarioTable = $('#ScenarioTable').dataTable({
             "bServerSide": true,
             "sAjaxSource": "Scenario/ScenarioAjaxHandler",
             "aoColumns": [
@@ -146,3 +161,4 @@ function confirm_click()
     </div>
   </div>
 </div>
+

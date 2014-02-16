@@ -8,8 +8,7 @@
 
     <title>CET 314: Computer Networks & Commuication</title>
     <script src="~/Content/Template/js/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+  
 
     <link href="~/Content/Template/css/style.css" rel="stylesheet" />
     <link href="~/Content/Template/css/bootstrap.css" rel="stylesheet" />
@@ -22,6 +21,9 @@
     <script src="~/Content/Datatable/js/jquery.dataTables.min.js"></script>
     <link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
     <script src="~/Content/select2-3.4.5/select2.js"></script>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js"></script>
 </head>
     
     <body>
@@ -36,11 +38,11 @@
 
             <div class="col-md-3">
           
-            <div class="list-group" style="">
-                <a href="@Url.Action("Index","Semester")" class="list-group-item">Semester</a>
-                <a href="@Url.Action("Index","Scenario")" class="list-group-item">Scenario</a>
-                <a href="@Url.Action("Index","Resources")" class="list-group-item">Resources</a>
-                <a href="@Url.Action("Index","Mentors")" class="list-group-item">Mentors</a>
+            <div class="list-group " style="">
+                <a href="#semesters" class="list-group-item active" id="semester"data-toggle="tab" >Semesters</a>
+                <a href="#scenarios" class="list-group-item" id="scenario" data-toggle="tab">Scenario</a>
+                <a href="#resources" class="list-group-item" id="resource" data-toggle="tab">Resources</a>
+                <a href="#mentors" class="list-group-item" id="mentor" data-toggle="tab">Mentors</a>
                 <a href="http://cet.boun.edu.tr" target="_blank" class="list-group-item">Cet Department</a>
             </div>
             </div>
@@ -75,4 +77,51 @@
         
     @RenderSection("scripts", required: false)
     </body>
+    <script>
+        
+        $("#semester").click(function () {
+            $("#semester").addClass("active");
+            $("#scenario").removeClass("active");
+            $("#resource").removeClass("active");
+            $("#mentor").removeClass("active");
+
+            $("#semesters_tab").parent().addClass("active");
+            $("#scenarios_tab").parent().removeClass("active");
+            $("#resources_tab").parent().removeClass("active");
+            $("#mentors_tab").parent().removeClass("active");
+        });
+        $("#scenario").click(function () {
+            $("#semester").removeClass("active");
+            $("#scenario").addClass("active");
+            $("#resource").removeClass("active");
+            $("#mentor").removeClass("active");
+
+            $("#semesters_tab").parent().removeClass("active")
+            $("#scenarios_tab").parent().addClass("active")
+            $("#resources_tab").parent().removeClass("active")
+            $("#mentors_tab").parent().removeClass("active")
+        });
+        $("#resource").click(function () {
+            $("#semester").removeClass("active");
+            $("#scenario").removeClass("active");
+            $("#resource").addClass("active");
+            $("#mentor").removeClass("active");
+
+            $("#semesters_tab").parent().removeClass("active")
+            $("#scenarios_tab").parent().removeClass("active")
+            $("#resources_tab").parent().addClass("active")
+            $("#mentors_tab").parent().removeClass("active")
+        });
+        $("#mentor").click(function () {
+            $("#semester").removeClass("active");
+            $("#scenario").removeClass("active");
+            $("#resource").removeClass("active");
+            $("#mentor").addClass("active");
+
+            $("#semesters_tab").parent().removeClass("active")
+            $("#scenarios_tab").parent().removeClass("active")
+            $("#resources_tab").parent().removeClass("active")
+            $("#mentors_tab").parent().addClass("active")
+        });
+    </script>
 </html>

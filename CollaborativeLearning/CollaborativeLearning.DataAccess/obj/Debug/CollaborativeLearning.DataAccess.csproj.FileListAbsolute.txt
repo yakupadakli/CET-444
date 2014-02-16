@@ -2,8 +2,6 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.pdb
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.dll
-C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.dll
-C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.pdb
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.xml
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.SqlServer.xml

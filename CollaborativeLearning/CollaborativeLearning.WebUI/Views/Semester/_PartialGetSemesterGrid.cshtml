@@ -26,14 +26,13 @@
     }
 }
 
-
-
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-6">
-                <div class="btn-group ">
-                    <button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#modal_semesterCreate">
+                <div class="span6">
+                    <button type="button" class="btn btn-primary btn-sm" 
+                            data-toggle="modal" data-target="#modal_semesterCreate">
                         <span class="glyphicon glyphicon-plus"></span> Add Semester
                     </button>
                 </div>
@@ -42,33 +41,37 @@
                 @Html.Action("_PartialGoToSemester", "Semester")
             </div>
         </div>
-        <div id="CreateSemesterPartialDiv">
-            @Html.Action("_PartialCreate", "Semester")
+        <div class="row">
+            <div id="CreateSemesterPartialDiv">
+                <div class="col-lg-6 rightColumn">
+                    @Html.Action("_PartialCreate", "Semester")
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
 
-<table id="SemesterTable" class="display clearfix">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Semester Name</th>
-            <th>Year</th>
-            <th>Semester</th>
-            <th>Registration Code</th>
-            <th>Mentor Code</th>
-            <th>Group</th>
-            <th>Students</th>
-            <th>Mentors</th>
-            <th>Active</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody class="clearfix"></tbody>
-</table>
-
-
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="SemesterTable" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Semester Name</th>
+                    <th>Registration Code</th>
+                    <th>Mentor Code</th>
+                    <th>Groups Count</th>
+                    <th>Students Count</th>
+                    <th>Mentors Count</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="clearfix"></tbody>
+        </table>
+    </div>
+</div>
+    
 
 <script>
 
@@ -84,9 +87,12 @@
                         "bSearchable": false,
                         "bSortable": false,
                     },
-                     { "mData": "SemesterName" },
-                     { "mData": "Year" },
-                     { "mData": "Semester" },
+                     {
+                         "mData": "SemesterName",
+                         "fnRender": function (oObj) {
+                             return "<a href='/Semester/SelectSemester/" + oObj.aData.Id + "' >" + oObj.aData.SemesterName + "</a>"
+                         }
+                     },
                      { "mData": "Registration" },
                      { "mData": "MentorCode" },
                      { "mData": "Group" },
@@ -109,3 +115,4 @@
         });
     });
 </script>
+

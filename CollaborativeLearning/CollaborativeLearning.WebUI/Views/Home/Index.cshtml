@@ -1,20 +1,48 @@
 ﻿<ul class="nav nav-tabs">
-  <li class="active"><a href="#home" data-toggle="tab">Semester</a></li>
-  <li><a href="#profile" data-toggle="tab">Scenario</a></li>
-  <li><a href="#messages" data-toggle="tab">Resources</a></li>
-  <li><a href="#settings" data-toggle="tab">Mentors</a></li>
+  <li class="active"><a id="semesters_tab" href="#semesters" data-toggle="tab">Semesters</a></li>
+  <li><a id="scenarios_tab" href="#scenarios" data-toggle="tab">Scenarios</a></li>
+  <li><a id="resources_tab" href="#resources" data-toggle="tab">Resources</a></li>
+  <li><a id="mentors_tab" href="#mentors" data-toggle="tab">Mentors</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="home">
-      
+  <div class="tab-pane active" id="semesters">
+      @Html.Action("_PartialGetSemesterGrid", "Semester")
   </div>
-  <div class="tab-pane clearfix" id="profile">
+  <div class="tab-pane clearfix" id="scenarios">
       @Html.Action("_PartialGetScenarioGrid", "Scenario")
   </div>
-  <div class="tab-pane" id="messages">...</div>
-  <div class="tab-pane" id="settings">
+  <div class="tab-pane" id="resources">assas</div>
+  <div class="tab-pane" id="mentors">
       @Html.Action("_PartialGetMentorGrid", "Mentor")
   </div>
 </div>
+
+<script>
+    $("#semesters_tab").click(function () {
+        $("#semester").addClass("active");
+        $("#scenario").removeClass("active");
+        $("#mentor").removeClass("active");
+        $("#resource").removeClass("active");
+    });
+    $("#scenarios_tab").click(function () {
+        $("#semester").removeClass("active");
+        $("#scenario").addClass("active");
+        $("#mentor").removeClass("active");
+        $("#resource").removeClass("active");
+    });
+    $("#resources_tab").click(function () {
+        $("#semester").removeClass("active");
+        $("#scenario").removeClass("active");
+        $("#mentor").removeClass("active");
+        $("#resource").addClass("active");
+    });
+    $("#mentors_tab").click(function () {
+        $("#semester").removeClass("active");
+        $("#scenario").removeClass("active");
+        $("#mentor").addClass("active");
+        $("#resource").removeClass("active");
+    });
+    
+</script>
