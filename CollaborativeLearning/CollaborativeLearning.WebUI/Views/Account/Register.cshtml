@@ -4,125 +4,180 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
+<script src="~/Content/Template/js/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
+
+<link href="~/Content/Template/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+<script src="~/Content/Template/js/bootstrap-formhelpers.min.js"></script>
+
+
  <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-          <h1 class="navbar-brand" style="padding:0px;" >CET 314: Computer Networks & Commuication</h1>
-      </div><!-- /.container -->
-    </nav>
-    <div class="container" style="margin-top: 2%">
+    <div class="container">
+        <h1 class="navbar-brand" style="padding:0px;" >
+            <a href="/">
+                CET 314: Computer Networks & Commuication
+            </a>        
+        </h1>
+    </div><!-- /.container -->
+</nav>
+<div class="container" style="margin-top: 2%">
         
     @using (Html.BeginForm("Register", "Account",
             new { ReturnUrl = ViewBag.ReturnUrl },
             FormMethod.Post, new { @class = "form-horizontal form-signin", @style = "max-width:600px;" }))
-{
-        @Html.ValidationSummary(true, "İşlem başarısız oldu. Lütfen daha sonra tekrar deneyiniz.")
-            @*<form class="form-horizontal form-signin" style="max-width:600px;">*@
-<fieldset>
+    {
+            @Html.ValidationSummary(true, "There has been some errors. Please try again later.")
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Registration Form</legend>
 
-<!-- Form Name -->
-<legend>Registration Form</legend>
+                <!-- Text input-->
+                <div class="control-group">
+                    @Html.LabelFor(m => m.FirsName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.FirsName, new
+                                                            {
+                                                                @class = "input-large form-control",
+                                                                @placeholder = "Enter First Name",
+                                                                required = "required "
+                                                            })
+                        @Html.ValidationMessageFor(m => m.FirsName)
+                    </div>
+                </div>
 
+                <!-- Text input-->
+                <div class="control-group">
+                    @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.LastName, new
+                                                           {
+                                                               @class = "input-large form-control",
+                                                               @placeholder = "Enter Last Name",
+                                                               required = "required "
+                                                           })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.FirsName, new { @class = "control-label" })
-  <div class="controls">
-    @Html.TextBoxFor(m => m.FirsName, new { @class = "input-large form-control", @placeholder = "Enter First Name", required = "required " })
-    @Html.ValidationMessageFor(m => m.FirsName)
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="control-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.UserName, new
+                                                           {
+                                                               @class = "input-large form-control",
+                                                               @placeholder = "Enter Username",
+                                                               required = "required ",
+                                                               @type = "username"
+                                                           })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                </div>
 
-<!-- Text input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-  <div class="controls">
-    @Html.TextBoxFor(m => m.LastName, new { @class = "input-large form-control", @placeholder = "Enter Last Name", required = "required " })
-    @Html.ValidationMessageFor(m => m.LastName)
-  </div>
-</div>
+                <!-- Text input-->
+                <div class="control-group">
+                  @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                  <div class="controls">
+                     @Html.TextBoxFor(m => m.Email, new
+                                                    {
+                                                        @class = "input-large form-control",
+                                                        @placeholder = "Enter Email",
+                                                        required = "required ",
+                                                        @type = "email"
+                                                    })
+                    @Html.ValidationMessageFor(m => m.Email)
+                  </div>
+                </div>
 
-<!-- Text input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
-  <div class="controls">
-    @Html.TextBoxFor(m => m.UserName, new { @class = "input-large form-control", @placeholder = "Enter Username", required = "required ", @type = "username" })
-    @Html.ValidationMessageFor(m => m.UserName)
-  </div>
-</div>
+                <!-- Password input-->
+                <div class="control-group">
+                  @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                  <div class="controls">
+                    @Html.PasswordFor(m => m.Password, new
+                                                           {
+                                                               @class = "input-large form-control",
+                                                               @placeholder = "Enter Password",
+                                                               required = "required "
+                                                           })
+                    @Html.ValidationMessageFor(m => m.Password)
+                    <p class="help-block">Min: 6 characters (Alphanumeric only)</p>
+                  </div>
+                </div>
 
-<!-- Text input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-  <div class="controls">
-     @Html.TextBoxFor(m => m.Email, new { @class = "input-large form-control", @placeholder = "Enter Email", required = "required ", @type ="email" })
-    @Html.ValidationMessageFor(m => m.Email)
-  </div>
-</div>
+                <!-- Password input-->
+                <div class="control-group">
+                  @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                  <div class="controls">
+                      @Html.PasswordFor(m => m.ConfirmPassword, new
+                                                                {
+                                                                    @class = "input-large form-control",
+                                                                    @placeholder = "Enter Confirmation Password",
+                                                                    required = "required "
+                                                                })
+                      @Html.ValidationMessageFor(m => m.ConfirmPassword)    
+                      <p class="help-block"> Min: 6 characters (Alphanumeric only)</p>
+                  </div>
+                </div>
 
-<!-- Password input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-  <div class="controls">
-    @Html.PasswordFor(m => m.Password, new { @class = "input-large form-control", @placeholder = "Enter Password", required = "required ", @type ="password" })
-    @Html.ValidationMessageFor(m => m.Password)
-    <p class="help-block">Min: 6 characters (Alphanumeric only)</p>
-  </div>
-</div>
-
-<!-- Password input-->
-<div class="control-group">
-  @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-  <div class="controls">
-    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input-large form-control", @placeholder = "Enter Confirmation Password", required = "required " })
-    @Html.ValidationMessageFor(m => m.ConfirmPassword)    <p class="help-block"> Min: 6 characters (Alphanumeric only)</p>
-  </div>
-</div>
-
-    <!-- Text input-->
-    <div class="control-group">
-        <label class="control-label" for="registr_code">Phone Number</label>
-        <div class="controls">
-            @Html.TextBoxFor(m=>m.PhoneNumber,new { @class = "input-large form-control", @placeholder = "Enter phone", required = "required ", @type ="phone" })
+                    <!-- Text input-->
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                        <div class="controls">
+                            @*<input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" />*@
+                            @Html.TextBoxFor(m => m.PhoneNumber, new
+                                                                   {
+                                                                       @class = "input-large form-control bfh-phone",
+                                                                       @placeholder = "Enter phone",
+                                                                       required = "required ",
+                                                                       data_format="+90 (ddd) ddd-dddd"
+                                                                   })
           
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="registr_code">Gender</label>
-        <div class="controls">
-           @Html.RadioButtonFor(m => m.Gender,"Male" ) Male
-           @Html.RadioButtonFor(m => m.Gender,"Female")Female
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="registr_code">Gender</label>
+                        <div class="radio">
+                           @Html.RadioButtonFor(m => m.Gender, "Male", new
+                                                                          {
+                                                                              @class = "input-large",
+                                                                              required = "required ",
+                                                                              type = "radio"
+                                                                          }) Male
+                        </div>
+                        <div class="radio">
+                           @Html.RadioButtonFor(m => m.Gender, "Female", new
+                                                                          {
+                                                                              @class = "input-large",
+                                                                              required = "required ",
+                                                                              type = "radio"
+                                                                          })Female
 
+                        </div>
+                    </div>
+                <!-- Text input-->
+                <div class="control-group">
+                    <label class="control-label" for="registr_code">Registration Code</label>
+                    <div class="controls">
+                        <input id="registr_code" name="registr_code" type="text" 
+                                placeholder="Enter Registration Code" 
+                                class="input-large form-control" required />
+                    </div>
+                </div>
 
+                <!-- Button -->
+                <div class="control-group">
+                    <label class="control-label" for="register_btn"></label>
+                    <div class="controls">
+                        <button id="register_btn" name="register_btn" class="btn btn-primary">Register</button>
+                        @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-success" })
+                        <span>Already have an account?</span>
+                    </div>
+                </div>
 
-
-        </div>
-    </div>
-<!-- Text input-->
-<div class="control-group">
-  <label class="control-label" for="registr_code">Registration Code</label>
-  <div class="controls">
-    <input id="registr_code" name="registr_code" type="text" placeholder="Enter Registration Code" class="input-large form-control" required>
-    
-  </div>
-</div>
-
-<!-- Button -->
-<div class="control-group">
-  <label class="control-label" for="register_btn"></label>
-  <div class="controls">
-
-    <button id="register_btn" name="register_btn" class="btn btn-primary">Register</button>
-      @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-success" })
-      <span>Alread have an account?</span>
-  </div>
-</div>
-
-</fieldset>
-
-}
+            </fieldset>
+    }
 </div> <!-- /container -->
 
 
