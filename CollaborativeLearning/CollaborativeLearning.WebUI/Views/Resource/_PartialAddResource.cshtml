@@ -1,0 +1,123 @@
+﻿@model CollaborativeLearning.Entities.Resource
+
+@{
+    List<SelectListItem> ResourceCategory = new List<SelectListItem>();
+    ResourceCategory.Add(new SelectListItem { Text = "Select ResourceType", Value = "" });
+    ResourceCategory.Add(new SelectListItem { Text = "Text", Value = "Text" });
+    ResourceCategory.Add(new SelectListItem { Text = "Link", Value = "Link" });
+    ResourceCategory.Add(new SelectListItem { Text = "File/PDF", Value = "File/PDF" });
+    ResourceCategory.Add(new SelectListItem { Text = "File/Zip", Value = "File/Zip" });
+    ResourceCategory.Add(new SelectListItem { Text = "File/Document", Value = "File/Document" });
+    ResourceCategory.Add(new SelectListItem { Text = "File/Other", Value = "File/Other" });
+    ResourceCategory.Add(new SelectListItem { Text = "Other", Value = "Other" });
+
+}
+@if (ViewBag.ErrorType == "ResourceAdd")
+{
+    <div class="alert alert-warning" id="ResourceAddWarning">
+        @ViewBag.Message
+    </div>
+}
+
+<div class="panel panel-danger clearfix">
+    <div class="panel-heading">Add New Resource</div>
+    <div class="panel-body">
+
+
+        @using (Ajax.BeginForm("AddResource", "Resource", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddResourceContainner" }))
+        {
+            @Html.AntiForgeryToken();
+            @*<div class="row"> <div class="span8 alert-success">After creating resource, you have to upload file(s) to broadcast</div></div>*@
+            <br />
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="span2">@Html.LabelFor(m => m.Name)</div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="span2">@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })</div>
+                    <div class="span2">@Html.ValidationMessageFor(m => m.Name) </div>
+                </div>
+            </div>
+            <br />
+            <div class="row ">
+                <div class="col-lg-2">
+                    <div class="span2">@Html.LabelFor(m => m.type)</div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="span2">@Html.DropDownListFor(m => m.type, ResourceCategory, new { id = "ResourceTypeDropDown", @class = "form-control" })</div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-success clearfix" id="ResourceTextEditor">
+                <div class="panel-heading">Rich Text Editor</div>
+                <div class="panel-body">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true" })
+
+                </div>
+            </div>
+
+
+            <div class="panel panel-success clearfix" id="ResourceLinkEditor">
+                <div class="panel-heading">Link</div>
+                <div class="panel-body">
+                    <input type="url" placeholder="Enter URL" name="LinkValue" class="form-control" />
+                </div>
+            </div>
+
+            <div class="panel panel-success clearfix" id="ResourceFileEditor">
+                <div class="panel-heading">File(s)</div>
+                <div class="panel-body">File</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 text-right">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                    
+                    @*<a class="btn btn-success" href="#" id="btnSaveAndEdit"><i class="icon-ok icon-white"></i>Kaydet ve Düzenle </a>*@
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<div id="ResourceTableContianner">
+    @Html.Action("_PartialResourceList")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ResourceTextEditor").hide();
+        $("#ResourceLinkEditor").hide();
+        $("#ResourceFileEditor").hide();
+       
+
+        $("#ResourceTypeDropDown").change(function () {
+            var dd = $("#ResourceTypeDropDown");
+            var ct = dd.val().substr(0, 4);
+
+            switch (ct) {
+                case "Text":
+                    $("#ResourceTextEditor").show();
+                    $("#ResourceLinkEditor").hide();
+                    $("#ResourceFileEditor").hide();
+                    break;
+                case "Link":
+                    $("#ResourceTextEditor").hide();
+                    $("#ResourceLinkEditor").show();
+                    $("#ResourceFileEditor").hide();
+                    break;
+                case "File":
+                    $("#ResourceTextEditor").hide();
+                    $("#ResourceLinkEditor").hide();
+                    $("#ResourceFileEditor").show();
+                    break;
+                default:
+                    $("#ResourceTextEditor").hide();
+                    $("#ResourceLinkEditor").hide();
+                    $("#ResourceFileEditor").hide();
+                    break;
+
+            }
+        });
+
+    });
+</script>
