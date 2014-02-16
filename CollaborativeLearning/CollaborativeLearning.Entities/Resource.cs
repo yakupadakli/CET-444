@@ -23,10 +23,8 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "This field cannot be empty!")]
         public string Description { get; set; }
 
-          
+       
         public bool isActive { get; set; }
-
-
         [Required(ErrorMessage = "This field cannot be empty!")]
         [Display(Name = "Resource Type")]
         [MaxLength(25, ErrorMessage = "Length must be {0} character(s) ")]

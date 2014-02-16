@@ -12,6 +12,7 @@
 
 @using (Html.BeginForm("SelectSemester", "Semester"))
 {
+    @Html.AntiForgeryToken()
   <div class="input-group">
         
          @Html.DropDownListFor(Model => Model.Id, SemesterList, new{ @class="form-control"})
