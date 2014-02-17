@@ -4,7 +4,7 @@
  @Html.AntiForgeryToken()
  @Html.ValidationSummary(true)
     <br />
-    <div class="panel panel-primary">
+    <div class="panel panel-primary collapse">
         <div class="panel-heading">
             Add New Task
         </div>
@@ -24,6 +24,8 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Content)
                 <div class="controls">
+                    @*@EditorTask()
+                    <br />*@
                     @Html.TextAreaFor(m => m.Content, new
                                                        {
                                                            @class = "form-control",
@@ -32,9 +34,43 @@
                     @Html.ValidationMessageFor(m => m.Content)
                 </div>
             </div>
+            <br />
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </div>
         </div>
     </div>   
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Add Task</button>
-    </div>
+    
 }
+
+<script type="text/javascript">
+   $(function(){
+       $("#Content").kendoEditor({
+        encoded: true
+      });
+   });
+</script>
+
+@*@helper EditorTask(){
+    @(Html.Kendo().Editor()
+          .Name("editor")
+          .HtmlAttributes(new { style = "width: 740px;height:400px" })
+          .Tools(tools => tools
+              .Clear()
+              .Bold().Italic().Underline().Strikethrough()
+              .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+              .InsertUnorderedList().InsertOrderedList()
+              .Outdent().Indent()
+              .CreateLink().Unlink()
+              .InsertImage()
+              .SubScript()
+              .SuperScript()
+              .TableEditing()
+              .ViewHtml()
+              .Formatting()
+              .FontName()
+              .FontSize()
+              .FontColor().BackColor()
+          )
+    )
+}*@

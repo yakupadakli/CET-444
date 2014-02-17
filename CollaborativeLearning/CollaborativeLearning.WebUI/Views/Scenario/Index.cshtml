@@ -41,24 +41,43 @@
                 </div>
             </div>
         </div>
-        <div id="myPartialViewDiv">
-            @Html.Action("_PartialStudentTask", "Task", new {scenarioId = ViewBag.scenarioId})
+        <div id="myPartialViewDiv" class="row" style="margin-left:-13px;">
+            <div class="col-lg-12">
+                <div>
+                    @Html.Action("_PartialStudentTask", "Task", new {scenarioId = ViewBag.scenarioId})
+                </div>
+            </div>
         </div>
   </div>
+
+
+
+
   <div class="tab-pane clearfix" id="action">
       <div class="panel panel-default">
             <div class="panel-body">
-                <div class="btn-group ">
-                    <button type="button" class="btn-xs btn-success" id="actionPlanAdd">
-                        <span class="glyphicon glyphicon-plus"></span> Add Action Plan
-                    </button>
-                    <button type="button" class="btn-xs btn-danger right" id="actionPlanRemove" hidden="false">
-                        <span class="glyphicon glyphicon-remove"></span> Close
-                    </button>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="span6">
+                            <div class="btn-group ">
+                                <button type="button" class="btn btn-sm btn-primary" id="actionPlanAdd">
+                                    <span class="glyphicon glyphicon-plus"></span> Add Action Plan
+                                </button>
+                                <button type="button" class="btn-sm btn-danger" style="display:none;" id="actionPlanRemove"">
+                                    <span class="glyphicon glyphicon-remove"></span> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="addActionPlanPanel" hidden="false" style="padding-bottom:10px">
-                    @Html.Action("_PartialActionPlanCreate", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
-                </div>   
+                <br>
+                <div id="addActionPlanPanel" class="row"  style="display:none;" >
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("_PartialActionPlanCreate", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -114,9 +133,10 @@
             $("#actionPlanAdd").hide(100);
             $("#actionPlanRemove").show(100);
         });
+        
     });
     $("#actionPlanRemove").click(function () {
-        $("#actionPlanPanel").hide(100, function () {
+        $("#addActionPlanPanel").hide(100, function () {
             $("#actionPlanRemove").hide(100);
             $("#actionPlanAdd").show(100);
         });

@@ -13,9 +13,9 @@ namespace CollaborativeLearning.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-       
-        [Required(ErrorMessage = "Tanım alanı boş bırakılamaz")]
-        [Display(Name = "Tanım")]
+
+        [Required(ErrorMessage = "Content is not empty.")]
+        [Display(Name = "Content")]
         [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
         public string Content { get; set; }
 
@@ -24,6 +24,7 @@ namespace CollaborativeLearning.Entities
         [Required]
         public DateTime RegDate { get; set; }
 
+        [Display(Name = "Is Active")]
         public bool isActive { get; set; }
         public virtual ICollection<Semester> Semesters { get; set; }
         public virtual ICollection<Scenario> Scenarios { get; set; }
