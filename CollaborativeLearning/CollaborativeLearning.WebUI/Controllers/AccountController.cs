@@ -39,15 +39,34 @@ using System.Text.RegularExpressions;
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    User user = unitOfWork.UserRepository.Get(u=>u.Username == model.UserName).FirstOrDefault();
+                    bool activeSemester = false;
+                    if (user.RoleID == unitOfWork.RoleRepository.Get(r=>r.RoleName=="Instructor").FirstOrDefault().RoleId)
+                        activeSemester=true;
+                    else
                     {
-                        return Redirect(returnUrl);
+                        foreach (var semester in user.Semesters)
+                        {
+                            if (semester.isActive)
+                                activeSemester = true;
+                        }
+                    }
+                    if (activeSemester)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError("", "The semester you are trying to access is not active.");
                     }
                 }
                 else
