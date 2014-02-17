@@ -1,20 +1,40 @@
 ﻿@model CollaborativeLearning.Entities.Task
 @using (Ajax.BeginForm("_PartialTaskCreate", "Task", new AjaxOptions { HttpMethod = "POST" }, new { scenarioId = ViewBag.scenarioId }))
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+ @Html.AntiForgeryToken()
+ @Html.ValidationSummary(true)
+    <br />
     <div class="panel panel-primary">
         <div class="panel-heading">
-            @Html.TextBoxFor(m => m.TaskName, new { @class = "form-control", id = "exampleInputEmail1", placeholder = "Enter Task Name" }) @Html.ValidationMessageFor(m => m.TaskName)
-
+            Add New Task
         </div>
-        <div class="panel-body">
-            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", placeholder = "Content" }) @Html.ValidationMessageFor(m => m.Content)
+        <div class="panel-body clearfix">
+            <div class="form-group">
+                @Html.LabelFor(m => m.TaskName)
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TaskName, new
+                                                       {
+                                                           @class = "form-control",
+                                                           id = "exampleInputEmail1",
+                                                           placeholder = "Enter Task Name"
+                                                       }) 
+                    @Html.ValidationMessageFor(m => m.TaskName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content)
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.Content, new
+                                                       {
+                                                           @class = "form-control",
+                                                           placeholder = "Content"
+                                                       }) 
+                    @Html.ValidationMessageFor(m => m.Content)
+                </div>
+            </div>
         </div>
     </div>   
-                
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Add Task</button>
-                    
-                </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </div>
 }
