@@ -114,6 +114,8 @@ using CollaborativeLearning.Entities;
                     Password = HashedPassword,
                     IsApproved = isApproved,
                     Email = email,
+                    PhoneNumber="Not Assigned",
+                    Gender="Not Assigned",
                     CreateDate = DateTime.UtcNow,
                     LastPasswordChangedDate = DateTime.UtcNow,
                     PasswordFailuresSinceLastSuccess = 0,
