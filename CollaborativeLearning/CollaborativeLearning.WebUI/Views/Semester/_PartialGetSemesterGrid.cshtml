@@ -32,25 +32,55 @@
             <div class="col-lg-6">
                 <div class="span6">
                     <button type="button" class="btn btn-primary btn-sm" 
-                            data-toggle="modal" data-target="#modal_semesterCreate">
+                            data-toggle="modal" data-target="#modal_semesterCreate" id="semesterAdd">
                         <span class="glyphicon glyphicon-plus"></span> Add Semester
                     </button>
+                    
+                    <button type="button" class="btn-sm btn-danger" id="semesterRemove" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span> Close
+                    </button>
+
                 </div>
             </div>
             <div class="col-lg-6 rightColumn">
                 @Html.Action("_PartialGoToSemester", "Semester")
             </div>
         </div>
-        <div class="row">
+
+        <div class="row" id="CreateSemesterPartialDiv" style="display:none;" >
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("_PartialCreate", "Semester")
+                        </div>
+                    </div>
+                </div>
+
+@*        <div class="row">
             <div id="CreateSemesterPartialDiv">
                 <div class="col-lg-6 rightColumn">
                     @Html.Action("_PartialCreate", "Semester")
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
 
 <div id="SemesterDataTableContainer">
     @Html.Partial("_PartialSemesterDataTable")
 </div>
+
+<script>
+    $("#semesterAdd").click(function () {
+        $("#CreateSemesterPartialDiv").show(100, function () {
+            $("#semesterAdd").hide(100);
+            $("#semesterRemove").show(100);
+        });
+    });
+
+    $("#semesterRemove").click(function () {
+        $("#CreateSemesterPartialDiv").hide(100, function () {
+            $("#semesterRemove").hide(100);
+            $("#semesterAdd").show(100);
+        });
+    });
+</script>

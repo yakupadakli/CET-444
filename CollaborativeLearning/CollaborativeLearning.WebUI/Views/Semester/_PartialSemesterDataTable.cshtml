@@ -54,7 +54,7 @@
                                     "data-toggle='modal' data-target='#myModal'>" +
                                       "<span class='glyphicon glyphicon-pencil'></span> Edit" +
                                     "</a>" +
-                                    "<a href='#' type='button' class='btn btn-default btn-xs'>" +
+                                    "<a href='../Semester/Delete/" + oObj.aData.Id + "' onclick='return confirmSemester_click();' class='btn btn-default btn-xs'>" +
                                       "<span class='glyphicon glyphicon-remove'></span> Delete" +
                                     "</a>";
                          }
@@ -62,6 +62,13 @@
             ]
         });
     });
+</script>
+
+<script type="text/javascript">
+    function confirmSemester_click() {
+        return confirm("Are you sure to delete this semester?");
+    }
+
 </script>
 
 @*<div class="btn-group">

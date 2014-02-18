@@ -112,7 +112,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                 }
             }
-            return PartialView("_PartialSemesterDataTable");
+            return RedirectToAction("_PartialGetSemesterGrid");
 
 
         }
@@ -146,23 +146,13 @@ namespace CollaborativeLearning.WebUI.Controllers
   
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-  
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            Semester semester = unitOfWork.SemesterRepository.GetByID(id);
+            if (semester != null)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                unitOfWork.SemesterRepository.Delete(id);
+                unitOfWork.Save();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult SemesterAjaxHandler()
