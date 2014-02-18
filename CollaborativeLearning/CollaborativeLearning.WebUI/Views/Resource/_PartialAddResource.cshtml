@@ -26,6 +26,7 @@
 
         @using (Ajax.BeginForm("AddResource", "Resource", null, new AjaxOptions {
             HttpMethod = "POST",
+            
             UpdateTargetId = "AddResourceContainner",
             OnBegin = "ProcessResourceAddAjaxForm",
             OnComplete = "CompleteResourceAddAjaxForm",
