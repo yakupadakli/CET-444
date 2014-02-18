@@ -19,7 +19,7 @@
     </div>
 }
 
-<div class="panel panel-danger clearfix">
+<div class="panel panel-warning clearfix" id="ResourceAddContainner" >
     <div class="panel-heading">Add New Resource</div>
     <div class="panel-body">
 
@@ -74,7 +74,16 @@
 
             <div class="panel panel-success clearfix" id="ResourceFileEditor">
                 <div class="panel-heading">File(s)</div>
-                <div class="panel-body">File</div>
+                <div class="panel-body">
+                   @*<label class="radio-inline">
+                       @Html.RadioButton("FileUpload", "Now",false,new { }) Save and Upload File(s) Now
+                   </label>
+                   <label class="radio-inline">
+                        @Html.RadioButton("FileUpload", "Later", false, new { }) Save and Upload File(s) Later
+                   </label>*@
+                  
+
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-5 text-right">
@@ -87,9 +96,13 @@
         }
     </div>
 </div>
+<div id="ResourceEditContainner">
+  @Html.Action("_PartialEditResource","Resource", new { id = 0 })
+</div>
 <div id="ResourceTableContianner">
     @Html.Action("_PartialResourceList")
 </div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -97,7 +110,7 @@
         $("#ResourceLinkEditor").hide();
         $("#ResourceFileEditor").hide();
         $("#resourceAddProcessingIcon").hide();
-       
+        $("#ResourceEditContainner").hide();
         
         $("#ResourceTypeDropDown").change(function () {
             var dd = $("#ResourceTypeDropDown");
@@ -105,24 +118,24 @@
 
             switch (ct) {
                 case "Text":
-                    $("#ResourceTextEditor").show();
-                    $("#ResourceLinkEditor").hide();
-                    $("#ResourceFileEditor").hide()
+                    $("#ResourceTextEditor").show(100);
+                    $("#ResourceLinkEditor").hide(100);
+                    $("#ResourceFileEditor").hide(100)
                     break;
                 case "URL":
-                    $("#ResourceTextEditor").hide();
-                    $("#ResourceLinkEditor").show();
-                    $("#ResourceFileEditor").hide();
+                    $("#ResourceTextEditor").hide(100);
+                    $("#ResourceLinkEditor").show(100);
+                    $("#ResourceFileEditor").hide(100);
                     break;
                 case "File":
-                    $("#ResourceTextEditor").hide();
-                    $("#ResourceLinkEditor").hide();
-                    $("#ResourceFileEditor").show();
+                    $("#ResourceTextEditor").hide(100);
+                    $("#ResourceLinkEditor").hide(100);
+                    $("#ResourceFileEditor").show(100);
                     break;
                 default:
-                    $("#ResourceTextEditor").hide();
-                    $("#ResourceLinkEditor").hide();
-                    $("#ResourceFileEditor").hide();
+                    $("#ResourceTextEditor").hide(100);
+                    $("#ResourceLinkEditor").hide(100);
+                    $("#ResourceFileEditor").hide(100);
                     break;
 
             }
