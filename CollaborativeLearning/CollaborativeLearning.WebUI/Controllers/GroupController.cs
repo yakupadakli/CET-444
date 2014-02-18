@@ -17,8 +17,9 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialGetGroupsBySemester(int id)
         {
-            var groupList = unitOfWork.GroupRepository.Get(s => s.semesterID==id);
             ViewBag.ID = id;
+
+            var groupList = unitOfWork.GroupRepository.Get(s => s.semesterID == id);
             return PartialView(groupList);
         }
 
@@ -54,5 +55,93 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.ID = semesterId;
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = semesterId });
         }
+
+        public ActionResult _PartialGetGroupsUsers(int id,int semesterId)
+        {
+            IEnumerable<User> users = unitOfWork.UserRepository.Get(u => u.RoleID == 3);
+            List<User> userlist = new List<Entities.User>();
+            foreach (var item in users)
+            {
+                if (item.Semesters.Contains(unitOfWork.SemesterRepository.GetByID(semesterId)))
+                {
+                    Group g = item.Groups.FirstOrDefault();
+                    if (g == null)
+                    {
+                        userlist.Add(item);
+                    }
+                }
+            }
+            ViewBag.AllUsers = userlist;
+
+            var groupUserList = unitOfWork.GroupRepository.Get(s => s.Id == id).FirstOrDefault().Users.Where(u => u.RoleID == 3).ToList();
+
+            ViewBag.ID = id;
+            ViewBag.groupId = id;
+            return PartialView(groupUserList);
+        }
+
+        public ActionResult _PartialGetGroupsMentors(int id, int semesterId)
+        {
+            IEnumerable<User> users = unitOfWork.UserRepository.Get(u => u.RoleID == 2);
+            List<User> mentorlist = new List<Entities.User>();
+
+            foreach (var item in users)
+            {
+                if (item.Semesters.Contains(unitOfWork.SemesterRepository.GetByID(semesterId)))
+                {
+                    mentorlist.Add(item);
+                }
+            }
+            ViewBag.AllMentors = mentorlist;
+
+            var groupMentorList = unitOfWork.GroupRepository.Get(s => s.Id == id).FirstOrDefault().Users.Where(u=>u.RoleID==2).ToList();
+
+            ViewBag.ID = id;
+            ViewBag.groupId = id;
+            return PartialView(groupMentorList);
+        }
+
+        [HttpPost]
+        public ActionResult _UserToGroup(int id, string[] UserMultiSelect)
+        {
+            var group = unitOfWork.GroupRepository.GetByID(id);
+            foreach (var item in UserMultiSelect)
+            {
+                var u = unitOfWork.UserRepository.GetByID(int.Parse(item));
+                group.Users.Add(u);
+            }
+            unitOfWork.Save();
+            ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID});
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUserFromGroup(int userId, string groupId)
+        {
+            Group group = unitOfWork.GroupRepository.GetByID(Convert.ToInt32(groupId));
+            group.Users.Remove(unitOfWork.UserRepository.GetByID(userId));
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
+        }
+        [HttpPost]
+        public void UpdateGroupName(int id, string text)
+        {
+            Group group = unitOfWork.GroupRepository.GetByID(id);
+            group.groupName = text;
+            unitOfWork.Save();
+            //return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteGroup(int groupId)
+        {
+            Group group = unitOfWork.GroupRepository.GetByID(groupId);
+            int semesterID = group.semesterID;
+
+            unitOfWork.GroupRepository.Delete(groupId);
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = semesterID });
+        }
+
     }
 }

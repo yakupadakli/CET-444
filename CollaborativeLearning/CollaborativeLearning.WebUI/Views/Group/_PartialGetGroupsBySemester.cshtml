@@ -1,18 +1,21 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Group>
 
-
+<div class="alert alert-warning" id="GroupUserActiveAlert">
+   <div class="col-sm-1"> <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon" class="img-responsive" /></div>
+    <div class="col-lg-12">Wait your processing is continue! Thank you for patient.</div> 
+</div>
 @{
     if (Model.Count != 0)
     {
-    <div class="table-responsive">
+    <div class="table-responsive" id="SemesterGroupTable">
         <table class="table-striped table table-hover">
             <thead>
                 <tr>
                     <td width="30%">Group Name
                     </td>
-                    <td width="30%">Mentor Count
+                    <td width="10%">Mentors
                     </td>
-                    <td width="15%">Student Count
+                    <td width="30%">Students
                     </td>
                     <td width="15%">Action
                     </td>
@@ -23,21 +26,34 @@
                 {
                     <tr>
                         <td>
-                            @item.groupName
+                            <div id="groupNameLabel-@item.Id">@item.groupName</div>
+                            <input id="groupNameEdit-@item.Id" name="groupNameEdit" type="text" style="display:none" placeholder="Enter Group Name Here" class="input-large form-control" value="@item.groupName" required />
                         </td>
                         <td>
-                            @item.Users.Where(u=>u.RoleID==2).Count()
+                            <div id="GroupMentorListContianner-@item.Id">
+                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id,semesterId = item.semesterID })
+                            </div>
                         </td>
                         <td>
-                            @item.Users.Where(u=>u.RoleID==3).Count()
+                            <div id="GroupUserListContianner-@item.Id">
+                                @Html.Action("_PartialGetGroupsUsers", "Group", new { id = item.Id,semesterId = item.semesterID })
+                            </div>
                         </td>
                         <td>
-                            <a href='../../Group/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
-                           <span class='glyphicon glyphicon-remove'></span> Delete </a>
-                            <a href="@Url.Action("Remove", "Semester", new { id = item.Id })" class="btn btn-danger btn-sm">
-                                <span class='glyphicon glyphicon-remove'></span>
-                                Edit
-                            </a>
+                            @Ajax.ActionLink("Remove", "DeleteGroup", "Group", new { groupId = item.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this group?",
+                                    UpdateTargetId = "groupTable",
+                                    LoadingElementId = "loading",
+                                },
+                               null)
+
+                            
+                            <input onclick='@(Html.Raw(String.Format("showEditText({0})",item.Id)))' type="button" id="EditButton-@item.Id" value="Edit" class="btn btn-primary btn-sm" />
+                            
+                            <input onclick='@(Html.Raw(String.Format("hideEditText({0})",item.Id)))' type="submit" id="UpdateButton-@item.Id" style="display:none" value="Update" class="btn btn-primary btn-sm" />
                         </td>
                     </tr>
                 }
@@ -50,3 +66,64 @@
         <text>This semester does not have group yet!</text>
     }
 }
+
+<script type="text/javascript">
+    function confirm_click()
+    {
+        return confirm("Are you sure to delete this Group? Note: Students could be assigned this group.");
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#GroupUserActiveAlert").hide();
+        $("#groupName").val("");
+    });
+
+    function ProcessResourceChangeAcitive() {
+        $("#GroupUserActiveAlert").show();
+    };
+    function CompleteResourceChangeAcitive() {
+        $("#GroupUserActiveAlert").hide();
+
+    };
+    function SuccessUserAddGroup() {
+
+    };
+    function showEditText(id) {
+        $("#groupNameEdit-" + id).show();
+        $("#groupNameLabel-" + id).hide();
+
+        $("#EditButton-" + id).hide();
+        $("#UpdateButton-" + id).show();
+    };
+    function hideEditText(id) {
+        $("#groupNameEdit-" + id).hide();
+        $("#groupNameLabel-" + id).show();
+        
+        $("#EditButton-" + id).show();
+        $("#UpdateButton-" + id).hide();
+        var txt = $("#groupNameEdit-" + id).val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Group/UpdateGroupName",
+            data: { id: id, text: txt }
+        }).done(function () {
+            $("#groupNameLabel-" + id).html(txt);
+        });
+    };
+</script>
+
+
+<style>
+    div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
