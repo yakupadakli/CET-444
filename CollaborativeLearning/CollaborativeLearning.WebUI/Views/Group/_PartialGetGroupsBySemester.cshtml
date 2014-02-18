@@ -1,0 +1,52 @@
+﻿@model ICollection<CollaborativeLearning.Entities.Group>
+
+
+@{
+    if (Model.Count != 0)
+    {
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
+            <thead>
+                <tr>
+                    <td width="30%">Group Name
+                    </td>
+                    <td width="30%">Mentor Count
+                    </td>
+                    <td width="15%">Student Count
+                    </td>
+                    <td width="15%">Action
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.groupName
+                        </td>
+                        <td>
+                            @item.Users.Where(u=>u.RoleID==2).Count()
+                        </td>
+                        <td>
+                            @item.Users.Where(u=>u.RoleID==3).Count()
+                        </td>
+                        <td>
+                            <a href='../../Group/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
+                           <span class='glyphicon glyphicon-remove'></span> Delete </a>
+                            <a href="@Url.Action("Remove", "Semester", new { id = item.Id })" class="btn btn-danger btn-sm">
+                                <span class='glyphicon glyphicon-remove'></span>
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        <text>This semester does not have group yet!</text>
+    }
+}
