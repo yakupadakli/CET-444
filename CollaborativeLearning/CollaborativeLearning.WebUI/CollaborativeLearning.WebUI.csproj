@@ -1053,6 +1053,11 @@
     <Content Include="Views\Scenario\_PartialGoToScenario.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Group\_PartialAddGroup.cshtml" />
+    <Content Include="Views\Group\_PartialGetGroupsBySemester.cshtml" />
+    <Content Include="Views\Group\_PartialGetGroupsMentors.cshtml" />
+    <Content Include="Views\Group\_PartialGetGroupsUsers.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

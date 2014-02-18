@@ -1,0 +1,40 @@
+﻿@using (Ajax.BeginForm(
+    "AddGroupsToSemester",
+    "Group",
+    null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "groupTable",
+        LoadingElementId = "loading"
+    }
+))
+{  
+    @Html.Hidden("Id", (int)ViewBag.ID)
+
+    <div class="input-group">
+        <div class="form-control">
+            <input id="groupName" name="groupName" type="text" 
+                    placeholder="Enter Group Name Here"
+                    class="input-large form-control" required />
+        </div>
+        <span class="input-group-addon" style="padding:1px;">
+            <input type="submit" value="Add" class="btn btn-primary btn-sm" />
+        </span>
+    </div>
+}
+<div id = "loading">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
