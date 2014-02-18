@@ -1,80 +1,55 @@
 ﻿@model CollaborativeLearning.Entities.Task
 
-<div class="modal fade" id="modal_updateTask-@Model.Id">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Task Update</h4>
-            </div>
-            @using (Ajax.BeginForm("_PartialTaskUpdate", "Task", new AjaxOptions { HttpMethod = "POST" }))
-            {
-                <div class="modal-body">
 
-                    <section id="UpdateTaskForm">
-
-
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <fieldset>
-                            <table>
-                                <tr>
-                                    <td width="100">
-                                        @Html.LabelFor(m => m.TaskName)
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.TaskName)
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @Html.ValidationMessageFor(m => m.TaskName)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(m => m.Content)
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Content)
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @Html.ValidationMessageFor(m => m.Content)
-                                    </td>
-                                </tr>
-                                                               
-                            </table>
-                        </fieldset>
-
-
-                    </section>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Update Task</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    
-                </div>
-            }
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<script>
-    $(document).ready(function ()
+    @using (Ajax.BeginForm("_PartialTaskUpdate", "Task", new AjaxOptions { HttpMethod = "POST" }))
     {
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.TaskName)
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TaskName, new
+                                                       {
+                                                           @class = "form-control",
+                                                           placeholder = "Enter Task Name"
+                                                       }) 
+                    @Html.ValidationMessageFor(m => m.TaskName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content)
+                <div class="controls">
+                    @*@EditorTask()
+                    <br />*@
+                    @Html.TextAreaFor(m => m.Content, new
+                                                       {
+                                                           @class = "form-control taskUpdateContent",
+
+                                                           placeholder = "Enter Task Content"
+                                                       })
+                    
+                    @Html.ValidationMessageFor(m => m.Content)
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update Task</button>
+            <button type="button" class="btn btn-default" onclick="closeEditTask(@Model.Id)" >Close</button>
+        </div>
+    }
+
+<script>
+    $(document).ready(function () {
         $("#UpdateTaskSuccess").hide();
         $("#UpdateTaskFailure").hide();
-        
+
     });
     function UpdateTaskSuccess() {
         alert("success");
-     }
+    }
     function UpdateTaskFailure() {
         alert("fail");
     }
 
+    function closeEditTask(id) {
+        $("#updateWorkForm_" + id).hide(100);
+    }
 </script>

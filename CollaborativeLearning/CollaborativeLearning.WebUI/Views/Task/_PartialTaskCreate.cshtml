@@ -1,10 +1,12 @@
 ﻿@model CollaborativeLearning.Entities.Task
-@using (Ajax.BeginForm("_PartialTaskCreate", "Task", new AjaxOptions { HttpMethod = "POST" }, new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialTaskCreate", "Task", 
+        new AjaxOptions { HttpMethod = "POST" }, 
+        new { scenarioId = ViewBag.scenarioId }))
 {
  @Html.AntiForgeryToken()
  @Html.ValidationSummary(true)
     <br />
-    <div class="panel panel-primary collapse">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             Add New Task
         </div>
@@ -29,7 +31,8 @@
                     @Html.TextAreaFor(m => m.Content, new
                                                        {
                                                            @class = "form-control",
-                                                           placeholder = "Content"
+                                                           id = "taskContent",
+                                                           placeholder = "Enter Task Name"
                                                        }) 
                     @Html.ValidationMessageFor(m => m.Content)
                 </div>
@@ -40,13 +43,11 @@
             </div>
         </div>
     </div>   
-    
 }
-
 <script type="text/javascript">
    $(function(){
-       $("#Content").kendoEditor({
-        encoded: true
+       $("#taskContent").kendoEditor({
+        encoded: false
       });
    });
 </script>

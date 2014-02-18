@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <div class="col-lg-4">
                 <div>
-                    <a class="deneme" href="#collapse_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
+                    <a class="studentActionPlanCollapse" id="@item.Id" href="#collapseActionPlan_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
                         Action Plan @item.Id
                         <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                     </a>
@@ -16,32 +16,47 @@
             </div>
             <div class="text-right">
                 <div class="btn-group ">
-                    <a href='#' class='deneme btn btn-success btn-sm' data-toggle='modal' data-target='#modal_updateActionPlan-@item.Id'>
+                    <a class='deneme btn btn-success btn-sm' onclick="editActionPlan(@item.Id)">
                         <span class='glyphicon glyphicon-pencil'></span> Edit 
                     </a>
                     <a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                         <span class='glyphicon glyphicon-remove'></span> Delete 
                     </a>
                 </div>
-                <div id="UpdateActionPlanForm-@item.Id">
-                    @Html.Action("_PartialActionPlanUpdate", "ActionPlan", new { id = item.Id, scenarioId = TempData["scenarioId"] })
-                </div>  
+            </div>  
             </div>
-        </div>
-        <div class="panel-body collapse" id="collapse_@item.Id">
+        
+        <div class="panel-body collapse" id="collapseActionPlan_@item.Id">
             @Html.Raw(HttpUtility.HtmlDecode(item.Content))
             <br />
             Is Active : @item.isActive
         </div>
-    </div>       
-    
+        <div class="panel-body" id="updateActionPlanForm_@item.Id" style="display:none;">
+            @Html.Action("_PartialActionPlanUpdate", "ActionPlan", new {
+                                                                    @id = item.Id,
+                                                                    @scenarioId = TempData["scenarioId"]
+                                                                })
+        </div>
+    </div>
 }
 
 <script type="text/javascript">
     function confirm_click() {
         return confirm("Are you sure to delete this Action Plan? Note: This Action Plan can be assigned more than one scenario.");
     }
-    $('.deneme').click(function (e) {
+    $('.studentActionPlanCollapse').click(function (e) {
         $(e.currentTarget).find("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        $("#updateActionPlanForm_" + e.currentTarget.id).hide(100);
+        $("#collapseActionPlan_" + e.currentTarget.id).toggle(100);
     });
+
+    function editActionPlan(id) {
+        console.log(id);
+        $("#updateActionPlanForm_" + id).toggle(100);
+        $("#collapseActionPlan_" + id).find("i.indicator").removeClass('glyphicon-chevron-up');
+        $("#collapseActionPlan_" + id).find("i.indicator").addClass('glyphicon-chevron-down');
+        $("#collapseActionPlan_" + id).find("i.indicator").addClass('collapse');
+        $("#collapseActionPlan_" + id).find("i.indicator").removeClass('in');
+        $("#collapseActionPlan_" + id).hide(100);
+    }
 </script>

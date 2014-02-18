@@ -1,30 +1,58 @@
 ﻿@model CollaborativeLearning.Entities.Work
-@using (Ajax.BeginForm("_PartialWorkCreate", "Work", new AjaxOptions { HttpMethod = "POST", OnSuccess="searchAdmin" }, new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialWorkCreate", "Work", new AjaxOptions { HttpMethod = "POST", OnSuccess = "searchAdmin" }, new { scenarioId = ViewBag.scenarioId }))
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+ @Html.AntiForgeryToken()
+ @Html.ValidationSummary(true)
+
     <div class="panel panel-primary">
         <div class="panel-heading">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", id = "exampleInputEmail1", placeholder = "Enter Work Name" }) @Html.ValidationMessageFor(m => m.Name)
-
+            
         </div>
         <div class="panel-body">
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Description" }) @Html.ValidationMessageFor(m => m.Description)
-        </div>
-    </div>   
-                
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Add Work</button>
-                    
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Name, new
+                                           {
+                                               @class = "form-control",
+                                               id = "exampleInputEmail1",
+                                               placeholder = "Enter Work Name"
+                                           }) 
+                    @Html.ValidationMessageFor(m => m.Name)
                 </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.Description, new
+                                                            {
+                                                                @class = "form-control",
+                                                                placeholder = "Description"
+                                                            }) 
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Add Work</button>
+    </div>
 }
 <script>
-function searchAdmin() {
+    function searchAdmin() {
         alert("geldi");
         var URL = "Task/_PartialStudentTask";
 
         $.get(URL, function (data) {
             $("#myPartialViewDiv").html(data);
         })
-}
-    </script>
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#taskContent").kendoEditor({
+            encoded: false
+        });
+    });
+</script>

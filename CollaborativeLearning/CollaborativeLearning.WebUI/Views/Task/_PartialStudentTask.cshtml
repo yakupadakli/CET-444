@@ -9,7 +9,7 @@
             <div class="panel-heading">
                 <div class="col-lg-4">
                     <div>
-                        <a class="deneme" href="#collapse_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
+                        <a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
                             @item.TaskName 
                             <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                         </a>
@@ -17,24 +17,25 @@
                 </div>
                 <div class="text-right">
                     <div class="btn-group ">
-                        <a href='#' class='deneme btn btn-success btn-sm' data-toggle='modal' data-target='#modal_updateTask-@item.Id'>
+                        <a class='deneme btn btn-success btn-sm' onclick="editStudentTask(@item.Id)">
                             <span class='glyphicon glyphicon-pencil'></span> Edit 
                         </a>
                         <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                             <span class='glyphicon glyphicon-remove'></span> Delete 
                         </a>
                     </div>
-                    <div id="UpdateTaskForm-@item.Id">
-                        @Html.Action("_PartialTaskUpdate", "Task", new
-                                                                        {
-                                                                            id = item.Id,
-                                                                            scenarioId = TempData["scenarioId"]
-                                                                        })
-                    </div> 
+
                 </div>
             </div>
             <div class="panel-body collapse" id="collapse_@item.Id">
                 @Html.Raw(HttpUtility.HtmlDecode(item.Content))
+
+            </div>
+            <div class="panel-body" id="updateTaskForm_@item.Id" style="display:none;">
+                @Html.Action("_PartialTaskUpdate", "Task", new {
+                                                                    @id = item.Id,
+                                                                    @scenarioId = TempData["scenarioId"]
+                                                                })
             </div>
         </div>       
     
@@ -47,19 +48,38 @@
 
     function success(result) {
         $("#_PartialTaskUpdate").html(result);
-        alert("geldi");
         reloadDisplayAverage();
     }
 
-    $('.deneme').click(function (e) {
+    $('.studentTaskCollapse').click(function (e) {
         $(e.currentTarget).find("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        $("#updateTaskForm_" + e.currentTarget.id).hide(100);
+        $("#collapse_" + e.currentTarget.id).toggle(100);
     });
+
+    function editStudentTask(id) {
+        $("#updateTaskForm_" + id).toggle(100);
+        $("#collapse_" + id).find("i.indicator").removeClass('glyphicon-chevron-up');
+        $("#collapse_" + id).find("i.indicator").addClass('glyphicon-chevron-down');
+        $("#collapse_" + id).find("i.indicator").addClass('collapse');
+        $("#collapse_" + id).find("i.indicator").removeClass('in');
+        $("#collapse_" + id).hide(100);
+    }
 
 </script>
 <style>
-    a .indicator {
+    a .indicator 
+    {
         margin-right: 20px;
         margin-left: -20px;
         margin-top: 4px;
     }
 </style>
+
+<script type="text/javascript">
+    $(function () {
+        $(".taskUpdateContent").kendoEditor({
+            encoded: false
+        });
+    });
+</script>

@@ -1,68 +1,44 @@
 ﻿@model CollaborativeLearning.Entities.ActionPlan
 
-<div class="modal fade" id="modal_updateActionPlan-@Model.Id">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Action Plan Update</h4>
-            </div>
-            @using (Ajax.BeginForm("_PartialActionPlanUpdate", "ActionPlan", new AjaxOptions {HttpMethod="POST" }))
-            {
-                <div class="modal-body">
+@using (Ajax.BeginForm("_PartialActionPlanUpdate", "ActionPlan", new AjaxOptions { HttpMethod = "POST" }))
+{
+               
+     @Html.AntiForgeryToken()
+     @Html.ValidationSummary(true)
 
-                    <section id="UpdateActionPlanForm">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content)
+        <div class="controls">
+            @*@EditorTask()
+                                <br />*@
+            @Html.TextAreaFor(m => m.Content, new
+                                                {
+                                                    @class = "form-control taskUpdateContent",
 
+                                                    placeholder = "Enter Task Name"
+                                                })
 
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-                        <fieldset>
-                            <table>
-                                
-                                <tr>
-                                    <td>
-                                        @Html.LabelFor(m => m.Content)
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Content)
-                                    </td>
+            @Html.ValidationMessageFor(m => m.Content)
+        </div>
+    </div>
 
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @Html.ValidationMessageFor(m => m.Content)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="100">
-                                        @Html.LabelFor(m => m.isActive)
-                                    </td>
-                                    <td>
-                                        @Html.CheckBoxFor(m => m.isActive)
-                                    </td>
+    <div class="form-group">
+        @Html.LabelFor(m => m.isActive)
+        <div class="controls">
+            @*@EditorTask()
+                                <br />*@
+            @Html.CheckBoxFor(m => m.isActive)
 
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @Html.ValidationMessageFor(m => m.isActive)
-                                    </td>
-                                </tr>                             
-                            </table>
-                        </fieldset>
+            @Html.ValidationMessageFor(m => m.isActive)
+        </div>
+    </div>
 
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Action Plan</button>
+        <button type="button" class="btn btn-default" onclick="closeEditAction(@Model.Id)">Close</button>
 
-                    </section>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Update Action Plan</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    
-                </div>
-            }
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+    </div>
+}
 <script>
     $(document).ready(function () {
         $("#UpdateActionPlanSuccess").hide();
@@ -74,5 +50,8 @@
     }
     function UpdateActionPlanFailure() {
         alert("fail");
+    }
+    function closeEditAction(id) {
+        $("#updateTaskForm_" + id).hide(100);
     }
 </script>

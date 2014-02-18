@@ -1,5 +1,7 @@
 ﻿@model CollaborativeLearning.Entities.ActionPlan
-@using (Ajax.BeginForm("_PartialActionPlanCreate", "ActionPlan", new AjaxOptions { HttpMethod = "POST" }, new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialActionPlanCreate", "ActionPlan", 
+        new AjaxOptions { HttpMethod = "POST" }, 
+        new { scenarioId = ViewBag.scenarioId }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
