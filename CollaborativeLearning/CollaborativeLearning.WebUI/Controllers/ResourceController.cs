@@ -42,7 +42,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 }
                 else if (model.type.Substring(0, 4) == "File")
                 {
-                    UploadFile(ResourceFiles);
+                   // UploadFile(ResourceFiles);
                     regStatus = true;
                 }
                 else
@@ -90,6 +90,9 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+        public ActionResult Delete(int id) {
+            return RedirectToAction("_PartialResourceList");
+        }
         public ActionResult ChangeActiveStatus(int id, string Active)
         {
             unitOfWork = new UnitOfWork();
@@ -107,14 +110,9 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialResourceList");
         }
 
-        public bool Create()
-        {
-            return true;
-        }
-
         public ActionResult _PartialResourceList()
         {
-            ICollection<Resource> Model = unitOfWork.ResourceListRepository.Get().ToList();
+            var Model = unitOfWork.ResourceListRepository.Get().ToList();
 
             return PartialView(Model);
         }
