@@ -86,5 +86,33 @@ namespace CollaborativeLearning.WebUI.Models
 
         }
 
+        public class ProfileModel
+        {
+
+            [Required]
+            [DataType(DataType.EmailAddress)]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+
+
+            [Required]
+            [Display(Name = "Name")]
+            public string FirsName { get; set; }
+
+            [Required]
+            [Display(Name = "Surname")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public String Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Phone")]
+            public String PhoneNumber { get; set; }
+
+        }
+
     }
 }
