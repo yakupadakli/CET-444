@@ -41,7 +41,17 @@
 </ul>
 <div class="tab-content">
     <div class="tab-pane clearfix" id="Groups">
-        Groups
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Groups</h3>
+            </div>
+            <div class="panel-body" id="groupTable">
+                @Html.Action("_PartialGetGroupsBySemester", "Group", new { id = Model.Id })
+            </div>
+            <div class="panel-body">
+                @Html.Action("_PartialAddGroup", "Group", new { id = Model.Id })
+            </div>
+        </div>
     </div>
     <br />
     <div class="tab-pane active" id="scenarios">

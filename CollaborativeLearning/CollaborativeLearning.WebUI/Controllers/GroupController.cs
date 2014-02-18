@@ -10,98 +10,49 @@ namespace CollaborativeLearning.WebUI.Controllers
 {
     public class GroupController : Controller
     {
-        //
-        // GET: /Group/
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
-        public ActionResult Index()
+        //
+        // GET: /GroupBySemester
+
+        public ActionResult _PartialGetGroupsBySemester(int id)
         {
-            return View();
+            var groupList = unitOfWork.GroupRepository.Get(s => s.semesterID==id);
+            ViewBag.ID = id;
+            return PartialView(groupList);
         }
 
-        //
-        // GET: /Group/Details/5
-
-        public ActionResult Details(int id)
+        public ActionResult _PartialAddGroup(int id)
         {
-            return View();
+            ViewBag.ID = id;
+            return PartialView();
         }
-
-        //
-        // GET: /Group/Create
-
-        public ActionResult Create()
+        public ActionResult AddGroupsToSemester(int Id, string groupName)
         {
-            return View();
-        }
+            var semester = unitOfWork.SemesterRepository.GetByID(Id);
 
-        //
-        // POST: /Group/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            Group group = new Group
             {
-                // TODO: Add insert logic here
+                groupName=groupName,
+                regDate = DateTime.UtcNow,
+                regUserID = HelperController.GetCurrentUserId(),
+                semesterID = Id
+            };
+            
+            unitOfWork.GroupRepository.Insert(group);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            unitOfWork.Save();
+            ViewBag.ID = Id;
+            ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = Id });
         }
-
-        //
-        // GET: /Group/Edit/5
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Group/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Group/Delete/5
-
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        //
-        // POST: /Group/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            int semesterId = unitOfWork.GroupRepository.GetByID(id).semesterID;
+            unitOfWork.GroupRepository.Delete(id);
+            unitOfWork.Save();
+            ViewBag.ID = semesterId;
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = semesterId });
         }
     }
 }
