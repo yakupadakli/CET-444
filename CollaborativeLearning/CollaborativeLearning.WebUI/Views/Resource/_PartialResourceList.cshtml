@@ -1,19 +1,25 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Resource>
-@{
-    <table class="table-striped">
+
+<div class="alert alert-warning" id="ResourceChangeActiveAlert">
+   <div class="col-sm-1"> <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon" class="img-responsive" /></div>
+    <div class="col-lg-12">Wait your processing is continue! Thank you for patient.</div> 
+</div>
+    <table class="table table-hover table-responsive">
         <thead>
             <tr>
-                <td width="15%">
-                    ID
+                <td>
+                    Active
                 </td>
-                <td width="35%">
+                <td>
                     Name
                 </td>
-                <td width="35%">
+                <td>
                     Type
                 </td>
-
-                <td width="15%">
+                <td>
+                    Content
+                </td>
+                <td>
                     Action
                 </td>
             </tr>
@@ -25,9 +31,32 @@
                 foreach (var item in Model)
                 {
 
-                    <tr>
+                    <tr class="@if (item.isActive) {  <text> success </text>   } else { <text> danger </text>   }">
+                        
                         <td>
-                            <a href="@Url.Action("Scenario","Semester",new {id=item.Id})">@item.Id</a>
+
+                            @using (Ajax.BeginForm("ChangeActiveStatus", "Resource", new { id = item.Id, Active = item.isActive}, new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                UpdateTargetId = "ResourceTableContianner",
+                                OnBegin = "ProcessResourceChangeAcitive",
+                                OnComplete = "CompleteResourceChangeAcitive",
+                                OnSuccess = "SuccessResourceChangeAcitive"
+                            }, new { id = "ResourceChangeActiveForm", @class = "form" }))
+                            {
+                                if (item.isActive)
+                                {
+                                    
+                                    <input type="submit" class="btn-xs btn-danger" value="-" />
+                                }
+                                else
+                                {
+                                    <input type="submit" class="btn-xs btn-success" value="+" />
+                                }
+                            }
+
+
+
                         </td>
                         <td>
                             @item.Name
@@ -35,7 +64,9 @@
                         <td>
                             @item.type
                         </td>
-
+                        <td>
+                            @item.Description
+                        </td>
                         <td>
                             <a>Remove</a>
                         </td>
@@ -46,12 +77,30 @@
             }
             else
             {
-            <tr>
-                <td colspan="4" width="100%">
-                    Any resource is not found!
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="4" width="100%">
+                        Any resource is not found!
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
-}
+
+
+<script>
+    $(document).ready(function () {
+        $("#ResourceChangeActiveAlert").hide();
+
+    });
+
+    function ProcessResourceChangeAcitive() {
+        $("#ResourceChangeActiveAlert").show();
+    };
+    function CompleteResourceChangeAcitive() {
+        $("#ResourceChangeActiveAlert").hide();
+
+    };
+    function SuccessResourceChangeAcitive() {
+       
+    }
+</script>

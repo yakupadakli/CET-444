@@ -4,7 +4,7 @@
     List<SelectListItem> ResourceCategory = new List<SelectListItem>();
     ResourceCategory.Add(new SelectListItem { Text = "Select ResourceType", Value = "" });
     ResourceCategory.Add(new SelectListItem { Text = "Text", Value = "Text" });
-    ResourceCategory.Add(new SelectListItem { Text = "Link", Value = "Link" });
+    ResourceCategory.Add(new SelectListItem { Text = "Link", Value = "URL" });
     ResourceCategory.Add(new SelectListItem { Text = "File/PDF", Value = "File/PDF" });
     ResourceCategory.Add(new SelectListItem { Text = "File/Zip", Value = "File/Zip" });
     ResourceCategory.Add(new SelectListItem { Text = "File/Document", Value = "File/Document" });
@@ -24,7 +24,14 @@
     <div class="panel-body">
 
 
-        @using (Ajax.BeginForm("AddResource", "Resource", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddResourceContainner" }))
+        @using (Ajax.BeginForm("AddResource", "Resource", null, new AjaxOptions {
+            HttpMethod = "POST",
+            UpdateTargetId = "AddResourceContainner",
+            OnBegin = "ProcessResourceAddAjaxForm",
+            OnComplete = "CompleteResourceAddAjaxForm",
+            OnSuccess = "SuccessResourceAddAjaxForm"
+        }, 
+            new {id="ResourceAddForm", @class="form" }))
         {
             @Html.AntiForgeryToken();
             @*<div class="row"> <div class="span8 alert-success">After creating resource, you have to upload file(s) to broadcast</div></div>*@
@@ -34,7 +41,7 @@
                     <div class="span2">@Html.LabelFor(m => m.Name)</div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="span2">@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })</div>
+                    <div class="span2">@Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })</div>
                     <div class="span2">@Html.ValidationMessageFor(m => m.Name) </div>
                 </div>
             </div>
@@ -44,14 +51,14 @@
                     <div class="span2">@Html.LabelFor(m => m.type)</div>
                 </div>
                 <div class="col-lg-2">
-                    <div class="span2">@Html.DropDownListFor(m => m.type, ResourceCategory, new { id = "ResourceTypeDropDown", @class = "form-control" })</div>
+                    <div class="span2">@Html.DropDownListFor(m => m.type, ResourceCategory, new { id = "ResourceTypeDropDown", @class = "form-control", required = "required" })</div>
                 </div>
             </div>
             <br />
             <div class="panel panel-success clearfix" id="ResourceTextEditor">
                 <div class="panel-heading">Rich Text Editor</div>
                 <div class="panel-body">
-                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true" })
+                    @Html.TextBox("ResourceText", null, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true", placeholder = "Enter Your Text" })
 
                 </div>
             </div>
@@ -60,7 +67,7 @@
             <div class="panel panel-success clearfix" id="ResourceLinkEditor">
                 <div class="panel-heading">Link</div>
                 <div class="panel-body">
-                    <input type="url" placeholder="Enter URL" name="LinkValue" class="form-control" />
+                    @Html.TextBox("ResourceUrl", null, new { @class = "form-control", autofocus = "autofocus", type = "url", placeholder = "Enter URL" })
                 </div>
             </div>
 
@@ -70,8 +77,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-5 text-right">
-                    <input type="submit" class="btn btn-success" value="Save" />
-                    
+                    <input type="submit" class="btn btn-success" value="Save" id="resourceAddFormSubmit" />
+                    <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon"/>
                     @*<a class="btn btn-success" href="#" id="btnSaveAndEdit"><i class="icon-ok icon-white"></i>Kaydet ve Düzenle </a>*@
                 </div>
             </div>
@@ -88,8 +95,9 @@
         $("#ResourceTextEditor").hide();
         $("#ResourceLinkEditor").hide();
         $("#ResourceFileEditor").hide();
+        $("#resourceAddProcessingIcon").hide();
        
-
+        
         $("#ResourceTypeDropDown").change(function () {
             var dd = $("#ResourceTypeDropDown");
             var ct = dd.val().substr(0, 4);
@@ -98,9 +106,9 @@
                 case "Text":
                     $("#ResourceTextEditor").show();
                     $("#ResourceLinkEditor").hide();
-                    $("#ResourceFileEditor").hide();
+                    $("#ResourceFileEditor").hide()
                     break;
-                case "Link":
+                case "URL":
                     $("#ResourceTextEditor").hide();
                     $("#ResourceLinkEditor").show();
                     $("#ResourceFileEditor").hide();
@@ -118,6 +126,20 @@
 
             }
         });
-
+             
     });
+    function ProcessResourceAddAjaxForm() {
+        $("#resourceAddProcessingIcon").show();
+        $("#resourceAddFormSubmit").hide();
+
+    };
+    function CompleteResourceAddAjaxForm() {
+       
+        $("#resourceAddProcessingIcon").hide();
+        $("#resourceAddFormSubmit").show();
+
+    };
+    function SuccessResourceAddAjaxForm(){
+        $("#ResourceAddForm").reset();
+    }
 </script>

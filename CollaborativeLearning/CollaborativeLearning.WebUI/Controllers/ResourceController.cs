@@ -11,41 +11,109 @@ namespace CollaborativeLearning.WebUI.Controllers
     public class ResourceController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        public ActionResult Index() {
-           
-           
+        public ActionResult Index()
+        {
+
+
 
             return View();
         }
-        public ActionResult AddResource(Resource model)
+        public ActionResult _PartialGetResourceGrid()
         {
-            if (model.Name!="" && model.type!="")
+            return PartialView("Index");
+        }
+        public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, HttpFileCollection[] ResourceFiles)
+        {
+            bool regStatus = false;
+            if (model.Name != "" && model.type != "")
             {
                 model.RegDate = DateTime.Now;
                 model.RegUserID = HelperController.GetCurrentUserId();
                 model.isActive = false;
-                if (ModelState.IsValid)
+                if (model.type == "Text")
+                {
+                    model.Description = ResourceText;
+                    regStatus = true;
+                }
+                else if (model.type == "URL")
+                {
+                    model.Description = ResourceUrl;
+                    regStatus = true;
+                }
+                else if (model.type.Substring(0, 4) == "File")
+                {
+                    UploadFile(ResourceFiles);
+                    regStatus = true;
+                }
+                else
+                {
+                    regStatus = false;
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "Your Resource content is confused. Please try again.";
+                }
+            }
+            else
+            {
+                regStatus = false;
+                ViewBag.ErrorType = "ResourceAdd";
+                ViewBag.Message = "The resource name and type can not be empty. There is an error, please try again.";
+            }
+            if (regStatus)
+            {
+                try
                 {
                     unitOfWork = new UnitOfWork();
                     unitOfWork.ResourceListRepository.Insert(model);
                     unitOfWork.Save();
-                    return PartialView("_PartialAddResource", model);
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "Resource is added succesfully. But! You have to switch it's active status to use";
                 }
-                else {
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
+                        + " Detail Error: " + ex.Message;
 
-                    return PartialView("_PartialAddResource", model);
                 }
             }
-            return PartialView("_PartialAddResource",model);
+            else
+            {
+                ViewBag.ErrorType = "ResourceAdd";
+                ViewBag.Message = "The resource content cannot be added. Please try again.";
+
+            }
+            return PartialView("_PartialAddResource", model);
         }
-      
+
+        private void UploadFile(HttpFileCollection[] ResourceFiles)
+        {
+
+        }
+
+        public ActionResult ChangeActiveStatus(int id, string Active)
+        {
+            unitOfWork = new UnitOfWork();
+            if (Active == "True")
+            {
+                unitOfWork.ResourceListRepository.GetByID(id).isActive = false;
+
+            }
+            else
+            {
+                unitOfWork.ResourceListRepository.GetByID(id).isActive = true;
+
+            }
+            unitOfWork.Save();
+            return RedirectToAction("_PartialResourceList");
+        }
+
         public bool Create()
         {
             return true;
         }
 
         public ActionResult _PartialResourceList()
-        { 
+        {
             ICollection<Resource> Model = unitOfWork.ResourceListRepository.Get().ToList();
 
             return PartialView(Model);

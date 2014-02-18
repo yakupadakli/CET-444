@@ -13,7 +13,9 @@
   <div class="tab-pane clearfix" id="scenarios">
       @Html.Action("_PartialGetScenarioGrid", "Scenario")
   </div>
-  <div class="tab-pane" id="resources">assas</div>
+  <div class="tab-pane" id="resources">
+    @Html.Action("_PartialGetResourceGrid", "Resource")
+  </div>
   <div class="tab-pane" id="mentors">
       @Html.Action("_PartialGetMentorGrid", "Mentor")
   </div>
