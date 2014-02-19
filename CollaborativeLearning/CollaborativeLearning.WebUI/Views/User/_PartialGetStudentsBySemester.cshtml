@@ -1,0 +1,99 @@
+﻿@model ICollection<CollaborativeLearning.Entities.User>
+
+
+@{
+    if (Model.Count != 0)
+    {
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
+            <thead>
+                <tr>
+                    <td width="10%">Name
+                    </td>
+                    <td width="10%">Username
+                    </td>
+                    <td width="10%">Email
+                    </td>
+                    <td width="10%">Gender
+                    </td>
+                    <td width="10%">PhoneNumber
+                    </td>
+                    <td width="10%">Group
+                    </td>
+                    <td width="10%">Action
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.FullName @*<a href="@Url.Action("Scenario", "Semester", new { id = item.Id })"></a>*@
+                        </td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.Gender
+                        </td>
+                        <td>
+                            @item.PhoneNumber
+                        </td>
+                        <td>
+                            @{if (item.Groups.Count > 0)
+                                {
+                                    @item.Groups.FirstOrDefault().groupName
+                                }
+                                else
+                                {
+                                  <text>-</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Remove", "RemoveUserSemester", "User", new { userId = item.Id, semesterId = ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to remove this user from this semester?",
+                                    UpdateTargetId = "studentsTable",
+                                    LoadingElementId = "loadingSemesterStudents",
+                                },new{ @class="btn btn-danger btn-sm"
+                                }
+                             )
+                                    
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        <text>This semester does not have scenario yet!</text>
+    }
+}
+
+ @*@Html.Action("_PartialSelectScenarios", "Semester", new { id = ViewBag.semesterId })*@
+
+<div id = "loadingSemesterStudents">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingSemesterStudents {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

@@ -63,6 +63,23 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+        public ActionResult _PartialGetStudentsBySemester(int id)
+        {
+            var studentsList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id  && s.RoleID == 3).Count() > 0);
+            ViewBag.semesterId = id;
+            return PartialView(studentsList);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveUserSemester(int userId, int semesterId)
+        {
+            User user = unitOfWork.UserRepository.GetByID(userId);
+            unitOfWork.SemesterRepository.GetByID(semesterId).Users.Remove(user);
+
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetStudentsBySemester", new { id = semesterId });
+        }
+
 
     }
 }
