@@ -35,10 +35,16 @@
                             @item.Groups.Count()
                         </td>
                         <td>
-                            <a href="@Url.Action("Remove", "Semester", new { id = item.Id })" class="btn btn-danger btn-sm">
-                                <span class='glyphicon glyphicon-remove'></span>
-                                Remove
-                            </a>
+                            @Ajax.ActionLink("Remove", "DeleteScenario", "Scenario", new { scenarioId = item.Id, semesterId = ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this scenario?",
+                                    UpdateTargetId = "scenartioTable",
+                                    LoadingElementId = "loadingSemesterScenarios",
+                                },new{ @class="btn btn-danger btn-sm"
+                                }
+                               )
                         </td>
                     </tr>
                 }
@@ -51,3 +57,21 @@
         <text>This semester does not have scenario yet!</text>
     }
 }
+
+ @Html.Action("_PartialSelectScenarios", "Semester", new { id = ViewBag.semesterId })
+
+<div id = "loadingSemesterScenarios">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingSemesterScenarios {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
