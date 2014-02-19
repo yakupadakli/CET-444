@@ -1,0 +1,29 @@
+﻿
+
+@using (Ajax.BeginForm("_UserToGroup", "Group", new { id = ViewBag.groupId}, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "groupTable",
+                LoadingElementId = "loading",
+            }))
+            {
+                <tr>
+                    <td>
+                        <select multiple="multiple" style="min-width:150px" id="MentorMultiSelect-@ViewBag.groupId" name="UserMultiSelect" class="form-control">
+                            @{
+                                if (ViewBag.AllMentors != null)
+                                {
+                                    foreach (var user in ViewBag.AllMentors as List<CollaborativeLearning.Entities.User>)
+                                    {
+                                        <option value="@user.Id">@user.FullName</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn-xs btn-success" value="+" />
+                                
+                    </td>
+                </tr>
+            }
