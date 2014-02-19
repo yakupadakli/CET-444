@@ -363,6 +363,7 @@
     <Compile Include="Controllers\SemesterController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -373,6 +374,7 @@
     <Compile Include="Membership\Crypto.cs" />
     <Compile Include="Membership\WebSecurity.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\SemesterModels.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
