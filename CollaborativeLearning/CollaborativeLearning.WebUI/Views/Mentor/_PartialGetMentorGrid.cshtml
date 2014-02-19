@@ -41,12 +41,16 @@
                     {
                         "mData": "Action",
                         "fnRender": function (oObj) {
-                            return "<a href='#' id='" + oObj.aData.Id + "' class='editMentor btn btn-default btn-xs' " +
+                            return "<a href='../Mentor/Edit/' id='" + oObj.aData.Id + "' class='editMentor btn btn-default btn-xs' " +
                                     "data-toggle='modal' data-target='#editMentorPartialModal'>" +
                                       "<span class='glyphicon glyphicon-pencil'></span> Edit" +
                                     "</a>" +
                                     "<a href='../Mentor/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
                                       "<span class='glyphicon glyphicon-remove'></span> Delete" +
+                                    "</a>" +
+                                "<a href='../Mentor/_SemesterToMentor/' id='" + oObj.aData.Id + "' class='addSemester btn btn-default btn-xs' " +
+                                    "data-toggle='modal' data-target='#addSemesterPartialModal'>" +
+                                      "<span class='glyphicon glyphicon-pencil'></span> Semesters" +
                                     "</a>";
                         }
                     }
@@ -61,12 +65,20 @@
     $(document).ready(function () {
         setTimeout(function () {
             $(".editMentor").click(function () {
-                console.log("oldu");
                 $.ajax({
                     url: "/Mentor/Edit/" + $(this).attr('id')
                 })
                 .success(function (result) {
                     $("#editMentorPartial").html(result);
+                });
+            });
+
+            $(".addSemester").click(function () {
+                $.ajax({
+                    url: "/Mentor/_SemesterToMentor/" + $(this).attr('id')
+                })
+                .success(function (result) {
+                    $("#addSemesterPartial").html(result);
                 });
             });
         }, 2000);
@@ -92,6 +104,22 @@
 
       <div id="editMentorPartial"class="modal-body">
          
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addSemesterPartialModal" tabindex="-1" role="dialog" aria-labelledby="addSemesterLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="addSemesterLabel">Add Semester To Mentor</h4>
+      </div>
+
+      <div id="addSemesterPartial"class="modal-body">
+         asdasds
       </div>
      
     </div>

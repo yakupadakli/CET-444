@@ -98,6 +98,31 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        
+
+        public ActionResult _SemesterToMentor(int id)
+        {
+            IEnumerable<Semester> semesters = unitOfWork.SemesterRepository.Get(u => u.isActive == true);
+            List<Semester> semesterList = new List<Entities.Semester>();
+
+            User mentor = unitOfWork.UserRepository.GetByID(id);
+
+            foreach (var item in semesters)
+            {
+                if (!item.Users.Contains(unitOfWork.UserRepository.GetByID(mentor.Id)))
+                {
+                    semesterList.Add(item);
+                }
+            }
+            ViewBag.AllSemesters = semesterList;
+            
+            var mentorSemesterList = unitOfWork.UserRepository.Get(s => s.Id == id).FirstOrDefault().Semesters.ToList();
+
+            ViewBag.ID = id;
+            return PartialView(mentorSemesterList);
+        }
+
+
         [HttpPost]
         public ActionResult _SemesterToMentor(int id, string[] UserMultiSelect)
         {
@@ -109,11 +134,12 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             unitOfWork.Save();
             ViewBag.AllMentors = unitOfWork.UserRepository.Get();
-            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group");
         }
 
         public ActionResult _PartialGetMentorGrid()
         {
+
             return PartialView();
         }
 
