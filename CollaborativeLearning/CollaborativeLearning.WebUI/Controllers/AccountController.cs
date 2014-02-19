@@ -9,6 +9,8 @@ using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
 using System.Text.RegularExpressions;
+using CollaborativeLearning.WebUI.Membership;
+using System.Web.Helpers;
 
 
     
@@ -25,10 +27,6 @@ using System.Text.RegularExpressions;
             return View();
         }
 
-        public ActionResult ForgetPassword()
-        {
-            return View();
-        }
         //
         // POST: /Account/LogOn
 
@@ -353,6 +351,138 @@ using System.Text.RegularExpressions;
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgetPassword(CollaborativeLearning.WebUI.Models.ForgotPassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = unitOfWork.UserRepository.Get(u => u.Email == model.Email).FirstOrDefault();
+                if(user != null)
+                    SendPasswordViaMail(user);
+            }
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult SendPasswordViaMail(User user)
+        {
+            if (user != null)
+            {
+                var encrypted = CollaborativeLearning.WebUI.Membership.Crypto.Generate128Characters();
+
+                string baseUrl = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+
+
+                var passwordLink = baseUrl + "/Account/ResetPassword?digest=" + HttpUtility.UrlEncode(encrypted);
+                var helpLink = baseUrl + "/Home/Contact";
+
+                Boolean IsAuthenticated = WebSecurity.IsAuthenticated;
+
+                try
+                {
+                    WebMail.SmtpServer = "smtp.gmail.com";
+                    WebMail.EnableSsl = true;
+                    WebMail.UserName = "oguzhankml@gmail.com";
+                    WebMail.Password = "080990Oguzhan";
+                    WebMail.SmtpPort = 587;
+
+                    string mesaj = "Recovering the password";
+
+                    mesaj += "<p> Hello " + user.FullName + " Somebody recently asked to reset your account password.</p>";
+                    mesaj += "<p><a href='" + passwordLink + "'> Click here to change your password.</a></p>";
+                    mesaj += "<p> If you didn't request a new password, let us know immediately.</p>";
+
+                    mesaj += "<p>CET 314: Computer Networks & Commuication</p>";
+                    mesaj += "<p>" + helpLink + "</p>";
+
+                    user.PasswordVerificationToken = encrypted;
+                    user.PasswordVerificationTokenExpirationDate = DateTime.Now.AddHours(1);
+                    unitOfWork.Save();
+
+                    WebMail.Send(
+                            user.Email,
+                            "Cet 314 Somebody requested a new password for your account‏",
+                            mesaj,
+                            "oguzhankml@gmail.com"
+                        );
+
+                    TempData["success"] = "A link which is valid for next one hour to reset your password has been sent.";
+
+                    return RedirectToAction("Login", "Account");
+                }
+                catch (Exception e)
+                {
+                    TempData["failed"] = "There was a problem sending the password reset link. Please try again.";
+
+                    return RedirectToAction("ForgetPassword", "Account");
+                }
+            }
+            TempData["failed"] = "There was a problem sending the password reset link. Please try again.";
+
+            return RedirectToAction("ForgetPassword", "Account");
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword(string digest)
+        {
+            ViewBag.Success = "Your password has been changed successfully.";
+
+            ViewBag.Failed = "There is an error while changing the password.";
+
+            User u = unitOfWork.UserRepository.Get(user => user.PasswordVerificationToken == digest).FirstOrDefault();
+            if (u != null)
+            {
+                if (u.PasswordVerificationTokenExpirationDate >= DateTime.Now)
+                {
+                    ViewBag.Digest = digest;
+                }
+                return View();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(CollaborativeLearning.WebUI.Models.ResetPasswordModel model, string digest)
+        {
+            try
+            {
+                ViewBag.Digest = digest;
+
+                User u = unitOfWork.UserRepository.Get(user => user.PasswordVerificationToken == digest && user.PasswordVerificationTokenExpirationDate >= DateTime.Now).FirstOrDefault();
+                if (u != null)
+                {
+                    if (true/*Membership.EnablePasswordReset*/)
+                    {
+                        u.Password = CollaborativeLearning.WebUI.Membership.Crypto.HashPassword(model.NewPassword);
+
+                        unitOfWork.UserRepository.Update(u);
+                        unitOfWork.Save();
+                        ViewBag.Message = "Şifreniz başarıyla değiştirilmiştir.";
+
+                        if (WebSecurity.IsAuthenticated)
+                        {
+                            FormsAuthentication.SignOut();
+                        }
+
+                        TempData["success"] = "Şifre sıfırlama işlemi başarıyla gerçekleşmiştir. Yeni bilgilerinizle giriş yapabilirsiniz.";
+
+
+                        return RedirectToAction("Login");
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            TempData["failed"] = "Şifre sıfırlama işlemi sırasında bir sorunla karşılaşılmıştır. Lütfen tekrar deneyiniz.";
+            return ResetPassword(digest);
         }
 
         #region Status Codes
