@@ -169,5 +169,16 @@ namespace CollaborativeLearning.WebUI.Membership
             }
             return areSame;
         }
+
+        public static string Generate128Characters()
+        {
+            byte[] linkBytes = new byte[96];
+            var rngCrypto = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rngCrypto.GetBytes(linkBytes);
+            var text128 = Convert.ToBase64String(linkBytes);
+
+            var text128Enc = Uri.EscapeDataString(text128);
+            return text128Enc;
+        }
     }
 }
