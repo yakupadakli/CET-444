@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CollaborativeLearning.Entities;
@@ -82,6 +83,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialTaskCreate(Task task, int? scenarioId)
         {
             try
@@ -136,7 +138,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(task);
         }
 
-        [HttpGet]
+        //[HttpGet]
         public ActionResult _PartialTaskUpdate(int id, int? scenarioId = null)
         {
             if (id != null)
@@ -144,6 +146,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 Task task = unitOfWork.TaskRepository.GetByID(id);
                 if (scenarioId != null)
                     TempData["scenarioId"] = scenarioId;
+                task.Content = WebUtility.HtmlDecode(task.Content);
                 return PartialView(task);
             }
             return RedirectToAction("Index","Scenario");
@@ -172,8 +175,10 @@ namespace CollaborativeLearning.WebUI.Controllers
                         IEnumerable<Task> Tasks;
                         Tasks = GetTask(id);
                         //return Json(Tasks, JsonRequestBehavior.AllowGet);
-                        return RedirectToAction("Index", "Scenario", new {id= id });
+                        return PartialView("_PartialTaskUpdate", Tasks);
+                        //return RedirectToAction("Index", "Scenario", new {id= id });
                     }
+                    //return PartialView("_PartialStudentTask");
                     return RedirectToAction("Index", "Task");
                 }
             }

@@ -27,6 +27,7 @@
                     @Html.TextAreaFor(m => m.Description, new
                                                             {
                                                                 @class = "form-control",
+                                                                id="workContent",
                                                                 placeholder = "Description"
                                                             }) 
                     @Html.ValidationMessageFor(m => m.Description)
@@ -51,7 +52,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#taskContent").kendoEditor({
+        $("#workContent").kendoEditor({
             encoded: false
         });
     });

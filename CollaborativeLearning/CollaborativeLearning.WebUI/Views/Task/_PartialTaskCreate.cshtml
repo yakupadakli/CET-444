@@ -30,11 +30,14 @@
                     <br />*@
                     @Html.TextAreaFor(m => m.Content, new
                                                        {
-                                                           @class = "form-control",
+                                                           @class = "form-control ckeditor",
                                                            id = "taskContent",
+                                                           name = "taskContent",
                                                            placeholder = "Enter Task Name"
                                                        }) 
+                    
                     @Html.ValidationMessageFor(m => m.Content)
+                    
                 </div>
             </div>
             <br />
@@ -44,12 +47,20 @@
         </div>
     </div>   
 }
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-   $(function(){
-       $("#taskContent").kendoEditor({
-        encoded: false
-      });
-   });
+   //$(function(){
+   //    $("#taskContent").kendoEditor({
+   //     encoded: false
+   //   });
+    //});
+
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("taskContent");
+    });
 </script>
 
 @*@helper EditorTask(){

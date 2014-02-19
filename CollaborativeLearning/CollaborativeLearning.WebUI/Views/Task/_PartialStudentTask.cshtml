@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Tasks";
 }
-<div id="content">
+<div id="contentStudentTask">
     @foreach (var item in Model)
     {
         <div class="panel panel-primary">
@@ -29,7 +29,6 @@
             </div>
             <div class="panel-body collapse" id="collapse_@item.Id">
                 @Html.Raw(HttpUtility.HtmlDecode(item.Content))
-
             </div>
             <div class="panel-body" id="updateTaskForm_@item.Id" style="display:none;">
                 @Html.Action("_PartialTaskUpdate", "Task", new {
@@ -38,7 +37,16 @@
                                                                 })
             </div>
         </div>       
-    
+        
+        <script>
+            $(function () {
+                CKEDITOR.config.htmlEncodeOutput = true;
+                CKEDITOR.config.autoParagraph = false;
+                CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+                CKEDITOR.replace("taskUpdateContent_" + @item.Id);
+
+            });
+        </script>
     }
 </div>
 <script type="text/javascript">
@@ -75,11 +83,18 @@
         margin-top: 4px;
     }
 </style>
-
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-    $(function () {
-        $(".taskUpdateContent").kendoEditor({
-            encoded: false
-        });
-    });
+    //$(function () {
+    //    $(".taskUpdateContent").kendoEditor({
+    //        encoded: false
+    //    });
+    //});
+    //$(function () {
+    //    CKEDITOR.config.htmlEncodeOutput = true;
+    //    CKEDITOR.config.autoParagraph = false;
+    //    CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+    //    CKEDITOR.replace("taskUpdateContent");
+
+    //});
 </script>
