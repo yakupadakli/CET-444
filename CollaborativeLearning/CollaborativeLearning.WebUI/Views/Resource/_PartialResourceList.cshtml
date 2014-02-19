@@ -1,31 +1,36 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Resource>
 
-<div class="alert alert-warning" id="ResourceChangeActiveAlert">
-    <div class="col-sm-1"> <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon" class="img-responsive" /></div>
-    <div class="col-lg-12">Wait your processing is continue! Thank you for patient.</div>
-</div>
-<table class="table table-hover table-responsive table-striped">
-    <thead>
-        <tr>
-            <td align="center" class="col-sm-1">
-                <b>Active</b>
-            </td>
-            <td align="center">
-                <b>Resource Name</b>
-            </td>
-            <td align="center">
-                <b>Category</b>
-            </td>
-            <td align="center">
-                <b>Content</b>
-            </td>
-            <td align="center" class="col-sm-2">
-                <b>Action</b>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Count != 0)
+<div class="panel panel-warning clearfix" id="ResourceAddContainner">
+    <div class="panel-heading">Resource List</div>
+    <div class="panel-body">
+
+
+        <div class="alert alert-warning" id="ResourceChangeActiveAlert">
+            <div class="col-sm-1"> <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon" class="img-responsive" /></div>
+            <div class="col-lg-12">Wait your processing is continue! Thank you for patient.</div>
+        </div>
+        <table class="table table-hover table-responsive table-striped">
+            <thead>
+                <tr>
+                    <td align="center" class="col-sm-1">
+                        <b>Active</b>
+                    </td>
+                    <td align="center">
+                        <b>Resource Name</b>
+                    </td>
+                    <td align="center">
+                        <b>Category</b>
+                    </td>
+                    <td align="center">
+                        <b>Content</b>
+                    </td>
+                    <td align="center" class="col-sm-2">
+                        <b>Action</b>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count != 0)
         {
 
             foreach (var item in Model)
@@ -39,7 +44,7 @@
                         @if (item.isActive)
                         {
 
-                            @Ajax.ActionLink(" ", "ChangeActiveStatus", "Resource", new { id = item.Id, Active = item.isActive },
+                        @Ajax.ActionLink(" ", "ChangeActiveStatus", "Resource", new { id = item.Id, Active = item.isActive },
                                     new AjaxOptions
                                     {
                                         UpdateTargetId = "ResourceTableContianner",
@@ -49,7 +54,7 @@
                         }
                         else
                         {
-                            @Ajax.ActionLink(" ", "ChangeActiveStatus", "Resource", new { id = item.Id, Active = item.isActive },
+                        @Ajax.ActionLink(" ", "ChangeActiveStatus", "Resource", new { id = item.Id, Active = item.isActive },
                                     new AjaxOptions
                                     {
                                         UpdateTargetId = "ResourceTableContianner",
@@ -78,7 +83,7 @@
                                     UpdateTargetId = "ResourceTableContianner",
                                     LoadingElementId = "loadingResourceOps"
                                 },
-                        new { @class = "btn-sm btn-danger glyphicon glyphicon-trash" })
+                     new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "All Files Download" })
 
                         @Ajax.ActionLink(" ", "_PartialEditResource", "Resource", new { id = item.Id },
                                 new AjaxOptions
@@ -88,23 +93,18 @@
                                     OnBegin = "ResourceEditAjaxFormBeginContainner"
 
                                 },
-                   new { @class = "btn-sm btn-info glyphicon glyphicon-edit" })
+                new { @class = "btn-sm btn-info glyphicon glyphicon-edit", alt = "All Files Download" })
 
-                      
-                      
-                        
-                          @if (item.type.Substring(0, 3) == "Fil")
+                        @if (item.type.Substring(0, 3) == "Fil")
                         {
-                            @Ajax.ActionLink(" ", "DownloadAllResourceFiles", "Resource", new { id = item.Id },
+                        @Ajax.ActionLink(" ", "DownloadAllResourceFiles", "Resource", new { id = item.Id },
                                 new AjaxOptions
-                                {
-                                    Confirm = "Are you sure to delete this resource",
+                                {                                   
                                     UpdateTargetId = "ResourceTableContianner",
                                     LoadingElementId = "loadingResourceOps"
                                 },
-                            new { @class = "btn-sm btn-danger glyphicon glyphicon-download-alt" })
+                            new { @class = "btn-sm btn-danger glyphicon glyphicon-download-alt",alt="All Files Download" })
                         }
-
 
                     </td>
                 </tr>
@@ -114,19 +114,21 @@
         }
         else
         {
-            <tr>
-                <td colspan="4" width="100%">
-                    Any resource is not found!
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="4" width="100%">
+                        Any resource is not found!
+                    </td>
+                </tr>
         }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+
+    </div>
+</div>
 
 <div id="loadingResourceOps">
     <img src="~/Content/Template/img/loader.gif" />
 </div>
-
 <style>
     div#loadingResourceOps {
         display: none;
@@ -155,9 +157,9 @@
 
     }
     function ResourceEditAjaxFormBeginContainner() {
-     
+
         $("#ResourceAddContainner").hide(100);
         $("#ResourceEditContainner").show(100);
     }
-  
+
 </script>

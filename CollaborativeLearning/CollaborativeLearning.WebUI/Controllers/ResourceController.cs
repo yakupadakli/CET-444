@@ -13,16 +13,17 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
         public ActionResult Index()
         {
-
-
-
             return View();
+        }
+        public ActionResult _PartialAddResource()
+        {
+            return PartialView("_PartialAddResource");
         }
         public ActionResult _PartialGetResourceGrid()
         {
             return PartialView("Index");
         }
-        public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, HttpFileCollection[] ResourceFiles)
+        public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, string FileUpload)
         {
             bool regStatus = false;
             if (model.Name != "" && model.type != "")
@@ -42,7 +43,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 }
                 else if (model.type.Substring(0, 4) == "File")
                 {
-                   // UploadFile(ResourceFiles);
+                    model.Description = "Files";
                     regStatus = true;
                 }
                 else
@@ -62,11 +63,14 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 try
                 {
+                    model.RegDate = DateTime.Now;
+                    model.RegUserID = HelperController.GetCurrentUserId();
                     unitOfWork = new UnitOfWork();
                     unitOfWork.ResourceListRepository.Insert(model);
                     unitOfWork.Save();
                     ViewBag.ErrorType = "ResourceAdd";
                     ViewBag.Message = "Resource is added succesfully. But! You have to switch it's active status to use";
+
                 }
                 catch (Exception ex)
                 {
@@ -82,7 +86,16 @@ namespace CollaborativeLearning.WebUI.Controllers
                 ViewBag.Message = "The resource content cannot be added. Please try again.";
 
             }
-            return PartialView("_PartialAddResource", model);
+            if (model.type.Contains("File") && FileUpload == "Now")
+            {
+                List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
+                ViewBag.ResourceCategoryEdit = ResourceCategory;
+                return PartialView("_PartialEditResource", model);
+            }
+            else
+            {
+                return PartialView("_PartialAddResource", model);
+            }
         }
 
         private void UploadFile(HttpFileCollection[] ResourceFiles)
@@ -90,7 +103,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
-        public ActionResult Delete(int id) {
+        public ActionResult Delete(int id)
+        {
             Resource re = unitOfWork.ResourceListRepository.GetByID(id);
 
             if (re != null)
@@ -103,16 +117,18 @@ namespace CollaborativeLearning.WebUI.Controllers
                 }
                 catch (Exception ex)
                 {
-                    
-                    ModelState.AddModelError("",ex);
+
+                    ModelState.AddModelError("", ex);
                     ViewBag.ErrorType = "ResourceAdd";
                     ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
                         + " Detail Error: " + ex.Message;
                 };
-            }else{
-                 ModelState.AddModelError("","The Resource cannot find to delete");
-                    ViewBag.ErrorType = "ResourceAdd";
-                    ViewBag.Message = "The Resource cannot find to delete";
+            }
+            else
+            {
+                ModelState.AddModelError("", "The Resource cannot find to delete");
+                ViewBag.ErrorType = "ResourceAdd";
+                ViewBag.Message = "The Resource cannot find to delete";
             }
             return RedirectToAction("_PartialResourceList");
         }
@@ -135,33 +151,73 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialResourceList()
         {
-            var Model = unitOfWork.ResourceListRepository.Get().ToList();
+            var Model = unitOfWork.ResourceListRepository.Get().OrderBy(m => m.Name).ToList();
 
             return PartialView(Model);
         }
-        public ActionResult _PartialEditResource(int id) {
+        public ActionResult _PartialEditResource(int id)
+        {
             Resource model = new Resource();
             Resource m = unitOfWork.ResourceListRepository.GetByID(id);
             if (m != null)
             {
                 model = m;
-                List<SelectListItem> ResourceCategory = new List<SelectListItem>();
-                ResourceCategory.Add(new SelectListItem { Text = "Select ResourceType", Value = "" });
-                ResourceCategory.Add(new SelectListItem { Text = "Text", Value = "Text" });
-                ResourceCategory.Add(new SelectListItem { Text = "Link", Value = "URL" });
-                ResourceCategory.Add(new SelectListItem { Text = "File/PDF", Value = "File/PDF" });
-                ResourceCategory.Add(new SelectListItem { Text = "File/Zip", Value = "File/Zip" });
-                ResourceCategory.Add(new SelectListItem { Text = "File/Document", Value = "File/Document" });
-                ResourceCategory.Add(new SelectListItem { Text = "File/Other", Value = "File/Other" });
-                ResourceCategory.Add(new SelectListItem { Text = "Other", Value = "Other" });
-
+                List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
                 ViewBag.ResourceCategory = ResourceCategory;
                 return PartialView("_PartialEditResource", model);
 
             }
-            else {
+            else
+            {
                 return null;
             }
         }
+
+        private static List<SelectListItem> GetResourceTypesSelectList()
+        {
+            List<SelectListItem> ResourceCategory = new List<SelectListItem>();
+            ResourceCategory.Add(new SelectListItem { Text = "Select ResourceType", Value = "" });
+            ResourceCategory.Add(new SelectListItem { Text = "Text", Value = "Text" });
+            ResourceCategory.Add(new SelectListItem { Text = "Link", Value = "URL" });
+            ResourceCategory.Add(new SelectListItem { Text = "File/PDF", Value = "File/PDF" });
+            ResourceCategory.Add(new SelectListItem { Text = "File/Zip", Value = "File/Zip" });
+            ResourceCategory.Add(new SelectListItem { Text = "File/Document", Value = "File/Document" });
+            ResourceCategory.Add(new SelectListItem { Text = "File/Other", Value = "File/Other" });
+            ResourceCategory.Add(new SelectListItem { Text = "Other", Value = "Other" });
+            return ResourceCategory;
+        }
+
+        public ActionResult Edit(Resource model)
+        {
+            unitOfWork = new UnitOfWork();
+            Resource resource = unitOfWork.ResourceListRepository.GetByID(model.Id);
+            if (resource != null)
+            {
+                resource.Name = model.Name;
+                resource.Description = model.Description;
+                try
+                {
+                    unitOfWork.ResourceListRepository.Update(resource);
+                    unitOfWork.Save();
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "Resource is updated succesfully. But! You have to switch it's active status to use";
+                }
+                catch (Exception ex)
+                {
+
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
+                        + " Detail Error: " + ex.Message;
+                }
+            }
+            else {
+                ModelState.AddModelError("", "The Resource cannot find to update");
+                ViewBag.ErrorType = "ResourceAdd";
+                ViewBag.Message = "The Resource cannot find to update";
+            }
+            return PartialView("_PartialAddResource", model);
+
+        }
+
     }
 }
