@@ -1,10 +1,10 @@
 ﻿@model CollaborativeLearning.Entities.Task
-
+<div id="studentTaskUpdateContainer">
 
     @using (Ajax.BeginForm("_PartialTaskUpdate", "Task", new AjaxOptions
                                                                     {
                                                                         HttpMethod = "POST",
-                                                                        UpdateTargetId = "studentTaskContainer",
+                                                                        UpdateTargetId = "studentTaskUpdateContainer",
                                                                         OnBegin = "ProcessResourceUpdateAjaxForm",
                                                                         OnComplete = "CompleteResourceUpdateAjaxForm",
                                                                         OnSuccess = "SuccessResourceUpdateAjaxForm"
@@ -44,15 +44,25 @@
             <div class="text-right">
                 <button type="submit" class="btn btn-primary">Update Task</button>
                 <button type="button" class="btn btn-default" onclick="closeEditTask(@Model.Id)" >Close</button>
-                <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceUpdateProcessingIcon" />
+                <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceUpdateProcessingIcon_@Model.Id" />
             </div>
         </div>
     }
+
+<script>
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("taskUpdateContent_" + @Model.Id);
+
+    });
+</script>
 <script>
     $(document).ready(function () {
         $("#UpdateTaskSuccess").hide();
         $("#UpdateTaskFailure").hide();
-        $("#resourceUpdateProcessingIcon").hide();
+        $("#resourceUpdateProcessingIcon_"+@Model.Id).hide();
     });
     function UpdateTaskSuccess() {
         alert("success");
@@ -66,12 +76,12 @@
     }
 
     function ProcessResourceUpdateAjaxForm() {
-        $("#resourceUpdateProcessingIcon").show();
+        $("#resourceUpdateProcessingIcon_"+@Model.Id).show();
 
     };
     function CompleteResourceUpdateAjaxForm() {
 
-        $("#resourceUpdateProcessingIcon").hide();
+        $("#resourceUpdateProcessingIcon_"+@Model.Id).hide();
 
     };
     function SuccessResourceUpdateAjaxForm() {
@@ -80,3 +90,5 @@
         $("#collapse_" + @Model.Id).show(100);
     }
 </script>
+
+    </div>

@@ -138,7 +138,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(task);
         }
 
-        //[HttpGet]
+        [HttpGet]
         public ActionResult _PartialTaskUpdate(int id, int? scenarioId = null)
         {
             if (id != null)
@@ -175,7 +175,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                         IEnumerable<Task> Tasks;
                         Tasks = GetTask(id);
                         //return Json(Tasks, JsonRequestBehavior.AllowGet);
-                        return PartialView("_PartialTaskUpdate", Tasks);
+                        return PartialView("_PartialTaskUpdate", task);
                         //return RedirectToAction("Index", "Scenario", new {id= id });
                     }
                     //return PartialView("_PartialStudentTask");
