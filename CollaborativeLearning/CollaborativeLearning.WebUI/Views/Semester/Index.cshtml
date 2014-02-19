@@ -35,6 +35,7 @@
     <li><a href="#Students" data-toggle="tab">Students</a></li>
     <li><a href="#Submitted" data-toggle="tab">Submitted Works</a></li>
     <li><a href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
+    <li><a href="#Meetings" data-toggle="tab">Group Meeting</a></li>
     <li><a href="#Mentors" data-toggle="tab">Mentors</a></li>
     
   
@@ -65,13 +66,23 @@
         </div>
     </div>
     <div class="tab-pane" id="Students">
-        Students
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Students</h3>
+            </div>
+            <div class="panel-body" id="studentsTable">
+                @Html.Action("_PartialGetStudentsBySemester", "User", new { id = Model.Id })
+            </div>
+        </div>
     </div>
     <div class="tab-pane clearfix" id="Submitted">
         Submitted
     </div>
     <div class="tab-pane clearfix" id="Feedbacks">
-        Feedbacks
+        Reflections
+    </div>
+    <div class="tab-pane clearfix" id="Meetings">
+        Group meetings
     </div>
     <div class="tab-pane clearfix" id="Mentors">
         Mentors
