@@ -363,8 +363,13 @@ using System.Web.Helpers;
             if (ModelState.IsValid)
             {
                 User user = unitOfWork.UserRepository.Get(u => u.Email == model.Email).FirstOrDefault();
-                if(user != null)
+                if (user != null)
                     SendPasswordViaMail(user);
+                else
+                {
+                    TempData["failed"] = "The email address you entered does not belong to any account.";
+                    TempData["success"] = "";
+                }
             }
             return View();
         }
@@ -414,16 +419,19 @@ using System.Web.Helpers;
 
                     TempData["success"] = "A link which is valid for next one hour to reset your password has been sent.";
 
+                    TempData["failed"] = "";
                     return RedirectToAction("Login", "Account");
                 }
                 catch (Exception e)
                 {
                     TempData["failed"] = "There was a problem sending the password reset link. Please try again.";
+                    TempData["success"] = "";
 
                     return RedirectToAction("ForgetPassword", "Account");
                 }
             }
             TempData["failed"] = "There was a problem sending the password reset link. Please try again.";
+            TempData["success"] = "";
 
             return RedirectToAction("ForgetPassword", "Account");
         }
@@ -431,9 +439,6 @@ using System.Web.Helpers;
         [HttpGet]
         public ActionResult ResetPassword(string digest)
         {
-            ViewBag.Success = "Your password has been changed successfully.";
-
-            ViewBag.Failed = "There is an error while changing the password.";
 
             User u = unitOfWork.UserRepository.Get(user => user.PasswordVerificationToken == digest).FirstOrDefault();
             if (u != null)
@@ -450,6 +455,17 @@ using System.Web.Helpers;
         [HttpPost]
         public ActionResult ResetPassword(CollaborativeLearning.WebUI.Models.ResetPasswordModel model, string digest)
         {
+            if (model.NewPassword == null)
+            {
+                TempData["failed"] = "Please enrty a new password.";
+                return ResetPassword(digest);
+            }
+
+            if (model.ConfirmPassword == null)
+            {
+                TempData["failed"] = "Please confirm your new password."; 
+                return ResetPassword(digest);
+            }
             try
             {
                 ViewBag.Digest = digest;
@@ -457,31 +473,38 @@ using System.Web.Helpers;
                 User u = unitOfWork.UserRepository.Get(user => user.PasswordVerificationToken == digest && user.PasswordVerificationTokenExpirationDate >= DateTime.Now).FirstOrDefault();
                 if (u != null)
                 {
-                    if (true/*Membership.EnablePasswordReset*/)
+                    if (true)
                     {
                         u.Password = CollaborativeLearning.WebUI.Membership.Crypto.HashPassword(model.NewPassword);
 
                         unitOfWork.UserRepository.Update(u);
                         unitOfWork.Save();
-                        ViewBag.Message = "Şifreniz başarıyla değiştirilmiştir.";
 
                         if (WebSecurity.IsAuthenticated)
                         {
                             FormsAuthentication.SignOut();
                         }
 
-                        TempData["success"] = "Şifre sıfırlama işlemi başarıyla gerçekleşmiştir. Yeni bilgilerinizle giriş yapabilirsiniz.";
+                        TempData["success"] = "Your password has been changed successfully.";
 
+                        TempData["failed"] = "";
 
                         return RedirectToAction("Login");
                     }
+                }
+                else
+                {
+                    TempData["failed"] = "The password reset link is not valid or expired.";
+                    TempData["success"] = "";
+                    return ResetPassword(digest);
                 }
             }
             catch
             {
             }
 
-            TempData["failed"] = "Şifre sıfırlama işlemi sırasında bir sorunla karşılaşılmıştır. Lütfen tekrar deneyiniz.";
+            TempData["failed"] = "There is an error while changing the password.";
+            TempData["success"] = "";
             return ResetPassword(digest);
         }
 

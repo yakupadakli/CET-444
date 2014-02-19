@@ -16,7 +16,7 @@ namespace CollaborativeLearning.WebUI.Models
 
     public class ResetPasswordModel
     {
-        [StringLength(100, ErrorMessage = "{0} en az {2} karatkterden oluşmalı.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} must contain at least {2} character(s)", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter new password.")]
         [Display(Name = "New Password")]
