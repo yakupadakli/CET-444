@@ -87,15 +87,13 @@ namespace CollaborativeLearning.WebUI.Controllers
                     scenario.regDate = DateTime.Now;
                     unitOfWork.ScenarioRepository.Insert(scenario);
                     unitOfWork.Save();
-
-                    return RedirectToAction("Index", "Home");
                 }
             }
             catch
             {
                 return View();
             }
-            return PartialView(scenario);
+            return RedirectToAction("_PartialGetScenarioGrid");
         }
         //
         // GET: /Scenario/Edit/5
