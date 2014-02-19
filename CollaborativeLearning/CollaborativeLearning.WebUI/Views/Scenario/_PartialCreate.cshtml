@@ -9,6 +9,7 @@
             </div>
             @using (Ajax.BeginForm("_PartialCreate", "Scenario", new AjaxOptions {
                 HttpMethod="POST",
+                UpdateTargetId = "scenarios",
                 LoadingElementId = "ScenarioAddPartialAjaxLoading"
             }))
             {

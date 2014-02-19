@@ -98,23 +98,19 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        ////
-        //// POST: /Mentor/Delete/5
-
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult _SemesterToMentor(int id, string[] UserMultiSelect)
+        {
+            var mentor = unitOfWork.UserRepository.GetByID(id);
+            foreach (var item in UserMultiSelect)
+            {
+                var u = unitOfWork.SemesterRepository.GetByID(int.Parse(item));
+                mentor.Semesters.Add(u);
+            }
+            unitOfWork.Save();
+            ViewBag.AllMentors = unitOfWork.UserRepository.Get();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
+        }
 
         public ActionResult _PartialGetMentorGrid()
         {
