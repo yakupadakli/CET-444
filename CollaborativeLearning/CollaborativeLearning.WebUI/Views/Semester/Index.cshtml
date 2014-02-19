@@ -30,15 +30,13 @@
 <br />
 
 <ul class="nav nav-tabs">
-    <li><a href="#Groups" data-toggle="tab">Groups</a></li>
-    <li class="active"><a href="#scenarios" data-toggle="tab">Scenarios</a></li>
-    <li><a href="#Students" data-toggle="tab">Students</a></li>
-    <li><a href="#Submitted" data-toggle="tab">Submitted Works</a></li>
-    <li><a href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
-    <li><a href="#Meetings" data-toggle="tab">Group Meeting</a></li>
-    <li><a href="#Mentors" data-toggle="tab">Mentors</a></li>
-    
-  
+    <li><a id="groups_tab" href="#Groups" data-toggle="tab">Groups</a></li>
+    <li class="active"><a id="scenarios_tab" href="#Scenarios" data-toggle="tab">Scenarios</a></li>
+    <li><a id="works_tab" href="#Works" data-toggle="tab">Submitted Works</a></li>
+    <li><a id="feedbacks_tab" href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
+    <li><a id="reflections_tab" href="#Reflections" data-toggle="tab">Reflections</a></li>
+    <li><a id="mentors_tab" href="#Mentors" data-toggle="tab">Mentors</a></li>
+    <li><a id="students_tab" href="#Students" data-toggle="tab">Students</a></li>
 </ul>
 <div class="tab-content">
     <div class="tab-pane clearfix" id="Groups">
@@ -55,7 +53,7 @@
         </div>
     </div>
     <br />
-    <div class="tab-pane active" id="scenarios">
+    <div class="tab-pane active" id="Scenarios">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Used Scenarios</h3>
@@ -65,17 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane" id="Students">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Students</h3>
-            </div>
-            <div class="panel-body" id="studentsTable">
-                @Html.Action("_PartialGetStudentsBySemester", "User", new { id = Model.Id })
-            </div>
-        </div>
-    </div>
-    <div class="tab-pane clearfix" id="Submitted">
+    <div class="tab-pane clearfix" id="Works">
         Submitted
     </div>
     <div class="tab-pane clearfix" id="Feedbacks">
@@ -84,8 +72,71 @@
     <div class="tab-pane clearfix" id="Meetings">
         Group meetings
     </div>
+    <div class="tab-pane clearfix" id="Reflections">
+        Reflections
+    </div>
     <div class="tab-pane clearfix" id="Mentors">
         Mentors
     </div>
+    <div class="tab-pane" id="Students">
+        Students
+    </div>
 </div>
 
+<script>
+    $("#groups_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#groups").addClass("active");
+    });
+
+    $("#scenarios_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#scenarios").addClass("active");
+    });
+
+    $("#works_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#works").addClass("active");
+    });
+
+    $("#feedbacks_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#feedbacks").addClass("active");
+    });
+
+    $("#reflections_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#reflections").addClass("active");
+    });
+
+    $("#students_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#students").addClass("active");
+    });
+
+    $("#mentors_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#mentors").addClass("active");
+    });
+</script>

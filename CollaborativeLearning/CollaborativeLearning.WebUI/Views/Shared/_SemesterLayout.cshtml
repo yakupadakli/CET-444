@@ -24,6 +24,26 @@
     <link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
     <link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
     <script src="~/Content/select2-3.4.5/select2.js"></script>
+
+
+    <style>
+        #semesterNav 
+        {
+            position:fixed;
+            padding: 9px 0;
+            top:60px;
+            width:266px;
+        }
+
+        #semesterNavAdmin 
+        {
+            position:fixed;
+            padding: 9px 0;
+            top:390px;
+            width:266px;
+            margin-bottom: 25px;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,23 +65,26 @@
             </div>
         </div><!-- /.container -->
     </nav>
-    <div class="container">
+    <div class="container" >
 
-        <div class="row">
+        <div class="row" style="min-height:480px;">
 
             <div class="col-md-3">
 
-                <div class="list-group" style="">
+                <div id="semesterNav" class="list-group" style="">
                     Semester Operations
-                    <a href="#" class="list-group-item">Users</a>
-                    <a href="scenario.html" class="list-group-item">Groups</a>
-                    <a href="groups.html" class="list-group-item">Scenarios</a>
-                    <a href="users.html" class="list-group-item">Submitted Works</a>
-                    <a href="mentors.html" class="list-group-item">Reflections</a>
+                    
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Groups</a>
+                    <a id="scenarios" href="#Scenarios" class="list-group-item active" data-toggle="tab">Scenarios</a>
+                    <a id="works" href="#Works" class="list-group-item" data-toggle="tab">Submitted Works</a>
+                    <a id="feedbacks" href="#Feedbacks" class="list-group-item" data-toggle="tab">Feedbacks</a>
+                    <a id="reflections" href="#Reflections" class="list-group-item" data-toggle="tab">Reflections</a>
+                    <a id="mentors" href="#Mentors" class="list-group-item" data-toggle="tab">Mentors</a>
+                    <a id="students" href="#Students" class="list-group-item" data-toggle="tab">Students</a>
                 </div>
-                <div class="list-group" style="">
+                <div id="semesterNavAdmin" class="list-group" style="">
                     Admininstrative Operations
-                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item">Semesters</a>
+                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Semesters</a>
                     <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
                     <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
                 </div>
@@ -85,22 +108,117 @@
             </div>
         </div>
 
-    </div>
+        <div class="row">
+            <hr>
 
-    <div class="container">
-
-        <hr>
-
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p><strong>Copyright &copy;</strong></p>
+            <footer style="margin: 30px 30px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>
+                            <strong>
+                                Copyright &copy;
+                            </strong> 
+                            Project Team : 
+                            Yakup Adaklı, 
+                            Ali Akkaya, 
+                            Oğuzhan Kemal, 
+                            Mustafa Ozan Şindi | 
+                            Leader : Ekrem Kutbay | 
+                            Advisor : Asist. Prof. Hamdi Erkunt
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </footer>
-
+            </footer>
+        </div>
     </div>
+
 
     @RenderSection("scripts", required: false)
 </body>
+    <script>
+
+        $("#groups").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#groups").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#groups_tab").parent().addClass("active");
+        });
+
+        $("#scenarios").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#scenarios").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#scenarios_tab").parent().addClass("active");
+        });
+
+        $("#works").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#works").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#works_tab").parent().addClass("active");
+        });
+
+        $("#feedbacks").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#feedbacks").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#feedbacks_tab").parent().addClass("active");
+        });
+
+        $("#reflections").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#reflections").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#reflections_tab").parent().addClass("active");
+        });
+
+        $("#mentors").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#mentors").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#mentors_tab").parent().addClass("active");
+        });
+
+        $("#students").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#students").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#students_tab").parent().addClass("active");
+        });
+    </script>
 </html>
