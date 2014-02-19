@@ -89,7 +89,11 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (item.Semesters.Contains(unitOfWork.SemesterRepository.GetByID(semesterId)))
                 {
-                    mentorlist.Add(item);
+                    Group group = item.Groups.Where(g => g.Id == id).FirstOrDefault();
+                    if (group == null)
+                    {
+                        mentorlist.Add(item);
+                    }
                 }
             }
             ViewBag.AllMentors = mentorlist;

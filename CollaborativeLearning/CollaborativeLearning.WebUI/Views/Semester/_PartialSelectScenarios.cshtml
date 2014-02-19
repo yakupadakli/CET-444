@@ -6,7 +6,7 @@
     {
         HttpMethod = "POST",
         UpdateTargetId = "scenartioTable",
-        LoadingElementId = "loading"
+        LoadingElementId = "loadingAddingSemesterScenarios"
     }
 ))
 {  
@@ -37,6 +37,22 @@
 </script>
 <style>
     div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+
+<div id = "loadingAddingSemesterScenarios">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingAddingSemesterScenarios {
         display:none;
         position: absolute;
         left: 42%;

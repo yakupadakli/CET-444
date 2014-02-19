@@ -161,8 +161,18 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialGetScenariosBySemester(int id) {
 
             var scenarioList = unitOfWork.ScenarioRepository.Get(s => s.Semesters.Where(se=>se.Id==id).Count()>0);
-            
+            ViewBag.semesterId = id;
             return PartialView(scenarioList);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteScenario(int scenarioId, int semesterId)
+        {
+            Scenario s = unitOfWork.ScenarioRepository.GetByID(scenarioId);
+            unitOfWork.SemesterRepository.GetByID(semesterId).Scenarios.Remove(s);
+
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetScenariosBySemester", new { id = semesterId });
         }
     }
 }
