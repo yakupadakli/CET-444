@@ -72,11 +72,20 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             try
             {
-                unitOfWork.UserRepository.Update(user);
+                unitOfWork = new UnitOfWork();
+                User u = unitOfWork.UserRepository.GetByID(user.Id);
+                u.Username = user.Username;
+                u.Email = user.Email;
+                u.FirstName = user.FirstName;
+                u.LastName = user.LastName;
+                u.IsLockedOut = user.IsLockedOut;
+                u.RoleID = user.RoleID;
+                unitOfWork.UserRepository.Update(u);
                 unitOfWork.Save();
 
 
-                return RedirectToAction("Index","Home");
+                //return RedirectToAction("Index","Home");
+                return RedirectToAction("_PartialGetMentorGrid");
             }
             catch
             {
@@ -137,36 +146,43 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetGroupsBySemester", "Group");
         }
 
+
         public ActionResult _PartialGetMentorGrid()
         {
-
-            return PartialView();
-        }
-
-        public ActionResult MentorAjaxHandler()
-        {
-            //var allMentor = unitOfWork.UserRepository.Get();
             var allMentor = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 2).ToList();
-            var mentorList = from q in allMentor
-                               select (new
 
-                               {
-                                   Id = q.Id,
-                                   MentorName = q.FullName,
-                                   UserName = q.Username,
-                                   eMail = q.Email,
-                                   GroupCount = q.Groups.Count(),
-                                   Action = ""
-                               });
-
-            return Json(new
-            {
-                iTotalRecords = allMentor.Count(),
-                iTotalDisplayRecords = mentorList.Count(),
-                aaData = mentorList
-            }, JsonRequestBehavior.AllowGet);
-
+            return PartialView(allMentor);
         }
+        public ActionResult _PartialEdit(int id) {
+            unitOfWork = new UnitOfWork();
+            User model = unitOfWork.UserRepository.GetByID(id);
+
+            return PartialView("Edit",model);
+        }
+        //public ActionResult MentorAjaxHandler()
+        //{
+        //    //var allMentor = unitOfWork.UserRepository.Get();
+        //    var allMentor = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 2).ToList();
+        //    var mentorList = from q in allMentor
+        //                       select (new
+
+        //                       {
+        //                           Id = q.Id,
+        //                           MentorName = q.FullName,
+        //                           UserName = q.Username,
+        //                           eMail = q.Email,
+        //                           GroupCount = q.Groups.Count(),
+        //                           Action = ""
+        //                       });
+
+        //    return Json(new
+        //    {
+        //        iTotalRecords = allMentor.Count(),
+        //        iTotalDisplayRecords = mentorList.Count(),
+        //        aaData = mentorList
+        //    }, JsonRequestBehavior.AllowGet);
+
+        //}
 
     }
 }

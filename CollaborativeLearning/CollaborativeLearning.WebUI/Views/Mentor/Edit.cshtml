@@ -1,15 +1,18 @@
 ﻿@model CollaborativeLearning.Entities.User
 
-<script src="~/Scripts/jquery-1.8.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-@using (Html.BeginForm()) {
+@using (Ajax.BeginForm("Edit", "Mentor", new AjaxOptions
+            {
+
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "mentors",
+            }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>User</legend>
+        <legend>Edit Mentor</legend>
 
         @Html.HiddenFor(model => model.Id)
 
@@ -30,14 +33,6 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
         </div>
         <div class="editor-field">
@@ -51,14 +46,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.LastName)
             @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsApproved)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsApproved)
-            @Html.ValidationMessageFor(model => model.IsApproved)
         </div>
 
         <div class="editor-label">
@@ -81,7 +68,13 @@
     </fieldset>
      <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
+        <button type="button" class="btn btn-default" id="editRemoveContainner">Close</button>
       </div>
 }
+
+<script>
+   
+    $("#editRemoveContainner").click(function () {
+        $("#MentorEditPartialContainner").hide(100);
+    });
+</script>
