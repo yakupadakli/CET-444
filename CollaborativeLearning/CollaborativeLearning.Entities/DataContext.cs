@@ -17,21 +17,22 @@ namespace CollaborativeLearning.Entities
         }
         public DbSet<ActionPlan> ActionPlans { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
-        public DbSet<File> Files { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupWork> GroupWorks { get; set; }
+        public DbSet<GroupWorkFile> GroupWorkFiles { get; set; }
+        public DbSet<GroupWorkSubmittedStatus> GroupWorkSubmittedStatus { get; set; }
+        public DbSet<MeetingNote> MeetingNotes { get; set; }
+        public DbSet<MeetingNoteFile> MeetingNoteFiles { get; set; }
         public DbSet<Reflection> Reflections { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<ResourceFile> ResourceFiles { get; set; }
-        public DbSet<Scenario> Scenarios { get; set; }
-        public DbSet<ScenarioTask> ScenarioTasks { get; set; }
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Semester> Semesters { get; set; }
-        public DbSet<SemesterWorkDueDate> SemesterWorkDueDates { get; set; }
-        public DbSet<SubmittedWorkStatus> SubmittedWorkStatuses { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Scenario> Scenarios { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Work> Works { get; set; }
+        public DbSet<WorkSemesterDueDate> WorkSemesterDueDates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

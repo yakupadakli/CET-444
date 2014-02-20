@@ -7,24 +7,27 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class ScenarioTask
+    public class WorkSemesterDueDate
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Kayıt Tarihi")]
-        public DateTime regDate { get; set; }
-
-        [Required]
-        public int regUserID { get; set; }
+             
         public int SemesterID { get; set; }
         public virtual Semester Semester { get; set; }
 
-        [Required(ErrorMessage = "Görev Tanımı alanı boş bırakılamaz")]
-        [Display(Name = " Görev Tanımı")]
-        [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
-        public string description { get; set; }
+        public int WorkID { get; set; }
+        public virtual Work Work { get; set; }
+
+        [Required(ErrorMessage = "Bitiş Tarihi alanı boş bırakılamaz")]
+        [Display(Name = "Bitiş Tarihi")]
+        public DateTime DueDate { get; set; }
+
+        [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
+        [Display(Name = "Kayıt Tarihi")]
+        public DateTime RegDate { get; set; }
+
+        [Required]
+        public int RegUserID { get; set; }
     }
 }

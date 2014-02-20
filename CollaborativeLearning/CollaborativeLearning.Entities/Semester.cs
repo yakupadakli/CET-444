@@ -14,7 +14,7 @@ namespace CollaborativeLearning.Entities
         public int Id { get; set; }
 
 
-         [Required(ErrorMessage = "The year field cannot be empty!")]
+        [Required(ErrorMessage = "The year field cannot be empty!")]
         [Display(Name = "Year")]
         public int year { get; set; }
 
@@ -23,20 +23,16 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Semester")]
         public int semester { get; set; }
 
-        public virtual string semesterName {
-            get 
-            { 
+        public virtual string semesterName
+        {
+            get
+            {
                 return year.ToString() + "-" + semester.ToString();
             }
         }
         [Display(Name = "Register Code")]
         public string registerCode { get; set; }
-        public virtual string mentorRegisterCode
-        {
-            get {
-                return (registerCode + "!MN");
-            }
-        }
+        public string mentorRegisterCode{get; set;}
 
         public bool isActive { get; set; }
 
@@ -46,12 +42,13 @@ namespace CollaborativeLearning.Entities
 
         [Required]
         public int regUserID { get; set; }
-    
 
-
-        public virtual ICollection<Scenario> Scenarios { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Scenario> Scenarios { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
-    }
+        public virtual ICollection<Reflection> Reflections { get; set;}
+        public virtual ICollection<Resource> Resources { get; set; }
+
+     }
 }

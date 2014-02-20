@@ -83,8 +83,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (scenario != null)
                 {
-                    scenario.regUserID = HelperController.GetCurrentUserId();
-                    scenario.regDate = DateTime.Now;
+                    scenario.RegUserID = HelperController.GetCurrentUserId();
+                    scenario.RegDate = DateTime.Now;
                     unitOfWork.ScenarioRepository.Insert(scenario);
                     unitOfWork.Save();
 

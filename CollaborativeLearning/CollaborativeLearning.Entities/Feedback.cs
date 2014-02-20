@@ -12,8 +12,8 @@ namespace CollaborativeLearning.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-       
+        public int UserID { get; set;}
+        public User User { get; set; }
         public int GroupWorkId { get; set; }
         public virtual GroupWork GroupWork { get; set; }
 
@@ -29,8 +29,9 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]
         public DateTime regDate { get; set; }
-
         [Required]
         public int regUserID { get; set; }
+
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

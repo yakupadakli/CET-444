@@ -6,9 +6,9 @@ using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.DataAccess
 {
-    public class ActionPlanListRepository : GenericRepository<ActionPlan>
+    public class GroupWorkSubmittedStatusRepository : GenericRepository<GroupWorkSubmittedStatus>
     {
-        public ActionPlanListRepository(DataContext context)
+        public GroupWorkSubmittedStatusRepository(DataContext context)
             : base(context)
         {
         }

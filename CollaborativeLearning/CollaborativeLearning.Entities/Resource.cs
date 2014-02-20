@@ -35,8 +35,10 @@ namespace CollaborativeLearning.Entities
 
         [Required]
         public int RegUserID { get; set; }
+
+        public virtual ICollection<Semester> Semesters { get; set; }
         public virtual ICollection<Scenario> Scenarios { get; set; }
-        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<ResourceFile> ResourceFiles { get; set; }
 
     }
 }

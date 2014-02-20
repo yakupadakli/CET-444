@@ -19,11 +19,12 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "This field cannot be empty!")]
         [DataType(DataType.Html)]
         public string Content { get; set; }
+
+        public int OrderID { get; set; }
         public int RegUserId { get; set; }
         public DateTime RegDateTime { get; set; }
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
-        public virtual ICollection<Semester> Semester { get; set; }
 
     }
 }

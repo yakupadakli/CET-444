@@ -75,7 +75,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                         string semesterCode = "cet" + semesterItem.year.ToString() + HelperController.GetRandomString(2);
                         semesterItem.registerCode = semesterCode;
-
+                        semesterItem.mentorRegisterCode = "cet" + semesterItem.year.ToString() + "M"+HelperController.GetRandomString(2);
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
 

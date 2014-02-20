@@ -12,11 +12,10 @@ namespace CollaborativeLearning.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        
+         
 
         public int WorkId { get; set; }
-        public virtual Work Works { get; set; }
+        public virtual Work Work { get; set; }
 
         public int GroupID { get; set; }
         public virtual Group Groups { get; set; }
@@ -25,7 +24,10 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Submission Date")]
         public DateTime SubmissionDate { get; set; }
 
-        public virtual ICollection<File> Files { get; set; }
+        public string Content { get; set; }
+
+
+        public virtual ICollection<GroupWorkFile> GroupWorkFiles { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
 
        

@@ -4,25 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CollaborativeLearning.Entities
 {
-    public class SubmittedWorkStatus
+    public class MeetingNoteFile
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int MeetingNoteID { get; set; }
+        public virtual MeetingNote MeetingNote { get; set; }
 
-        public int UserID { get; set; }
-        public virtual User User { get; set; }
-        public int GroupWorkkID { get; set; }
-        public virtual GroupWork GroupWork { get; set; }
+        [Required(ErrorMessage = "Dosya Adı alanı boş bırakılamaz")]
+        [Display(Name = "Dosya Adı")]
+        [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]
+        public string FileName { get; set; }
 
-        public Boolean isSeen { get; set; }
+        public int FileSize { get; set; }
 
-        [Required(ErrorMessage = " Son Görülme Tarihi alanı boş bırakılamaz")]
-        [Display(Name = "Son Görülme Tarihi")]
-        public DateTime lastSeenDate { get; set; }
+        public string FileType { get; set; }
+
+        public string FileUrl { get; set; }
 
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]
         [Display(Name = "Kayıt Tarihi")]

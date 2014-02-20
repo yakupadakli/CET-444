@@ -7,22 +7,38 @@ namespace CollaborativeLearning.DataAccess
     public class UnitOfWork : IDisposable
     {
         private DataContext context = new DataContext();
+        private ActionPlanRepository actionPlanRepository;
         private FeedbackRepository feedbackRepository;
-        private UserRepository userRepository;
-        private ActionPlanListRepository actionPlanListRepository;
-        private FileRepository fileRepository;
         private GroupRepository groupRepository;
+        private GroupWorkFileRepository groupWorkFileRepository;
+        private GroupWorkRepository groupWorkRepository;
+        private GroupWorkSubmittedStatusRepository groupWorkSubmittedStatusRepository;
+        private MeetingNoteRepository meetingNoteRepository;
+        private MeetingNoteFileRepository meetingNoteFileRepository;
         private ReflectionRepository reflectionRepository;
+        private ResourceRepository resourceRepository;
         private ResourceFileRepository resourceFileRepository;
-        private ResourceListRepository resourceListRepository;
         private RoleRepository roleRepository;
         private ScenarioRepository scenarioRepository;
-        private TaskRepository taskRepository;
         private SemesterRepository semesterRepository;
-        private SemesterWorkDueDateRepository semesterWorkDueDateRepository;
-        private SubmittedWorkStatusRepository submittedWorkStatusRepository;
+        private TaskRepository taskRepository;
+        private UserRepository userRepository;
         private WorkRepository workRepository;
+        private WorkSemesterDueDateRepository workSemesterDueDateRepository;
 
+
+        public ActionPlanRepository ActionPlanRepository
+        {
+            get
+            {
+
+                if (this.actionPlanRepository == null)
+                {
+                    this.actionPlanRepository = new ActionPlanRepository(context);
+                }
+                return actionPlanRepository;
+            }
+        }
         public FeedbackRepository FeedbackRepository
         {
             get
@@ -34,43 +50,7 @@ namespace CollaborativeLearning.DataAccess
                 }
                 return feedbackRepository;
             }
-        }
-        public UserRepository UserRepository
-        {
-            get
-            {
-
-                if (this.userRepository == null)
-                {
-                    this.userRepository = new UserRepository(context);
-                }
-                return userRepository;
-            }
-        }
-        public ActionPlanListRepository ActionPlanListRepository
-        {
-            get
-            {
-
-                if (this.actionPlanListRepository == null)
-                {
-                    this.actionPlanListRepository = new ActionPlanListRepository(context);
-                }
-                return actionPlanListRepository;
-            }
-        }
-        public FileRepository FileRepository
-        {
-            get
-            {
-
-                if (this.fileRepository == null)
-                {
-                    this.fileRepository = new FileRepository(context);
-                }
-                return fileRepository;
-            }
-        }
+        }   
         public GroupRepository GroupRepository
         {
             get
@@ -81,6 +61,66 @@ namespace CollaborativeLearning.DataAccess
                     this.groupRepository = new GroupRepository(context);
                 }
                 return groupRepository;
+            }
+        }
+        public GroupWorkRepository GroupWorkRepository
+        {
+            get
+            {
+
+                if (this.groupWorkRepository == null)
+                {
+                    this.groupWorkRepository = new GroupWorkRepository(context);
+                }
+                return groupWorkRepository;
+            }
+        }
+        public GroupWorkFileRepository GroupWorkFileRepository
+        {
+            get
+            {
+
+                if (this.groupWorkFileRepository == null)
+                {
+                    this.groupWorkFileRepository = new GroupWorkFileRepository(context);
+                }
+                return groupWorkFileRepository;
+            }
+        }
+        public GroupWorkSubmittedStatusRepository GroupWorkSubmittedStatusRepository
+        {
+            get
+            {
+
+                if (this.groupWorkSubmittedStatusRepository == null)
+                {
+                    this.groupWorkSubmittedStatusRepository = new GroupWorkSubmittedStatusRepository(context);
+                }
+                return groupWorkSubmittedStatusRepository;
+            }
+        }
+        public MeetingNoteRepository MeetingNoteRepository
+        {
+            get
+            {
+
+                if (this.meetingNoteRepository == null)
+                {
+                    this.meetingNoteRepository = new MeetingNoteRepository(context);
+                }
+                return meetingNoteRepository;
+            }
+        }
+        public MeetingNoteFileRepository MeetingNoteFileRepository
+        {
+            get
+            {
+
+                if (this.meetingNoteFileRepository == null)
+                {
+                    this.meetingNoteFileRepository = new MeetingNoteFileRepository(context);
+                }
+                return meetingNoteFileRepository;
             }
         }
         public ReflectionRepository ReflectionRepository
@@ -94,6 +134,18 @@ namespace CollaborativeLearning.DataAccess
                 }
                 return reflectionRepository;
             }
+        } 
+        public ResourceRepository ResourceRepository
+        {
+            get
+            {
+
+                if (this.resourceRepository == null)
+                {
+                    this.resourceRepository = new ResourceRepository(context);
+                }
+                return resourceRepository;
+            }
         }
         public ResourceFileRepository ResourceFileRepository
         {
@@ -105,18 +157,6 @@ namespace CollaborativeLearning.DataAccess
                     this.resourceFileRepository = new ResourceFileRepository(context);
                 }
                 return resourceFileRepository;
-            }
-        }
-        public ResourceListRepository ResourceListRepository
-        {
-            get
-            {
-
-                if (this.resourceListRepository == null)
-                {
-                    this.resourceListRepository = new ResourceListRepository(context);
-                }
-                return resourceListRepository;
             }
         }
         public RoleRepository RoleRepository
@@ -143,18 +183,6 @@ namespace CollaborativeLearning.DataAccess
                 return scenarioRepository;
             }
         }
-        public TaskRepository TaskRepository
-        {
-            get
-            {
-
-                if (this.taskRepository == null)
-                {
-                    this.taskRepository = new TaskRepository(context);
-                }
-                return taskRepository;
-            }
-        }
         public SemesterRepository SemesterRepository
         {
             get
@@ -167,32 +195,32 @@ namespace CollaborativeLearning.DataAccess
                 return semesterRepository;
             }
         }
-        public SemesterWorkDueDateRepository SemesterWorkDueDateRepository
+        public TaskRepository TaskRepository
         {
             get
             {
 
-                if (this.semesterWorkDueDateRepository == null)
+                if (this.taskRepository == null)
                 {
-                    this.semesterWorkDueDateRepository = new SemesterWorkDueDateRepository(context);
+                    this.taskRepository = new TaskRepository(context);
                 }
-                return semesterWorkDueDateRepository;
+                return taskRepository;
             }
         }
-      
-       
-        public SubmittedWorkStatusRepository SubmittedWorkStatusRepository
+
+        public UserRepository UserRepository
         {
             get
             {
 
-                if (this.submittedWorkStatusRepository == null)
+                if (this.userRepository == null)
                 {
-                    this.submittedWorkStatusRepository = new SubmittedWorkStatusRepository(context);
+                    this.userRepository = new UserRepository(context);
                 }
-                return submittedWorkStatusRepository;
+                return userRepository;
             }
         }
+
         public WorkRepository WorkRepository
         {
             get
@@ -206,6 +234,20 @@ namespace CollaborativeLearning.DataAccess
             }
         }
 
+        public WorkSemesterDueDateRepository WorkSemesterDueDateRepository
+        {
+            get
+            {
+
+                if (this.workSemesterDueDateRepository == null)
+                {
+                    this.workSemesterDueDateRepository = new WorkSemesterDueDateRepository(context);
+                }
+                return workSemesterDueDateRepository;
+            }
+        }
+      
+        // General
         public void Save()
         {
             context.SaveChanges();

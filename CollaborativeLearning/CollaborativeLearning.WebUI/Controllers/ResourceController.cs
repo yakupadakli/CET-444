@@ -66,7 +66,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                     model.RegDate = DateTime.Now;
                     model.RegUserID = HelperController.GetCurrentUserId();
                     unitOfWork = new UnitOfWork();
-                    unitOfWork.ResourceListRepository.Insert(model);
+                    unitOfWork.ResourceRepository.Insert(model);
                     unitOfWork.Save();
                     ViewBag.ErrorType = "ResourceAdd";
                     ViewBag.Message = "Resource is added succesfully. But! You have to switch it's active status to use";
@@ -105,14 +105,14 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Resource re = unitOfWork.ResourceListRepository.GetByID(id);
+            Resource re = unitOfWork.ResourceRepository.GetByID(id);
 
             if (re != null)
             {
                 try
                 {
                     unitOfWork = new UnitOfWork();
-                    unitOfWork.ResourceListRepository.Delete(id);
+                    unitOfWork.ResourceRepository.Delete(id);
                     unitOfWork.Save();
                 }
                 catch (Exception ex)
@@ -137,12 +137,12 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork = new UnitOfWork();
             if (Active == "True")
             {
-                unitOfWork.ResourceListRepository.GetByID(id).isActive = false;
+                unitOfWork.ResourceRepository.GetByID(id).isActive = false;
 
             }
             else
             {
-                unitOfWork.ResourceListRepository.GetByID(id).isActive = true;
+                unitOfWork.ResourceRepository.GetByID(id).isActive = true;
 
             }
             unitOfWork.Save();
@@ -151,14 +151,14 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialResourceList()
         {
-            var Model = unitOfWork.ResourceListRepository.Get().OrderBy(m => m.Name).ToList();
+            var Model = unitOfWork.ResourceRepository.Get().OrderBy(m => m.Name).ToList();
 
             return PartialView(Model);
         }
         public ActionResult _PartialEditResource(int id)
         {
             Resource model = new Resource();
-            Resource m = unitOfWork.ResourceListRepository.GetByID(id);
+            Resource m = unitOfWork.ResourceRepository.GetByID(id);
             if (m != null)
             {
                 model = m;
@@ -190,14 +190,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult Edit(Resource model)
         {
             unitOfWork = new UnitOfWork();
-            Resource resource = unitOfWork.ResourceListRepository.GetByID(model.Id);
+            Resource resource = unitOfWork.ResourceRepository.GetByID(model.Id);
             if (resource != null)
             {
                 resource.Name = model.Name;
                 resource.Description = model.Description;
                 try
                 {
-                    unitOfWork.ResourceListRepository.Update(resource);
+                    unitOfWork.ResourceRepository.Update(resource);
                     unitOfWork.Save();
                     ViewBag.ErrorType = "ResourceAdd";
                     ViewBag.Message = "Resource is updated succesfully. But! You have to switch it's active status to use";

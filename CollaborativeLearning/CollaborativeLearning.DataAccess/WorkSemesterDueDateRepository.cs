@@ -6,9 +6,9 @@ using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.DataAccess
 {
-    public class SemesterWorkDueDateRepository : GenericRepository<SemesterWorkDueDate>
+    public class WorkSemesterDueDateRepository : GenericRepository<WorkSemesterDueDate>
     {
-        public SemesterWorkDueDateRepository(DataContext context)
+        public WorkSemesterDueDateRepository(DataContext context)
             : base(context)
         {
         }

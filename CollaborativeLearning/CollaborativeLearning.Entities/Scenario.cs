@@ -27,15 +27,15 @@ namespace CollaborativeLearning.Entities
 
 
         [Required]
-        public DateTime regDate { get; set; }
+        public DateTime RegDate { get; set; }
         [Required]
-        public int regUserID { get; set; }
+        public int RegUserID { get; set; }
 
         public virtual ICollection<Semester> Semesters { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
-        public virtual ICollection<ActionPlan> ActionPlanLists { get; set; }
-        public virtual ICollection<Work> Works { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<ActionPlan> ActionPlans { get; set; }
+        public virtual ICollection<Work> Works { get; set; }
         public virtual ICollection<Resource> Resources { get; set; }
     }
 }

@@ -19,6 +19,8 @@ namespace CollaborativeLearning.Entities
         [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
         public string Content { get; set; }
 
+        public int OrderID { get; set; }
+
         [Required]
         public int RegUserId { get; set; }
         [Required]
@@ -26,7 +28,7 @@ namespace CollaborativeLearning.Entities
 
         [Display(Name = "Is Active")]
         public bool isActive { get; set; }
-        public virtual ICollection<Semester> Semesters { get; set; }
+
         public virtual ICollection<Scenario> Scenarios { get; set; }
 
     }

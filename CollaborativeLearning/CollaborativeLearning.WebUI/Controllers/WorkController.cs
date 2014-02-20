@@ -28,11 +28,11 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             if (id.HasValue)
             {
-                Works = unitOfWork.ScenarioRepository.GetByID(id).Works.OrderByDescending(t => t.regDate);
+                Works = unitOfWork.ScenarioRepository.GetByID(id).Works.OrderByDescending(t => t.RegDate);
             }
             else
             {
-                Works = unitOfWork.WorkRepository.Get().OrderByDescending(t => t.regDate);
+                Works = unitOfWork.WorkRepository.Get().OrderByDescending(t => t.RegDate);
             }
 
             return Works;
@@ -54,8 +54,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (Work != null)
                 {
-                    Work.regUserID = HelperController.GetCurrentUserId();
-                    Work.regDate = DateTime.Now;
+                    Work.RegUserID = HelperController.GetCurrentUserId();
+                    Work.RegDate = DateTime.Now;
                     unitOfWork.WorkRepository.Insert(Work);
                     unitOfWork.Save();
 

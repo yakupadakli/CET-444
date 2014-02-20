@@ -19,7 +19,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             ViewBag.ID = id;
 
-            var groupList = unitOfWork.GroupRepository.Get(s => s.semesterID == id);
+            var groupList = unitOfWork.GroupRepository.Get(s => s.SemesterID == id);
             return PartialView(groupList);
         }
 
@@ -34,10 +34,11 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             Group group = new Group
             {
-                groupName=groupName,
-                regDate = DateTime.UtcNow,
-                regUserID = HelperController.GetCurrentUserId(),
-                semesterID = Id
+                
+                GroupName=groupName,
+                RegDate = DateTime.UtcNow,
+                RegUserID = HelperController.GetCurrentUserId(),
+                SemesterID = Id
             };
             
             unitOfWork.GroupRepository.Insert(group);
@@ -49,7 +50,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
         public ActionResult Delete(int id)
         {
-            int semesterId = unitOfWork.GroupRepository.GetByID(id).semesterID;
+            int semesterId = unitOfWork.GroupRepository.GetByID(id).SemesterID;
             unitOfWork.GroupRepository.Delete(id);
             unitOfWork.Save();
             ViewBag.ID = semesterId;
@@ -116,7 +117,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             unitOfWork.Save();
             ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
-            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID});
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID});
         }
 
         [HttpPost]
@@ -125,13 +126,13 @@ namespace CollaborativeLearning.WebUI.Controllers
             Group group = unitOfWork.GroupRepository.GetByID(Convert.ToInt32(groupId));
             group.Users.Remove(unitOfWork.UserRepository.GetByID(userId));
             unitOfWork.Save();
-            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
         }
         [HttpPost]
         public void UpdateGroupName(int id, string text)
         {
             Group group = unitOfWork.GroupRepository.GetByID(id);
-            group.groupName = text;
+            group.GroupName = text;
             unitOfWork.Save();
             //return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
         }
@@ -140,7 +141,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult DeleteGroup(int groupId)
         {
             Group group = unitOfWork.GroupRepository.GetByID(groupId);
-            int semesterID = group.semesterID;
+            int semesterID = group.SemesterID;
 
             unitOfWork.GroupRepository.Delete(groupId);
             unitOfWork.Save();

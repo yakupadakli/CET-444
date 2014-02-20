@@ -6,12 +6,11 @@ using CollaborativeLearning.Entities;
 
 namespace CollaborativeLearning.DataAccess
 {
-    public class FileRepository : GenericRepository<File>
+    public class ResourceRepository : GenericRepository<Resource>
     {
-        public FileRepository(DataContext context)
+        public ResourceRepository(DataContext context)
             : base(context)
         {
         }
-
     }
 }

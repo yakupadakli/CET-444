@@ -108,6 +108,8 @@ namespace CollaborativeLearning.Entities
 
         public virtual ICollection<Semester> Semesters { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Reflection> Reflections { get; set; }
+
 
     }
 
