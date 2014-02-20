@@ -1,97 +1,119 @@
-﻿@model CollaborativeLearning.Entities.User
+﻿@*@model CollaborativeLearning.Entities.User*@
+@model IEnumerable<CollaborativeLearning.Entities.User>
+
 @{
     ViewBag.Title = "Mentor";
 }
 <br />
+<div id="MentorEditPartialContainner">
+   <div class="row" id="EditMentorPartialDiv" style="display:none;" >
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("Edit", "Mentor", new { id=0 })
+                            <button type="button" class="btn-sm btn-danger" id="editRemove" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span> Close
+                            </button>
+                        </div>
+                    </div>
+    </div>
+</div>
 
-    <table id="MentorTable" class="display clearfix">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Mentor Name</th>
-                <th>User Name</th>
-                <th>E-Mail</th>
-                <th>Group Count</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="clearfix"> 
-        </tbody>
-    </table>
+<div class="panel panel-warning clearfix" id="ResourceAddContainner">
+    <div class="panel-heading">Mentors List</div>
+    <div class="panel-body">
+        <table class="table table-hover table-responsive table-striped">
+            <thead>
+                <tr>
+                    <td align="center" class="col-sm-1">
+                        <b>Mentor Name</b>
+                    </td>
+                    <td align="center">
+                        <b>User Name</b>
+                    </td>
+                    <td align="center">
+                        <b>E-Mail</b>
+                    </td>
+                    <td align="center">
+                        <b>Group Count</b>
+                    </td>
+                    <td align="center" class="col-sm-2">
+                        <b>Actions</b>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td align="left">
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>        
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Groups.Count)
+        </td>
+        <td align="center">
+            @Ajax.ActionLink("Edit", "_PartialEdit", "Mentor", 
+            new { id = item.Id }, 
+            new AjaxOptions {
+                InsertionMode=InsertionMode.Replace,
+                UpdateTargetId = "MentorEditPartialContainner",
+                LoadingElementId = "loadingMentorOps"
+                
+            }, 
+            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openResourceEditPartial"})
+            
+          |
+            @Html.ActionLink("Semesters", "_SemesterToMentor", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+</tr>
+    <tr>
+        <td colspan="5"> 
+
+        </td>
+               
 
 
-<script>
+    </tr>
+}
+            </tbody>
+        </table>
 
-    $(document).ready(function () {
-
-        $('#MentorTable').dataTable({
-            "bServerSide": true,
-            "sAjaxSource": "Mentor/MentorAjaxHandler",
-            "aoColumns": [
-                    
-                    {
-                        "mData": "Id",
-                        "bSearchable": false,
-                        "bSortable": false,
-                    },
-                    { "mData": "MentorName" },
-                    { "mData": "UserName" },
-                    { "mData": "eMail" },
-                     { "mData": "GroupCount" },
-                    {
-                        "mData": "Action",
-                        "fnRender": function (oObj) {
-                            return "<a href='../Mentor/Edit/' id='" + oObj.aData.Id + "' class='editMentor btn btn-default btn-xs' " +
-                                    "data-toggle='modal' data-target='#editMentorPartialModal'>" +
-                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
-                                    "</a>" +
-                                    "<a href='../Mentor/Delete/" + oObj.aData.Id + "' onclick='return confirm_click();' class='btn btn-default btn-xs'>" +
-                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
-                                    "</a>" +
-                                "<a href='../Mentor/_SemesterToMentor/' id='" + oObj.aData.Id + "' class='addSemester btn btn-default btn-xs' " +
-                                    "data-toggle='modal' data-target='#addSemesterPartialModal'>" +
-                                      "<span class='glyphicon glyphicon-pencil'></span> Semesters" +
-                                    "</a>";
-                        }
-                    }
-            ]
-        });
-
-        
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        setTimeout(function () {
-            $(".editMentor").click(function () {
-                $.ajax({
-                    url: "/Mentor/Edit/" + $(this).attr('id')
-                })
-                .success(function (result) {
-                    $("#editMentorPartial").html(result);
-                });
-            });
-
-            $(".addSemester").click(function () {
-                $.ajax({
-                    url: "/Mentor/_SemesterToMentor/" + $(this).attr('id')
-                })
-                .success(function (result) {
-                    $("#addSemesterPartial").html(result);
-                });
-            });
-        }, 2000);
-    });
-
-</script>
-
-<script type="text/javascript">
-    function confirm_click() {
-        return confirm("Are you sure to delete this mentor?");
+    </div>
+</div>
+<div id="loadingMentorOps">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<style>
+    div#loadingMentorOps {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
     }
-
+</style>
+<script>
+    $(document).ready(function () {
+        console.log("Document");
+        $("#MentorEditPartialContainner").hide(); 
+    });
+    $(".openResourceEditPartial").click(function () {
+        $("#MentorEditPartialContainner").show(100);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+    
 </script>
+
+
+
 
 
 <div class="modal fade" id="editMentorPartialModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
