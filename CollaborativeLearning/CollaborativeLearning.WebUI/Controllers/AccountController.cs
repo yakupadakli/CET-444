@@ -97,6 +97,10 @@ using System.Web.Helpers;
         public ActionResult _Register()
         {
             ViewData["roleName"] = new SelectList(Roles.GetAllRoles(), "roleName");
+            if (ViewBag.failed != null)
+                ViewBag.failed = ViewBag.failed;
+            if (ViewBag.success != null)
+                ViewBag.success = ViewBag.success;
             return PartialView();
         }
         //
@@ -114,32 +118,40 @@ using System.Web.Helpers;
                     int roleId = 0;
                     if (registr_code != null || registr_code != "")
                     {
-                        semester = unitOfWork.SemesterRepository.Get(s => s.registerCode == registr_code && s.isActive == true).FirstOrDefault();
-                        if (semester == null)
+                        semester = unitOfWork.SemesterRepository.Get(s => s.registerCode == registr_code).FirstOrDefault();
+                        if (semester != null)
                         {
-                            if (registr_code.IndexOf("!MN") != -1)
+                            if (semester.isActive == false)
                             {
-                                if (registr_code.Length > 2)
+                                ViewBag.failed = "The semester you are trying to register is not active.";
+                                return View(model);
+                            }
+                            else
+                            {
+
+                                if (model.StudentNumber == null || model.StudentNumber == "")
                                 {
-                                    registr_code = registr_code.Substring(0, registr_code.Length - 3);
-
-                                    semester = unitOfWork.SemesterRepository.Get(s => s.registerCode == registr_code && s.isActive == true).FirstOrDefault();
-                                    if(semester != null)
-                                        roleId = unitOfWork.RoleRepository.Get(r => r.RoleName == "Mentor").FirstOrDefault().RoleId;
+                                    ViewBag.failed = "Please enter your student number.";
+                                    return View(model);
                                 }
-
+                                else
+                                    roleId = unitOfWork.RoleRepository.Get(r => r.RoleName == "Student").FirstOrDefault().RoleId;
                             }
                         }
                         else
-                            roleId = unitOfWork.RoleRepository.Get(r => r.RoleName == "Student").FirstOrDefault().RoleId;
-                        
-                        //Registration code girilmemişse geri gönderiyoruz. User Rejected Hata mesajı verilcek.
-                        if (semester == null || roleId == 0)
                         {
-                            ModelState.AddModelError("", ErrorCodeToString(MembershipCreateStatus.UserRejected));
-                            return View(model);
-                        }
+                            semester = unitOfWork.SemesterRepository.Get(s => s.mentorRegisterCode == registr_code).FirstOrDefault();
+                            if (semester != null)
+                            {
+                                roleId = unitOfWork.RoleRepository.Get(r => r.RoleName == "Mentor").FirstOrDefault().RoleId;
+                            }
+                            else
+                            {
+                                ViewBag.failed = "The registration code is not valid.";
+                                return View(model);
+                            }
 
+                        }
                     }
 
                     MembershipCreateStatus createStatus;
@@ -156,11 +168,12 @@ using System.Web.Helpers;
                             user.PhoneNumber = "0" + number.Substring(2, number.Length - 2);
                             user.RoleID = roleId;
                             user.Gender = model.Gender;
+                            user.StudentNo = model.StudentNumber;
 
                             user.Semesters.Add(s);
 
                             unitOfWork.Save();
-
+                            
                         }
                         catch
                         {
@@ -174,7 +187,6 @@ using System.Web.Helpers;
                             ModelState.AddModelError("", ErrorCodeToString(MembershipCreateStatus.UserRejected));
                             return View(model);
                         }
-                        
                         
                         FormsAuthentication.SetAuthCookie(model.UserName, false);
                         return RedirectToAction("Index", "Home");

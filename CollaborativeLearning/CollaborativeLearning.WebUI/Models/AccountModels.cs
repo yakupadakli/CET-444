@@ -72,6 +72,9 @@ namespace CollaborativeLearning.WebUI.Models
             [Display(Name = "Name")]
             public string FirsName { get; set; }
 
+            [Display(Name = "Student Number (Required for students!)")]
+            public string StudentNumber { get; set; }
+
             [Required]
             [Display(Name = "Surname")]
             public string LastName { get; set; }
