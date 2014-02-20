@@ -18,6 +18,9 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "User Name")]
         public virtual String Username { get; set; }
 
+        [Display(Name = "Student Number")]
+        public virtual String StudentNo { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public virtual String Email { get; set; }
