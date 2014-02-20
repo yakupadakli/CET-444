@@ -1,6 +1,13 @@
 ﻿@model CollaborativeLearning.Entities.ActionPlan
 
-@using (Ajax.BeginForm("_PartialActionPlanUpdate", "ActionPlan", new AjaxOptions { HttpMethod = "POST" }))
+@using (Ajax.BeginForm("_PartialActionPlanUpdate", "ActionPlan",
+    new { scenarioId = ViewBag.scenarioId },
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "action",
+        LoadingElementId = "loadingACUpdate"
+    }, null))
 {
                
      @Html.AntiForgeryToken()
@@ -55,3 +62,18 @@
         $("#updateActionPlanForm_" + id).hide(100);
     }
 </script>
+<div id = "loadingACUpdate">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingACUpdate {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

@@ -2,6 +2,32 @@
 @{
     ViewBag.Title = "ActionPlans";
 }
+<div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="span6">
+                            <div class="btn-group ">
+                                <button type="button" class="btn btn-sm btn-primary" id="actionPlanAdd">
+                                    <span class="glyphicon glyphicon-plus"></span> Add Action Plan
+                                </button>
+                                <button type="button" class="btn-sm btn-danger" style="display:none;" id="actionPlanRemove">
+                                    <span class="glyphicon glyphicon-remove"></span> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id="addActionPlanPanel" class="row"  style="display:none;" >
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("_PartialActionPlanCreate", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div> 
 @foreach (var item in Model)
 {
     <div class="panel panel-primary">
@@ -19,9 +45,18 @@
                     <a class='deneme btn btn-success btn-sm' onclick="editActionPlan(@item.Id)">
                         <span class='glyphicon glyphicon-pencil'></span> Edit 
                     </a>
-                    <a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
+                    @Ajax.ActionLink("Delete", "Delete", "ActionPlan", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            Confirm = "Are you sure to delete this action plan?",
+                            UpdateTargetId = "action",
+                            LoadingElementId = "loadingACDelete",
+                        },
+                        new {@class="btn btn-danger btn-sm" })
+                    @*<a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                         <span class='glyphicon glyphicon-remove'></span> Delete 
-                    </a>
+                    </a>*@
                 </div>
             </div>  
             </div>
@@ -60,3 +95,19 @@
         $("#collapseActionPlan_" + id).hide(100);
     }
 </script>
+
+<div id = "loadingACDelete">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingACDelete {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

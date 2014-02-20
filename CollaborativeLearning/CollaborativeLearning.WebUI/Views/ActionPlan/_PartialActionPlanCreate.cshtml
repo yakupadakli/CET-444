@@ -1,7 +1,12 @@
 ﻿@model CollaborativeLearning.Entities.ActionPlan
-@using (Ajax.BeginForm("_PartialActionPlanCreate", "ActionPlan", 
-        new AjaxOptions { HttpMethod = "POST" }, 
-        new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialActionPlanCreate", "ActionPlan",new { scenarioId = ViewBag.scenarioId },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "action",
+            LoadingElementId = "loadingACCreate"
+        }, 
+        null))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -42,3 +47,20 @@
       });
    });
 </script>
+
+
+<div id = "loadingACCreate">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingACCreate {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
