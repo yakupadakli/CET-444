@@ -79,7 +79,14 @@
         Mentors
     </div>
     <div class="tab-pane" id="Students">
-        Students
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Students</h3>
+            </div>
+            <div class="panel-body" id="studentsTable">
+                @Html.Action("_PartialGetStudentsBySemester", "User", new { id = Model.Id })
+            </div>
+        </div>
     </div>
 </div>
 
