@@ -26,17 +26,17 @@
                 {
                     <tr>
                         <td>
-                            <div id="groupNameLabel-@item.Id">@item.groupName</div>
-                            <input id="groupNameEdit-@item.Id" name="groupNameEdit" type="text" style="display:none" placeholder="Enter Group Name Here" class="input-large form-control" value="@item.groupName" required />
+                            <div id="groupNameLabel-@item.Id">@item.GroupName</div>
+                            <input id="groupNameEdit-@item.Id" name="groupNameEdit" type="text" style="display:none" placeholder="Enter Group Name Here" class="input-large form-control" value="@item.GroupName" required />
                         </td>
                         <td>
                             <div id="GroupMentorListContianner-@item.Id">
-                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id,semesterId = item.semesterID })
+                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id,semesterId = item.SemesterID })
                             </div>
                         </td>
                         <td>
                             <div id="GroupUserListContianner-@item.Id">
-                                @Html.Action("_PartialGetGroupsUsers", "Group", new { id = item.Id,semesterId = item.semesterID })
+                                @Html.Action("_PartialGetGroupsUsers", "Group", new { id = item.Id,semesterId = item.SemesterID })
                             </div>
                         </td>
                         <td>

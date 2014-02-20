@@ -78,7 +78,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                         semesterItem.mentorRegisterCode = "cet" + semesterItem.year.ToString() + "M"+HelperController.GetRandomString(2);
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
-
+                        semesterItem.isActive = true;
                         unitOfWork.SemesterRepository.Insert(semesterItem);
                         unitOfWork.Save();
                         unitOfWork = new UnitOfWork();
