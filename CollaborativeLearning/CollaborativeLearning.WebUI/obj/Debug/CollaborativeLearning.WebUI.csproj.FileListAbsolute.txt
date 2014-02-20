@@ -304,3 +304,5 @@ C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\Col
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\WebGrease.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\WebMatrix.Data.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\WebMatrix.WebData.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Newtonsoft.Json.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Newtonsoft.Json.xml

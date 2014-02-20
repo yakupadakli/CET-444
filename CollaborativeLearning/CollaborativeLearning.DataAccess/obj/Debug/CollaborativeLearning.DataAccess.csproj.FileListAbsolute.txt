@@ -25,8 +25,6 @@ C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\Col
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.pdb
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.xml
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.csprojResolveAssemblyReference.cache
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.pdb
