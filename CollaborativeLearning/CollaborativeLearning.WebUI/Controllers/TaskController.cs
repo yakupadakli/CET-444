@@ -51,6 +51,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialStudentTask(int id)
         {
             ViewBag.id = id;
+            ViewBag.scenarioId = id;
             IEnumerable<Task> Tasks;
             Tasks = GetTask(id);
             //return Json(Tasks, JsonRequestBehavior.AllowGet);
@@ -75,7 +76,10 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialTaskCreate(int? scenarioId)
         {
             if (scenarioId != null)
+            {
                 TempData["scenarioId"] = scenarioId;
+                ViewBag.scenarioId = scenarioId;
+            }
             return PartialView();
         }
 
@@ -101,10 +105,8 @@ namespace CollaborativeLearning.WebUI.Controllers
                         Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
                         unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
                         unitOfWork.Save();
-                        return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-                        //IEnumerable<Task> Tasks;
-                        //Tasks = GetTask((int)TempData["scenarioId"]);
-                        //return Json(unitOfWork.TaskRepository.Get().Select(a=>a.TaskName), JsonRequestBehavior.AllowGet);
+                        return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
+                        
                     }
                     //else
                     return RedirectToAction("Index", "Task");
@@ -123,13 +125,11 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /Task/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int? scenarioId = null)
         {
             unitOfWork.TaskRepository.Delete(id);
             unitOfWork.Save();
-            if (TempData["scenarioId"] != null)
-                return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-            return RedirectToAction("Index","Task");
+            return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
         }
         [HttpGet]
         public ActionResult _PartialSingleTaskUpdate(int id)
@@ -147,6 +147,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 if (scenarioId != null)
                     TempData["scenarioId"] = scenarioId;
                 task.Content = WebUtility.HtmlDecode(task.Content);
+                ViewBag.scenarioId = scenarioId;
                 return PartialView(task);
             }
             return RedirectToAction("Index","Scenario");
@@ -156,7 +157,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
-        public ActionResult _PartialTaskUpdate(Task task)
+        public ActionResult _PartialTaskUpdate(Task task,int scenarioId)
         {
             try
             {
@@ -169,17 +170,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                     unitOfWork.TaskRepository.Update(t);
                     unitOfWork.Save();
-                    if (TempData["scenarioId"] != null)
-                    {
-                        int id = (int)TempData["scenarioId"];
-                        IEnumerable<Task> Tasks;
-                        Tasks = GetTask(id);
-                        //return Json(Tasks, JsonRequestBehavior.AllowGet);
-                        return PartialView("_PartialTaskUpdate", task);
-                        //return RedirectToAction("Index", "Scenario", new {id= id });
-                    }
+                    return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
+
+                    //if (TempData["scenarioId"] != null)
+                    //{
+                    //    int id = (int)TempData["scenarioId"];
+                    //    IEnumerable<Task> Tasks;
+                    //    Tasks = GetTask(id);
+                    //    //return Json(Tasks, JsonRequestBehavior.AllowGet);
+                    //    return PartialView("_PartialTaskUpdate", task);
+                    //    //return RedirectToAction("Index", "Scenario", new {id= id });
+                    //}
                     //return PartialView("_PartialStudentTask");
-                    return RedirectToAction("Index", "Task");
                 }
             }
             catch

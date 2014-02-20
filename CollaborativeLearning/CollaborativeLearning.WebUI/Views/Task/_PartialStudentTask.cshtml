@@ -2,6 +2,33 @@
 @{
     ViewBag.Title = "Tasks";
 }
+<div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="span6">
+                            <div class="btn-group ">
+                                <button type="button" class="btn btn-sm btn-primary" id="taskAdd">
+                                    <span class="glyphicon glyphicon-plus"></span> Add Task
+                                </button>
+                                <button type="button" class="btn-sm btn-danger" id="taskRemove" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        @*- @Html.ActionLink("See All Tasks","Index","Task")*@
+                </div>
+                
+                <div id="addPanel" class="row"  style="display:none;" >
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("_PartialTaskCreate", "Task", new {scenarioId = ViewBag.scenarioId})
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 <div id="contentStudentTask">
     @foreach (var item in Model)
     {
@@ -20,9 +47,18 @@
                         <a class='deneme btn btn-success btn-sm' onclick="editStudentTask(@item.Id)">
                             <span class='glyphicon glyphicon-pencil'></span> Edit 
                         </a>
-                        <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
+                         @Ajax.ActionLink("Delete", "Delete", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this task?",
+                                    UpdateTargetId = "studentTaskContainer",
+                                    LoadingElementId = "loadingDelete",
+                                },
+                               new {@class="btn btn-danger btn-sm" })
+                       @* <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                             <span class='glyphicon glyphicon-remove'></span> Delete 
-                        </a>
+                        </a>*@
                     </div>
 
                 </div>
@@ -88,3 +124,19 @@
 
     //});
 </script>
+
+<div id = "loadingDelete">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingDelete {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

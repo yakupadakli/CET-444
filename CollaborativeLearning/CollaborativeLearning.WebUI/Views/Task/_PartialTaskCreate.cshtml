@@ -1,7 +1,10 @@
 ﻿@model CollaborativeLearning.Entities.Task
-@using (Ajax.BeginForm("_PartialTaskCreate", "Task", 
-        new AjaxOptions { HttpMethod = "POST" }, 
-        new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialTaskCreate", "Task", new { scenarioId = ViewBag.scenarioId },
+        new AjaxOptions { HttpMethod = "POST",
+                          UpdateTargetId = "studentTaskContainer",
+                          LoadingElementId = "loading"
+        }, 
+        null))
 {
  @Html.AntiForgeryToken()
  @Html.ValidationSummary(true)
@@ -86,3 +89,18 @@
           )
     )
 }*@
+<div id = "loading">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
