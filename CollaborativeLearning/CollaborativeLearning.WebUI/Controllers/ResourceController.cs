@@ -219,5 +219,9 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+
+        public ActionResult _PartialUploadFileContainner() {
+            return PartialView();
+        }
     }
 }

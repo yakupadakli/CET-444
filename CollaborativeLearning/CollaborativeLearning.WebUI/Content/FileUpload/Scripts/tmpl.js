@@ -41,7 +41,7 @@
                 "\n": "\\n",
                 "\r": "\\r",
                 "\t": "\\t",
-                " " : " "
+                " ": " "
             }[s] || "\\" + s;
         }
         if (p2) { // interpolation: {%=prop%}, or unescaped: {%#prop%}
@@ -59,11 +59,11 @@
     };
     tmpl.encReg = /[<>&"'\x00]/g;
     tmpl.encMap = {
-        "<"   : "&lt;",
-        ">"   : "&gt;",
-        "&"   : "&amp;",
-        "\""  : "&quot;",
-        "'"   : "&#39;"
+        "<": "&lt;",
+        ">": "&gt;",
+        "&": "&amp;",
+        "\"": "&quot;",
+        "'": "&#39;"
     };
     tmpl.encode = function (s) {
         return String(s || "").replace(
