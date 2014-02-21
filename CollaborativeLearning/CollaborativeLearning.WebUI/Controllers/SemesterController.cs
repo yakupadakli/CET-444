@@ -27,9 +27,13 @@ namespace CollaborativeLearning.WebUI.Controllers
     
         public ActionResult _PartialGetSemesterGrid()
         {
+
             ViewData["SemesterList"] = unitOfWork.SemesterRepository.Get().ToList();
             ViewBag.Message = "false";
-            return PartialView();
+
+            var Model = unitOfWork.SemesterRepository.Get().OrderBy(m => m.semesterName).ToList();
+
+            return PartialView(Model);
         }
         public ActionResult _PartialGoToSemester()
         {
