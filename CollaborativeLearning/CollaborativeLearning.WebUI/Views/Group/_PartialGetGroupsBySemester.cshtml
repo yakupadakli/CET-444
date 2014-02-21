@@ -11,66 +11,92 @@
         {
             <div class="tab-pane active">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div id="groupNameLabel-@item.Id">
-                            @item.GroupName
+                    <div class="panel-heading clearfix">
+                        <div id="groupNameLabel-@item.Id" class="pull-left" style="margin-left: 20px;">
+                            <a class="semesterGroups clearfix" id="@item.Id" href="#collapseGroup_@item.Id" data-toggle="collapse" style="text-decoration:none;">
+                                <span>@item.GroupName</span>
+                                <i class="indicator glyphicon glyphicon-chevron-up  pull-left"></i>
+                            </a>
                         </div>
-                        <input id="groupNameEdit-@item.Id" name="groupNameEdit" 
-                                type="text" style="display:none" placeholder="Enter Group Name Here" 
-                                class="input-large form-control" value="@item.GroupName" required />
+                        <div class="pull-right">
+                            @Ajax.ActionLink("Remove", "DeleteGroup", "Group", new { groupId = item.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this group?",
+                                    UpdateTargetId = "SemesterGroups",
+                                    LoadingElementId = "loading",
+                                },
+                                new {@class="btn btn-danger btn-sm" })
+                            <input onclick='@(Html.Raw(String.Format("showEditText({0})", item.Id)))' 
+                                    type="button" id="EditButton-@item.Id" value="Edit" class="btn btn-primary btn-sm" />
+                            
+                            <input onclick='@(Html.Raw(String.Format("hideEditText({0})", item.Id)))' 
+                                    type="submit" id="UpdateButton-@item.Id" style="display:none" value="Update" 
+                                    class="btn btn-primary btn-sm" />
+                        </div>
+                        <div class="pull-left" style="margin-left: 20px;">
+                            <input id="groupNameEdit-@item.Id" name="groupNameEdit" 
+                                    type="text" style="display:none" placeholder="Enter Group Name Here" 
+                                    class="input-large form-control" value="@item.GroupName" required />
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="col-lg-6">
-                            <div class="tab-pane active">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Mentors</h3>
+                    <div class="col-lg-12 clearfix" id="semesterGroupContanier_@item.Id" >
+                        <div class="panel-body" >
+                            <div class="col-lg-6">
+                                <div class="tab-pane active">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Mentors</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="GroupMentorListContianner-@item.Id">
+                                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="panel-body">
-                                        <div id="GroupMentorListContianner-@item.Id">
-                                            @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="tab-pane active">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Students</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="GroupUserListContianner-@item.Id">
+                                                @Html.Action("_PartialGetGroupsUsers", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="tab-pane active">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Students</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div id="GroupUserListContianner-@item.Id">
-                                            @Html.Action("_PartialGetGroupsUsers", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                        <div class="col-lg-12 clearfix">
+                            <div class="col-lg-6">
+                                <div class="tab-pane active">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Scenario</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="GroupScenarioListContianner-@item.Id">
+                                                Scenarios
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="tab-pane active">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Scenario</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div id="GroupScenarioListContianner-@item.Id">
-                                            Scenarios
+                            <div class="col-lg-6">
+                                <div class="tab-pane active">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Works</h3>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="tab-pane active">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Scenario</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div id="GroupWorksListContianner-@item.Id">
-                                            Works
+                                        <div class="panel-body">
+                                            <div id="GroupWorksListContianner-@item.Id">
+                                                Works
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -87,10 +113,24 @@
     }
 }
 
+
+<style>
+    a .indicator 
+    {
+        margin-left: -20px;
+        margin-top: -17px;
+    }
+</style>
 <script type="text/javascript">
     function confirm_click() {
         return confirm("Are you sure to delete this Group? Note: Students could be assigned this group.");
     }
+    $('.semesterGroups').click(function (e) {
+        $(e.currentTarget).find("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        console.log(e.currentTarget.id)
+        $("#semesterGroupContanier_" + e.currentTarget.id).toggle(100);
+        $("#collapseGroup" + e.currentTarget.id).toggle(100);
+    });
 </script>
 
 <script>
@@ -129,7 +169,7 @@
             url: "/Group/UpdateGroupName",
             data: { id: id, text: txt }
         }).done(function () {
-            $("#groupNameLabel-" + id).html(txt);
+            $("#groupNameLabel-" + id).find("span").html(txt);
         });
     };
 </script>
