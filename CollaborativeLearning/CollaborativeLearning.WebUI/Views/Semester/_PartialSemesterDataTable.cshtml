@@ -1,5 +1,11 @@
-﻿
-<div class="panel panel-default">
+﻿@model IEnumerable<CollaborativeLearning.Entities.Semester>
+
+@{
+    ViewBag.Title = "Semester";
+}
+
+
+@*<div class="panel panel-default">
     <div class="panel-body">
         <table id="SemesterTable" class="table table-hover table-condensed">
             <thead>
@@ -62,21 +68,4 @@
             ]
         });
     });
-</script>
-
-<script type="text/javascript">
-    function confirmSemester_click() {
-        return confirm("Are you sure to delete this semester?");
-    }
-
-</script>
-
-@*<div class="btn-group">
-  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-    Action <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="#"><span class='glyphicon glyphicon-pencil'></span>  Edit</a></li>
-    <li><a href="#"><span class='glyphicon glyphicon-remove'></span>  Delete</a></li>
-  </ul>
-</div>*@
+</script>*@
