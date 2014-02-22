@@ -1,0 +1,64 @@
+﻿@model CollaborativeLearning.Entities.Scenario
+
+
+@using (Ajax.BeginForm("Edit", "Scenario", new AjaxOptions
+{
+
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "scenarios",
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Edit Scenario</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShortDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShortDescription)
+            @Html.ValidationMessageFor(model => model.ShortDescription)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.isActive)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isActive)
+            @Html.ValidationMessageFor(model => model.isActive)
+        </div>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.RegDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.RegUserID)
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" id="editScenarioClose">Close</button>
+        </p>
+    </fieldset>
+}
+
+<script>
+    $("#editScenarioClose").click(function () {
+        $("#ScenarioEditPartialContainer").hide(100);
+        $("#ScenarioAddContainer").show(100);
+    });
+
+</script>

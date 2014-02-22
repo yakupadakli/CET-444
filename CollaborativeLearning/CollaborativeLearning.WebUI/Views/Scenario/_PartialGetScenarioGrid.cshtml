@@ -1,4 +1,4 @@
-﻿@model CollaborativeLearning.Entities.Scenario
+﻿@model IEnumerable<CollaborativeLearning.Entities.Scenario>
 @{
     ViewBag.Title = "Scenario";
 }
@@ -26,7 +26,7 @@
         </text>
     }
 }
-<div class="panel panel-default">
+<div class="panel panel-default" id="ScenarioAddContainer">
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-6">
@@ -53,87 +53,123 @@
                             @Html.Action("_PartialCreate", "Scenario")
                         </div>
                     </div>
-                </div>
-
-@*        <div class="row">
-            <div id="CreateScenarioPartialDiv">
-                @Html.Action("_PartialCreate", "Scenario")
-            </div>
-        </div>*@
+        </div>
         
     </div>
 </div>
 
+<div class="panel panel-default" id="ScenarioEditPartialContainer">
+   <div class="row" id="EditScenarioPartialDiv">
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("Edit", "Scenario", new { id=0 })
+                        </div>
+                    </div>
+    </div>
+</div>
+
+
+
 <br />
-<div class="panel panel-default">
+<div class="panel panel-warning clearfix" id="ResourceAddContainner">
+    <div class="panel-heading">Scenario List</div>
     <div class="panel-body">
-        <table id="ScenarioTable" class="display clearfix">
+        <table class="table table-hover table-responsive table-striped">
             <thead>
                 <tr>
-                    <th>Scenario Name</th>
-                    <th>Short Description</th>
-                    <th>Is Active</th>
-                    <th>Resource Count</th>
-                    <th>Semester Count</th>
-                    <th>Action</th>
+                    <td align="center" class="col-sm-1">
+                        <b>Scenario Name</b>
+                    </td>
+                    <td align="center">
+                        <b>Short Description</b>
+                    </td>
+                    <td align="center">
+                        <b>Scenario Status</b>
+                    </td>
+                    <td align="center">
+                        <b>Scenario Resources Count</b>
+                    </td>
+                    <td align="center">
+                        <b>Scenario Semesters Count</b>
+                    </td>
+                    <td align="center" class="col-sm-2">
+                        <b>Actions</b>
+                    </td>
                 </tr>
             </thead>
-            <tbody class="clearfix"> 
+            <tbody>
+                @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink( item.Name, "Index", new { id=item.Id })
+@*            @Html.DisplayFor(modelItem => item.Name)*@
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.ShortDescription)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.isActive)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Resources.Count)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Semesters.Count)
+        </td>
+        <td align="center">
+            @Ajax.ActionLink("Edit", "_PartialEdit", "Scenario", 
+            new { id = item.Id }, 
+            new AjaxOptions {
+                InsertionMode=InsertionMode.Replace,
+                UpdateTargetId = "ScenarioEditPartialContainer",
+                LoadingElementId = "loadingScenarioOps"
+                
+            }, 
+            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openScenarioEditPartial"})
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id })*@ | |
+            @Ajax.ActionLink("Delete Scenario", "Delete", "Scenario", new { id = item.Id },
+                                new AjaxOptions
+                                {
+                                    Confirm = "Are you sure to delete this scenario?",
+                                    UpdateTargetId = "scenarios",
+                                    LoadingElementId = "loadingScenarioOps"
+                                })
+        </td>
+    </tr>
+}
             </tbody>
         </table>
     </div>
 </div>
 
-
-
+<div id="loadingScenarioOps">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<style>
+    div#loadingScenarioOps {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
 
 <script>
-
     $(document).ready(function () {
 
-        var scenarioTable = $('#ScenarioTable').dataTable({
-            "bServerSide": true,
-            "sAjaxSource": "Scenario/ScenarioAjaxHandler",
-            "aoColumns": [
-                    
-                    {"mData": "Name",
-                    "fnRender": function (oObj) {
-                        return "<a href='../Scenario/Index/" + oObj.aData.Id + "' class=' btn-default btn-xs'>" +
-                                      oObj.aData.Name +
-                                    "</a>";
-                    }
-                    },
-                    { "mData": "ShortDescription" },
-                    { "mData": "isActive" },
-                    { "mData": "ResourcesCount" },
-                    { "mData": "SemestersCount" },
-                    {
-                        "mData": "Action",
-                        "fnRender": function (oObj) {
-                            return "<a href='#' id='"+ oObj.aData.Id +"' class='scenarioEdit btn btn-default btn-xs' " +
-                                    "data-toggle='modal' data-target='#modal_scenarioUpdate'>" +
-                                      "<span class='glyphicon glyphicon-pencil'></span> Edit" +
-                                    "</a>" +
-                                    "<a href='../Scenario/Delete/" + oObj.aData.Id + "' onclick='return confirmScenario_click();' class='btn btn-default btn-xs'>" +
-                                      "<span class='glyphicon glyphicon-remove'></span> Delete" +
-                                    "</a>";
-                        }
-                    }
-            ],
-            "oTableTools": {
-                "sRowSelect": "single",
-
-                "fnRowSelected": function ( node ) {
-                    alert("Clicked");
-                }
-            }   
-        });
-       
+        $("#ScenarioEditPartialContainer").hide();
     });
-</script>
+
+    $(".openScenarioEditPartial").click(function () {
+        $("#ScenarioEditPartialContainer").show(100);
+        $("#ScenarioAddContainer").hide(100);        
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
 
 
-<script>
     $("#scenarioAdd").click(function () {
         $("#CreateScenarioPartialDiv").show(100, function () {
             $("#scenarioAdd").hide(100);
@@ -150,28 +186,11 @@
 </script>
 
 
-<script>
-    $(document).ready(function () {
-        setTimeout(function() {
-            $(".scenarioEdit").click(function () {
-                $.ajax({
-                    url: "/Scenario/_PartialEdit/" + $(this).attr('id')
-                })
-                .success(function (result) {
-                    $("#editScenarioPartial").html(result);
-                });
-            });
-
-        }, 2000);
-    });
-      
-</script>
 
 <script type="text/javascript">
-    function confirmScenario_click()
-{
-    return confirm("Are you sure to delete this scenario?");
-}
+    function confirmScenario_click() {
+        return confirm("Are you sure to delete this scenario?");
+    }
 
 </script>
 
@@ -191,4 +210,6 @@
     </div>
   </div>
 </div>
+
+
 

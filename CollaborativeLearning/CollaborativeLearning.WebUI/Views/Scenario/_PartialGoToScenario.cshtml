@@ -2,7 +2,7 @@
 @{
     CollaborativeLearning.DataAccess.UnitOfWork uw = new CollaborativeLearning.DataAccess.UnitOfWork();
     List<SelectListItem> ScenarioList = new List<SelectListItem>();
-    foreach (var item in uw.ScenarioRepository.Get())
+    foreach (var item in uw.ScenarioRepository.Get().OrderBy(o => o.Name))
     {
         ScenarioList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
     }
