@@ -42,7 +42,7 @@
   </div>
   <div class="tab-pane" id="works2">
     <div id="WorkContainer">
-      @Html.Action("_PartialWork", "Work", new {id = ViewBag.scenarioId})
+      @Html.Action("_PartialWorkWithDueDate", "Work", new {scenarioId = ViewBag.scenarioId, semesterId = ViewBag.semesterId})
     </div>
   </div>
   <div class="tab-pane" id="feedback2">

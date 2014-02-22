@@ -1,5 +1,6 @@
 ﻿using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.Entities;
+using CollaborativeLearning.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,34 @@ namespace CollaborativeLearning.WebUI.Controllers
             //return Json(Works, JsonRequestBehavior.AllowGet);
 
             return PartialView(Works);
+        }
+        public ActionResult _PartialWorkWithDueDate(int scenarioId , int semesterId)
+        {
+            ViewBag.id = scenarioId;
+            ViewBag.scenarioId = scenarioId;
+            ViewBag.semesterId = semesterId;
+            IEnumerable<Work> Works;
+            Works = GetWork(scenarioId);
+            List<WorkWithDueDate> worksWithDueDate = new List<WorkWithDueDate>();
+            foreach (var work in Works)
+            {
+                WorkWithDueDate workWithDueDate = new WorkWithDueDate
+                {
+                    Id = work.Id,
+                    Name = work.Name,
+                    Description = work.Description,
+                    OrderID = work.OrderID,
+                    SemesterID = semesterId,
+                    WorkID = work.Id,
+                    ScenarioID = scenarioId,
+                    DueDate = DateTime.MinValue
+                };
+                worksWithDueDate.Add(workWithDueDate);
+
+            }
+            //return Json(Works, JsonRequestBehavior.AllowGet);
+
+            return PartialView(worksWithDueDate);
         }
         private IEnumerable<Work> GetWork(int? id)
         {
@@ -115,6 +144,61 @@ namespace CollaborativeLearning.WebUI.Controllers
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult _PartialWorkUpdate(Work Work,int scenarioId)
+        {
+            try
+            {
+                if (Work != null)
+                {
+                    Work t = unitOfWork.WorkRepository.GetByID(Work.Id);
+
+                    t.Name = Work.Name;
+                    t.Description = Work.Description;
+
+                    unitOfWork.WorkRepository.Update(t);
+                    unitOfWork.Save();
+                    if (scenarioId != null)
+                        return RedirectToAction("_PartialWork", new { id = scenarioId });
+                    else
+                        return RedirectToAction("Index", "Scenario");
+                }
+            }
+            catch
+            {
+                return PartialView(Work);
+            }
+            return PartialView(Work);
+        }
+
+        [HttpGet]
+        public ActionResult _PartialWorkWithDueDateUpdate(int id, int scenarioId,int semesterId)
+        {
+            if (id != null)
+            {
+                Work work = unitOfWork.WorkRepository.GetByID(id);
+                if (scenarioId != null)
+                    ViewBag.scenarioId = scenarioId;
+                WorkWithDueDate workWithDueDate = new WorkWithDueDate
+                {
+                    Id = work.Id,
+                    Name = work.Name,
+                    Description = work.Description,
+                    OrderID = work.OrderID,
+                    SemesterID = semesterId,
+                    WorkID = id,
+                    DueDate = DateTime.MinValue
+                };
+
+                return PartialView(workWithDueDate);
+            }
+            return RedirectToAction("Index", "Scenario");
+        }
+
+        //
+        // POST: /Scenario/Create
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult _PartialWorkWithDueDateUpdate(Work Work, int scenarioId)
         {
             try
             {
