@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CET 314: Computer Networks & Commuication</title>
+    <script src="~/Content/Template/js/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <link href="~/Content/Template/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Template/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Template/css/bootstrap-responsive.css" rel="stylesheet" />
+    <script src="~/Content/Template/js/bootstrap.js"></script>
+
+
+
+    <link href="~/Content/Datatable/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Content/Datatable/js/jquery.dataTables.min.js"></script>
+    
+    <link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
+    <link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/select2-3.4.5/select2.js"></script>
+    
+    <link href="~/Content/kendo/2013.2.918/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2013.2.918/kendo.default.min.css" rel="stylesheet" />
+    @*<script src="~/Scripts/kendo/2013.2.918/jquery.min.js"></script>*@
+    <script src="~/Scripts/kendo/2013.2.918/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo/2013.2.918/kendo.grid.min.js"></script>
+
+
+    <style>
+        #scenarioNav 
+        {
+            position:fixed;
+            padding: 9px 0;
+            top:60px;
+            width:266px;
+        }
+
+        #scenarioNavAdmin 
+        {
+            position:fixed;
+            padding: 9px 0;
+            top:300px;
+            width:266px;
+            margin-bottom: 25px;
+        }
+        .main_title {
+            margin-left: 0;
+            margin-right: 0;
+            background-color: #fff;
+            border-width: 1px;
+            border-color: #ddd;
+            border-radius: 4px 4px 0 0;
+            box-shadow: none;
+            position: relative;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            padding-left: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div style="float:initial">
+                <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
+            </div>
+            <div class="btn-group" style="float:right; margin-top:10px">
+              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                @User.Identity.Name<span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a class="glyphicon glyphicon-user" href="/User/Profile"> Profile</a></li>
+                  <li><a class="glyphicon glyphicon-pencil" href="#"> Change Password</a></li>
+                  <li class="divider"></li>
+                  <li><a class="glyphicon glyphicon-log-out" href="Account/LogOff"> Logout</a></li>
+              </ul>
+            </div>
+        </div><!-- /.container -->
+    </nav>
+    <div class="container" >
+
+        <div class="row" style="min-height:480px;">
+
+            <div class="col-md-3">
+
+                <div id="scenarioNav" class="list-group" style="">
+                    <div class="main_title"><h4>Scenarios Operations</h4></div>
+                    <a id="tasks" href="#tasks" class="list-group-item active" data-toggle="tab">Students Task</a>
+                    <a id="actionPlan" href="#action" class="list-group-item " data-toggle="tab">Action Plan</a>
+                    <a id="resources" href="#resource" class="list-group-item" data-toggle="tab">Resources</a>
+                    <a id="works" href="#work" class="list-group-item" data-toggle="tab">Works</a>
+                </div>
+                <div id="scenarioNavAdmin" class="list-group" style="">
+                    <div class="main_title"><h4>Admininstrative Operations</h4></div>
+                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Semesters</a>
+                    <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
+                    <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        @RenderSection("featured", required: false)
+                        <ol class="breadcrumb">
+                            @RenderSection("BreadCrump", false)
+                        </ol>
+                        <br />
+                        <h2>
+                            @RenderSection("Header", false)
+                        </h2>
+                        <section id="main">
+                            @RenderBody()
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <hr>
+
+            <footer style="margin: 30px 30px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>
+                            <strong>
+                                Copyright &copy;
+                            </strong> 
+                            Project Team : 
+                            Yakup Adaklı, 
+                            Ali Akkaya, 
+                            Oğuzhan Kemal, 
+                            Mustafa Ozan Şindi | 
+                            Leader : Ekrem Kutbay | 
+                            Advisor : Asist. Prof. Hamdi Erkunt
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+    <script>
+
+        $("#tasks").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#tasks").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#tasks_tab").parent().addClass("active");
+        });
+
+        $("#actionPlan").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#actionPlan").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#actionPlan_tab").parent().addClass("active");
+        });
+
+        $("#resources").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#resources").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#resources_tab").parent().addClass("active");
+        });
+
+        $("#works").click(function () {
+            $(".list-group a").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#works").addClass("active");
+
+            $("ul li").each(function (index) {
+                $(this).removeClass("active");
+            });
+            $("#works_tab").parent().addClass("active");
+        });
+
+    </script>
+</html>

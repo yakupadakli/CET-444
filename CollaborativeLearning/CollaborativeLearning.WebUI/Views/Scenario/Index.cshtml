@@ -1,12 +1,23 @@
-﻿@{
+﻿@model CollaborativeLearning.Entities.Scenario
+@{
     ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_ScenarioLayout.cshtml";
 }
-
+@section BreadCrump{
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li ><a href="@Url.Action("Index", "Scenario", new {id=0})">Scenario</a></li>
+    <li class="active">@Model.Name</li>
+}
+@section Header{
+    <div class="page-header" style="margin: -20px 0 20px;">
+        @Model.Name
+    </div>
+}
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#task" data-toggle="tab">Student Tasks</a></li>
-  <li><a href="#action" data-toggle="tab">Action Plan</a></li>
-  <li><a href="#resources" data-toggle="tab">Resources</a></li>
-  <li><a href="#works" data-toggle="tab">Submited Works</a></li>
+  <li class="active"><a id="tasks_tab" href="#task" data-toggle="tab">Student Tasks</a></li>
+  <li><a id="actionPlan_tab" href="#action" data-toggle="tab">Action Plan</a></li>
+  <li><a id="resources_tab" href="#resource" data-toggle="tab">Resources</a></li>
+  <li><a id="works_tab" href="#work" data-toggle="tab">Works</a></li>
   @*<li><a href="#feedback" data-toggle="tab">Mento Feedbacks</a></li>*@
 </ul>
 
@@ -14,7 +25,6 @@
 <br />
 <div class="tab-content">
   <div class="tab-pane active" id="task">
-        
         <div id="myPartialViewDiv" class="row" style="margin-left:-13px;">
             <div class="col-lg-12">
                 <div id="studentTaskContainer">
@@ -24,9 +34,6 @@
         </div>
   </div>
 
-
-
-
   <div class="tab-pane clearfix" id="action">
     <div id="studentActionPlanContainer">
       @Html.Action("_PartialActionPlan", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
@@ -34,13 +41,13 @@
   </div>
 
 
-  <div class="tab-pane" id="resources">
+  <div class="tab-pane clearfix" id="resource">
     <div id="ScenariosResourcesContainer">
       @Html.Action("_PartialResources", "Scenario", new { id = ViewBag.scenarioId })
     </div>
 
   </div>
-  <div class="tab-pane" id="works">
+  <div class="tab-pane clearfix" id="work">
     <div id="WorkContainer">
       @Html.Action("_PartialWork", "Work", new {scenarioId = ViewBag.scenarioId})
     </div>
@@ -59,4 +66,38 @@
             $("#myPartialViewDiv").html(data);
         })
     }
+</script>
+<script>
+    $("#tasks_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#tasks").addClass("active");
+    });
+
+    $("#actionPlan_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#actionPlan").addClass("active");
+    });
+
+    $("#resources_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#resources").addClass("active");
+    });
+
+    $("#works_tab").click(function () {
+
+        $(".list-group a").each(function (index) {
+            $(this).removeClass("active");
+        });
+        $("#works").addClass("active");
+    });
+
 </script>

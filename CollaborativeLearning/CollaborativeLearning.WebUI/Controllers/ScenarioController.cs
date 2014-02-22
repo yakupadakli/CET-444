@@ -54,8 +54,9 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             if (id == null)
                 return RedirectToAction("Index","Home");
+            Scenario scenario = unitOfWork.ScenarioRepository.GetByID(id);
             ViewBag.scenarioId = id;
-            return View();
+            return View(scenario);
         }
 
         //
