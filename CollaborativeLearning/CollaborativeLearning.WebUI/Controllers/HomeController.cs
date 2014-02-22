@@ -18,14 +18,14 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         private UnitOfWork unitOfWork = new UnitOfWork();
 
-        [Authorize]
+        [Authorize(Roles=("Instructor")]
         public ActionResult Index()
         {
             return View();
         }
         
 
-        [Authorize]
+        
         public ActionResult About()
         {
             return View();

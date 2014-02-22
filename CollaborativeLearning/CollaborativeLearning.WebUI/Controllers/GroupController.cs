@@ -8,6 +8,7 @@ using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
 namespace CollaborativeLearning.WebUI.Controllers
 {
+    [Authorize(Roles="Instructor")]
     public class GroupController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();

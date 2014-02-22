@@ -59,7 +59,19 @@ using System.Web.Helpers;
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            if (user.Role.RoleName=="Instructor")
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
+                            else if (user.Role.RoleName=="Mentor")
+                            {
+                                  return RedirectToAction("Index", "Mentor");
+
+                            }
+                            else 
+                            {
+                                return RedirectToAction("Index", "Groups");
+                            }
                         }
                     }
                     else

@@ -1428,6 +1428,11 @@
     <Content Include="Views\Semester\_PartialSemesterDataTable.cshtml" />
     <Content Include="Views\Resource\_PartialFileUploadToResource.cshtml" />
     <Content Include="Views\Resource\EditResource.cshtml" />
+    <Content Include="Views\Groups\GetGroupListTable.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\_PartialGetGroupsScenarios.cshtml" />
+    <Content Include="Views\Shared\_GroupLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
