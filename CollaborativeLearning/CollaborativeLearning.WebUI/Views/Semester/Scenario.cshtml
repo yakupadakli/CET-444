@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Scenario";
+    Layout = "~/Views/Shared/_SemesterLayout.cshtml";
+}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#task2" data-toggle="tab">Student Tasks</a></li>
+  <li><a href="#action2" data-toggle="tab">Action Plan</a></li>
+  <li><a href="#resources2" data-toggle="tab">Resources</a></li>
+  <li><a href="#works2" data-toggle="tab">Submited Works</a></li>
+  <li><a href="#feedback2" data-toggle="tab">Mento Feedbacks</a></li>
+</ul>
+
+<!-- Tab panes -->
+<br />
+<div class="tab-content">
+  <div class="tab-pane active" id="task2">
+        
+        <div id="myPartialViewDiv" class="row" style="margin-left:-13px;">
+            <div class="col-lg-12">
+                <div id="studentTaskContainer">
+                    @Html.Action("_PartialStudentTask", "Task", new {id = ViewBag.scenarioId})
+                </div>
+            </div>
+        </div>
+  </div>
+
+
+
+
+  <div class="tab-pane clearfix" id="action2">
+       <div id="studentActionPlanContainer">
+            @Html.Action("_PartialActionPlan", "ActionPlan", new {id = ViewBag.scenarioId})
+        </div>
+  </div>
+
+
+  <div class="tab-pane" id="resources2">
+    <div id="ScenariosResourcesContainer">
+      @Html.Action("_PartialResources", "Scenario", new { id = ViewBag.scenarioId })
+    </div>
+
+  </div>
+  <div class="tab-pane" id="works2">
+    <div id="WorkContainer">
+      @Html.Action("_PartialWork", "Work", new {id = ViewBag.scenarioId})
+    </div>
+  </div>
+  <div class="tab-pane" id="feedback2">
+    <div id="FeedbackContainer">
+      @Html.Action("_PartialFeedbacks", "Scenario")
+    </div>
+
+  </div>
+</div>
+
+<script>
+    function searchAdmin() {
+        var URL = "Task/_PartialStudentTask";
+
+        $.get(URL, function (data) {
+            $("#myPartialViewDiv").html(data);
+        })
+    }
+</script>

@@ -313,6 +313,13 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetMentorsBySemester", "Mentor", new { id = SemesterID });
         }
 
+        public ActionResult Scenario(int scenarioId, int semesterId)
+        {
+            ViewBag.scenarioId = scenarioId;
+            ViewBag.semesterId = semesterId;
+
+            return View();
+        }
 
 
     }

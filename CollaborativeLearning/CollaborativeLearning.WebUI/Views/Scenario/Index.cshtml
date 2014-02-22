@@ -28,19 +28,22 @@
 
 
   <div class="tab-pane clearfix" id="action">
-       
+    <div id="studentActionPlanContainer">
       @Html.Action("_PartialActionPlan", "ActionPlan", new {scenarioId = ViewBag.scenarioId})
+    </div>
   </div>
 
 
   <div class="tab-pane" id="resources">
-
+    <div id="ScenariosResourcesContainer">
       @Html.Action("_PartialResources", "Scenario", new { id = ViewBag.scenarioId })
+    </div>
 
   </div>
   <div class="tab-pane" id="works">
-      
+    <div id="WorkContainer">
       @Html.Action("_PartialWork", "Work", new {scenarioId = ViewBag.scenarioId})
+    </div>
   </div>
   @*<div class="tab-pane" id="feedback">
       @Html.Action("_PartialFeedbacks", "Scenario")
