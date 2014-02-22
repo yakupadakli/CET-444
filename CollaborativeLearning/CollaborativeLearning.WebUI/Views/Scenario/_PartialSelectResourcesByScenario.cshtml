@@ -1,0 +1,64 @@
+﻿@using (Ajax.BeginForm(
+    "AddResourcesToScenario",
+    "Scenario",
+    null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "resources",
+        LoadingElementId = "loadingAddingResourcesScenarios"
+    }
+))
+{  
+    @Html.Hidden("ScenarioID", (int)ViewBag.ID)
+
+    <div class="input-group">
+        <select multiple="multiple" style="min-width:150px" id="ResourceMultiSelect" name="ResourceMultiSelect" class="form-control">
+            @foreach (var item in ViewBag.AllResources as List<CollaborativeLearning.Entities.Resource>)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <span class="input-group-addon" style="padding:1px;">
+            <input type="submit" value="Add" class="btn btn-primary btn-sm" />
+        </span>
+    </div>
+}
+<div id = "loading">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<script>
+    $(document).ready(function () {
+        $("#ResourceMultiSelect").select2({
+            placeholder: "Type a Resource Name",
+            allowClear: true
+        });
+    });
+</script>
+<style>
+    div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+
+<div id = "loadingAddingResourcesScenarios">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingAddingResourcesScenarios {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

@@ -1,1 +1,54 @@
-﻿Resources
+﻿@model ICollection<CollaborativeLearning.Entities.Resource>
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.Action("_PartialSelectResourcesByScenario", "Scenario", new {id = ViewBag.ScenarioId})
+    </div>
+</div>
+<div class="modal-footer"></div>
+
+
+@{
+    if (Model.Count != 0)
+    {
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
+            <thead>
+                <tr>
+                    <th width="30%">Resource Name
+                    </th>
+                    <th width="15%">Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Remove", "DeleteResourceFromScenario", "Scenario", new { resourceId = item.Id, scenarioId = ViewBag.ScenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this resource?",
+                                    UpdateTargetId = "resources",
+                                    LoadingElementId = "loadingSemesterScenarios",
+                                },new{ @class="btn btn-danger btn-sm"
+                                }
+                               )
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        <text>This scenario does not have a resource yet!</text>
+    }
+}

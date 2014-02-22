@@ -35,7 +35,7 @@
 
   <div class="tab-pane" id="resources">
 
-      @Html.Action("_PartialResources", "Scenario")
+      @Html.Action("_PartialResources", "Scenario", new { id = ViewBag.scenarioId })
 
   </div>
   <div class="tab-pane" id="works">
