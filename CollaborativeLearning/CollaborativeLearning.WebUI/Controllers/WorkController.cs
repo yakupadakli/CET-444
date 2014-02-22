@@ -110,6 +110,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialWorkUpdate(Work Work,int scenarioId)
         {
             try

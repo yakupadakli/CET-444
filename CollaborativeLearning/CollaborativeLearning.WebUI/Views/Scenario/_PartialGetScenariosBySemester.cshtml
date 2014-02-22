@@ -33,7 +33,7 @@
                             @*@Ajax.BeginForm("Show"){
                             
                             }*@
-                            <a href="@Url.Action("Scenario", "Semester", new { id = item.Id })">@item.Name</a>
+                            <a href="@Url.Action("Scenario", "Semester", new { scenarioId = item.Id, semesterId = ViewBag.semesterId })">@item.Name</a>
                         </td>
                         <td>
                             @item.ShortDescription
