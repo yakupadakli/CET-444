@@ -1,14 +1,17 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Semester>
-@if (Model.Count != 0)
+<table>
+    @if (Model != null)
+    {
+        if (Model.Count != 0)
+        {
+
+            foreach (var item in Model)
             {
 
-                foreach (var item in Model)
-                {
-
-                   <tr class="success">
-                        <td>
-                            @item.semesterName
-                            @Ajax.ActionLink("Remove", "DeleteUserFromGroup", "Group", new { userId = item.Id, groupId = ViewBag.groupId },
+        <tr class="success">
+            <td>
+                @item.semesterName
+                @Ajax.ActionLink("Remove Semester", "DeleteSemesterFromMentor", "Mentor", new { userId = ViewBag.ID, semesterId = item.Id },
                                 new AjaxOptions
                                 {
                                     HttpMethod = "POST",
@@ -17,48 +20,53 @@
                                     LoadingElementId = "loading",
                                 },
                                null)
-                        </td>
-                    </tr>
-
-                }
+            </td>
+        </tr>
 
             }
-            else
-            {
-                <tr>
-                    <td colspan="4" width="100%">
-                        Any user is not found!
-                    </td>
-                </tr>
-            }
-@using (Ajax.BeginForm("_SemesterToMentor", "Mentor", new { id = ViewBag.groupId }, new AjaxOptions
+
+        }
+        else
+        {
+        <tr>
+            <td colspan="4" width="100%">Could not found any semester!
+            </td>
+        </tr>
+        }
+    }
+</table>
+
+
+@using (Ajax.BeginForm("_SemesterToMentor", "Mentor", new { id = ViewBag.ID }, new AjaxOptions
             {
                 HttpMethod = "POST",
-                UpdateTargetId = "groupTable",
-                LoadingElementId = "loading",
-            }))
-            {
-                <tr>
-                    <td>
-                        <select multiple="multiple" style="min-width:150px" id="SemesterMultiSelect-@ViewBag.ID" name="SemesterMultiSelect" class="form-control">
-                            @{
-                                if (ViewBag.AllSemesters != null)
-                                {
-                                    foreach (var semester in ViewBag.AllSemesters as List<CollaborativeLearning.Entities.Semester>)
-                                    {
-                                        <option value="@semester.Id">@semester.semesterName</option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </td>
-                    <td>
-                        <input type="submit" class="btn-xs btn-success" value="+" />
-                                
-                    </td>
-                </tr>
-            }
+                UpdateTargetId = "mentors"
+                //OnSuccess = "SuccessUserAddGroup"
+            }, new { @id = "formSemesterMentor" }))
+{
 
+    <table>
+        <tr>
+            <td>
+                <select multiple="multiple" style="min-width:150px" id="SemesterMultiSelect-@ViewBag.ID" name="SemesterMultiSelect" class="form-control">
+
+                    @if (ViewBag.AllSemesters != null)
+                    {
+                        foreach (var semester in ViewBag.AllSemesters as List<CollaborativeLearning.Entities.Semester>)
+                        {
+                        <option value="@semester.Id">@semester.semesterName</option>
+                        }
+                    }
+
+                </select>
+            </td>
+            <td>
+                <input type="submit" class="btn-xs btn-success" value="Add" />
+                <button type="button" class="btn btn-default" id="semesterCloseContainner">Close</button>
+            </td>
+        </tr>
+    </table>  
+}
 <script>
     $(document).ready(function () {
         $("#SemesterMultiSelect-@ViewBag.ID").select2({
@@ -66,4 +74,12 @@
             allowClear: true
         });
     });
+
+    $("#semesterCloseContainner").click(function () {
+
+        $("#MentorEditPartialContainner").hide(100);
+        $("#MentorSemesterAddPartialContainner").hide(100);
+    });
+
 </script>
+

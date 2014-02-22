@@ -104,46 +104,58 @@ namespace CollaborativeLearning.WebUI.Controllers
                 unitOfWork.UserRepository.Delete(id);
                 unitOfWork.Save();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
         }
-
-        
-
+        [HttpGet]
         public ActionResult _SemesterToMentor(int id)
         {
-            IEnumerable<Semester> semesters = unitOfWork.SemesterRepository.Get(u => u.isActive == true);
+            unitOfWork = new UnitOfWork();
+            IEnumerable<Semester> semesters = unitOfWork.SemesterRepository.Get();
             List<Semester> semesterList = new List<Entities.Semester>();
 
             User mentor = unitOfWork.UserRepository.GetByID(id);
-
-            foreach (var item in semesters)
+            if (mentor != null)
             {
-                if (!item.Users.Contains(unitOfWork.UserRepository.GetByID(mentor.Id)))
+                foreach (var item in semesters)
                 {
-                    semesterList.Add(item);
+                    if (!item.Users.Contains(unitOfWork.UserRepository.GetByID(mentor.Id)))
+                    {
+                        semesterList.Add(item);
+                    }
                 }
-            }
+            
             ViewBag.AllSemesters = semesterList;
             
-            var mentorSemesterList = unitOfWork.UserRepository.Get(s => s.Id == id).FirstOrDefault().Semesters.ToList();
+             var mentorSemesterList = unitOfWork.UserRepository.Get(s => s.Id == id).FirstOrDefault().Semesters.ToList();
 
             ViewBag.ID = id;
             return PartialView(mentorSemesterList);
+            }
+            return PartialView(null);
         }
 
 
         [HttpPost]
-        public ActionResult _SemesterToMentor(int id, string[] UserMultiSelect)
+        public ActionResult _SemesterToMentor(int id, string[] SemesterMultiSelect)
         {
             var mentor = unitOfWork.UserRepository.GetByID(id);
-            foreach (var item in UserMultiSelect)
+            foreach (var item in SemesterMultiSelect)
             {
                 var u = unitOfWork.SemesterRepository.GetByID(int.Parse(item));
                 mentor.Semesters.Add(u);
             }
             unitOfWork.Save();
             ViewBag.AllMentors = unitOfWork.UserRepository.Get();
-            return RedirectToAction("_PartialGetGroupsBySemester", "Group");
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSemesterFromMentor(int userId, int semesterId)
+        {
+            Semester semester = unitOfWork.SemesterRepository.GetByID(Convert.ToInt32(semesterId));
+            semester.Users.Remove(unitOfWork.UserRepository.GetByID(userId));
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
         }
 
 
