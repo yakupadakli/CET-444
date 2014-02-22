@@ -11,20 +11,19 @@
 ))
 {  
     @Html.Hidden("SemesterID", (int)ViewBag.ID)
-
     <div class="input-group">
-        <select multiple="multiple" style="min-width:150px" id="MentorMultiSelect" name="MentorMultiSelect" class="form-control">
+        <select multiple="multiple" style="min-width: 150px" id="MentorMultiSelect" name="MentorMultiSelect" class="form-control">
             @foreach (var item in ViewBag.AllMentors as List<CollaborativeLearning.Entities.User>)
             {
                 <option value="@item.Id">@item.FullName</option>
             }
         </select>
-        <span class="input-group-addon" style="padding:1px;">
+        <span class="input-group-addon" style="padding: 1px;">
             <input type="submit" value="Add" class="btn btn-primary btn-sm" />
         </span>
     </div>
 }
-<div id = "loading">
+<div id="loading">
     <img src="~/Content/Template/img/loader.gif" />
 </div>
 <script>
@@ -38,7 +37,7 @@
 
 <style>
     div#loading {
-        display:none;
+        display: none;
         position: absolute;
         left: 42%;
         top: 76%;
@@ -48,13 +47,13 @@
     }
 </style>
 
-<div id = "loadingAddingSemesterMentors">
+<div id="loadingAddingSemesterMentors">
     <img src="~/Content/Template/img/loader.gif" />
 </div>
 
 <style>
     div#loadingAddingSemesterMentors {
-        display:none;
+        display: none;
         position: absolute;
         left: 42%;
         top: 76%;

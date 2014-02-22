@@ -14,27 +14,27 @@
 <div class="modal-footer"></div>
 
 <div id="MentorEditPartialContainner">
-   <div class="row" id="EditMentorPartialDiv">
-                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
-                        <div style="padding-bottom:10px">
-                            @Html.Action("Edit", "Mentor", new { id=0 })
-                        </div>
-                    </div>
+    <div class="row" id="EditMentorPartialDiv">
+        <div class="col-lg-12 clearfix" style="margin-left:10px;">
+            <div style="padding-bottom:10px">
+            @Html.Action("Edit", "Mentor", new { id = 0 })
+            </div>
+        </div>
     </div>
 </div>
 
 <div id="MentorSemesterAddPartialContainner">
-   <div class="row" id="SemesterAddPartialContainner">
-                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
-                        <div style="padding-bottom:10px">
-                            @Html.Action("_SemesterToMentor", "Mentor", new { id=0 })
-                        </div>
-                    </div>
+    <div class="row" id="SemesterAddPartialContainner">
+        <div class="col-lg-12 clearfix" style="margin-left:10px;">
+            <div style="padding-bottom:10px">
+            @Html.Action("_SemesterToMentor", "Mentor", new { id = 0 })
+            </div>
+        </div>
     </div>
 </div>
 
 
-<div class="panel panel-warning clearfix" id="ResourceAddContainner">
+<div class="panel panel-default clearfix" id="ResourceAddContainner">
     <div class="panel-heading">Mentors List</div>
     <div class="panel-body">
         <table class="table table-hover table-responsive table-striped">
@@ -58,7 +58,8 @@
                 </tr>
             </thead>
             <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td align="left">
             @Html.DisplayFor(modelItem => item.FullName)
@@ -73,42 +74,63 @@
             @Html.DisplayFor(modelItem => item.Groups.Count)
         </td>
         <td align="center">
-            @Ajax.ActionLink("Edit", "_PartialEdit", "Mentor", 
-            new { id = item.Id }, 
-            new AjaxOptions {
-                InsertionMode=InsertionMode.Replace,
-                UpdateTargetId = "MentorEditPartialContainner",
-                LoadingElementId = "loadingMentorOps"
-                
-            }, 
-            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openResourceEditPartial"})
-            
-          |
-            @Ajax.ActionLink("Semesters", "_SemesterToMentor", "Mentor", 
-            new { id = item.Id }, 
-            new AjaxOptions {
-                InsertionMode=InsertionMode.Replace,
-                UpdateTargetId = "MentorSemesterAddPartialContainner",
-                LoadingElementId = "loadingAddSemesterOps"
-                
-            }, 
-            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openSemesterPartial"}) |
-            @Ajax.ActionLink("Delete Mentor", "Delete", "Mentor", new { id = item.Id },
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                  Actions
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        @Ajax.ActionLink(" Edit", "_PartialEdit", "Mentor",
+                        new { id = item.Id },
+                        new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "MentorEditPartialContainner",
+                            LoadingElementId = "loadingMentorOps"
+
+                        },
+                        new { @class = "openResourceEditPartial", @id="mentorEdit_"+item.Id  })
+                        <script>
+                            $("#mentorEdit_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Edit")
+                        </script>
+                    </li>
+                    <li>
+                        @Ajax.ActionLink(" Add Semesters", "_SemesterToMentor", "Mentor",
+                        new { id = item.Id },
+                        new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "MentorSemesterAddPartialContainner",
+                            LoadingElementId = "loadingAddSemesterOps"
+
+                        },
+                        new { @class = "openSemesterPartial", @id="mentorAddSemester_"+item.Id }) 
+                        <script>
+                            $("#mentorAddSemester_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Add Semesters")
+                        </script>
+                    </li>
+                    <li>
+                        @Ajax.ActionLink(" Delete Mentor", "Delete", "Mentor", new { id = item.Id },
                                 new AjaxOptions
                                 {
                                     Confirm = "Are you sure to delete this mentor?",
                                     UpdateTargetId = "mentors",
                                     LoadingElementId = "loadingMentorOps"
-                                })
+                                },
+                        new { @class = "", @id="mentorDelete_"+item.Id }) 
+                        <script>
+                            $("#mentorDelete_@item.Id").html("<span class='glyphicon glyphicon-trash pull-left'></span> Delete")
+                        </script>
+                    </li>
+                </ul>
+              </div>
         </td>
-</tr>
+    </tr>
     <tr>
         <td colspan="5"> 
-
         </td>
-               
-
-
     </tr>
 }
             </tbody>
@@ -148,7 +170,7 @@
 </style>
 <script>
     $(document).ready(function () {
-        
+
         $("#MentorEditPartialContainner").hide();
         $("#MentorSemesterAddPartialContainner").hide();
 
@@ -166,9 +188,9 @@
         $("html, body").animate({ scrollTop: 0 }, "slow");
     });
 
-    
 
-    
+
+
 </script>
 
 
