@@ -7,13 +7,13 @@ namespace CollaborativeLearning.Entities.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.2-21211")]
-    public sealed partial class CET444 : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CET444));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201402081910152_CET444"; }
+            get { return "201402220859576_initial"; }
         }
         
         string IMigrationMetadata.Source

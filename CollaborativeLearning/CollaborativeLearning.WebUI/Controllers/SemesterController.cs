@@ -64,15 +64,15 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult Create(Semester model)
         {
             ViewBag.Message = "true";
-            Semester semester = new Semester();
+            
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    
+                    model.CourseName = model.CourseName.ToUpper();
 
-                    if (unitOfWork.SemesterRepository.Get().Where(q => q.semester == model.semester && q.year == model.year).Count() == 0)
+                    if (unitOfWork.SemesterRepository.Get().Where(q => q.semesterName == model.semesterName).Count() == 0)
                     {
                         Semester semesterItem = new Semester();
                         semesterItem.year = model.year;
@@ -83,7 +83,8 @@ namespace CollaborativeLearning.WebUI.Controllers
                         string str = Crypto.HashPassword(HelperController.GetRandomString(2));
 
                         semesterItem.mentorRegisterCode = "cet" + semesterItem.year.ToString() + "M" + str.Substring(5,2);
-                        
+                        semesterItem.CourseName = model.CourseName;
+                        semesterItem.Section = model.Section;
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
                         semesterItem.isActive = true;
@@ -146,21 +147,28 @@ namespace CollaborativeLearning.WebUI.Controllers
         [HttpPost]
         public ActionResult _PartialEdit(Semester model)
         {
-            Semester semester = unitOfWork.SemesterRepository.GetByID(model.Id);
-            semester.isActive = model.isActive;
+            model.CourseName = model.CourseName.ToUpper();
 
-            string str = Crypto.HashPassword(HelperController.GetRandomString(2));
+            if (unitOfWork.SemesterRepository.Get().Where(q => q.semesterName == model.semesterName).Count() == 0)
+            {
+                Semester semester = unitOfWork.SemesterRepository.GetByID(model.Id);
+                semester.isActive = model.isActive;
 
-            string mentorRegisterCode = "cet" + model.year.ToString() + "M" + str.Substring(5, 2);
-            semester.mentorRegisterCode = mentorRegisterCode;
+                string str = Crypto.HashPassword(HelperController.GetRandomString(2));
 
-            string semesterCode = "cet" + model.year.ToString() + HelperController.GetRandomString(2);
-            semester.registerCode = semesterCode;
-            semester.semester = model.semester;
-            semester.year = model.year;
-            
-            unitOfWork.SemesterRepository.Update(semester);
-            unitOfWork.Save();
+                string mentorRegisterCode = "cet" + model.year.ToString() + "M" + str.Substring(5, 2);
+                semester.mentorRegisterCode = mentorRegisterCode;
+
+                string semesterCode = "cet" + model.year.ToString() + HelperController.GetRandomString(2);
+                semester.registerCode = semesterCode;
+                semester.semester = model.semester;
+                semester.year = model.year;
+                semester.CourseName = model.CourseName;
+                semester.Section = model.Section;
+
+                unitOfWork.SemesterRepository.Update(semester);
+                unitOfWork.Save();
+            }
 
             return RedirectToAction("_PartialGetSemesterGrid");
         }
