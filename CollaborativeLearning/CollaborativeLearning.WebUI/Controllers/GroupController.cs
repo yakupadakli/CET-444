@@ -106,6 +106,31 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(groupMentorList);
         }
 
+        public ActionResult _PartialGetGroupsScenarios(int id, int semesterId)
+        {
+            IEnumerable<Scenario> scenarios = unitOfWork.ScenarioRepository.Get();
+            List<Scenario> scenariolist = new List<Entities.Scenario>();
+
+            foreach (var item in scenarios)
+            {
+                if (item.Semesters.Contains(unitOfWork.SemesterRepository.GetByID(semesterId)))
+                {
+                    Group group = item.Groups.Where(g => g.Id == id).FirstOrDefault();
+                    if (group == null)
+                    {
+                        scenariolist.Add(item);
+                    }
+                }
+            }
+            ViewBag.AllScenarios = scenariolist;
+
+            var groupScenarioList = unitOfWork.GroupRepository.Get(s => s.Id == id).FirstOrDefault().Scenarios.ToList();
+
+            ViewBag.ID = id;
+            ViewBag.groupId = id;
+            return PartialView(groupScenarioList);
+        }
+
         [HttpPost]
         public ActionResult _UserToGroup(int id, string[] UserMultiSelect)
         {
@@ -121,6 +146,20 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
         [HttpPost]
+        public ActionResult _ScenarioToGroup(int id, string[] ScenarioMultiSelect)
+        {
+            var group = unitOfWork.GroupRepository.GetByID(id);
+            foreach (var item in ScenarioMultiSelect)
+            {
+                var u = unitOfWork.ScenarioRepository.GetByID(int.Parse(item));
+                group.Scenarios.Add(u);
+            }
+            unitOfWork.Save();
+            ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
+        }
+
+        [HttpPost]
         public ActionResult DeleteUserFromGroup(int userId, string groupId)
         {
             Group group = unitOfWork.GroupRepository.GetByID(Convert.ToInt32(groupId));
@@ -128,6 +167,16 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
         }
+
+        [HttpPost]
+        public ActionResult DeleteScenarioFromGroup(int scenarioId, string groupId)
+        {
+            Group group = unitOfWork.GroupRepository.GetByID(Convert.ToInt32(groupId));
+            group.Scenarios.Remove(unitOfWork.ScenarioRepository.GetByID(scenarioId));
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
+        }
+
         [HttpPost]
         public void UpdateGroupName(int id, string text)
         {
