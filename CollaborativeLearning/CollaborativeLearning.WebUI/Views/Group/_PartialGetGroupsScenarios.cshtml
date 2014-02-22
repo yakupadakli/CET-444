@@ -1,0 +1,78 @@
+﻿@model ICollection<CollaborativeLearning.Entities.Scenario>
+<table class="table table-hover table-responsive">
+    <tbody class="table-striped">
+        
+        @using (Ajax.BeginForm("_ScenarioToGroup", "Group",
+        new { id = ViewBag.groupId },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "SemesterGroups",
+            LoadingElementId = "loading"
+        }))
+        {
+            <div class="input-group">
+                <select multiple="multiple" style="min-width:150px" 
+                                    id="ScenarioMultiSelect-@ViewBag.groupId" name="ScenarioMultiSelect" class="form-control">
+                    @{
+                        if (ViewBag.AllScenarios != null)
+                        {
+                            foreach (var scenario in ViewBag.AllScenarios as List<CollaborativeLearning.Entities.Scenario>)
+                            {
+                                <option value="@scenario.Id">@scenario.Name</option>
+                            }
+                        }
+                    }
+                </select>
+
+                <span class="input-group-addon" style="padding: 1px;">
+                    <button type="submit" class="btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+            <br />
+        }
+        @if (Model.Count != 0)
+        {
+            foreach (var item in Model)
+            {
+            <tr class="success">
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Ajax.ActionLink("Remove", "DeleteScenarioFromGroup", "Group",
+                        new { scenarioId = item.Id, groupId = ViewBag.groupId },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            Confirm = "Are you sure to delete this scenario?",
+                            UpdateTargetId = "SemesterGroups",
+                            LoadingElementId = "loading",
+                        })
+                </td>
+            </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" width="100%">
+                    Any user is not found!
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<script>
+    $(document).ready(function () {
+        $("#ScenarioMultiSelect-@ViewBag.groupId").select2({
+            placeholder: "Start type scenario name",
+            allowClear: true
+        });
+    });
+</script>

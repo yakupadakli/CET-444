@@ -81,7 +81,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <div id="GroupScenarioListContianner-@item.Id">
-                                                Scenarios
+                                                @Html.Action("_PartialGetGroupsScenarios", "Group", new { id = item.Id, semesterId = item.SemesterID })
                                             </div>
                                         </div>
                                     </div>
