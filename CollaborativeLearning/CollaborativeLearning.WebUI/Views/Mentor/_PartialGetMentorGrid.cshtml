@@ -16,9 +16,9 @@
 
 <div id="MentorEditPartialContainner">
     <div class="row" id="EditMentorPartialDiv">
-        <div class="col-lg-12 clearfix" style="margin-left:10px;">
-            <div style="padding-bottom:10px">
-            @Html.Action("Edit", "Mentor", new { id = 0 })
+        <div class="col-lg-12 clearfix" style="margin-left: 10px;">
+            <div style="padding-bottom: 10px">
+                @Html.Action("Edit", "Mentor", new { id = 0 })
             </div>
         </div>
     </div>
@@ -26,9 +26,9 @@
 
 <div id="MentorSemesterAddPartialContainner">
     <div class="row" id="SemesterAddPartialContainner">
-        <div class="col-lg-12 clearfix" style="margin-left:10px;">
-            <div style="padding-bottom:10px">
-            @Html.Action("_SemesterToMentor", "Mentor", new { id = 0 })
+        <div class="col-lg-12 clearfix" style="margin-left: 10px;">
+            <div style="padding-bottom: 10px">
+                @Html.Action("_SemesterToMentor", "Mentor", new { id = 0 })
             </div>
         </div>
     </div>
@@ -79,6 +79,7 @@
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                   Actions
                                   <span class="caret"></span>
+
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -112,14 +113,16 @@
                                         </script>
                                     </li>
                                     <li>
-                                        @Ajax.ActionLink(" Make Student", "Delete", "Mentor", new { id = item.Id },
-                                                new AjaxOptions
-                                                {
-                                                    Confirm = "Are you sure to delete this mentor?",
-                                                    UpdateTargetId = "mentors",
-                                                    LoadingElementId = "loadingMentorOps"
-                                                },
-                                        new { @class = "", @id="mentorMakeStudent_"+item.Id }) 
+                                        @Ajax.ActionLink(" Make Student", "_MakeMentorStudent", "Mentor", new { id = item.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod= "POST",
+                                    //Confirm = "Are you sure to make this mentor a student?",
+                                    UpdateTargetId = "mentors",
+                                    LoadingElementId = "loadingMentorOps"
+                                },
+                                new { @class = "", @id = "mentorMakeStudent_" + item.Id })
+
                                         <script>
                                             $("#mentorMakeStudent_@item.Id").html("<span class='glyphicon glyphicon-minus pull-left'></span> Make Student")
                                         </script>
@@ -207,33 +210,32 @@
 
 
 <div class="modal fade" id="editMentorPartialModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit Mentor</h4>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Edit Mentor</h4>
+            </div>
 
-      <div id="editMentorPartial"class="modal-body">
-         
-      </div>
-     
+            <div id="editMentorPartial" class="modal-body">
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade" id="addSemesterPartialModal" tabindex="-1" role="dialog" aria-labelledby="addSemesterLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="addSemesterLabel">Add Semester To Mentor</h4>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="addSemesterLabel">Add Semester To Mentor</h4>
+            </div>
 
-      <div id="addSemesterPartial"class="modal-body">
-         asdasds
-      </div>
-     
+            <div id="addSemesterPartial" class="modal-body">
+                asdasds
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
