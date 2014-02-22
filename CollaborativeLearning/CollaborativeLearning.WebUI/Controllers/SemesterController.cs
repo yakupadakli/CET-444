@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.Entities;
@@ -79,7 +80,10 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                         string semesterCode = "cet" + semesterItem.year.ToString() + HelperController.GetRandomString(2);
                         semesterItem.registerCode = semesterCode;
-                        semesterItem.mentorRegisterCode = "cet" + semesterItem.year.ToString() + "M"+HelperController.GetRandomString(2);
+                        string str = Crypto.HashPassword(HelperController.GetRandomString(2));
+
+                        semesterItem.mentorRegisterCode = "cet" + semesterItem.year.ToString() + "M" + str.Substring(5,2);
+                        
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
                         semesterItem.isActive = true;
@@ -132,6 +136,50 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
+        public ActionResult _PartialEdit(int id)
+        {
+            Semester semester = unitOfWork.SemesterRepository.GetByID(id);
+
+            return PartialView(semester);
+        }
+
+        [HttpPost]
+        public ActionResult _PartialEdit(Semester model)
+        {
+            Semester semester = unitOfWork.SemesterRepository.GetByID(model.Id);
+            semester.isActive = model.isActive;
+
+            string str = Crypto.HashPassword(HelperController.GetRandomString(2));
+
+            string mentorRegisterCode = "cet" + model.year.ToString() + "M" + str.Substring(5, 2);
+            semester.mentorRegisterCode = mentorRegisterCode;
+
+            string semesterCode = "cet" + model.year.ToString() + HelperController.GetRandomString(2);
+            semester.registerCode = semesterCode;
+            semester.semester = model.semester;
+            semester.year = model.year;
+            
+            unitOfWork.SemesterRepository.Update(semester);
+            unitOfWork.Save();
+
+            return RedirectToAction("_PartialGetSemesterGrid");
+        }
+        public ActionResult ChangeActiveStatus(int id, string Active)
+        {
+            unitOfWork = new UnitOfWork();
+            if (Active == "True")
+            {
+                unitOfWork.SemesterRepository.GetByID(id).isActive = false;
+
+            }
+            else
+            {
+                unitOfWork.SemesterRepository.GetByID(id).isActive = true;
+
+            }
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetSemesterGrid");
+        }
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -156,7 +204,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 unitOfWork.SemesterRepository.Delete(id);
                 unitOfWork.Save();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("_PartialGetSemesterGrid");
         }
 
         public ActionResult SemesterAjaxHandler()

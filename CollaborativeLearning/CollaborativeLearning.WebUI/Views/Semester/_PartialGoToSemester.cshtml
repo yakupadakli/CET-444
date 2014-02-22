@@ -2,7 +2,7 @@
 @{
     CollaborativeLearning.DataAccess.UnitOfWork uw = new CollaborativeLearning.DataAccess.UnitOfWork();
     List<SelectListItem> SemesterList = new List<SelectListItem>();
-    foreach (var item in uw.SemesterRepository.Get())
+    foreach (var item in uw.SemesterRepository.Get().OrderBy(o=>o.semesterName))
     {
         SemesterList.Add(new SelectListItem { Text = item.semesterName, Value = item.Id.ToString() });
     }

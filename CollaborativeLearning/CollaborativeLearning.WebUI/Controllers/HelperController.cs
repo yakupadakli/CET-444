@@ -32,10 +32,10 @@ namespace CollaborativeLearning.WebUI.Controllers
             const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             + "abcdefghijklmnopqrstuvwxyz"
             + "012345678";
-
+            
             String randomString = "";
-            Random rasgele = new Random((int)DateTime.Now.Ticks);
-
+            Random rasgele = new Random((int)DateTime.Now.Millisecond);
+            rasgele.Next();
             for (int i = 0; i < length; i++)
             {
                 randomString += characters[rasgele.Next(characters.Length)];
