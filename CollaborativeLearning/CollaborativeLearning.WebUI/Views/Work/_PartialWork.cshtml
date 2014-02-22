@@ -35,7 +35,7 @@
             <div class="col-lg-4">
                 <div>
                 <a class="studentWorkCollapse" id="@item.Id" href="#collapseWork_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
-                    Work @item.Id
+                    @item.Name
                     <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 </a>
                 </div>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div  class="panel-body collapse" id="collapseWork_@item.Id">
-            Work : @item.Description
+            @Html.Raw(HttpUtility.HtmlDecode(item.Description))
         </div>
         <div class="panel-body" id="updateWorkForm_@item.Id" style="display:none;">
             @Html.Action("_PartialWorkUpdate", "Work", new { id = item.Id, scenarioId = ViewBag.scenarioId })

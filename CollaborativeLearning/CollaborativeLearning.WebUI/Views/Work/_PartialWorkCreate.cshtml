@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Name)
+                @Html.LabelFor(m => m.Description)
                 <div class="controls">
                     @Html.TextAreaFor(m => m.Description, new
                                                             {
@@ -58,9 +58,10 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#workContent").kendoEditor({
-            encoded: false
-        });
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("workContent");
     });
 </script>
 

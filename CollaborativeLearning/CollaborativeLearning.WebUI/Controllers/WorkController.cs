@@ -3,6 +3,7 @@ using CollaborativeLearning.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -49,6 +50,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialWorkCreate(Work Work, int? scenarioId)
         {
             try
@@ -101,6 +103,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 Work Work = unitOfWork.WorkRepository.GetByID(id);
                 if (scenarioId != null)
                     ViewBag.scenarioId = scenarioId;
+                Work.Description = WebUtility.HtmlDecode(Work.Description);
                 return PartialView(Work);
             }
             return RedirectToAction("Index", "Scenario");

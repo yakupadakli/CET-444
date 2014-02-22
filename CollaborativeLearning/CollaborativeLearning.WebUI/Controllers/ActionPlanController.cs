@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
+using System.Net;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
@@ -52,6 +53,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialActionPlanCreate(ActionPlan ActionPlan, int? scenarioId)
         {
             try
@@ -107,6 +109,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                     ViewBag.scenarioId = scenarioId;
                     TempData["scenarioId"] = scenarioId;
                 }
+                ActionPlan.Content = WebUtility.HtmlDecode(ActionPlan.Content);
                 return PartialView(ActionPlan);
             }
             return RedirectToAction("Index", "Scenario");
@@ -116,6 +119,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialActionPlanUpdate(ActionPlan ActionPlan,int scenarioId)
         {
             try

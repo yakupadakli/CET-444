@@ -25,9 +25,10 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Description)
         <div class="controls">
-            @Html.TextBoxFor(m => m.Description, new
+            @Html.TextAreaFor(m => m.Description, new
                                                 {
                                                     @class = "form-control",
+                                                    @id = "workUpdateContent_" + Model.Id,
                                                     placeholder = "Enter Task Description"
                                                 }) 
             @Html.ValidationMessageFor(m => m.Description)
@@ -38,6 +39,16 @@
         <button type="button" class="btn btn-default" onclick="closeEditWork(@Model.Id)">Close</button> 
     </div>
 }
+
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("workUpdateContent_" + @Model.Id);
+    });
+</script>
+
 <script>
     $(document).ready(function ()
     {

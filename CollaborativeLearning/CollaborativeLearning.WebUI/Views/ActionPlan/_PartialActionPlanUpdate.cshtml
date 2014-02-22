@@ -21,7 +21,7 @@
             @Html.TextAreaFor(m => m.Content, new
                                                 {
                                                     @class = "form-control taskUpdateContent",
-
+                                                    @id = "actionPlanUpdateContent_" + Model.Id,
                                                     placeholder = "Enter Task Name"
                                                 })
 
@@ -46,6 +46,15 @@
 
     </div>
 }
+<script>
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("actionPlanUpdateContent_" + @Model.Id);
+
+    });
+</script>
 <script>
     $(document).ready(function () {
         $("#UpdateActionPlanSuccess").hide();

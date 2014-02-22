@@ -41,7 +41,14 @@
     </div>   
 }
 
-
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("actionPlanContent");
+    });
+</script>
 
 <div id = "loadingACCreate">
     <img src="~/Content/Template/img/loader.gif" />
