@@ -113,8 +113,11 @@ namespace CollaborativeLearning.WebUI.Membership
                 User = Context.Users.FirstOrDefault(Usr => Usr.Username == username);
                 if (User != null)
                 {
-                  //  return User.Role.Select(Rl => Rl.RoleName).ToArray();
-                    return null;
+                    string[] str = new string[1];
+                    str[0] = User.Role.RoleName;
+                    return str.ToArray();
+                    //return User.Role.Select(Rl => Rl.RoleName).ToArray();
+                    //return null;
 
                 }
                 else

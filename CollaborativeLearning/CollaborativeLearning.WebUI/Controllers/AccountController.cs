@@ -59,6 +59,7 @@ using System.Web.Helpers;
                         }
                         else
                         {
+                            
                             if (user.Role.RoleName=="Instructor")
                             {
                                 return RedirectToAction("Index", "Home");
@@ -70,7 +71,13 @@ using System.Web.Helpers;
                             }
                             else 
                             {
-                                return RedirectToAction("Index", "Groups");
+                                CollaborativeLearning.Entities.Group group = new CollaborativeLearning.Entities.Group();
+                                group = null;
+                                if (user.Groups.Count > 0)
+                                {
+                                    group = user.Groups.FirstOrDefault();
+                                }
+                                return RedirectToAction("Index", "Groups", group);
                             }
                         }
                     }
