@@ -136,6 +136,34 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(groupScenarioList);
         }
 
+        public ActionResult _PartialGetGroupsWorks(int id, int semesterId)
+        {
+            int currentUserId = HelperController.GetCurrentUserId();
+
+            IEnumerable<GroupWork> groupWorks = unitOfWork.GroupWorkRepository.Get(g=>g.GroupID == id);
+            List<GroupWork> groupWorklist = new List<Entities.GroupWork>();
+
+            foreach (var item in groupWorks)
+            {
+                IEnumerable<GroupWorkSubmittedStatus> seenWorks = unitOfWork.GroupWorkSubmittedStatusRepository.Get(g => g.UserID == currentUserId && g.isSeen == true);
+                foreach (var seenWork in seenWorks)
+                {
+                    if (seenWork.GroupWork.Work.Id != item.Work.Id)
+                    {
+                        groupWorklist.Add(item);
+                    }
+                }
+            }
+            ViewBag.AllGroupWorks = groupWorklist;
+
+            //var groupScenarioList = unitOfWork.GroupRepository.Get(s => s.Id == id).FirstOrDefault().Scenarios.ToList();
+
+            ViewBag.ID = id;
+            ViewBag.groupId = id;
+            //return PartialView(groupScenarioList);
+            return PartialView(groupWorklist);
+        }
+
         [HttpPost]
         public ActionResult _UserToGroup(int id, string[] UserMultiSelect)
         {
