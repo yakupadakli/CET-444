@@ -1,0 +1,103 @@
+﻿@model CollaborativeLearning.WebUI.Models.WorkWithDueDate
+with due date
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@using (Ajax.BeginForm("_PartialWorkUpdate", "Work",
+    new { scenarioId = ViewBag.scenarioId }, 
+    new AjaxOptions
+    {
+        UpdateTargetId = "WorkContainer",
+        LoadingElementId = "loadingWorkUpdate"
+    }, null))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Name, new
+                                                {
+                                                    @class = "form-control",
+                                                    placeholder = "Enter Task Name"
+                                                }) 
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+    </div>
+                        
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Description, new
+                                                {
+                                                    @class = "form-control",
+                                                    placeholder = "Enter Task Description"
+                                                }) 
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+    </div>
+    <div class="well">
+      <div id="datetimepicker1" class="input-append date">
+        <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          </i>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DueDate)
+        <div class="controls">
+            @Html.EditorFor(m => m.DueDate, new
+                                                {
+                                                    @class = "form-control",
+                                                    placeholder = "Select Due Date"
+                                                }) 
+            @Html.ValidationMessageFor(m => m.DueDate)
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Work</button>
+        <button type="button" class="btn btn-default" onclick="closeEditWork(@Model.Id)">Close</button> 
+    </div>
+}
+<script>
+    $(document).ready(function ()
+    {
+        $("#UpdateWorkSuccess").hide();
+        $("#UpdateWorkFailure").hide();
+        
+    });
+    function UpdateWorkSuccess() {
+        alert("success");
+     }
+    function UpdateWorkFailure() {
+        alert("fail");
+    }
+    function closeEditWork(id) {
+        $("#updateWorkForm_" + id).hide(100);
+    }
+</script>
+
+
+<div id = "loadingWorkUpdate">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingWorkUpdate {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR'
+        });
+    });
+</script>
