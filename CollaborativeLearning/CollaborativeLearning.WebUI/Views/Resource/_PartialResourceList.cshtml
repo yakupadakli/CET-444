@@ -75,10 +75,12 @@
                     </td>
                     <td align="center">
                         
+
                         @Html.ActionLink(" ","_PartialEditResource", "Resource",
                         new { id = item.Id },
-                        new { @class = "btn-sm btn-info glyphicon glyphicon-edit ", alt = "All Files Download", title = "Edit Resource" })
-                        @*@Ajax.ActionLink("Edit ", "_PartialEditResource", "Resource", new { id = item.Id },
+                     new { @class = "btn-sm btn-info glyphicon glyphicon-edit PartialEditResourceCB ", alt = "All Files Download", title = "Edit Resource", id = "PartialEditResourceCB" })
+                       
+                         @*@Ajax.ActionLink("Edit ", "_PartialEditResource", "Resource", new { id = item.Id },
                                 new AjaxOptions
                                 {
                                     UpdateTargetId = "resources",
@@ -146,7 +148,7 @@
 <script>
     $(document).ready(function () {
         $("#ResourceChangeActiveAlert").hide();
-
+        $(".PartialEditResourceCB").colorbox({ iframe: true, innerWidth: "50%", innerHeight: "90%" });
     });
 
     function ProcessResourceChangeAcitive() {
