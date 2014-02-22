@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -28,21 +27,43 @@
 
 
     <style>
-        #semesterNav 
+        /*#groupScenariosNav 
         {
             position:fixed;
             padding: 9px 0;
             top:60px;
             width:266px;
         }
-
-        #semesterNavAdmin 
+        #groupGroupsNav 
+        {
+            position:fixed;
+            padding: 9px 0;
+            top:130px;
+            width:266px;
+        }
+        #groupNavAdmin 
         {
             position:fixed;
             padding: 9px 0;
             top:390px;
             width:266px;
             margin-bottom: 25px;
+        }*/
+        .main_title 
+        {
+            margin-left: 0;
+            margin-right: 0;
+            background-color: #fff;
+            border-width: 1px;
+            border-color: #ddd;
+            border-radius: 4px 4px 0 0;
+            box-shadow: none; 
+            position: relative;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            padding-left: 12px;
         }
     </style>
 </head>
@@ -72,19 +93,28 @@
 
             <div class="col-md-3">
 
-                <div id="semesterNav" class="list-group" style="">
-                    Semester Operations
-                    
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Groups</a>
-                    <a id="scenarios" href="#Scenarios" class="list-group-item active" data-toggle="tab">Scenarios</a>
-                    <a id="works" href="#Works" class="list-group-item" data-toggle="tab">Submitted Works</a>
-                    <a id="feedbacks" href="#Feedbacks" class="list-group-item" data-toggle="tab">Feedbacks</a>
-                    <a id="reflections" href="#Reflections" class="list-group-item" data-toggle="tab">Reflections</a>
-                    <a id="mentors" href="#Mentors" class="list-group-item" data-toggle="tab">Mentors</a>
-                    <a id="students" href="#Students" class="list-group-item" data-toggle="tab">Students</a>
+                <div id="groupScenariosNav" class="list-group" style="">
+                    <div class="main_title"><h4>Scenarios</h4></div>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario1</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario2</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario3</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario4</a>
                 </div>
-                <div id="semesterNavAdmin" class="list-group" style="">
-                    Admininstrative Operations
+                
+
+                <div id="groupOthersNav" class="list-group" style="">
+                    <div class="main_title"><h4>Navigation</h4></div>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Other Groups</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Meeting</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Submitted Works</a>
+                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Reflections</a>
+                    
+                </div>
+
+                <div id="groupNavAdmin" class="list-group" style="">
+                    <br />
+                    <div class="main_title"><h4>Admininstrative Operations</h4></div>
+                    
                     <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Semesters</a>
                     <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
                     <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
