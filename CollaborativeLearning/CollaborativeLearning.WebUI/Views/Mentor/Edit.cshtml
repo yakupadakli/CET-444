@@ -1,81 +1,85 @@
 ﻿@model CollaborativeLearning.Entities.User
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myModalLabel">Mentor Edit</h4>
+    </div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("Edit", "Mentor", new AjaxOptions
+                    {
 
-@using (Ajax.BeginForm("Edit", "Mentor", new AjaxOptions
-            {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "mentors",
+                    }))
+        {
+         @Html.AntiForgeryToken()
+         @Html.ValidationSummary(true)
+            <div class="grid">
+                @Html.HiddenFor(model => model.Id)
 
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "mentors",
-            }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+                <div class="col-lg-12 form-group">
+                    @Html.LabelFor(model => model.Username)
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.Username, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.Username)
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.Email, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
 
-    <fieldset>
-        <legend>Edit Mentor</legend>
+                <div class="col-lg-12">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.FirstName)
+                    </div>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
 
-        @Html.HiddenFor(model => model.Id)
+                <div class="col-lg-12">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.LastName)
+                    </div>
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.LastName, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Username)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
+                <div class="col-lg-12">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IsLockedOut)
+                    </div>
+                    <div class="controls">
+                        @Html.CheckBoxFor(model => model.IsLockedOut)
+                        @Html.ValidationMessageFor(model => model.IsLockedOut)
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsLockedOut)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsLockedOut)
-            @Html.ValidationMessageFor(model => model.IsLockedOut)
-        </div>
-      
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RoleID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RoleID)
-            @Html.ValidationMessageFor(model => model.RoleID)
-        </div>
-                
-    </fieldset>
-     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-default" id="editRemoveContainner">Close</button>
-      </div>
-}
-
+                <div class="col-lg-12">
+                    <div class="controls">
+                        @Html.HiddenFor(model => model.RoleID, new { @class="form-control"})
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changess</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"  id="editRemoveContainner">Close</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 <script>
     $("#editRemoveContainner").click(function () {
         $("#MentorEditPartialContainner").hide(100);
         $("#MentorSemesterAddPartialContainner").hide(100);
     });
-
 </script>

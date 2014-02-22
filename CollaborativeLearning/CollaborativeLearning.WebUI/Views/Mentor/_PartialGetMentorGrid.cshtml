@@ -7,6 +7,7 @@
 <br />
 
 <div class="panel panel-default">
+    <div class="panel-heading">Assign Students as Mentor</div>
     <div class="panel-body">
         @Html.Action("_PartialSelectUsers", "User")
     </div>
@@ -40,99 +41,107 @@
         <table class="table table-hover table-responsive table-striped">
             <thead>
                 <tr>
-                    <td align="center" class="col-sm-1">
+                    <th class="col-sm-2">
                         <b>Mentor Name</b>
-                    </td>
-                    <td align="center">
+                    </th>
+                    <th>
                         <b>User Name</b>
-                    </td>
-                    <td align="center">
+                    </th>
+                    <th>
                         <b>E-Mail</b>
-                    </td>
-                    <td align="center">
+                    </th>
+                    <th class="col-sm-2">
                         <b>Group Count</b>
-                    </td>
-                    <td align="center" class="col-sm-2">
+                    </th>
+                    <th class="col-sm-2">
                         <b>Actions</b>
-                    </td>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-@foreach (var item in Model)
-{
-    <tr>
-        <td align="left">
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td align="center">
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td align="center">
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>        
-        <td align="center">
-            @Html.DisplayFor(modelItem => item.Groups.Count)
-        </td>
-        <td align="center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td align="left">
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Groups.Count)
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                  Actions
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Ajax.ActionLink(" Edit", "_PartialEdit", "Mentor",
+                                        new { id = item.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "MentorEditPartialContainner",
+                                            LoadingElementId = "loadingMentorOps"
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                  Actions
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        @Ajax.ActionLink(" Edit", "_PartialEdit", "Mentor",
-                        new { id = item.Id },
-                        new AjaxOptions
-                        {
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "MentorEditPartialContainner",
-                            LoadingElementId = "loadingMentorOps"
+                                        },
+                                        new { @class = "openResourceEditPartial", @id="mentorEdit_"+item.Id  })
+                                        <script>
+                                            $("#mentorEdit_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Edit")
+                                        </script>
+                                    </li>
+                                    <li>
+                                        @Ajax.ActionLink(" Add Semesters", "_SemesterToMentor", "Mentor",
+                                        new { id = item.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "MentorSemesterAddPartialContainner",
+                                            LoadingElementId = "loadingAddSemesterOps"
 
-                        },
-                        new { @class = "openResourceEditPartial", @id="mentorEdit_"+item.Id  })
-                        <script>
-                            $("#mentorEdit_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Edit")
-                        </script>
-                    </li>
-                    <li>
-                        @Ajax.ActionLink(" Add Semesters", "_SemesterToMentor", "Mentor",
-                        new { id = item.Id },
-                        new AjaxOptions
-                        {
-                            InsertionMode = InsertionMode.Replace,
-                            UpdateTargetId = "MentorSemesterAddPartialContainner",
-                            LoadingElementId = "loadingAddSemesterOps"
-
-                        },
-                        new { @class = "openSemesterPartial", @id="mentorAddSemester_"+item.Id }) 
-                        <script>
-                            $("#mentorAddSemester_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Add Semesters")
-                        </script>
-                    </li>
-                    <li>
-                        @Ajax.ActionLink(" Delete Mentor", "Delete", "Mentor", new { id = item.Id },
-                                new AjaxOptions
-                                {
-                                    Confirm = "Are you sure to delete this mentor?",
-                                    UpdateTargetId = "mentors",
-                                    LoadingElementId = "loadingMentorOps"
-                                },
-                        new { @class = "", @id="mentorDelete_"+item.Id }) 
-                        <script>
-                            $("#mentorDelete_@item.Id").html("<span class='glyphicon glyphicon-trash pull-left'></span> Delete")
-                        </script>
-                    </li>
-                </ul>
-              </div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="5"> 
-        </td>
-    </tr>
-}
+                                        },
+                                        new { @class = "openSemesterPartial", @id="mentorAddSemester_"+item.Id }) 
+                                        <script>
+                                            $("#mentorAddSemester_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Add Semesters")
+                                        </script>
+                                    </li>
+                                    <li>
+                                        @Ajax.ActionLink(" Make Student", "Delete", "Mentor", new { id = item.Id },
+                                                new AjaxOptions
+                                                {
+                                                    Confirm = "Are you sure to delete this mentor?",
+                                                    UpdateTargetId = "mentors",
+                                                    LoadingElementId = "loadingMentorOps"
+                                                },
+                                        new { @class = "", @id="mentorMakeStudent_"+item.Id }) 
+                                        <script>
+                                            $("#mentorMakeStudent_@item.Id").html("<span class='glyphicon glyphicon-minus pull-left'></span> Make Student")
+                                        </script>
+                                    </li>
+                                    <li>
+                                        @Ajax.ActionLink(" Delete Mentor", "Delete", "Mentor", new { id = item.Id },
+                                                new AjaxOptions
+                                                {
+                                                    Confirm = "Are you sure to delete this mentor?",
+                                                    UpdateTargetId = "mentors",
+                                                    LoadingElementId = "loadingMentorOps"
+                                                },
+                                        new { @class = "", @id="mentorDelete_"+item.Id }) 
+                                        <script>
+                                            $("#mentorDelete_@item.Id").html("<span class='glyphicon glyphicon-trash pull-left'></span> Delete")
+                                        </script>
+                                    </li>
+                                </ul>
+                              </div>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
 
