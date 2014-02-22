@@ -5,7 +5,7 @@
 <br />
 
 <div class="panel panel-default">
-    <div class="panel-body">
+    <div class="panel-body" id="AddSemesterContainer">
         <div class="row">
             <div class="col-lg-6">
                 <div class="span6">
@@ -26,38 +26,25 @@
         </div>
 
         <div class="row" id="CreateSemesterPartialDiv" style="display:none;" >
-                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
-                        <div style="padding-bottom:10px">
-                            @Html.Action("_PartialCreate", "Semester")
-                        </div>
-                    </div>
-                </div>
-
-@*        <div class="row">
-            <div id="CreateSemesterPartialDiv">
-                <div class="col-lg-6 rightColumn">
+            <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                <div style="padding-bottom:10px">
                     @Html.Action("_PartialCreate", "Semester")
                 </div>
             </div>
-        </div>*@
+        </div>
+    </div>
+    <div class="panel-body" id="SemesterEditPartialContainner">
+       <div class="row" id="EditSemesterPartialDiv" style="display:none;" >
+            <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                <div style="padding-bottom:10px">
+                    @Html.Action("_PartialEdit", "Semester", new { id=0 })
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div id="SemesterDataTableContainer">
-    <br />
-    <div id="SemesterEditPartialContainner">
-       <div class="row" id="EditSemesterPartialDiv" style="display:none;" >
-                        <div class="col-lg-12 clearfix" style="margin-left:10px;">
-                            <div style="padding-bottom:10px">
-                                @*@Html.Action("Edit", "Semester", new { id=0 })*@
-                                <button type="button" class="btn-sm btn-danger" id="editRemove" style="display:none;">
-                                        <span class="glyphicon glyphicon-remove"></span> Close
-                                </button>
-                            </div>
-                        </div>
-        </div>
-    </div>
-
     <div class="panel panel-warning clearfix" id="SemestersContainner">
         <div class="panel-heading">Semester List</div>
         <div class="panel-body">
@@ -65,6 +52,9 @@
                 <thead>
                     <tr>
                         <td align="center" class="col-sm-1">
+                            <b>Active</b>
+                        </td>
+                        <td align="center">
                             <b>Semester Name</b>
                         </td>
                         <td align="center">
@@ -82,9 +72,6 @@
                         <td align="center">
                             <b>Mentors Count</b>
                         </td>
-                        <td align="center">
-                            <b>Active</b>
-                        </td>
                         <td align="center" class="col-sm-2">
                             <b>Actions</b>
                         </td>
@@ -92,7 +79,33 @@
                 </thead>
                 <tbody>
                 @foreach (var item in Model) {
-                    <tr>
+                    <tr class="@if (item.isActive) {  <text> success </text>   } else { <text> danger </text>   }">
+                        <td align="center">
+
+
+                        @if (item.isActive)
+                        {
+
+                        @Ajax.ActionLink(" ", "ChangeActiveStatus", "Semester", new { id = item.Id, Active = item.isActive },
+                                    new AjaxOptions
+                                    {
+                                        UpdateTargetId = "semesters",
+                                        LoadingElementId = "loadingSemesterOps"
+                                    },
+                            new { @class = "btn-sm btn-danger glyphicon glyphicon-off" })
+                        }
+                        else
+                        {
+                        @Ajax.ActionLink(" ", "ChangeActiveStatus", "Semester", new { id = item.Id, Active = item.isActive },
+                                    new AjaxOptions
+                                    {
+                                        UpdateTargetId = "semesters",
+                                        LoadingElementId = "loadingSemesterOps"
+                                    },
+                                     new { @class = "btn-sm btn-success glyphicon glyphicon-play-circle" })
+                        }
+
+                    </td>
                         <td align="left">
                             @Html.DisplayFor(modelItem => item.semesterName)
                         </td>
@@ -106,16 +119,19 @@
                             @Html.DisplayFor(modelItem => item.Groups.Count)
                         </td>     
                         <td align="center">
-                            @*@Html.DisplayFor(modelItem => item.Users.Where(s=>s.RoleID == 3).Count)*@
+                            @{
+                                var student = item.Users.Where(s => s.RoleID == 3).Count();
+                            }
+                            @Html.DisplayFor(modelItem => student)
                         </td>    
                         <td align="center">
-@*                            @Html.DisplayFor(modelItem => item.Users.Where(s=>s.RoleID==2).Count)*@
-                        </td>  
+                            @{
+                                var mentor = item.Users.Where(s => s.RoleID == 2).Count();
+                            }
+                            @Html.DisplayFor(modelItem => mentor)
+                        </td>    
                         <td align="center">
-                            @Html.DisplayFor(modelItem => item.isActive)
-                        </td>     
-                        <td align="center">
-                            @Ajax.ActionLink("Edit", "_PartialEdit", "Semester", 
+                            @Ajax.ActionLink(" ", "_PartialEdit", "Semester", 
                             new { id = item.Id }, 
                             new AjaxOptions {
                                 InsertionMode=InsertionMode.Replace,
@@ -123,11 +139,17 @@
                                 LoadingElementId = "loadingSemesterOps"
                 
                             }, 
-                            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openSemesterEditPartial"})
+                            new {@class = "btn-sm btn-info glyphicon glyphicon-edit openSemesterEditPartial",alt = "Edit Semester" })
             
-                          |
-                            @Html.ActionLink("Semesters", "_SemesterToMentor", new { id=item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                            @Ajax.ActionLink(" ", "Delete", "Semester", new { id = item.Id},
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this semester?",
+                                    UpdateTargetId = "semesters",
+                                    LoadingElementId = "loading",
+                                },
+                              new {@class = "btn-sm btn-danger glyphicon glyphicon-trash semesterRemove", alt = "Delete Semester" })
                         </td>
                 </tr>
                     <tr>
@@ -179,12 +201,15 @@
 </style>
 <script>
     $(document).ready(function () {
-        console.log("Document");
         $("#SemesterEditPartialContainner").hide();
         $("#loadingMentorOps").hide();
     });
     $(".openSemesterEditPartial").click(function () {
-        console.log("click");
+        $("#AddSemesterContainer").hide();
         $("#SemesterEditPartialContainner").show(100);
     });
+    $("#semesterRemove").click(function () {
+        $("#SemesterEditPartialContainner").hide(100);
+    });
+    
 </script>
