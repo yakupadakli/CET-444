@@ -235,5 +235,18 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult _MakeMentorStudent(int id)
+        {
+
+                var s = unitOfWork.UserRepository.GetByID(id);
+                s.RoleID = 3;
+                unitOfWork.UserRepository.Update(s);
+                unitOfWork.Save();
+
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+        }
+
+
     }
 }
