@@ -112,6 +112,15 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
 
+        public ActionResult _PartialSelectUsers()
+        {
+            var AllStudents = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 3).ToList();
+
+            ViewBag.Students = AllStudents;
+
+            return PartialView();
+        }
+
 
     }
 }

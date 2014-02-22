@@ -220,5 +220,20 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView();
         }
 
+
+        [HttpPost]
+        public ActionResult AssignAsMentor(string[] UserMultiSelect)
+        {
+            foreach (var item in UserMultiSelect)
+            {
+                var s = unitOfWork.UserRepository.GetByID(int.Parse(item));
+                s.RoleID = 2;
+                unitOfWork.UserRepository.Update(s);
+                unitOfWork.Save();
+            }
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+        }
+
+
     }
 }

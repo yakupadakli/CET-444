@@ -5,6 +5,14 @@
     ViewBag.Title = "Mentor";
 }
 <br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.Action("_PartialSelectUsers", "User")
+    </div>
+</div>
+<div class="modal-footer"></div>
+
 <div id="MentorEditPartialContainner">
    <div class="row" id="EditMentorPartialDiv">
                     <div class="col-lg-12 clearfix" style="margin-left:10px;">
