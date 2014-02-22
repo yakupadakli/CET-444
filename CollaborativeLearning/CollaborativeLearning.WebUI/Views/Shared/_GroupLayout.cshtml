@@ -20,7 +20,7 @@
 
     <link href="~/Content/Datatable/css/jquery.dataTables.css" rel="stylesheet" />
     <script src="~/Content/Datatable/js/jquery.dataTables.min.js"></script>
-    
+
     <link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
     <link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
     <script src="~/Content/select2-3.4.5/select2.js"></script>
@@ -28,21 +28,21 @@
     <link href="~/Content/Template/css/bootstrap-combined.min.css" rel="stylesheet" />
 
     <style>
-        /*#groupScenariosNav 
+        /*#groupScenariosNav
         {
             position:fixed;
             padding: 9px 0;
             top:60px;
             width:266px;
         }
-        #groupGroupsNav 
+        #groupGroupsNav
         {
             position:fixed;
             padding: 9px 0;
             top:130px;
             width:266px;
         }
-        #groupNavAdmin 
+        #groupNavAdmin
         {
             position:fixed;
             padding: 9px 0;
@@ -50,15 +50,14 @@
             width:266px;
             margin-bottom: 25px;
         }*/
-        .main_title 
-        {
+        .main_title {
             margin-left: 0;
             margin-right: 0;
             background-color: #fff;
             border-width: 1px;
             border-color: #ddd;
             border-radius: 4px 4px 0 0;
-            box-shadow: none; 
+            box-shadow: none;
             position: relative;
             background-color: #fafafa;
             box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
@@ -76,50 +75,52 @@
                 <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
             </div>
             <div class="btn-group" style="float:right; margin-top:10px">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                @User.Identity.Name<span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                  <li><a class="glyphicon glyphicon-user" href="/User/Profile"> Profile</a></li>
-                  <li><a class="glyphicon glyphicon-pencil" href="#"> Change Password</a></li>
-                  <li class="divider"></li>
-                  <li><a class="glyphicon glyphicon-log-out" href="Account/LogOff"> Logout</a></li>
-              </ul>
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    @CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser().FullName<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="glyphicon glyphicon-user" href="/User/Profile"> Profile</a></li>
+                    <li><a class="glyphicon glyphicon-pencil" href="#"> Change Password</a></li>
+                    <li class="divider"></li>
+                    <li><a class="glyphicon glyphicon-log-out" href="/Account/LogOff"> Logout</a></li>
+                </ul>
             </div>
         </div><!-- /.container -->
     </nav>
-    <div class="container" >
+    <div class="container">
 
         <div class="row" style="min-height:480px;">
             <div class="col-md-3">
                 <div id="groupScenariosNav" class="list-group" style="">
                     <div class="main_title"><h4>Groups Operations</h4></div>
-                    <a id="group" href="#Groups" class="list-group-item" data-toggle="tab">Secenarios</a>
-                        <a id="scenarios" href="#Groups" class="list-group-item" style="padding-left: 30px;">
-                            <span class="glyphicon glyphicon-chevron-right"></span> 
-                            Secenario1
-                        </a>
-                        @RenderSection("Scenario", false)
-                    <span class="dropdown-submenu "> 
-                        <a id="othergroups" href="#Groups" class="list-group-item" data-toggle="tab">
+                    <a id="group" href="#Groups" class="list-group-item" data-toggle="tab">Group Scenario(s)</a>
+                    @Html.Action("_PartialGetGroupScenarios", "Groups")
+                    <a id="meeting" href="#Groups" class="list-group-item" data-toggle="tab">Group Meetings</a>
+                    <span class="dropdown-submenu ">
+                        <a id="othergroups" href="" class="list-group-item" data-toggle="tab">
                             Other Groups
-
-                        </a> 
+                        </a>
                         <ul class="dropdown-menu" style="margin-top: -40px;margin-left: 265px;">
-                            <li><a tabindex="-1" href="#">Group 1</a></li>
-                            <li><a tabindex="-1" href="#">Group 2</a></li>
-                            <li><a tabindex="-1" href="#">Group 3</a></li>
-                            <li><a tabindex="-1" href="#">Group 4</a></li>
-                            <li><a tabindex="-1" href="#">Group 5</a></li>
+                            @Html.Action("_PartialGetOtherGroupsForMenu", "Groups")
                         </ul>
-                        
                     </span>
-                    <a id="meeting" href="#Groups" class="list-group-item" data-toggle="tab">Meeting</a>
+                    <span class="dropdown-submenu ">
+                        <a id="allScenarios" href="" class="list-group-item" data-toggle="tab">
+                            All Scenarios
+
+                        </a>
+                        <ul class="dropdown-menu" style="margin-top: -40px;margin-left: 265px;">
+                            @Html.Action("_PartialGetScenariosForMenu", "Groups")
+
+                        </ul>
+
+                    </span>
                     <a id="works" href="#Groups" class="list-group-item" data-toggle="tab">Submitted Works</a>
-                    <a id="reflections" href="#Groups" class="list-group-item" data-toggle="tab">Reflections</a>
+                    <a id="reflections" href="#Groups" class="list-group-item" data-toggle="tab">Reflection</a>
                 </div>
 
-                <div id="groupNavAdmin" class="list-group" style="">
+                @RenderSection("GroupShoNav");
+                <div id="GroupShoNav" class="list-group" style="">
                     <br />
                     <div class="main_title"><h4>Admininstrative Operations</h4></div>
 
@@ -129,23 +130,42 @@
                     <a href="@Url.Action("Index", "Home")#scenarios" class="list-group-item">
                         Scenarios
                     </a>
-                    <a href="@Url.Action("Index", "Home")#resources" class="list-group-item" >
+                    <a href="@Url.Action("Index", "Home")#resources" class="list-group-item">
                         Resources
                     </a>
                 </div>
 
             </div>
             <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding:5px;padding-left:15px">
+                         @Html.Action("_PartialHeaderSemeterInfo","Groups")
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
                 <div class="thumbnail">
                     <div class="caption-full">
                         @RenderSection("featured", required: false)
-                        <ol class="breadcrumb">
+                       <ol class="breadcrumb">
                             @RenderSection("BreadCrump", false)
                         </ol>
                         <br />
-                        <h2>
-                            @RenderSection("Header", false)
-                        </h2>
+
+                        <div class="col-lg-12 clearfix">
+                            <div class="page-header clearfix" style="margin: -20px 0 20px;">
+                                <div class="col-lg-7 text-left clearfix">
+
+                                    
+                                        @RenderSection("Header", false)
+                                   
+
+                                </div>
+                                <div class="col-lg-5 text-right clearfix">
+                                    @*@Html.Partial("_PartialStudentInfo")*@
+                                </div>
+                            </div>
+                        </div>
                         <section id="main">
                             @RenderBody()
                         </section>
@@ -163,13 +183,13 @@
                         <p>
                             <strong>
                                 Copyright &copy;
-                            </strong> 
-                            Project Team : 
-                            Yakup Adaklı, 
-                            Ali Akkaya, 
-                            Oğuzhan Kemal, 
-                            Mustafa Ozan Şindi | 
-                            Leader : Ekrem Kutbay | 
+                            </strong>
+                            Project Team :
+                            Yakup Adaklı,
+                            Ali Akkaya,
+                            Oğuzhan Kemal,
+                            Mustafa Ozan Şindi |
+                            Leader : Ekrem Kutbay |
                             Advisor : Asist. Prof. Hamdi Erkunt
                         </p>
                     </div>
@@ -181,5 +201,5 @@
 
     @RenderSection("scripts", required: false)
 </body>
-    
+
 </html>

@@ -1,0 +1,9 @@
+﻿@model  ICollection<CollaborativeLearning.Entities.Scenario>
+
+
+@{
+    foreach (var item in Model)
+    {
+        <li><a tabindex="-1" href="@Url.Action("Scenario","Groups",new{id=item.Id})">@item.Name</a></li>
+    }
+}

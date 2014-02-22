@@ -1,0 +1,38 @@
+﻿@{
+    CollaborativeLearning.Entities.User user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
+}
+
+
+<table align="right" cellpadding="5" class="panel panel-default">
+    <thead></thead>
+    <tbody>
+        <tr>
+             <td align="left">
+                 @user.FullName
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                @CollaborativeLearning.WebUI.Controllers.HelperController.GetUserActiveSemester(user.Id).semesterName
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+              
+              @if (user.Groups.Count>0)
+              {
+                  @user.Groups.FirstOrDefault().GroupName;
+             
+              }else{
+                <text><i>You aren't a member of group</i></text>
+              }
+                
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+              
+            </td>
+        </tr>
+    </tbody>
+</table>

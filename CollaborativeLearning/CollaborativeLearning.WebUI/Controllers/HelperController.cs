@@ -52,6 +52,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return randomString;
         }
+        public static Semester GetUserActiveSemester(int UserID)
+        {
+            unitOfWork = new UnitOfWork();
+            Semester semester = unitOfWork.UserRepository.GetByID(UserID).Semesters.Where(s => s.isActive == true).FirstOrDefault();
+            if (semester != null)
+            {
+                return semester;
+            }
+            else {
+                return null;
+            }
+        }
 
     }
 }
