@@ -354,6 +354,7 @@
     <Compile Include="Controllers\ActionPlanController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MentorController.cs" />
@@ -1433,6 +1434,13 @@
     <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Group\_PartialGetGroupsScenarios.cshtml" />
     <Content Include="Views\Shared\_GroupLayout.cshtml" />
+    <Content Include="Views\Semester\Scenario.cshtml" />
+    <Content Include="Views\User\_PartialSelectStudents.cshtml" />
+    <Content Include="Views\User\_PartialSelectUsers.cshtml" />
+    <Content Include="Views\Mentor\_PartialGetMentorsBySemester.cshtml" />
+    <Content Include="Views\Mentor\_PartialSelectMentors.cshtml" />
+    <Content Include="Views\Mentor\_SemesterToMentor.cshtml" />
+    <Content Include="Views\Group\_PartialGetGroupsWorks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

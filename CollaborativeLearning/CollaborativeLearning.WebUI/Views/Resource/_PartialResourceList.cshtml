@@ -74,8 +74,10 @@
                         @item.Description
                     </td>
                     <td align="center">
-
-                        @Html.ActionLink("Edit","_PartialEditResource", "Resource", new { id = item.Id },new { @class = "btn-sm btn-info", alt = "All Files Download", title = "Edit Resource" });
+                        
+                        @Html.ActionLink(" ","_PartialEditResource", "Resource",
+                        new { id = item.Id },
+                        new { @class = "btn-sm btn-info glyphicon glyphicon-edit ", alt = "All Files Download", title = "Edit Resource" })
                         @*@Ajax.ActionLink("Edit ", "_PartialEditResource", "Resource", new { id = item.Id },
                                 new AjaxOptions
                                 {
@@ -95,7 +97,7 @@
                                     UpdateTargetId = "ResourceTableContianner",
                                     LoadingElementId = "loadingResourceOps"
                                 },
-                            new { @class = "btn-sm btn-primary ",alt="All Files Download",title="Download all files" })
+                            new { @class = "btn-sm btn-primary glyphicon glyphicon-download-alt",alt="All Files Download",title="Download all files" })
                         }
                         
                         @Ajax.ActionLink(" ", "Delete", "Resource", new { id = item.Id },
@@ -106,7 +108,7 @@
                                     UpdateTargetId = "ResourceTableContianner",
                                     LoadingElementId = "loadingResourceOps"
                                 },
-                                new { @class = "btn-sm btn-danger ", alt = "All Files Download", title = "Delete Resource" })
+                                new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "All Files Download", title = "Delete Resource" })
                     </td>
                 </tr>
 
