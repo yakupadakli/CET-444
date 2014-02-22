@@ -1,6 +1,61 @@
-﻿@{
+﻿@model CollaborativeLearning.Entities.Scenario
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_GroupLayout.cshtml";
 }
 
-<h2>Index</h2>
+@section BreadCrump{
+    <li>@Html.ActionLink("Home", "Index", "Group")</li>
+    <li class="active">Scenario Name</li>
+}
+@section Header{
+    <div class="page-header" style="margin: -20px 0 20px;">
+        <h3>Scenario Name</h3>
+    </div>
+}
+
+<br />
+
+<ul class="nav nav-tabs">
+    <li class="active"><a id="groups_tab" href="#Tasks" data-toggle="tab">Tasks</a></li>
+    <li><a id="scenarios_tab" href="#ActionPlans" data-toggle="tab">Action Plans</a></li>
+    <li><a id="works_tab" href="#Resources" data-toggle="tab">Resources</a></li>
+    <li><a id="feedbacks_tab" href="#Works" data-toggle="tab">Works</a></li>
+    <li><a id="reflections_tab" href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane clearfix active" id="Tasks">
+        <br />
+        <div class="col-lg-12">
+                Tasks
+        </div>
+    </div>
+    <div class="tab-pane " id="ActionPlans">
+        <br />
+        <div class="col-lg-12">
+                ActionPlans
+        </div>
+    </div>
+    <div class="tab-pane clearfix" id="Resources">
+        
+        <br />
+        <div class="col-lg-12">
+                Resources
+        </div>
+    </div>
+    <div class="tab-pane clearfix" id="Works">
+        <br />
+        <div class="col-lg-12">
+                Works
+        </div>
+        
+    </div>
+    <div class="tab-pane clearfix" id="Feedbacks">
+        <br />
+        <div class="col-lg-12">
+              Feedbacks
+        </div>
+    </div>
+</div>

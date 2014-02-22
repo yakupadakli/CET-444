@@ -25,7 +25,7 @@
     <link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
     <script src="~/Content/select2-3.4.5/select2.js"></script>
 
-
+    <link href="~/Content/Template/css/bootstrap-combined.min.css" rel="stylesheet" />
     <style>
         /*#groupScenariosNav 
         {
@@ -90,35 +90,49 @@
     <div class="container" >
 
         <div class="row" style="min-height:480px;">
-
             <div class="col-md-3">
-
                 <div id="groupScenariosNav" class="list-group" style="">
-                    <div class="main_title"><h4>Scenarios</h4></div>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario1</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario2</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario3</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Secenario4</a>
-                </div>
-                
+                    <div class="main_title"><h4>Groups Operations</h4></div>
+                    <a id="group" href="#Groups" class="list-group-item" data-toggle="tab">Secenarios</a>
+                        <a id="scenarios" href="#Groups" class="list-group-item" style="padding-left: 30px;">
+                            <span class="glyphicon glyphicon-chevron-right"></span> 
+                            Secenario1
+                        </a>
+                        @RenderSection("Scenario", false)
+                    <span class="dropdown-submenu "> 
+                        <a id="othergroups" href="#Groups" class="list-group-item" data-toggle="tab">
+                            Other Groups
 
-                <div id="groupOthersNav" class="list-group" style="">
-                    <div class="main_title"><h4>Navigation</h4></div>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Other Groups</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Meeting</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Submitted Works</a>
-                    <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Reflections</a>
-                    
+                        </a> 
+                        <ul class="dropdown-menu" style="margin-top: -40px;margin-left: 265px;">
+                            <li><a tabindex="-1" href="#">Group 1</a></li>
+                            <li><a tabindex="-1" href="#">Group 2</a></li>
+                            <li><a tabindex="-1" href="#">Group 3</a></li>
+                            <li><a tabindex="-1" href="#">Group 4</a></li>
+                            <li><a tabindex="-1" href="#">Group 5</a></li>
+                        </ul>
+                        
+                    </span>
+                    <a id="meeting" href="#Groups" class="list-group-item" data-toggle="tab">Meeting</a>
+                    <a id="works" href="#Groups" class="list-group-item" data-toggle="tab">Submitted Works</a>
+                    <a id="reflections" href="#Groups" class="list-group-item" data-toggle="tab">Reflections</a>
                 </div>
 
                 <div id="groupNavAdmin" class="list-group" style="">
                     <br />
                     <div class="main_title"><h4>Admininstrative Operations</h4></div>
                     
-                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Semesters</a>
-                    <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
-                    <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
+                    <a href="@Url.Action("Index", "Home")#semesters" class="list-group-item">
+                        Semesters
+                    </a>
+                    <a href="@Url.Action("Index", "Home")#scenarios" class="list-group-item">
+                        Scenarios
+                    </a>
+                    <a href="@Url.Action("Index", "Home")#resources" class="list-group-item" >
+                        Resources
+                    </a>
                 </div>
+
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
