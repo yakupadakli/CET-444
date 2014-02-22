@@ -170,9 +170,11 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return PartialView();
         }
-        public ActionResult _PartialResources()
+        public ActionResult _PartialResources(int id)
         {
-            return PartialView();
+            var resourceList = unitOfWork.ResourceRepository.Get(s => s.Scenarios.Where(se => se.Id == id).Count() > 0);
+            ViewBag.scenarioId = id;
+            return PartialView(resourceList);
         }
         public ActionResult _PartialSubmitedWorks()
         {
@@ -198,5 +200,59 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             return RedirectToAction("_PartialGetScenariosBySemester", new { id = semesterId });
         }
+
+
+        [HttpPost]
+        public ActionResult DeleteResourceFromScenario(int resourceId, int scenarioId)
+        {
+            Resource s = unitOfWork.ResourceRepository.GetByID(resourceId);
+            unitOfWork.ScenarioRepository.GetByID(scenarioId).Resources.Remove(s);
+
+            unitOfWork.Save();
+            return RedirectToAction("_PartialResources", "Scenario", new { id = scenarioId });
+        }
+
+
+        public ActionResult _PartialSelectResourcesByScenario(int id)
+        {
+            ViewBag.ID = id;
+            var ResourceScenarioList = unitOfWork.ScenarioRepository.GetByID(id).Resources.ToList();
+            var AllList = unitOfWork.ResourceRepository.Get();
+            bool t = false;
+            List<Resource> ResourceList = new List<Resource>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in ResourceScenarioList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    ResourceList.Add(listItem);
+                }
+            }
+            ViewBag.AllResources = ResourceList;
+            return PartialView();
+        }
+
+        public ActionResult AddResourcesToScenario(int ScenarioID, string[] ResourceMultiSelect)
+        {
+            var scenario = unitOfWork.ScenarioRepository.GetByID(ScenarioID);
+            foreach (var item in ResourceMultiSelect)
+            {
+                var s = unitOfWork.ResourceRepository.GetByID(int.Parse(item));
+                scenario.Resources.Add(s);
+            }
+            unitOfWork.Save();
+            ViewBag.ID = ScenarioID;
+            ViewBag.AllResources = unitOfWork.ResourceRepository.Get();
+            return RedirectToAction("_PartialResources", "Scenario", new { id = ScenarioID });
+        }
+
+
     }
 }
