@@ -2,6 +2,17 @@
     ViewBag.Title = "Index";
 }
 
-<div id="AddResourceContainner" >
-@Html.Partial("_PartialAddResource")
+
+<div id="ResourcePartialContainner">
+    <div id="AddResourceContainner">
+        @Html.Partial("_PartialAddResource")
+    </div>
+    <div id="ResourceEditContainner">
+        fsdf
+    </div>
+    <div id="ResourceTableContianner">
+        @Html.Action("_PartialResourceList")
+    </div>
 </div>
+
+

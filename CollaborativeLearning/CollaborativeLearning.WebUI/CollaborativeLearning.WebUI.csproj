@@ -353,7 +353,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionPlanController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
-    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -924,22 +923,14 @@
     <Content Include="Content\Datatable\js\jquery.dataTables.js" />
     <Content Include="Content\Datatable\js\jquery.dataTables.min.js" />
     <Content Include="Content\Datatable\js\jquery.js" />
-    <Content Include="Content\FileUpload\Scripts\canvas-to-blob.js" />
-    <Content Include="Content\FileUpload\Scripts\canvas-to-blob.min.js" />
-    <Content Include="Content\FileUpload\Scripts\cors\jquery.postmessage-transport.js" />
-    <Content Include="Content\FileUpload\Scripts\cors\jquery.xdr-transport.js" />
-    <Content Include="Content\FileUpload\Scripts\jquery.fileupload-fp.js" />
-    <Content Include="Content\FileUpload\Scripts\jquery.fileupload-ui.js" />
-    <Content Include="Content\FileUpload\Scripts\jquery.fileupload.js" />
-    <Content Include="Content\FileUpload\Scripts\jquery.iframe-transport.js" />
-    <Content Include="Content\FileUpload\Scripts\load-image.js" />
-    <Content Include="Content\FileUpload\Scripts\load-image.min.js" />
-    <Content Include="Content\FileUpload\Scripts\main.js" />
-    <Content Include="Content\FileUpload\Scripts\tmpl.js" />
-    <Content Include="Content\FileUpload\Scripts\tmpl.min.js" />
-    <Content Include="Content\FileUpload\Scripts\vendor\jquery.ui.widget.js" />
-    <Content Include="Content\FileUpload\Styles\jquery.fileupload-ui-noscript.css" />
-    <Content Include="Content\FileUpload\Styles\jquery.fileupload-ui.css" />
+    <Content Include="Content\DropZone\css\basic.css" />
+    <Content Include="Content\DropZone\css\dropzone.css" />
+    <Content Include="Content\DropZone\dropzone-amd-module.js" />
+    <Content Include="Content\DropZone\dropzone-amd-module.min.js" />
+    <Content Include="Content\DropZone\dropzone.js" />
+    <Content Include="Content\DropZone\dropzone.min.js" />
+    <Content Include="Content\DropZone\images\spritemap%402x.png" />
+    <Content Include="Content\DropZone\images\spritemap.png" />
     <Content Include="Content\Images\processing.gif" />
     <Content Include="Content\kendo\2013.2.918\Black\editor.png" />
     <Content Include="Content\kendo\2013.2.918\Black\imagebrowser.png" />
@@ -1221,6 +1212,9 @@
     <Content Include="Content\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Content\DropZone\css\stylus\basic.styl" />
+    <Content Include="Content\DropZone\css\stylus\dropzone.styl" />
+    <Content Include="Content\DropZone\readme.md" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
@@ -1432,9 +1426,12 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Resource\_PartialEditResource.cshtml" />
     <Content Include="Views\Semester\_PartialSemesterDataTable.cshtml" />
+    <Content Include="Views\Resource\_PartialFileUploadToResource.cshtml" />
+    <Content Include="Views\Resource\EditResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

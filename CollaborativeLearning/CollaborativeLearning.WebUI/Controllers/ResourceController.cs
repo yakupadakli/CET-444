@@ -23,8 +23,10 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return PartialView("Index");
         }
-        public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, string FileUpload)
+        public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, String FileUpload)
         {
+            
+           
             bool regStatus = false;
             if (model.Name != "" && model.type != "")
             {
@@ -41,7 +43,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                     model.Description = ResourceUrl;
                     regStatus = true;
                 }
-                else if (model.type.Substring(0, 4) == "File")
+                else if (model.type.Contains("File"))
                 {
                     model.Description = "Files";
                     regStatus = true;
@@ -86,22 +88,21 @@ namespace CollaborativeLearning.WebUI.Controllers
                 ViewBag.Message = "The resource content cannot be added. Please try again.";
 
             }
-            if (model.type.Contains("File") && FileUpload == "Now")
+            if (model.type.Contains("File") && FileUpload =="Now")
             {
-                List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
-                ViewBag.ResourceCategoryEdit = ResourceCategory;
-                return PartialView("_PartialEditResource", model);
+                ViewBag.ResourceID = model.Id;
+                return RedirectToAction("_PartialEditResource",model.Id);
+
             }
             else
             {
-                return PartialView("_PartialAddResource", model);
+                return RedirectToAction("_PartialResourceList");
+
             }
+            
         }
 
-        private void UploadFile(HttpFileCollection[] ResourceFiles)
-        {
-
-        }
+      
 
         public ActionResult Delete(int id)
         {
@@ -164,7 +165,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 model = m;
                 List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
                 ViewBag.ResourceCategory = ResourceCategory;
-                return PartialView("_PartialEditResource", model);
+                return View("_PartialEditResource", model);
 
             }
             else
@@ -215,13 +216,22 @@ namespace CollaborativeLearning.WebUI.Controllers
                 ViewBag.ErrorType = "ResourceAdd";
                 ViewBag.Message = "The Resource cannot find to update";
             }
-            return PartialView("_PartialAddResource", model);
+            return PartialView("Index", model);
 
         }
 
-
-        public ActionResult _PartialUploadFileContainner() {
+        #region ResourceUpload
+        public ActionResult _PartialFileUploadToResource(int id)
+        {
+            ViewBag.ResourceID = id;
             return PartialView();
         }
+        public ActionResult UploadHandler(HttpPostedFileBase file, int ResourceID)
+        {
+
+            return null;
+        }
+        #endregion
+
     }
 }

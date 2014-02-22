@@ -1,9 +1,7 @@
 ﻿@model CollaborativeLearning.Entities.Resource
-
 <link href="~/Content/DropZone/css/basic.css" rel="stylesheet" />
 <link href="~/Content/DropZone/css/dropzone.css" rel="stylesheet" />
-<script src="~/Content/DropZone/dropzone.js"></script>
-<script src="~/Content/DropZone/dropzone-amd-module.js"></script>
+<script src="~/Content/DropZone/dropzone.min.js"></script>
 @{
     List<SelectListItem> ResourceCategoryEdit = new List<SelectListItem>();
     ResourceCategoryEdit.Add(new SelectListItem { Text = "Select ResourceType", Value = "" });
@@ -38,7 +36,7 @@
         @using (Ajax.BeginForm("Edit", "Resource", null, new AjaxOptions
         {
             InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "ResourcePartialContainner",
+            UpdateTargetId = "AddResourceContainner",
             LoadingElementId = "loadingResourceOpsEdit"
         }, null))
         {
@@ -101,75 +99,79 @@
                 </div>
             }
         }
-        
+
         @if (Model.type.Contains("File"))
         {
             <div class="panel panel-default clearfix" id="ResourceEditPanel">
                 <div class="panel-heading">Files</div>
                 <div class="panel-body">
-                   
+
                     <div>
-                        
-
-
-                        @*@using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, new
-                        {
-                            enctype = "multipart/form-data",
-                            id = "uploadDemo",
-                            @class = "dropzone"
-                        }))
-                        {
-
-                            <input type="hidden" name="ResourceID" value="@ViewBag.ResourceID" />
+                        <form action="~/Home/SaveUploadedFile" method="post"
+                              enctype="multipart/form-data" class="dropzone"
+                              id="dropzoneForm">
                             <div class="fallback">
                                 <input name="file" type="file" multiple />
                                 <input type="submit" value="Upload" />
                             </div>
-                        }*@
+
+                        </form>
+
+
+                        @*@using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, new
+                            {
+                                enctype = "multipart/form-data",
+                                id = "uploadDemo",
+                                @class = "dropzone"
+                            }))
+                            {
+
+                                <input type="hidden" name="ResourceID" value="@ViewBag.ResourceID" />
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            }*@
                     </div>
-                   
+
                 </div>
             </div>
         }
 
-        </div>
     </div>
-    <div id="loadingResourceOpsEdit">
-        <img src="~/Content/Template/img/loader.gif" />
-    </div>
-<form action="~/Home/SaveUploadedFile" method="post"
-      enctype="multipart/form-data" class="dropzone"
-      id="dropzoneForm">
-    <div class="fallback">
-        <input name="file" type="file" multiple />
-        <input type="submit" value="Upload" />
-    </div>
+</div>
+<div id="loadingResourceOpsEdit">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
 
-</form>
-    <style>
-        div#loadingResourceOpsEdit {
-            display: none;
-            position: absolute;
-            left: 42%;
-            top: 76%;
-            z-index: 1000;
-            height: 64px;
-            width: 64px;
-        }
-    </style>
+<style>
+    div#loadingResourceOpsEdit {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#ResourceEditPanelAddButon").click(function () {
-                $("#ResourceAddContainner").show(100);
-                $("#ResourceEditContainner").hide(100);
-
-            });
-        });
-    </script>
 <script type="text/javascript">
-    alert("Script");
+    $(document).ready(function () {
+        $("#ResourceEditPanelAddButon").click(function () {
+            $("#ResourceAddContainner").show(100);
+            $("#ResourceEditContainner").hide(100);
+
+        });
+    });
+</script>
+<script type="text/javascript">
     Dropzone.options.dropzoneForm = {
-        paramName: "file"// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+        init: function () {
+            this.on("complete", function (data) {
+                var res = eval('(' + data.xhr.responseText + ')');
+                alert(res.Message);
+            });
+        }
     };
 </script>

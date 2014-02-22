@@ -12,6 +12,8 @@
     ResourceCategory.Add(new SelectListItem { Text = "Other", Value = "Other" });
 
 }
+
+
 @if (ViewBag.ErrorType == "ResourceAdd")
 {
     <div class="alert alert-warning" id="ResourceAddWarning">
@@ -19,20 +21,25 @@
     </div>
 }
 <br />
-<div class="panel panel-warning clearfix" id="ResourceAddContainner" >
+<div class="panel panel-default clearfix" id="ResourceAddContainner" >
     <div class="panel-heading">Add New Resource</div>
     <div class="panel-body">
+      
 
-
-        @using (Ajax.BeginForm("AddResource", "Resource", null, new AjaxOptions {
+        @using (Ajax.BeginForm("AddResource", "Resource", new AjaxOptions {
             HttpMethod = "POST",
-            
-            UpdateTargetId = "AddResourceContainner",
+            UpdateTargetId = "ResourceTableContianner",
             OnBegin = "ProcessResourceAddAjaxForm",
             OnComplete = "CompleteResourceAddAjaxForm",
             OnSuccess = "SuccessResourceAddAjaxForm"
-        }, 
-            new {id="ResourceAddForm", @class="form" }))
+            
+        },
+            new
+            {
+                id = "ResourceAddForm",
+                enctype = "multipart/form-data"
+                
+            }))
         {
             @Html.AntiForgeryToken();
             @*<div class="row"> <div class="span8 alert-success">After creating resource, you have to upload file(s) to broadcast</div></div>*@
@@ -71,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-success clearfix" id="ResourceFileEditor">
+            <div class="panel panel-success" id="ResourceFileEditor">
                 <div class="panel-heading">File(s)</div>
                 <div class="panel-body">
                    <label class="radio-inline">
@@ -80,8 +87,7 @@
                    <label class="radio-inline">
                         @Html.RadioButton("FileUpload", "Later", false, new { }) Save and Upload File(s) Later
                    </label>
-                  
-
+                
                 </div>
             </div>
             <div class="row">
@@ -95,12 +101,6 @@
         }
     </div>
 </div>
-<div id="ResourceEditContainner">
-  @Html.Action("_PartialEditResource","Resource", new { id = 0 })
-</div>
-<div id="ResourceTableContianner">
-    @Html.Action("_PartialResourceList")
-</div>
 
 
 <script type="text/javascript">
@@ -110,23 +110,27 @@
         $("#ResourceFileEditor").hide();
         $("#resourceAddProcessingIcon").hide();
         $("#ResourceEditContainner").hide();
-        
+        $("#ResoruceTempAddRefreshFormContianner").hide();
+
         $("#ResourceTypeDropDown").change(function () {
             var dd = $("#ResourceTypeDropDown");
             var ct = dd.val().substr(0, 4);
 
             switch (ct) {
                 case "Text":
+                    $("#ResourceAddForm").attr("data-ajax-update", "#ResourceTableContianner");
                     $("#ResourceTextEditor").show(100);
                     $("#ResourceLinkEditor").hide(100);
                     $("#ResourceFileEditor").hide(100)
                     break;
                 case "URL":
+                    $("#ResourceAddForm").attr("data-ajax-update", "#ResourceTableContianner");
                     $("#ResourceTextEditor").hide(100);
                     $("#ResourceLinkEditor").show(100);
                     $("#ResourceFileEditor").hide(100);
                     break;
                 case "File":
+                    $("#ResourceAddForm").attr("data-ajax-update", "#AddResourceContainner");
                     $("#ResourceTextEditor").hide(100);
                     $("#ResourceLinkEditor").hide(100);
                     $("#ResourceFileEditor").show(100);
@@ -147,12 +151,15 @@
 
     };
     function CompleteResourceAddAjaxForm() {
-       
         $("#resourceAddProcessingIcon").hide();
         $("#resourceAddFormSubmit").show();
 
     };
-    function SuccessResourceAddAjaxForm(){
-        $("#ResourceAddForm").reset();
+    function SuccessResourceAddAjaxForm() {
+        $("#ResourceAddForm").get(0).reset();
+        $("#ResourceTextEditor").hide(100);
+        $("#ResourceLinkEditor").hide(100);
+        $("#ResourceFileEditor").hide(100);
     }
 </script>
+
