@@ -35,7 +35,8 @@
             <div class="panel-heading">
                 <div class="col-lg-4">
                     <div>
-                        <a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
+                        <a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id" 
+                            data-toggle="collapse" style="color:white;text-decoration:none;">
                             @item.TaskName 
                             <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                         </a>
@@ -94,8 +95,7 @@
         $("#updateTaskForm_" + id).toggle(100);
         $("#collapse_" + id).find("i.indicator").removeClass('glyphicon-chevron-up');
         $("#collapse_" + id).find("i.indicator").addClass('glyphicon-chevron-down');
-        $("#collapse_" + id).find("i.indicator").addClass('collapse');
-        $("#collapse_" + id).find("i.indicator").removeClass('in');
+        
         $("#collapse_" + id).hide(100);
     }
 
