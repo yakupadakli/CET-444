@@ -77,7 +77,7 @@ using System.Web.Helpers;
                                 {
                                     group = user.Groups.FirstOrDefault();
                                 }
-                                return RedirectToAction("Index", "Groups", group);
+                                return RedirectToAction("Index", "Groups", group.Id);
                             }
                         }
                     }
