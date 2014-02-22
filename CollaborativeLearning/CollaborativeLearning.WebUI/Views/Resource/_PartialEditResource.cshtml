@@ -1,24 +1,4 @@
 ﻿@model CollaborativeLearning.Entities.Resource
-<script src="~/Content/Template/js/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Content/Template/js/bootstrap.js"></script>
-
-<link href="~/Content/Template/css/style.css" rel="stylesheet" />
-<link href="~/Content/Template/css/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/Template/css/bootstrap-responsive.css" rel="stylesheet" />
-<link href="~/Content/Colorbox/colorbox.css" rel="stylesheet" />
-
-
-
-<link href="~/Content/Datatable/css/jquery.dataTables.css" rel="stylesheet" />
-<script src="~/Content/Datatable/js/jquery.dataTables.min.js"></script>
-
-<link href="~/Content/select2-3.4.5/select2.css" rel="stylesheet" />
-<link href="~/Content/select2-3.4.5/select2-bootstrap.css" rel="stylesheet" />
-<script src="~/Content/select2-3.4.5/select2.js"></script>
-<script src="~/Content/Colorbox/jquery.colorbox.js"></script>
-
 
 <link href="~/Content/DropZone/css/basic.css" rel="stylesheet" />
 <link href="~/Content/DropZone/css/dropzone.css" rel="stylesheet" />
@@ -36,161 +16,160 @@
     ResourceCategoryEdit.Add(new SelectListItem { Text = "Other", Value = "Other" });
 
 }
-<br />
-<div class="col-lg-5 clearfix">
-    <div class="panel panel-default clearfix" id="ResourceEditPanel">
-        <div class="panel-heading">
-            <div class="col-lg-2">Edit Resource</div>
 
+<div class="panel panel-default clearfix" id="ResourceEditPanel">
+    <div class="panel-heading">
+        <div class="col-lg-2">Edit Resource</div>
+        <div class="text-right">
+            @Ajax.ActionLink(" Add Resources", "_PartialAddResource", "Resource", new AjaxOptions
+                               {
+                                   InsertionMode = InsertionMode.Replace,
+                                   UpdateTargetId = "AddResourceContainner",
+                                   LoadingElementId = "loadingResourceOpsEdit"
+                               }, new
+                                {
+                                    @class = "btn btn-sm btn-info glyphicon glyphicon-arrow-left"
+                                })
+            @*<button class="btn-sm btn-success glyphicon glyphicon-plus" id="ResourceEditPanelAddButon">Add Resource</button>*@
         </div>
-        <div class="panel-body">
+    </div>
+    <div class="panel-body">
 
-            @using (Ajax.BeginForm("Edit", "Resource", null, new AjaxOptions
+        @using (Ajax.BeginForm("Edit", "Resource", null, new AjaxOptions
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "ResourcePartialContainner",
             LoadingElementId = "loadingResourceOpsEdit"
         }, null))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <div class="row clearfix">
+                <div class="col-lg-5 text-right">
+                    <input type="submit" class="btn btn-success" value="Save Changes" id="resourceAddFormSubmit" />
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="span2">@Html.LabelFor(m => m.isActive)</div>
+                </div>
+                <div class="col">
+                    @Html.CheckBoxFor(m => m.isActive)
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="span2">@Html.LabelFor(m => m.Name)</div>
+                </div>
+                <div class="col">
+                    <div class="span2">@Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })</div>
+                    <div class="span2">@Html.ValidationMessageFor(m => m.Name) </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="span2">@Html.LabelFor(m => m.type)</div>
+                </div>
+                <div class="col">
+                    <div class="span2">
+                        @Html.DropDownListFor(m => m.type, ResourceCategoryEdit, new { id = "ResourceTypeDropDownEdit", @class = "form-control", required = "required", @readonly = "readonly", disabled = "true" })
+                    </div>
+                    <div class="span5">
+                        You cannot change Resource Type! You can delete and recreate resource to change type!
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            if (Model.type == "Text")
             {
-                @Html.HiddenFor(m => m.Id)
-                <div class="row clearfix">
-                    <div class="col-lg-5 text-right">
-                        <input type="submit" class="btn btn-success" value="Save Changes" id="resourceAddFormSubmit" />
-                    </div>
-
-                    <div class="col-lg-2">
-                        <div class="span2">@Html.LabelFor(m => m.isActive)</div>
-                    </div>
-                    <div class="col">
-                        @Html.CheckBoxFor(m => m.isActive)
-                    </div>
-
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="span2">@Html.LabelFor(m => m.Name)</div>
-                    </div>
-                    <div class="col">
-                        <div class="span2">@Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })</div>
-                        <div class="span2">@Html.ValidationMessageFor(m => m.Name) </div>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="span2">@Html.LabelFor(m => m.type)</div>
-                    </div>
-                    <div class="col">
-                        <div class="span2">
-                            @Html.DropDownListFor(m => m.type, ResourceCategoryEdit, new { id = "ResourceTypeDropDownEdit", @class = "form-control", required = "required", @readonly = "readonly", disabled = "true" })
-                        </div>
-                        <div class="span5">
-                            You cannot change Resource Type! You can delete and recreate resource to change type!
-                        </div>
-                    </div>
-                </div>
-
-                <br />
-                if (Model.type == "Text")
-                {
-                    <div class="panel panel-success clearfix" id="ResourceLinkEditor">
-                        <div class="panel-heading">Rich Text Editor</div>
-                        <div class="panel-body">
-                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true", placeholder = "Enter Your Text" })
-                        </div>
-                    </div>
-                }
-                if (Model.type == "URL")
-                {
-                    <div class="panel panel-success clearfix" id="ResourceLinkEditor">
-                        <div class="panel-heading">Link</div>
-                        <div class="panel-body">
-                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", type = "url", contenteditable = "true", placeholder = "Enter URL" })
-                        </div>
-                    </div>
-                }
-            }
-
-            @if (Model.type.Contains("File"))
-            {
-                <div class="panel panel-default clearfix" id="ResourceEditPanel">
-                    <div class="panel-heading">Files</div>
+                <div class="panel panel-success clearfix" id="ResourceLinkEditor">
+                    <div class="panel-heading">Rich Text Editor</div>
                     <div class="panel-body">
-
-                        <div>
-
-
-
-                            @*@using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, new
-                                {
-                                    enctype = "multipart/form-data",
-                                    id = "uploadDemo",
-                                    @class = "dropzone"
-                                }))
-                                {
-
-                                    <input type="hidden" name="ResourceID" value="@ViewBag.ResourceID" />
-                                    <div class="fallback">
-                                        <input name="file" type="file" multiple />
-                                        <input type="submit" value="Upload" />
-                                    </div>
-                                }*@
-                        </div>
-
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true", placeholder = "Enter Your Text" })
                     </div>
                 </div>
             }
+            if (Model.type == "URL")
+            {
+                <div class="panel panel-success clearfix" id="ResourceLinkEditor">
+                    <div class="panel-heading">Link</div>
+                    <div class="panel-body">
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", type = "url", contenteditable = "true", placeholder = "Enter URL" })
+                    </div>
+                </div>
+            }
+        }
+        
+        @if (Model.type.Contains("File"))
+        {
+            <div class="panel panel-default clearfix" id="ResourceEditPanel">
+                <div class="panel-heading">Files</div>
+                <div class="panel-body">
+                   
+                    <div>
+                        
+
+
+                        @*@using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, new
+                        {
+                            enctype = "multipart/form-data",
+                            id = "uploadDemo",
+                            @class = "dropzone"
+                        }))
+                        {
+
+                            <input type="hidden" name="ResourceID" value="@ViewBag.ResourceID" />
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                                <input type="submit" value="Upload" />
+                            </div>
+                        }*@
+                    </div>
+                   
+                </div>
+            </div>
+        }
 
         </div>
     </div>
     <div id="loadingResourceOpsEdit">
         <img src="~/Content/Template/img/loader.gif" />
     </div>
-    @if (Model.type.Contains("File"))
-{
-         using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, 
-             new { enctype = "multipart/form-data", 
-                 id = "ResourceUpload",
-                 @class = "dropzone" }))
-    {
-             @Html.Hidden("ResourceID", Model.Id);
-          <div class="fallback">
-            <input name="file" type="file" multiple />
-            <input type="submit" value="Upload" />
-        </div>
-    }   
-             
+<form action="~/Home/SaveUploadedFile" method="post"
+      enctype="multipart/form-data" class="dropzone"
+      id="dropzoneForm">
+    <div class="fallback">
+        <input name="file" type="file" multiple />
+        <input type="submit" value="Upload" />
+    </div>
 
-}
-</div>
-<style>
-    div#loadingResourceOpsEdit {
-        display: none;
-        position: absolute;
-        left: 42%;
-        top: 76%;
-        z-index: 1000;
-        height: 64px;
-        width: 64px;
-    }
-</style>
+</form>
+    <style>
+        div#loadingResourceOpsEdit {
+            display: none;
+            position: absolute;
+            left: 42%;
+            top: 76%;
+            z-index: 1000;
+            height: 64px;
+            width: 64px;
+        }
+    </style>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ResourceEditPanelAddButon").click(function () {
-            $("#ResourceAddContainner").show(100);
-            $("#ResourceEditContainner").hide(100);
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ResourceEditPanelAddButon").click(function () {
+                $("#ResourceAddContainner").show(100);
+                $("#ResourceEditContainner").hide(100);
 
+            });
         });
-    });
-</script>
+    </script>
 <script type="text/javascript">
-    // "uploadDemo" is the camelized version of the HTML form's ID
-    Dropzone.options.ResourceUpload = {
+    alert("Script");
+    Dropzone.options.dropzoneForm = {
         paramName: "file"// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
     };
-    function FileUploadSuccess() {
-        alert("File OK");
-    }
 </script>
