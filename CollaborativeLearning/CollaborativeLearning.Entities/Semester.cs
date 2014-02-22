@@ -17,17 +17,23 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "The year field cannot be empty!")]
         [Display(Name = "Year")]
         public int year { get; set; }
-
-
         [Required(ErrorMessage = "The semester field cannot be empty!")]
         [Display(Name = "Semester")]
         public int semester { get; set; }
+        
+        [Required(ErrorMessage = "The Course Name field cannot be empty!")]
+        [Display(Name = "Course Name")]
+        public string CourseName { get; set; }
+        
+        [Required(ErrorMessage = "The Section field cannot be empty!")]
+        [Display(Name = "Section")]
+        public int Section { get; set; }
 
         public virtual string semesterName
         {
             get
             {
-                return year.ToString() + "-" + semester.ToString();
+                return year.ToString() + "-" + semester.ToString()+" "+CourseName+"."+Section.ToString();
             }
         }
         [Display(Name = "Register Code")]

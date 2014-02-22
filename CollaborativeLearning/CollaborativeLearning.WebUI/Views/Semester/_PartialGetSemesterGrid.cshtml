@@ -107,7 +107,7 @@
 
                     </td>
                         <td align="left">
-                            @Html.DisplayFor(modelItem => item.semesterName)
+                            @Html.ActionLink(item.semesterName, "Index", "Semester", new {id=item.Id },null)
                         </td>
                         <td align="center">
                             @Html.DisplayFor(modelItem => item.registerCode)
