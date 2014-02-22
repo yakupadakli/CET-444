@@ -32,32 +32,23 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return RedirectToAction("Index", new { id = model.Id });
         }
-        //public ActionResult ScenarioAjaxHandler()
-        //{
-        //    var results = from scenario in unitOfWork.ScenarioRepository.Get()
-        //                  select new
-        //                  {
-        //                      Id = scenario.Id,
-        //                      Name = scenario.Name,
-        //                      ShortDescription = scenario.ShortDescription,
-        //                      isActive = scenario.isActive,
-        //                      ResourcesCount = scenario.Resources.Count(),
-        //                      SemestersCount = scenario.Semesters.Count(),
-        //                      Action = scenario.Id
-        //                  };
 
+        public ActionResult ChangeActiveStatus(int id, string ScenarioActive)
+        {
+            unitOfWork = new UnitOfWork();
+            if (ScenarioActive == "True")
+            {
+                unitOfWork.ScenarioRepository.GetByID(id).isActive = false;
 
+            }
+            else
+            {
+                unitOfWork.ScenarioRepository.GetByID(id).isActive = true;
 
-        //    return Json(new {
-        //        iTotalRecords = results.Count(),
-        //        iTotalDisplayRecords = results.Count(),
-        //        aaData = results
-        //    }, JsonRequestBehavior.AllowGet);
-
-        //}
-
-        //
-        // GET: /Scenario/Details/5
+            }
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetScenarioGrid");
+        }
 
         public ActionResult Index(int? id=null)
         {
