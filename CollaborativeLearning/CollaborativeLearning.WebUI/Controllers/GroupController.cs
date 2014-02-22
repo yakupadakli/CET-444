@@ -12,6 +12,11 @@ namespace CollaborativeLearning.WebUI.Controllers
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
 
+
+        public ActionResult Index()
+        {
+            return View();
+        }
         //
         // GET: /GroupBySemester
 
