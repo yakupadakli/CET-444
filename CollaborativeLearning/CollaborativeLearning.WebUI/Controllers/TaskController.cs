@@ -47,14 +47,13 @@ namespace CollaborativeLearning.WebUI.Controllers
             Task model = unitOfWork.TaskRepository.GetByID(id);
             return PartialView(model);
         }
-        
+
         public ActionResult _PartialStudentTask(int id)
         {
             ViewBag.id = id;
             ViewBag.scenarioId = id;
             IEnumerable<Task> Tasks;
             Tasks = GetTask(id);
-            //return Json(Tasks, JsonRequestBehavior.AllowGet);
 
             return PartialView(Tasks);
         }
@@ -64,7 +63,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             
             if (id.HasValue)
             {
-                tasks = unitOfWork.ScenarioRepository.GetByID(id).Tasks.OrderByDescending(t => t.RegDateTime);
+                tasks = unitOfWork.ScenarioRepository.GetByID(id).Tasks.OrderBy(t => t.RegDateTime);
+                
             }
             else
             {
@@ -157,6 +157,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult _PartialTaskUpdate(Task task,int scenarioId)
         {
             try

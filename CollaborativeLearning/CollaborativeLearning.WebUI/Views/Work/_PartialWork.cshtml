@@ -50,13 +50,11 @@
                         {
                             HttpMethod = "POST",
                             Confirm = "Are you sure to delete this Work? Note: This Work can be assigned more than one scenario.",
-                            UpdateTargetId = "works",
+                            UpdateTargetId = "WorkContainer",
                             LoadingElementId = "loadingWorkDelete",
                         },
                         new {@class="btn btn-danger btn-sm" })
-                    <a href='../../Work/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
-                        <span class='glyphicon glyphicon-remove'></span> Delete 
-                    </a>
+                    
                 </div>
             </div>
         </div>

@@ -1,5 +1,12 @@
 ﻿@model CollaborativeLearning.Entities.Work
-@using (Ajax.BeginForm("_PartialWorkCreate", "Work", new AjaxOptions { HttpMethod = "POST", OnSuccess = "searchAdmin",UpdateTargetId="works" }, new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialWorkCreate", "Work", 
+    new { scenarioId = ViewBag.scenarioId },
+    new AjaxOptions {
+        LoadingElementId = "loadingWorkCreate", 
+        HttpMethod = "POST", 
+        OnSuccess = "searchAdmin", 
+        UpdateTargetId = "WorkContainer" }, null
+    ))
 {
  @Html.AntiForgeryToken()
  @Html.ValidationSummary(true)
@@ -41,7 +48,6 @@
 }
 <script>
     function searchAdmin() {
-        alert("geldi");
         var URL = "Task/_PartialStudentTask";
 
         $.get(URL, function (data) {
@@ -57,3 +63,20 @@
         });
     });
 </script>
+
+
+<div id = "loadingWorkCreate">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingWorkCreate {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
