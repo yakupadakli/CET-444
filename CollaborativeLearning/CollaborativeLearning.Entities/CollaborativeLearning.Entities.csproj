@@ -57,10 +57,6 @@
     <Compile Include="GroupWorkFile.cs" />
     <Compile Include="MeetingNote.cs" />
     <Compile Include="MeetingNoteFile.cs" />
-    <Compile Include="Migrations\201402081910152_CET444.cs" />
-    <Compile Include="Migrations\201402081910152_CET444.Designer.cs">
-      <DependentUpon>201402081910152_CET444.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Reflection.cs" />
     <Compile Include="ResourceFile.cs" />
@@ -92,11 +88,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201402081910152_CET444.resx">
-      <DependentUpon>201402081910152_CET444.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
