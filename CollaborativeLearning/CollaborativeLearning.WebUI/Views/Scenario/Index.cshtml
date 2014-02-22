@@ -39,32 +39,7 @@
 
   </div>
   <div class="tab-pane" id="works">
-      <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="span6">
-                            <div class="btn-group ">
-                                <button type="button"  class="btn btn-sm btn-primary" id="workAdd">
-                                    <span class="glyphicon glyphicon-plus"></span> Add Submited Work
-                                </button>
-                                <button type="button"class="btn-sm btn-danger" style="display:none;" id="workRemove" >
-                                    <span class="glyphicon glyphicon-remove"></span> Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div id="addWorkPanel" class="row"  style="display:none;" >
-                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
-                        <div style="padding-bottom:10px">
-                            @Html.Action("_PartialWorkCreate", "Work", new {scenarioId = ViewBag.scenarioId})
-                        </div>
-                    </div>
-                </div>
-            </div>
-      </div>
+      
       @Html.Action("_PartialWork", "Work", new {scenarioId = ViewBag.scenarioId})
   </div>
   @*<div class="tab-pane" id="feedback">
@@ -74,47 +49,7 @@
 </div>
 
 <script>
-    $("#taskAdd").click(function () {
-        
-        $("#addPanel").show(100, function () {
-            $("#taskAdd").hide(100);
-            $("#taskRemove").show(100);
-        });
-    });
-    $("#taskRemove").click(function () {
-        $("#addPanel").hide(100, function () {
-            $("#taskRemove").hide(100);
-            $("#taskAdd").show(100);
-        });
-    });
-    $("#actionPlanAdd").click(function () {
-        $("#addActionPlanPanel").show(100, function () {
-            $("#actionPlanAdd").hide(100);
-            $("#actionPlanRemove").show(100);
-        });
-        
-    });
-    $("#actionPlanRemove").click(function () {
-        $("#addActionPlanPanel").hide(100, function () {
-            $("#actionPlanRemove").hide(100);
-            $("#actionPlanAdd").show(100);
-        });
-    });
-    $("#workAdd").click(function () {
-        $("#addWorkPanel").show(100, function () {
-            $("#workAdd").hide(100);
-            $("#workRemove").show(100);
-        });
-    });
-    $("#workRemove").click(function () {
-        $("#addWorkPanel").hide(100, function () {
-            $("#workRemove").hide(100);
-            $("#workAdd").show(100);
-        });
-    });
-
     function searchAdmin() {
-        alert("geldi");
         var URL = "Task/_PartialStudentTask";
 
         $.get(URL, function (data) {
