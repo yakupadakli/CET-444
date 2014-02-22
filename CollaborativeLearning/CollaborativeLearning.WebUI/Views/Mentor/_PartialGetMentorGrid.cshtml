@@ -6,17 +6,25 @@
 }
 <br />
 <div id="MentorEditPartialContainner">
-   <div class="row" id="EditMentorPartialDiv" style="display:none;" >
+   <div class="row" id="EditMentorPartialDiv">
                     <div class="col-lg-12 clearfix" style="margin-left:10px;">
                         <div style="padding-bottom:10px">
                             @Html.Action("Edit", "Mentor", new { id=0 })
-                            <button type="button" class="btn-sm btn-danger" id="editRemove" style="display:none;">
-                                    <span class="glyphicon glyphicon-remove"></span> Close
-                            </button>
                         </div>
                     </div>
     </div>
 </div>
+
+<div id="MentorSemesterAddPartialContainner">
+   <div class="row" id="SemesterAddPartialContainner">
+                    <div class="col-lg-12 clearfix" style="margin-left:10px;">
+                        <div style="padding-bottom:10px">
+                            @Html.Action("_SemesterToMentor", "Mentor", new { id=0 })
+                        </div>
+                    </div>
+    </div>
+</div>
+
 
 <div class="panel panel-warning clearfix" id="ResourceAddContainner">
     <div class="panel-heading">Mentors List</div>
@@ -68,8 +76,22 @@
             new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openResourceEditPartial"})
             
           |
-            @Html.ActionLink("Semesters", "_SemesterToMentor", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Ajax.ActionLink("Semesters", "_SemesterToMentor", "Mentor", 
+            new { id = item.Id }, 
+            new AjaxOptions {
+                InsertionMode=InsertionMode.Replace,
+                UpdateTargetId = "MentorSemesterAddPartialContainner",
+                LoadingElementId = "loadingAddSemesterOps"
+                
+            }, 
+            new {@class="btn btn-primary btn-xs glyphicon glyphicon-plus openSemesterPartial"}) |
+            @Ajax.ActionLink("Delete Mentor", "Delete", "Mentor", new { id = item.Id },
+                                new AjaxOptions
+                                {
+                                    Confirm = "Are you sure to delete this mentor?",
+                                    UpdateTargetId = "mentors",
+                                    LoadingElementId = "loadingMentorOps"
+                                })
         </td>
 </tr>
     <tr>
@@ -89,6 +111,22 @@
 <div id="loadingMentorOps">
     <img src="~/Content/Template/img/loader.gif" />
 </div>
+<div id="loadingAddSemesterOps">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<style>
+    div#loadingAddSemesterOps {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+
+
 <style>
     div#loadingMentorOps {
         display: none;
@@ -102,13 +140,26 @@
 </style>
 <script>
     $(document).ready(function () {
-        console.log("Document");
-        $("#MentorEditPartialContainner").hide(); 
+        
+        $("#MentorEditPartialContainner").hide();
+        $("#MentorSemesterAddPartialContainner").hide();
+
     });
     $(".openResourceEditPartial").click(function () {
+        console.log("openResourceEditPartial");
+        $("#MentorSemesterAddPartialContainner").hide(100);
         $("#MentorEditPartialContainner").show(100);
         $("html, body").animate({ scrollTop: 0 }, "slow");
     });
+    $(".openSemesterPartial").click(function () {
+        console.log("openSemesterPartial");
+        $("#MentorSemesterAddPartialContainner").show(100);
+        $("#MentorEditPartialContainner").hide(100);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+
+    
+
     
 </script>
 
