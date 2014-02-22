@@ -225,5 +225,35 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetScenariosBySemester", "Scenario", new { id = SemesterID });
         }
 
+        public ActionResult AddStudentsToSemester(int SemesterID, string[] StudentMultiSelect)
+        {
+            var semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            foreach (var item in StudentMultiSelect)
+            {
+                var s = unitOfWork.UserRepository.GetByID(int.Parse(item));
+                semester.Users.Add(s);
+            }
+            unitOfWork.Save();
+            ViewBag.ID = SemesterID;
+            ViewBag.AllStudents = unitOfWork.UserRepository.Get();
+            return RedirectToAction("_PartialGetStudentsBySemester", "User", new { id = SemesterID });
+        }
+
+        public ActionResult AddMentorsToSemester(int SemesterID, string[] MentorMultiSelect)
+        {
+            var semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            foreach (var item in MentorMultiSelect)
+            {
+                var s = unitOfWork.UserRepository.GetByID(int.Parse(item));
+                semester.Users.Add(s);
+            }
+            unitOfWork.Save();
+            ViewBag.ID = SemesterID;
+            ViewBag.AllStudents = unitOfWork.UserRepository.Get();
+            return RedirectToAction("_PartialGetMentorsBySemester", "Mentor", new { id = SemesterID });
+        }
+
+
+
     }
 }

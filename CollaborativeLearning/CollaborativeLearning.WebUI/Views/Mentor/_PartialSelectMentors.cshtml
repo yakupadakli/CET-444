@@ -1,0 +1,65 @@
+﻿@using (Ajax.BeginForm(
+    "AddMentorsToSemester",
+    "Semester",
+    null,
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "mentorsTable",
+        LoadingElementId = "loadingAddingSemesterMentors"
+    }
+))
+{  
+    @Html.Hidden("SemesterID", (int)ViewBag.ID)
+
+    <div class="input-group">
+        <select multiple="multiple" style="min-width:150px" id="MentorMultiSelect" name="MentorMultiSelect" class="form-control">
+            @foreach (var item in ViewBag.AllMentors as List<CollaborativeLearning.Entities.User>)
+            {
+                <option value="@item.Id">@item.FullName</option>
+            }
+        </select>
+        <span class="input-group-addon" style="padding:1px;">
+            <input type="submit" value="Add" class="btn btn-primary btn-sm" />
+        </span>
+    </div>
+}
+<div id = "loading">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<script>
+    $(document).ready(function () {
+        $("#MentorMultiSelect").select2({
+            placeholder: "Type a Mentor's Name",
+            allowClear: true
+        });
+    });
+</script>
+
+<style>
+    div#loading {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+
+<div id = "loadingAddingSemesterMentors">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingAddingSemesterMentors {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

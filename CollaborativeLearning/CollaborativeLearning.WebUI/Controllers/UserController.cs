@@ -80,6 +80,38 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetStudentsBySemester", new { id = semesterId });
         }
 
+        public ActionResult _PartialSelectStudents(int id)
+        {
+            ViewBag.ID = id;
+            var AllList = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 3).ToList();
+
+            var StudentSemesterList = unitOfWork.SemesterRepository.GetByID(id).Users.ToList();
+
+            bool t = false;
+            List<User> UserList = new List<User>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in StudentSemesterList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    UserList.Add(listItem);
+                }
+            }
+
+
+
+            ViewBag.AllStudents = UserList;
+            return PartialView();
+        }
+
+
 
     }
 }

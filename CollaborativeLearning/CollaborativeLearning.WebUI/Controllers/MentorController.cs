@@ -171,30 +171,54 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return PartialView("Edit",model);
         }
-        //public ActionResult MentorAjaxHandler()
-        //{
-        //    //var allMentor = unitOfWork.UserRepository.Get();
-        //    var allMentor = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 2).ToList();
-        //    var mentorList = from q in allMentor
-        //                       select (new
 
-        //                       {
-        //                           Id = q.Id,
-        //                           MentorName = q.FullName,
-        //                           UserName = q.Username,
-        //                           eMail = q.Email,
-        //                           GroupCount = q.Groups.Count(),
-        //                           Action = ""
-        //                       });
+        public ActionResult _PartialGetMentorsBySemester(int id)
+        {
+            var mentorsList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id && s.RoleID == 2).Count() > 0);
+            ViewBag.semesterId = id;
+            return PartialView(mentorsList);
+        }
 
-        //    return Json(new
-        //    {
-        //        iTotalRecords = allMentor.Count(),
-        //        iTotalDisplayRecords = mentorList.Count(),
-        //        aaData = mentorList
-        //    }, JsonRequestBehavior.AllowGet);
+        [HttpPost]
+        public ActionResult RemoveMentorSemester(int userId, int semesterId)
+        {
+            User user = unitOfWork.UserRepository.GetByID(userId);
+            unitOfWork.SemesterRepository.GetByID(semesterId).Users.Remove(user);
 
-        //}
+            unitOfWork.Save();
+            return RedirectToAction("_PartialGetMentorsBySemester", new { id = semesterId });
+        }
+
+        public ActionResult _PartialSelectMentors(int id)
+        {
+            ViewBag.ID = id;
+            var AllList = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 2).ToList();
+
+            var MentorSemesterList = unitOfWork.SemesterRepository.GetByID(id).Users.ToList();
+
+            bool t = false;
+            List<User> UserList = new List<User>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in MentorSemesterList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    UserList.Add(listItem);
+                }
+            }
+
+
+
+            ViewBag.AllMentors = UserList;
+            return PartialView();
+        }
 
     }
 }

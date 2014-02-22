@@ -74,7 +74,14 @@
         Reflections
     </div>
     <div class="tab-pane clearfix" id="Mentors">
-        Mentors
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mentors</h3>
+            </div>
+            <div class="panel-body" id="mentorsTable">
+                @Html.Action("_PartialGetMentorsBySemester", "Mentor", new { id = Model.Id })
+            </div>
+        </div>
     </div>
     <div class="tab-pane" id="Students">
         <div class="panel panel-default">
