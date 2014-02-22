@@ -34,6 +34,7 @@
                             <input onclick='@(Html.Raw(String.Format("hideEditText({0})", item.Id)))' 
                                     type="submit" id="UpdateButton-@item.Id" style="display:none" value="Update" 
                                     class="btn btn-primary btn-sm" />
+                            @Html.ActionLink("Go to Group's Page >", "Index", "Groups", new {id=item.Id }, new { @class = "btn btn-success btn-sm" })
                         </div>
                         <div class="pull-left" style="margin-left: 20px;">
                             <input id="groupNameEdit-@item.Id" name="groupNameEdit" 
@@ -95,7 +96,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <div id="GroupWorksListContianner-@item.Id">
-                                                Works
+                                                 @Html.Action("_PartialGetGroupsWorks", "Group", new { id = item.Id, semesterId = item.SemesterID })
                                             </div>
                                         </div>
                                     </div>
