@@ -18,8 +18,9 @@ namespace CollaborativeLearning.WebUI.Controllers
         
         public ActionResult _PartialGetScenarioGrid()
         {
-            ViewData["ScenarioList"] = unitOfWork.ScenarioRepository.Get().ToList();
-            return PartialView();
+            var allScenario = unitOfWork.ScenarioRepository.Get().ToList();
+
+            return PartialView(allScenario);
         }
         public ActionResult _PartialGoToScenario()
         {
@@ -31,29 +32,29 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return RedirectToAction("Index", new { id = model.Id });
         }
-        public ActionResult ScenarioAjaxHandler()
-        {
-            var results = from scenario in unitOfWork.ScenarioRepository.Get()
-                          select new
-                          {
-                              Id = scenario.Id,
-                              Name = scenario.Name,
-                              ShortDescription = scenario.ShortDescription,
-                              isActive = scenario.isActive,
-                              ResourcesCount = scenario.Resources.Count(),
-                              SemestersCount = scenario.Semesters.Count(),
-                              Action = scenario.Id
-                          };
+        //public ActionResult ScenarioAjaxHandler()
+        //{
+        //    var results = from scenario in unitOfWork.ScenarioRepository.Get()
+        //                  select new
+        //                  {
+        //                      Id = scenario.Id,
+        //                      Name = scenario.Name,
+        //                      ShortDescription = scenario.ShortDescription,
+        //                      isActive = scenario.isActive,
+        //                      ResourcesCount = scenario.Resources.Count(),
+        //                      SemestersCount = scenario.Semesters.Count(),
+        //                      Action = scenario.Id
+        //                  };
 
 
 
-            return Json(new {
-                iTotalRecords = results.Count(),
-                iTotalDisplayRecords = results.Count(),
-                aaData = results
-            }, JsonRequestBehavior.AllowGet);
+        //    return Json(new {
+        //        iTotalRecords = results.Count(),
+        //        iTotalDisplayRecords = results.Count(),
+        //        aaData = results
+        //    }, JsonRequestBehavior.AllowGet);
 
-        }
+        //}
 
         //
         // GET: /Scenario/Details/5
@@ -100,8 +101,33 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialEdit(int id)
         {
+            unitOfWork = new UnitOfWork();
+            Scenario model = unitOfWork.ScenarioRepository.GetByID(id);
+            return PartialView("Edit", model);
+        }
+
+
+        public ActionResult Edit(int id)
+        {
             Scenario model = unitOfWork.ScenarioRepository.GetByID(id);
             return PartialView(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(int id, Scenario scenario)
+        {
+            try
+            {
+                unitOfWork.ScenarioRepository.Update(scenario);
+                unitOfWork.Save();
+
+                return RedirectToAction("_PartialGetScenarioGrid");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //
@@ -137,7 +163,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 unitOfWork.ScenarioRepository.Delete(id);
                 unitOfWork.Save();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("_PartialGetScenarioGrid", "Scenario");
         }
 
         public ActionResult _PartialActionPlan()
