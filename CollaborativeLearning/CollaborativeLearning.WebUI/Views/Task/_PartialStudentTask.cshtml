@@ -17,7 +17,6 @@
                             </div>
                         </div>
                     </div>
-                        @*- @Html.ActionLink("See All Tasks","Index","Task")*@
                 </div>
                 
                 <div id="addPanel" class="row"  style="display:none;" >
@@ -140,3 +139,19 @@
         width: 64px;
     }
 </style>
+
+<script>
+    $("#taskAdd").click(function () {
+
+        $("#addPanel").show(100, function () {
+            $("#taskAdd").hide(100);
+            $("#taskRemove").show(100);
+        });
+    });
+    $("#taskRemove").click(function () {
+        $("#addPanel").hide(100, function () {
+            $("#taskRemove").hide(100);
+            $("#taskAdd").show(100);
+        });
+    });
+</script>

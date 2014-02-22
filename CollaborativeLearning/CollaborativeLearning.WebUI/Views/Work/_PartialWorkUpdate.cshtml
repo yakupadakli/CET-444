@@ -1,6 +1,12 @@
 ﻿@model CollaborativeLearning.Entities.Work
 
-@using (Ajax.BeginForm("_PartialWorkUpdate", "Work", new AjaxOptions {HttpMethod="POST" }))
+@using (Ajax.BeginForm("_PartialWorkUpdate", "Work",
+    new { scenarioId = ViewBag.scenarioId }, 
+    new AjaxOptions
+    {
+        UpdateTargetId = "works",
+        LoadingElementId = "loadingWorkUpdate"
+    }, null))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -49,3 +55,20 @@
         $("#updateWorkForm_" + id).hide(100);
     }
 </script>
+
+
+<div id = "loadingWorkUpdate">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingWorkUpdate {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

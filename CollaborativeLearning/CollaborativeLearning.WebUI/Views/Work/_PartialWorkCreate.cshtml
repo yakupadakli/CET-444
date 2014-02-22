@@ -1,5 +1,5 @@
 ﻿@model CollaborativeLearning.Entities.Work
-@using (Ajax.BeginForm("_PartialWorkCreate", "Work", new AjaxOptions { HttpMethod = "POST", OnSuccess = "searchAdmin" }, new { scenarioId = ViewBag.scenarioId }))
+@using (Ajax.BeginForm("_PartialWorkCreate", "Work", new AjaxOptions { HttpMethod = "POST", OnSuccess = "searchAdmin",UpdateTargetId="works" }, new { scenarioId = ViewBag.scenarioId }))
 {
  @Html.AntiForgeryToken()
  @Html.ValidationSummary(true)

@@ -16,6 +16,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialWork(int id)
         {
             ViewBag.id = id;
+            ViewBag.scenarioId = id;
             IEnumerable<Work> Works;
             Works = GetWork(id);
             //return Json(Works, JsonRequestBehavior.AllowGet);
@@ -40,7 +41,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialWorkCreate(int? scenarioId)
         {
             if (scenarioId != null)
-                TempData["scenarioId"] = scenarioId;
+                ViewBag.scenarioId = scenarioId;
             return PartialView();
         }
 
@@ -59,13 +60,13 @@ namespace CollaborativeLearning.WebUI.Controllers
                     unitOfWork.WorkRepository.Insert(Work);
                     unitOfWork.Save();
 
-                    if (TempData["scenarioId"] != null)
+                    if (scenarioId != null)
                     {
                         unitOfWork = new UnitOfWork();
                         Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
                         unitOfWork.WorkRepository.GetByID(Work.Id).Scenarios.Add(s);
                         unitOfWork.Save();
-                        return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
+                        return RedirectToAction("_PartialWork", new { id = scenarioId });
                     }
                     else
                         return RedirectToAction("Index", "Scenario");
@@ -81,13 +82,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /Work/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int scenarioId)
         {
             unitOfWork.WorkRepository.Delete(id);
             unitOfWork.Save();
-            if (TempData["scenarioId"] != null)
-                return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-            return RedirectToAction("Index", "Scenario");
+            if (scenarioId != null)
+                return RedirectToAction("_PartialWork", new { id = scenarioId });
+            else
+                return RedirectToAction("Index", "Scenario");
         }
 
 
@@ -98,7 +100,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 Work Work = unitOfWork.WorkRepository.GetByID(id);
                 if (scenarioId != null)
-                    TempData["scenarioId"] = scenarioId;
+                    ViewBag.scenarioId = scenarioId;
                 return PartialView(Work);
             }
             return RedirectToAction("Index", "Scenario");
@@ -108,7 +110,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         // POST: /Scenario/Create
 
         [HttpPost]
-        public ActionResult _PartialWorkUpdate(Work Work)
+        public ActionResult _PartialWorkUpdate(Work Work,int scenarioId)
         {
             try
             {
@@ -121,9 +123,10 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                     unitOfWork.WorkRepository.Update(t);
                     unitOfWork.Save();
-                    if (TempData["scenarioId"] != null)
-                        return RedirectToAction("Index", "Scenario", new { id = TempData["scenarioId"] });
-                    return RedirectToAction("Index", "Scenario");
+                    if (scenarioId != null)
+                        return RedirectToAction("_PartialWork", new { id = scenarioId });
+                    else
+                        return RedirectToAction("Index", "Scenario");
                 }
             }
             catch

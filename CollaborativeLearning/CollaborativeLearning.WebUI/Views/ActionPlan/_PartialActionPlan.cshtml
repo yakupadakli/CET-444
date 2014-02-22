@@ -111,3 +111,19 @@
         width: 64px;
     }
 </style>
+
+<script>
+    $("#actionPlanAdd").click(function () {
+        $("#addActionPlanPanel").show(100, function () {
+            $("#actionPlanAdd").hide(100);
+            $("#actionPlanRemove").show(100);
+        });
+
+    });
+    $("#actionPlanRemove").click(function () {
+        $("#addActionPlanPanel").hide(100, function () {
+            $("#actionPlanRemove").hide(100);
+            $("#actionPlanAdd").show(100);
+        });
+    });
+</script>

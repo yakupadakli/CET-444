@@ -99,10 +99,10 @@ namespace CollaborativeLearning.WebUI.Controllers
                     unitOfWork.TaskRepository.Insert(task);
                     unitOfWork.Save();
 
-                    if (TempData["scenarioId"] != null )
+                    if (scenarioId != null)
                     {
                         unitOfWork = new UnitOfWork();
-                        Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
+                        Scenario s = unitOfWork.ScenarioRepository.GetByID(scenarioId);
                         unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
                         unitOfWork.Save();
                         return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
