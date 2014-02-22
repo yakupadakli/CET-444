@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
-using System.IO;
 namespace CollaborativeLearning.WebUI.Controllers
 {
     public class ResourceController : Controller
@@ -71,14 +70,6 @@ namespace CollaborativeLearning.WebUI.Controllers
                     unitOfWork = new UnitOfWork();
                     unitOfWork.ResourceRepository.Insert(model);
                     unitOfWork.Save();
-                    if (model.type.Contains("File"))
-                    {
-                        var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), model.Id.ToString() + "-" + model.Name + "-" + DateTime.Today.ToShortDateString());
-                        if (!Directory.Exists(directoryPath))
-                        {
-                            Directory.CreateDirectory(directoryPath);
-                        }
-                    }
                     ViewBag.ErrorType = "ResourceAdd";
                     ViewBag.Message = "Resource is added succesfully. But! You have to switch it's active status to use";
 
@@ -166,7 +157,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(Model);
         }
         public ActionResult _PartialEditResource(int id)
-        {   
+        {
             Resource model = new Resource();
             Resource m = unitOfWork.ResourceRepository.GetByID(id);
             if (m != null)
@@ -174,14 +165,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 model = m;
                 List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
                 ViewBag.ResourceCategory = ResourceCategory;
-                
-                var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), model.Id.ToString() + "-" + model.Name + "-" + DateTime.Today.ToShortDateString());
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-
-                return PartialView("_PartialEditResource", model);
+                return View("_PartialEditResource", model);
 
             }
             else
@@ -236,45 +220,16 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
-
         #region ResourceUpload
         public ActionResult _PartialFileUploadToResource(int id)
         {
             ViewBag.ResourceID = id;
             return PartialView();
         }
-        [HttpPost]
         public ActionResult UploadHandler(HttpPostedFileBase file, int ResourceID)
         {
-            unitOfWork = new UnitOfWork();
-            Resource re = unitOfWork.ResourceRepository.GetByID(ResourceID);
 
-            if (file != null && re != null)
-            {
-                ResourceFile resourceFile = new ResourceFile();
-
-                string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), re.Id.ToString() + "-" + re.Name + "-" + DateTime.Today.ToShortDateString());
-
-                resourceFile.FileName = Path.GetFileName(file.FileName);
-                var filenameEncoded = HttpUtility.HtmlEncode(resourceFile.FileName);
-                var extension = Path.GetExtension(filenameEncoded);
-                var fullPath = Path.Combine(directoryPath, resourceFile.FileName);
-
-                resourceFile.FileSize = file.ContentLength;
-                resourceFile.FileType = file.ContentType;
-                resourceFile.FileUrl = Path.Combine(directoryPath, HttpUtility.HtmlDecode(resourceFile.FileName));
-                resourceFile.regDate = DateTime.Now;
-                resourceFile.regUserID = HelperController.GetCurrentUserId();
-                resourceFile.ResourceID = re.Id;
-                
-
-                //File save server
-                file.SaveAs(fullPath);
-                unitOfWork.ResourceFileRepository.Insert(resourceFile);
-                unitOfWork.Save();
-
-            }
-            return JavaScript("FileUploadSuccess()");
+            return null;
         }
         #endregion
 
