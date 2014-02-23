@@ -22,7 +22,7 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Short Description")]
         [MaxLength(140, ErrorMessage = "Length must be {0} character(s) ")]
         public string ShortDescription { get; set; }
-
+        [Display(Name = "Is Active")]
         public bool isActive { get; set; }
 
 

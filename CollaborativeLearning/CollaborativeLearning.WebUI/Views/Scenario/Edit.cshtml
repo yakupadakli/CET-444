@@ -1,51 +1,53 @@
 ﻿@model CollaborativeLearning.Entities.Scenario
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myModalLabel">Edit Scenario</h4>
+    </div>
+    <div class="panel-body">
 
-@using (Ajax.BeginForm("Edit", "Scenario", new AjaxOptions
-{
+        @using (Ajax.BeginForm("Edit", "Scenario", new AjaxOptions
+        {
 
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "scenarios",
-}))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "scenarios",
+        }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="grid">
 
-    <fieldset>
-        <legend>Edit Scenario</legend>
+                @Html.HiddenFor(model => model.Id)
 
-        @Html.HiddenFor(model => model.Id)
+                <div class="col-lg-12 form-group">
+                    @Html.LabelFor(model => model.Name)
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.Name, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <br />
+                <div class="col-lg-12 form-group">
+                    @Html.LabelFor(model => model.ShortDescription)
+                    <div class="controls">
+                        @Html.TextBoxFor(model => model.ShortDescription, new { @class="form-control"})
+                        @Html.ValidationMessageFor(model => model.ShortDescription)
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
+                @Html.HiddenFor(model => model.RegDate)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ShortDescription)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ShortDescription)
-            @Html.ValidationMessageFor(model => model.ShortDescription)
-        </div>
+                @Html.HiddenFor(model => model.RegUserID)
 
-        <div class="editor-label">
-            @Html.HiddenFor(model => model.RegDate)
-        </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" id="editScenarioClose">Close</button>
+                </div>
 
-        <div class="editor-label">
-            @Html.HiddenFor(model => model.RegUserID)
-        </div>
-
-        <p>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-default" id="editScenarioClose">Close</button>
-        </p>
-    </fieldset>
-}
+            </div>
+        }
+    </div>
+</div>
 
 <script>
     $("#editScenarioClose").click(function () {
