@@ -1,0 +1,15 @@
+﻿<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-inline">
+            @Ajax.BeginForm("AddCourseRequest","User",
+            new AjaxOptions{
+                HttpMethod="POST",
+                UpdateTargetId="UserCourseContainner"
+                LoadingElementId="loadingIndicator"
+            },
+            new {@class="form form-inline"}){
+               
+            }
+        </div>
+    </div>
+</div>
