@@ -120,14 +120,14 @@ HATA:
                         </div>
                         <div class="col-lg-3 pull-right">
                             <a href="@Url.Action("_PartialFileUploadToResource", "Resource", new { id = Model.Id })" class="btn btn-success glyphicon glyphicon-plus resourceFileUploadCB">Add File(s)</a>
-                          
+
 
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div>
-
+                        @Html.Action("_PartialFileList", "Resource", new { id = Model.Id });
                     </div>
                 </div>
             </div>

@@ -18,10 +18,19 @@
 
 <link href="~/Content/DropZone/css/dropzone.css" rel="stylesheet" />
 <script src="~/Content/DropZone/dropzone.js"></script>
-<br /><br />
+<br />
+<div class="col-lg-12 alert-warning" style="display:none" id="WarnContainner">
+    File(s) uploaded is successful
+</div>
+<br />
 <div class="panel panel-default">
-   <div class="panel-heading">
-       Add Files to Resource: "@ViewBag.ResourceName"
+   <div class="panel-heading clearfix">
+       <div class="col-lg-6 pull-left">
+           Add Files to Resource: "@ViewBag.ResourceName"
+       </div>
+       <div class="col-md-2 pull-right">
+           <button class="btn btn-info" onclick="parent.jQuery.colorbox.close()">Finish Upload File</button>
+       </div>
    </div>
     <div class="panel-body">
         @using (Html.BeginForm("UploadHandler", "Resource", FormMethod.Post, new
@@ -43,8 +52,21 @@
 </div>
 <script type="text/javascript">
     // "uploadDemo" is the camelized version of the HTML form's ID
-    Dropzone.options.uploadDemo = {
-        paramName: "file"// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+    Dropzone.options.ResourceUpload = {
+        paramName: "file",// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+        addRemoveLinks: true,
+        dictRemoveFile: "Remove File(notWork)",
+        init: function () {
+            this.on("success", function (file) {
+                $("#WarnContainner").show(100);
+            });
+        }
     };
+    
 
+</script>
+<script>
+    function ShowAlertBox() {
+        console.log(@ViewBag.ResourceName);
+    }
 </script>

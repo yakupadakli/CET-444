@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
+using System.IO;
 namespace CollaborativeLearning.WebUI.Controllers
 {
     public class ResourceController : Controller
@@ -162,6 +163,15 @@ namespace CollaborativeLearning.WebUI.Controllers
             if (m != null)
             {
                 model = m;
+                if (model.type.Contains("File"))
+                {
+                    string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), model.Id.ToString() + "-" + model.Name + "-" + DateTime.Today.ToShortDateString());
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+                }
+                
                 List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
                 ViewBag.ResourceCategory = ResourceCategory;
                 return PartialView("_PartialEditResource", model);
@@ -225,6 +235,16 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+        public ActionResult _PartialFileList(int id) { 
+            unitOfWork = new UnitOfWork();
+            ICollection<ResourceFile> model = unitOfWork.ResourceRepository.GetByID(id).ResourceFiles.ToList();
+            if (model!=null)
+            {
+                return PartialView(model);
+            }
+            return null;
+        }
+
         #region ResourceUpload
         public ActionResult _PartialFileUploadToResource(int id)
         {
@@ -234,9 +254,50 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
         public ActionResult UploadHandler(HttpPostedFileBase file, int ResourceID)
         {
+            if (file!=null)
+            {
+                unitOfWork = new UnitOfWork();
+                Resource Resourcemodel = unitOfWork.ResourceRepository.GetByID(ResourceID);
+                string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), Resourcemodel.Id.ToString() + "-" + Resourcemodel.Name + "-" + DateTime.Today.ToShortDateString());
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                var fileNameEncoded = HttpUtility.HtmlEncode(fileName);
+                var exten = Path.GetExtension(fileNameEncoded);
+                if (HelperController.MimeOk(exten))
+                {
+                    var fullPath = Path.Combine(directoryPath, fileNameEncoded);
+                    try
+                    {
+                        ResourceFile resourceFile = new ResourceFile();
+                        resourceFile.FileName = fileName;
+                        resourceFile.FileSize = file.ContentLength;
+                        resourceFile.FileType = exten;
+                        resourceFile.FileUrl = fullPath;
+                        resourceFile.regDate = DateTime.Now;
+                        resourceFile.regUserID = HelperController.GetCurrentUserId();
+                        resourceFile.ResourceID = ResourceID;
 
+                        unitOfWork = new UnitOfWork();
+                        unitOfWork.ResourceFileRepository.Insert(resourceFile);
+                        unitOfWork.Save();
+                        file.SaveAs(fullPath);
+
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+            }
             return null;
         }
+
+       
         #endregion
 
     }

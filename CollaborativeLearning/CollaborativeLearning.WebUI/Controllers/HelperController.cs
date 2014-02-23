@@ -8,23 +8,23 @@ using CollaborativeLearning.Entities;
 
 
 namespace CollaborativeLearning.WebUI.Controllers
-{   
+{
 
     /// <summary>
     /// ggg
     /// </summary>
-    public static class HelperController 
+    public static class HelperController
     {
         private static UnitOfWork unitOfWork = new UnitOfWork();
 
         [Authorize]
-        public static int GetCurrentUserId() 
+        public static int GetCurrentUserId()
         {
             User user = unitOfWork.UserRepository.Get(u => u.Username == WebSecurity.User.Identity.Name).FirstOrDefault();
             if (user != null)
                 return user.Id;
             return 0;
-           
+
         }
         public static User GetCurrentUser()
         {
@@ -41,7 +41,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             + "abcdefghijklmnopqrstuvwxyz"
             + "012345678";
-            
+
             String randomString = "";
             Random rasgele = new Random((int)DateTime.Now.Millisecond);
             rasgele.Next();
@@ -60,10 +60,41 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 return semester;
             }
-            else {
+            else
+            {
                 return null;
             }
         }
+        public static List<string> MimeTypes = new List<string>{
+             ".gif",
+             ".jpeg",
+			 ".jpg",
+			 ".png",
+             ".swf",
+             ".doc",
+             ".docx",
+             ".xls",
+             ".xlsx",
+             ".pdf",
+             ".zip",
+             ".rar",
+             ".pkt",
+             "html",
+             "htm"
+          };
+        public static bool MimeOk(string fileExtension)
+        {
+            foreach (var item in MimeTypes)
+            {
+                if (fileExtension==item)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
 
     }
 }
