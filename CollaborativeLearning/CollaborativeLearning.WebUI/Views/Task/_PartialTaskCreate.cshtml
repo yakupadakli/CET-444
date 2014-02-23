@@ -1,13 +1,15 @@
 ﻿@model CollaborativeLearning.Entities.Task
 @using (Ajax.BeginForm("_PartialTaskCreate", "Task", new { scenarioId = ViewBag.scenarioId },
-        new AjaxOptions { HttpMethod = "POST",
-                          UpdateTargetId = "studentTaskContainer",
-                          LoadingElementId = "loading"
-        }, 
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "studentTaskContainer",
+            LoadingElementId = "loading"
+        },
         null))
 {
- @Html.AntiForgeryToken()
- @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <br />
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -16,18 +18,24 @@
         <div class="panel-body clearfix">
             <div class="form-group">
                 @Html.LabelFor(m => m.TaskName)
+                <div class="alert alert-warning" style="display: none" id="taskNameError">
+                    <span id="taskNameErrorSpan"></span>
+                </div>
                 <div class="controls">
                     @Html.TextBoxFor(m => m.TaskName, new
                                                        {
                                                            @class = "form-control",
                                                            id = "exampleInputEmail1",
                                                            placeholder = "Enter Task Name"
-                                                       }) 
+                                                       })
                     @Html.ValidationMessageFor(m => m.TaskName)
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Content)
+                <div class="alert alert-warning" style="display: none" id="taskContentError">
+                    <span id="taskContentErrorSpan"></span>
+                </div>
                 <div class="controls">
                     @*@EditorTask()
                     <br />*@
@@ -37,15 +45,16 @@
                                                            id = "taskContent",
                                                            name = "taskContent",
                                                            placeholder = "Enter Task Name"
-                                                       }) 
-                    
+                                                       })
+
                     @Html.ValidationMessageFor(m => m.Content)
-                    
+
                 </div>
+
             </div>
             <br />
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add Task</button>
+                <button type="submit" class="btn btn-primary" id="addTaskSubmitButton">Add Task</button>
             </div>
         </div>
     </div>   
@@ -58,6 +67,30 @@
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
         CKEDITOR.replace("taskContent");
     });
+
+    $("#addTaskSubmitButton").click(function (event) {
+        if (CKEDITOR.instances.taskContent.getData() == "") {
+            $("#taskContentError").show();
+            $("#taskContentErrorSpan").html("The Content field can not be empty!");
+            event.preventDefault();
+        }
+        else {
+            $("#taskContentError").hide();
+        }
+        if ($("#exampleInputEmail1").val() == "") {
+            $("#taskNameError").show();
+            $("#taskNameErrorSpan").html("The Task Name field can not be empty!");
+            event.preventDefault();
+        }
+        else {
+            $("#taskNameError").hide();
+        }
+    });
+
+    //$("#exampleInputEmail1").keydown(function () {
+    //    $("#taskNameError").hide();
+    //});
+    
 </script>
 
 @*@helper EditorTask(){
@@ -83,13 +116,13 @@
           )
     )
 }*@
-<div id = "loading">
+<div id="loading">
     <img src="~/Content/Template/img/loader.gif" />
 </div>
 
 <style>
     div#loading {
-        display:none;
+        display: none;
         position: absolute;
         left: 42%;
         top: 76%;
