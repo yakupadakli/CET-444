@@ -94,7 +94,7 @@
                                         },
                                         new { @class = "openResourceEditPartial", @id="mentorEdit_"+item.Id  })
                                         <script>
-                                            $("#mentorEdit_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Edit")
+                                            $("#mentorEdit_@item.Id").html("<span class='glyphicon glyphicon-pencil pull-left'></span> Edit")
                                         </script>
                                     </li>
                                     <li>
@@ -124,9 +124,26 @@
                                 new { @class = "", @id = "mentorMakeStudent_" + item.Id })
 
                                         <script>
-                                            $("#mentorMakeStudent_@item.Id").html("<span class='glyphicon glyphicon-minus pull-left'></span> Make Student")
+                                            $("#mentorMakeStudent_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Make Student")
                                         </script>
                                     </li>
+
+                                    <li>
+                                        @Ajax.ActionLink(" Make Admin", "_MakeMentorAdmin", "Mentor", new { id = item.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod= "POST",
+                                    //Confirm = "Are you sure to make this mentor a student?",
+                                    UpdateTargetId = "mentors",
+                                    LoadingElementId = "loadingMentorOps"
+                                },
+                                new { @class = "", @id = "mentorMakeAdmin_" + item.Id })
+
+                                        <script>
+                                            $("#mentorMakeAdmin_@item.Id").html("<span class='glyphicon glyphicon-plus pull-left'></span> Make Admin")
+                                        </script>
+                                    </li>
+
                                     <li>
                                         @Ajax.ActionLink(" Delete Mentor", "Delete", "Mentor", new { id = item.Id },
                                                 new AjaxOptions

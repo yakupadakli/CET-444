@@ -7,11 +7,10 @@
     <div class="panel-body">
         <table class="table table-hover table-responsive">
             <tbody class="table-striped">
-
                 @using (Ajax.BeginForm("_SemesterToMentor", "Mentor", new { id = ViewBag.ID }, new AjaxOptions
                     {
                         HttpMethod = "POST",
-                        UpdateTargetId = "mentors"
+                        UpdateTargetId = "MentorSemesterAddPartialContainner"
                         //OnSuccess = "SuccessUserAddGroup"
                     }, new { @id = "formSemesterMentor" }))
                 {
@@ -36,6 +35,7 @@
                     </div>
                 }
                 <br /><br />
+                <b>@ViewBag.MentorName</b><b>'s Current Semesters</b>
                 @if (Model != null)
                 {
                     foreach (var item in Model)
@@ -51,7 +51,7 @@
                                             {
                                                 HttpMethod = "POST",
                                                 Confirm = "Are you sure to delete this semester?",
-                                                UpdateTargetId = "mentors",
+                                                UpdateTargetId = "MentorSemesterAddPartialContainner",
                                                 LoadingElementId = "loading",
                                             },
                                            null)

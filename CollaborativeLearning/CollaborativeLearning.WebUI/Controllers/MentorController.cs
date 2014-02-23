@@ -129,6 +129,7 @@ namespace CollaborativeLearning.WebUI.Controllers
              var mentorSemesterList = unitOfWork.UserRepository.Get(s => s.Id == id).FirstOrDefault().Semesters.ToList();
 
             ViewBag.ID = id;
+            ViewBag.MentorName = mentor.FullName;
             return PartialView(mentorSemesterList);
             }
             return PartialView(null);
@@ -146,7 +147,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             unitOfWork.Save();
             ViewBag.AllMentors = unitOfWork.UserRepository.Get();
-            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+            return RedirectToAction("_SemesterToMentor", "Mentor", new { id = id });
         }
 
         [HttpPost]
@@ -155,7 +156,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             Semester semester = unitOfWork.SemesterRepository.GetByID(Convert.ToInt32(semesterId));
             semester.Users.Remove(unitOfWork.UserRepository.GetByID(userId));
             unitOfWork.Save();
-            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+            return RedirectToAction("_SemesterToMentor", "Mentor", new { id = userId });
         }
 
 
@@ -246,6 +247,19 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return RedirectToAction("_PartialGetMentorGrid", "Mentor");
         }
+
+        [HttpPost]
+        public ActionResult _MakeMentorAdmin(int id)
+        {
+
+            var s = unitOfWork.UserRepository.GetByID(id);
+            s.RoleID = 1;
+            unitOfWork.UserRepository.Update(s);
+            unitOfWork.Save();
+
+            return RedirectToAction("_PartialGetMentorGrid", "Mentor");
+        }
+
 
 
     }
