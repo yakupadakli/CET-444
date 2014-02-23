@@ -7,7 +7,6 @@
  * @return {Object} exports
  * @api public
  */
-    alert("dropzone.js");
 function require(path, parent, orig) {
   var resolved = require.resolve(path);
 
