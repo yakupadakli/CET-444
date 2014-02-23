@@ -52,6 +52,7 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitializer.cs" />
     <Compile Include="Feedback.cs" />
+    <Compile Include="FeedbackSeenLog.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="GroupWork.cs" />
     <Compile Include="GroupWorkFile.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Semester.cs" />
+    <Compile Include="StudentCourseRequest.cs" />
     <Compile Include="WorkSemesterDueDate.cs" />
     <Compile Include="GroupWorkSubmittedStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

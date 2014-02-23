@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ActionPlanRepository.cs" />
     <Compile Include="FeedbackRepository.cs" />
+    <Compile Include="FeedbackSeenLogRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="GroupRepository.cs" />
     <Compile Include="GroupWorkFileRepository.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="RoleRepository.cs" />
     <Compile Include="ScenarioRepository.cs" />
     <Compile Include="SemesterRepository.cs" />
+    <Compile Include="StudentCourseRequestRepository.cs" />
     <Compile Include="WorkSemesterDueDateRepository.cs" />
     <Compile Include="GroupWorkSubmittedStatusRepository.cs" />
     <Compile Include="TaskRepository.cs" />

@@ -22,3 +22,12 @@ C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\Col
 D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.CET444.resources
 D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll.config
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.xml
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb

@@ -165,3 +165,16 @@ C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\Collabor
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.xml
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
+C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
