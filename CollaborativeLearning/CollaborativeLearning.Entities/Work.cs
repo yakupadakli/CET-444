@@ -26,6 +26,9 @@ namespace CollaborativeLearning.Entities
         [Required]
         public DateTime RegDate { get; set; }
 
+        [Display(Name = "Is Active")]
+        public bool isActive { get; set; }
+
         [Required]
         public int RegUserID { get; set; }
 

@@ -15,10 +15,12 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: /Work/
 
-        public ActionResult _PartialWork(int id)
+        public ActionResult _PartialWork(int id, int? semesterId)
         {
             ViewBag.id = id;
             ViewBag.scenarioId = id;
+            if (semesterId != null)
+                ViewBag.semesterId = semesterId;
             IEnumerable<Work> Works;
             Works = GetWork(id);
             //return Json(Works, JsonRequestBehavior.AllowGet);
@@ -38,9 +40,6 @@ namespace CollaborativeLearning.WebUI.Controllers
                 WorkWithDueDate workWithDueDate = new WorkWithDueDate
                 {
                     Id = work.Id,
-                    Name = work.Name,
-                    Description = work.Description,
-                    OrderID = work.OrderID,
                     SemesterID = semesterId,
                     WorkID = work.Id,
                     ScenarioID = scenarioId,
@@ -177,15 +176,26 @@ namespace CollaborativeLearning.WebUI.Controllers
                 Work work = unitOfWork.WorkRepository.GetByID(id);
                 if (scenarioId != null)
                     ViewBag.scenarioId = scenarioId;
+                WorkSemesterDueDate workSemester = unitOfWork.WorkSemesterDueDateRepository.Get(w => w.WorkID == id).FirstOrDefault();
+                DateTime DueDate = DateTime.Now;
+                if (workSemester != null)
+                {
+                    DueDate = workSemester.DueDate;
+                    ViewBag.NoDueDate = false;
+                }
+                else
+                {
+                    ViewBag.NoDueDate = true;
+                }
+                        
                 WorkWithDueDate workWithDueDate = new WorkWithDueDate
                 {
                     Id = work.Id,
-                    Name = work.Name,
-                    Description = work.Description,
-                    OrderID = work.OrderID,
                     SemesterID = semesterId,
                     WorkID = id,
-                    DueDate = DateTime.MinValue
+                    DueDate = DueDate
+                    
+
                 };
 
                 return PartialView(workWithDueDate);
@@ -198,21 +208,38 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _PartialWorkWithDueDateUpdate(Work Work, int scenarioId)
+        public ActionResult _PartialWorkWithDueDateUpdate(WorkWithDueDate Work, int scenarioId, string DueDate_Date,string DueDate_Time)
         {
             try
             {
                 if (Work != null)
                 {
-                    Work t = unitOfWork.WorkRepository.GetByID(Work.Id);
+                    string dueDateAll = DueDate_Date + " " + DueDate_Time;
+                    DateTime dueDateDateTime = Convert.ToDateTime(dueDateAll);
 
-                    t.Name = Work.Name;
-                    t.Description = Work.Description;
+                    WorkSemesterDueDate workSemester = unitOfWork.WorkSemesterDueDateRepository.Get(w => w.WorkID == Work.WorkID).FirstOrDefault();
+                    if (workSemester == null)
+                    {
+                        workSemester = new WorkSemesterDueDate
+                        {
+                            WorkID = Work.WorkID,
+                            DueDate = dueDateDateTime,
+                            RegDate = DateTime.Now,
+                            RegUserID = HelperController.GetCurrentUserId(),
+                            SemesterID = Work.SemesterID
+                        };
+                        unitOfWork.WorkSemesterDueDateRepository.Insert(workSemester);
+                    }
+                    else
+                    {
+                        workSemester.DueDate = dueDateDateTime;
+                        unitOfWork.WorkSemesterDueDateRepository.Update(workSemester);
 
-                    unitOfWork.WorkRepository.Update(t);
+                    }
+                    
                     unitOfWork.Save();
                     if (scenarioId != null)
-                        return RedirectToAction("_PartialWork", new { id = scenarioId });
+                        return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId=Work.SemesterID });
                     else
                         return RedirectToAction("Index", "Scenario");
                 }
@@ -224,5 +251,24 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(Work);
         }
 
+        public ActionResult ChangeActiveStatus(int id, string Active,int scenarioId, int semesterId)
+        {
+            unitOfWork = new UnitOfWork();
+            if (Active == "True")
+            {
+                unitOfWork.WorkRepository.GetByID(id).isActive = false;
+
+            }
+            else
+            {
+                unitOfWork.WorkRepository.GetByID(id).isActive = true;
+
+            }
+            unitOfWork.Save();
+            if (scenarioId != null)
+                return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+            else
+                return RedirectToAction("Index", "Scenario");
+        }
     }
 }

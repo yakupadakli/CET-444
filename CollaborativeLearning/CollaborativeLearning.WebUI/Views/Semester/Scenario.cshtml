@@ -6,8 +6,8 @@
   <li class="active"><a href="#task2" data-toggle="tab">Student Tasks</a></li>
   <li><a href="#action2" data-toggle="tab">Action Plan</a></li>
   <li><a href="#resources2" data-toggle="tab">Resources</a></li>
-  <li><a href="#works2" data-toggle="tab">Submited Works</a></li>
-  <li><a href="#feedback2" data-toggle="tab">Mento Feedbacks</a></li>
+  <li><a href="#works2" data-toggle="tab">Works</a></li>
+  <li><a href="#feedback2" data-toggle="tab">Mentor Feedbacks</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -42,7 +42,7 @@
   </div>
   <div class="tab-pane" id="works2">
     <div id="WorkContainer">
-      @Html.Action("_PartialWorkWithDueDate", "Work", new {scenarioId = ViewBag.scenarioId, semesterId = ViewBag.semesterId})
+      @Html.Action("_PartialWork", "Work", new {id = ViewBag.scenarioId, semesterId = ViewBag.semesterId})
     </div>
   </div>
   <div class="tab-pane" id="feedback2">

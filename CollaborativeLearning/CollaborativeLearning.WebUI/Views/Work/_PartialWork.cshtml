@@ -9,7 +9,7 @@
                         <div class="span6">
                             <div class="btn-group ">
                                 <button type="button"  class="btn btn-sm btn-primary" id="workAdd">
-                                    <span class="glyphicon glyphicon-plus"></span> Add Submited Work
+                                    <span class="glyphicon glyphicon-plus"></span> Add Work
                                 </button>
                                 <button type="button"class="btn-sm btn-danger" style="display:none;" id="workRemove" >
                                     <span class="glyphicon glyphicon-remove"></span> Close
@@ -30,11 +30,23 @@
       </div>
 @foreach (var item in Model)
 {
-    <div class="panel panel-primary">
+    Boolean semesterDueDate = false;
+    {
+        CollaborativeLearning.DataAccess.UnitOfWork u = new CollaborativeLearning.DataAccess.UnitOfWork();
+        CollaborativeLearning.Entities.WorkSemesterDueDate wordDueDate = u.WorkSemesterDueDateRepository.Get(w => w.WorkID == item.Id).FirstOrDefault();
+        
+        if (ViewBag.semesterId != null)
+        {
+            semesterDueDate = true;
+        }
+            
+        
+    }
+    <div class="panel @{if(item.isActive){<text>panel-primary</text>}else{<text>panel-info </text>}}">
         <div class="panel-heading">
             <div class="col-lg-4">
                 <div>
-                <a class="studentWorkCollapse" id="@item.Id" href="#collapseWork_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
+                <a class="studentWorkCollapse" id="@item.Id" href="#collapseWork_@item.Id" data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
                     @item.Name
                     <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 </a>
@@ -42,6 +54,13 @@
             </div>
             <div class="text-right">
                 <div class="btn-group ">
+                    
+                    @if (semesterDueDate)
+                    {
+                        <a class='deneme btn btn-default btn-sm' onclick="editDueDate(@item.Id)">
+                            <span class='glyphicon glyphicon-time'></span> Set a due date 
+                        </a>
+                    }
                     <a class='deneme btn btn-success btn-sm' onclick="editWork(@item.Id)">
                         <span class='glyphicon glyphicon-pencil'></span> Edit 
                     </a>
@@ -53,8 +72,34 @@
                             UpdateTargetId = "WorkContainer",
                             LoadingElementId = "loadingWorkDelete",
                         },
-                        new {@class="btn btn-danger btn-sm" })
+                        new { @class = "btn btn-danger btn-sm" })
                     
+                    @if (item.isActive)
+                    {
+
+                    @Ajax.ActionLink("Inactive", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId, ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "WorkContainer",
+                                    LoadingElementId = "loadingWorkDelete"
+                                },
+                        new { @class = "btn btn-sm btn-danger ", @id="workChangesStatusOff_"+item.Id  })
+                        
+                    }
+                    else
+                    {
+                    @Ajax.ActionLink("Active ", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId, ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "WorkContainer",
+                                    LoadingElementId = "loadingWorkDelete"
+                                },
+                                    new { @class = "btn btn-sm btn-success", @id="workChangesStatusOn_"+item.Id })
+                    }
+                    <script>
+                        $("#workChangesStatusOff_@item.Id").html("<span class='glyphicon glyphicon-off'></span> Inactive");
+                        $("#workChangesStatusOn_@item.Id").html("<span class='glyphicon glyphicon-play-circle'></span> Actives");
+                    </script>
                 </div>
             </div>
         </div>
@@ -64,6 +109,13 @@
         <div class="panel-body" id="updateWorkForm_@item.Id" style="display:none;">
             @Html.Action("_PartialWorkUpdate", "Work", new { id = item.Id, scenarioId = ViewBag.scenarioId })
         </div>
+        
+        @if (semesterDueDate)
+        {
+            <div class="panel-body" id="updateDueDateForm_@item.Id" style="display:none;">
+                @Html.Action("_PartialWorkWithDueDateUpdate", "Work", new { id = item.Id, scenarioId = ViewBag.scenarioId, ViewBag.semesterId })
+            </div>
+        }
     </div>       
     
 }
@@ -73,11 +125,21 @@
     $('.studentWorkCollapse').click(function (e) {
         $(e.currentTarget).find("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
         $("#updateWorkForm_" + e.currentTarget.id).hide(100);
+        $("#updateDueDateForm_" + e.currentTarget.id).hide(100);
         $("#collapseWork_" + e.currentTarget.id).toggle(100);
     });
 
     function editWork(id) {
         $("#updateWorkForm_" + id).toggle(100);
+        $("#collapseWork_" + id).find("i.indicator").removeClass('glyphicon-chevron-up');
+        $("#collapseWork_" + id).find("i.indicator").addClass('glyphicon-chevron-down');
+        $("#collapseWork_" + id).find("i.indicator").addClass('collapse');
+        $("#collapseWork_" + id).find("i.indicator").removeClass('in');
+        $("#collapseWork_" + id).hide(100);
+    }
+
+    function editDueDate(id) {
+        $("#updateDueDateForm_" + id).toggle(100);
         $("#collapseWork_" + id).find("i.indicator").removeClass('glyphicon-chevron-up');
         $("#collapseWork_" + id).find("i.indicator").addClass('glyphicon-chevron-down');
         $("#collapseWork_" + id).find("i.indicator").addClass('collapse');
