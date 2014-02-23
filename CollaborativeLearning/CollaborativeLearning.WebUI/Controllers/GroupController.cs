@@ -25,7 +25,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             ViewBag.ID = id;
 
-            var groupList = unitOfWork.GroupRepository.Get(s => s.SemesterID == id);
+            ICollection<Group> groupList = unitOfWork.GroupRepository.Get(s => s.SemesterID == id).OrderByDescending(c => c.RegDate).ToList();
             return PartialView(groupList);
         }
 

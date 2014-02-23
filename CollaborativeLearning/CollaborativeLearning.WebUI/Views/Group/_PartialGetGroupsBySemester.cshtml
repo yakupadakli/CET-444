@@ -2,7 +2,7 @@
 
 <div class="alert alert-warning" id="GroupUserActiveAlert">
    <div class="col-sm-1"> <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon" class="img-responsive" /></div>
-    <div class="col-lg-12">Wait your processing is continue! Thank you for patient.</div> 
+    <div class="col-lg-12">Wait your processing is continue! Thank you for waiting.</div> 
 </div>
 @{
     if (Model.Count != 0)
@@ -19,6 +19,8 @@
                             </a>
                         </div>
                         <div class="pull-right">
+                            <input onclick='@(Html.Raw(String.Format("showEditText({0})", item.Id)))' 
+                                    type="button" id="EditButton-@item.Id" value="Edit" class="btn btn-primary btn-sm" />
                             @Ajax.ActionLink("Remove", "DeleteGroup", "Group", new { groupId = item.Id },
                                 new AjaxOptions
                                 {
@@ -28,8 +30,7 @@
                                     LoadingElementId = "loading",
                                 },
                                 new {@class="btn btn-danger btn-sm" })
-                            <input onclick='@(Html.Raw(String.Format("showEditText({0})", item.Id)))' 
-                                    type="button" id="EditButton-@item.Id" value="Edit" class="btn btn-primary btn-sm" />
+                            
                             
                             <input onclick='@(Html.Raw(String.Format("hideEditText({0})", item.Id)))' 
                                     type="submit" id="UpdateButton-@item.Id" style="display:none" value="Update" 
@@ -42,22 +43,25 @@
                                     class="input-large form-control" value="@item.GroupName" required />
                         </div>
                     </div>
+
+
                     <div class="col-lg-12 clearfix" id="semesterGroupContanier_@item.Id" >
                         <div class="panel-body" >
                             <div class="col-lg-6">
                                 <div class="tab-pane active">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Mentors</h3>
+                                            <h3 class="panel-title">Scenario</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <div id="GroupMentorListContianner-@item.Id">
-                                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                            <div id="GroupScenarioListContianner-@item.Id">
+                                                @Html.Action("_PartialGetGroupsScenarios", "Group", new { id = item.Id, semesterId = item.SemesterID })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="tab-pane active">
                                     <div class="panel panel-default">
@@ -78,11 +82,11 @@
                                 <div class="tab-pane active">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Scenario</h3>
+                                            <h3 class="panel-title">Works</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <div id="GroupScenarioListContianner-@item.Id">
-                                                @Html.Action("_PartialGetGroupsScenarios", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                            <div id="GroupWorksListContianner-@item.Id">
+                                                 @Html.Action("_PartialGetGroupsWorks", "Group", new { id = item.Id, semesterId = item.SemesterID })
                                             </div>
                                         </div>
                                     </div>
@@ -92,11 +96,11 @@
                                 <div class="tab-pane active">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Works</h3>
+                                            <h3 class="panel-title">Mentors</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <div id="GroupWorksListContianner-@item.Id">
-                                                 @Html.Action("_PartialGetGroupsWorks", "Group", new { id = item.Id, semesterId = item.SemesterID })
+                                            <div id="GroupMentorListContianner-@item.Id">
+                                                @Html.Action("_PartialGetGroupsMentors", "Group", new { id = item.Id, semesterId = item.SemesterID })
                                             </div>
                                         </div>
                                     </div>

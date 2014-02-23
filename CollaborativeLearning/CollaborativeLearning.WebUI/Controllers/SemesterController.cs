@@ -87,7 +87,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                         semesterItem.Section = model.Section;
                         semesterItem.regUserID = HelperController.GetCurrentUserId();
                         semesterItem.regDate = DateTime.Today;
-                        semesterItem.isActive = true;
+                        semesterItem.isActive = false;
                         unitOfWork.SemesterRepository.Insert(semesterItem);
                         unitOfWork.Save();
                         unitOfWork = new UnitOfWork();

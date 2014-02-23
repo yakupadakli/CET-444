@@ -15,9 +15,9 @@
         <table class="table-striped table table-hover">
             <thead>
                 <tr>
-                    <th width="30%">Scenario Name
+                    <th width="20%">Scenario Name
                     </th>
-                    <th width="30%">Description
+                    <th width="50%">Description
                     </th>
                     <th width="15%">Group Count
                     </th>
@@ -36,7 +36,15 @@
                             <a href="@Url.Action("Scenario", "Semester", new { scenarioId = item.Id, semesterId = ViewBag.semesterId })">@item.Name</a>
                         </td>
                         <td>
-                            @item.ShortDescription
+                            @if(item.ShortDescription.Length > 30){
+                                   
+                                    @item.ShortDescription.Substring(0, 30);<b>...</b>
+                                }
+                                else
+                                {
+                                  
+                                    @item.ShortDescription
+                                }
                         </td>
                         <td>
                             @item.Groups.Count()
