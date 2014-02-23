@@ -44,7 +44,7 @@ namespace CollaborativeLearning.WebUI
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            System.Data.Entity.Database.SetInitializer<DataContext>(new DataContextInitializer());
+            //System.Data.Entity.Database.SetInitializer<DataContext>(new DataContextInitializer());
 
 
         }

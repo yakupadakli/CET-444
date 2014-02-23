@@ -19,7 +19,9 @@ namespace CollaborativeLearning.Entities
         [Required(ErrorMessage = "This field cannot be empty!")]
         [DataType(DataType.Html)]
         public string Content { get; set; }
-
+        
+        [Display(Name = "Task Name")]
+        public bool isActive { get; set; }
         public int OrderID { get; set; }
         public int RegUserId { get; set; }
         public DateTime RegDateTime { get; set; }

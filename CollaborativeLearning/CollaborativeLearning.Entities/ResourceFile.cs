@@ -17,9 +17,6 @@ namespace CollaborativeLearning.Entities
         public int ResourceID { get; set; }
         public virtual Resource Resource { get; set; }
 
-        public int fileID { get; set; }
-        public virtual ResourceFile File { get; set; }
-
         [Required(ErrorMessage = "Dosya Adı alanı boş bırakılamaz")]
         [Display(Name = "Dosya Adı")]
         [MaxLength(50, ErrorMessage = "{0} karakterden uzun olamaz")]

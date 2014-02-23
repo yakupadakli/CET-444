@@ -109,6 +109,7 @@ namespace CollaborativeLearning.WebUI.Membership
             }
             using (DataContext Context = new DataContext())
             {
+               
                 User User = null;
                 User = Context.Users.FirstOrDefault(Usr => Usr.Username == username);
                 if (User != null)
