@@ -44,7 +44,7 @@
         {
             <button type="submit" class="btn btn-primary">Change Due Date</button>
         }
-        <button type="button" class="btn btn-default" onclick="closeEditWork(@Model.Id)">Close</button> 
+        <button type="button" class="btn btn-default" onclick="closeDueDate(@Model.Id)">Close</button> 
     </div>
 }
 <script>
@@ -60,7 +60,7 @@
     function UpdateDueDateFailure() {
         alert("fail");
     }
-    function closeEditWork(id) {
+    function closeDueDate(id) {
         $("#updateDueDateForm_" + id).hide(100);
     }
 </script>
