@@ -20,7 +20,7 @@
         @ViewBag.Message
     </div>
 }
-<br />
+
 <div class="panel panel-default clearfix" id="ResourceAddContainner" >
     <div class="panel-heading">Add New Resource</div>
     <div class="panel-body">
@@ -28,7 +28,7 @@
 
         @using (Ajax.BeginForm("AddResource", "Resource", new AjaxOptions {
             HttpMethod = "POST",
-            UpdateTargetId = "ResourceTableContianner",
+            UpdateTargetId = "ResourcePartialContainner",
             OnBegin = "ProcessResourceAddAjaxForm",
             OnComplete = "CompleteResourceAddAjaxForm",
             OnSuccess = "SuccessResourceAddAjaxForm"
@@ -94,14 +94,15 @@
                 <div class="col-lg-5 text-right">
                     <input type="submit" class="btn btn-success" value="Save" id="resourceAddFormSubmit" />
                     <img src="~/Content/Images/processing.gif" style="width:30px;height:30px" id="resourceAddProcessingIcon"/>
-                    @*<a class="btn btn-success" href="#" id="btnSaveAndEdit"><i class="icon-ok icon-white"></i>Kaydet ve Düzenle </a>*@
                 </div>
             </div>
 
         }
     </div>
 </div>
-
+<div id="ResourceTableContianner">
+    @Html.Action("_PartialResourceList")
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -118,19 +119,16 @@
 
             switch (ct) {
                 case "Text":
-                    $("#ResourceAddForm").attr("data-ajax-update", "#ResourceTableContianner");
                     $("#ResourceTextEditor").show(100);
                     $("#ResourceLinkEditor").hide(100);
                     $("#ResourceFileEditor").hide(100)
                     break;
                 case "URL":
-                    $("#ResourceAddForm").attr("data-ajax-update", "#ResourceTableContianner");
                     $("#ResourceTextEditor").hide(100);
                     $("#ResourceLinkEditor").show(100);
                     $("#ResourceFileEditor").hide(100);
                     break;
                 case "File":
-                    $("#ResourceAddForm").attr("data-ajax-update", "#AddResourceContainner");
                     $("#ResourceTextEditor").hide(100);
                     $("#ResourceLinkEditor").hide(100);
                     $("#ResourceFileEditor").show(100);

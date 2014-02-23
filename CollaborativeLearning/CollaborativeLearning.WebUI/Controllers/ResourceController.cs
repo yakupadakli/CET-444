@@ -91,13 +91,12 @@ namespace CollaborativeLearning.WebUI.Controllers
             if (model.type.Contains("File") && FileUpload =="Now")
             {
                 ViewBag.ResourceID = model.Id;
-                return RedirectToAction("_PartialEditResource",model.Id);
+                return RedirectToAction("_PartialEditResource", new {id= model.Id });
 
             }
             else
             {
-                return RedirectToAction("_PartialResourceList");
-
+                return RedirectToAction("_PartialAddResource");
             }
             
         }
@@ -165,7 +164,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 model = m;
                 List<SelectListItem> ResourceCategory = GetResourceTypesSelectList();
                 ViewBag.ResourceCategory = ResourceCategory;
-                return View("_PartialEditResource", model);
+                return PartialView("_PartialEditResource", model);
 
             }
             else
@@ -194,29 +193,35 @@ namespace CollaborativeLearning.WebUI.Controllers
             Resource resource = unitOfWork.ResourceRepository.GetByID(model.Id);
             if (resource != null)
             {
+
                 resource.Name = model.Name;
                 resource.Description = model.Description;
+                if (model.type.Contains("File"))
+                {
+                    resource.Description = model.type;
+                }
+                
                 try
                 {
                     unitOfWork.ResourceRepository.Update(resource);
                     unitOfWork.Save();
-                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.ErrorType = "ResourceEdit";
                     ViewBag.Message = "Resource is updated succesfully. But! You have to switch it's active status to use";
                 }
                 catch (Exception ex)
                 {
 
-                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.ErrorType = "ResourceEdit";
                     ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
                         + " Detail Error: " + ex.Message;
                 }
             }
             else {
                 ModelState.AddModelError("", "The Resource cannot find to update");
-                ViewBag.ErrorType = "ResourceAdd";
+                ViewBag.ErrorType = "ResourceEdit";
                 ViewBag.Message = "The Resource cannot find to update";
             }
-            return PartialView("Index", model);
+            return RedirectToAction("_PartialEditResource", new { id = model.Id });
 
         }
 
@@ -224,7 +229,8 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialFileUploadToResource(int id)
         {
             ViewBag.ResourceID = id;
-            return PartialView();
+            ViewBag.ResourceName = "Resoruce";
+            return View();
         }
         public ActionResult UploadHandler(HttpPostedFileBase file, int ResourceID)
         {

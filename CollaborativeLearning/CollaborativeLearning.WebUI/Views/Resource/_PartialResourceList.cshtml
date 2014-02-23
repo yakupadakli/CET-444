@@ -75,19 +75,17 @@
                     </td>
                     <td align="center">
                         
-                        @Html.ActionLink(" ","_PartialEditResource", "Resource",
-                        new { id = item.Id },
-                        new { @class = "btn-sm btn-info glyphicon glyphicon-edit ", alt = "All Files Download", title = "Edit Resource" })
-                        @*@Ajax.ActionLink("Edit ", "_PartialEditResource", "Resource", new { id = item.Id },
+                       
+                        @Ajax.ActionLink(" ", "_PartialEditResource", "Resource", new { id = item.Id },
                                 new AjaxOptions
                                 {
-                                    UpdateTargetId = "resources",
+                                    UpdateTargetId = "ResourcePartialContainner",
                                     LoadingElementId = "loadingResourceOps",
                                     OnBegin = "ResourceEditAjaxFormBeginContainner",
                                     InsertionMode = InsertionMode.Replace
 
                                 },
-                                 new { @class = "btn-sm btn-info", alt = "All Files Download", title = "Edit Resource" })*@
+                              new { @class = "btn-sm btn-info glyphicon glyphicon-edit", alt = "All Files Download", title = "Edit Resource" })
 
                         @if (item.type.Substring(0, 3) == "Fil")
                         {
