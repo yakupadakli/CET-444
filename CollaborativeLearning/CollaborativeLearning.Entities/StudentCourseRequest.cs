@@ -7,26 +7,28 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class GroupWorkSubmittedStatus
+    public class StudentCourseRequest
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int UserID { get; set; }
+        public int UserId { get; set; }
         public virtual User User { get; set; }
-        public int GroupWorkkID { get; set; }
-        public virtual GroupWork GroupWork { get; set; }
 
-        public Boolean isSeen { get; set; }
+        public int SemesterId { get; set; }
+        public virtual Semester Semester { get; set; }
 
-        [Display(Name = "Last Seen Date")]
-        public DateTime lastSeenDate { get; set; }
+        public bool isApproved { get; set; }
 
-        [Display(Name = "Date")]
+        [Display(Name = "Request Date")]
+        public DateTime reqDate { get; set; }
+
+        [Display(Name = "Register Date")]
         public DateTime regDate { get; set; }
 
         [Required]
         public int regUserID { get; set; }
+
     }
 }

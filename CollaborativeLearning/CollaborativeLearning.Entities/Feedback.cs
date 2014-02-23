@@ -22,8 +22,8 @@ namespace CollaborativeLearning.Entities
         [MaxLength(500, ErrorMessage = "{0} karakterden uzun olamaz")]
         public string Content { get; set; }
                         
-        public int parentID { get; set; }
-
+        
+        public int? parentID { get; set; }
         public virtual Feedback parent { get; set; }
 
         [Required(ErrorMessage = "Kayıt Tarihi alanı boş bırakılamaz")]

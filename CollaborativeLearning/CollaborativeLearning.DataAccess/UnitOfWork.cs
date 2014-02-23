@@ -9,6 +9,7 @@ namespace CollaborativeLearning.DataAccess
         private DataContext context = new DataContext();
         private ActionPlanRepository actionPlanRepository;
         private FeedbackRepository feedbackRepository;
+        private FeedbackSeenLogRepository feedbackSeenLogRepository;
         private GroupRepository groupRepository;
         private GroupWorkFileRepository groupWorkFileRepository;
         private GroupWorkRepository groupWorkRepository;
@@ -21,6 +22,7 @@ namespace CollaborativeLearning.DataAccess
         private RoleRepository roleRepository;
         private ScenarioRepository scenarioRepository;
         private SemesterRepository semesterRepository;
+        private StudentCourseRequestRepository studentCourseRequestRepository;
         private TaskRepository taskRepository;
         private UserRepository userRepository;
         private WorkRepository workRepository;
@@ -49,6 +51,18 @@ namespace CollaborativeLearning.DataAccess
                     this.feedbackRepository = new FeedbackRepository(context);
                 }
                 return feedbackRepository;
+            }
+        }
+        public FeedbackSeenLogRepository FeedbackSeenLogRepository
+        {
+            get
+            {
+
+                if (this.feedbackSeenLogRepository == null)
+                {
+                    this.feedbackSeenLogRepository = new FeedbackSeenLogRepository(context);
+                }
+                return feedbackSeenLogRepository;
             }
         }   
         public GroupRepository GroupRepository
@@ -193,6 +207,18 @@ namespace CollaborativeLearning.DataAccess
                     this.semesterRepository = new SemesterRepository(context);
                 }
                 return semesterRepository;
+            }
+        }
+        public StudentCourseRequestRepository StudentCourseRequestRepository
+        {
+            get
+            {
+
+                if (this.studentCourseRequestRepository == null)
+                {
+                    this.studentCourseRequestRepository = new StudentCourseRequestRepository(context);
+                }
+                return studentCourseRequestRepository;
             }
         }
         public TaskRepository TaskRepository

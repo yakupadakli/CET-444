@@ -17,6 +17,7 @@ namespace CollaborativeLearning.Entities
         }
         public DbSet<ActionPlan> ActionPlans { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackSeenLog> FeedbackSeenLog { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupWork> GroupWorks { get; set; }
         public DbSet<GroupWorkFile> GroupWorkFiles { get; set; }
@@ -29,6 +30,7 @@ namespace CollaborativeLearning.Entities
         public DbSet<Role> Roles { get; set; }
         public DbSet<Scenario> Scenarios { get; set; }
         public DbSet<Semester> Semesters { get; set; }
+        public DbSet<StudentCourseRequest> StudentCourseRequests { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Work> Works { get; set; }

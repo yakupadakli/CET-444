@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CollaborativeLearning.Entities
 {
-    public class GroupWorkSubmittedStatus
+    public class FeedbackSeenLog
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
