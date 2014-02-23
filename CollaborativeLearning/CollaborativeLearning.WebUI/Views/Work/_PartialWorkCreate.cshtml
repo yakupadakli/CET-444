@@ -1,6 +1,10 @@
 ﻿@model CollaborativeLearning.Entities.Work
-@using (Ajax.BeginForm("_PartialWorkCreate", "Work", 
-    new { scenarioId = ViewBag.scenarioId },
+@using (Ajax.BeginForm("_PartialWorkCreate", "Work",
+    new
+    {
+        scenarioId = ViewBag.scenarioId,
+        semesterId = ViewBag.semesterId
+    },
     new AjaxOptions {
         LoadingElementId = "loadingWorkCreate", 
         HttpMethod = "POST", 

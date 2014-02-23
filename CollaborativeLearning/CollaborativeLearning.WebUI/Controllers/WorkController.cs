@@ -67,10 +67,16 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return Works;
         }
-        public ActionResult _PartialWorkCreate(int? scenarioId)
+        public ActionResult _PartialWorkCreate(int? scenarioId, int? semesterId)
         {
             if (scenarioId != null)
                 ViewBag.scenarioId = scenarioId;
+
+            if (semesterId != null || semesterId != 0)
+                ViewBag.semesterId = semesterId;
+            else
+                ViewBag.semesterId = 0;
+
             return PartialView();
         }
 
@@ -79,7 +85,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _PartialWorkCreate(Work Work, int? scenarioId)
+        public ActionResult _PartialWorkCreate(Work Work, int? scenarioId, int? semesterId)
         {
             try
             {
@@ -96,7 +102,10 @@ namespace CollaborativeLearning.WebUI.Controllers
                         Scenario s = unitOfWork.ScenarioRepository.GetByID(TempData["scenarioId"]);
                         unitOfWork.WorkRepository.GetByID(Work.Id).Scenarios.Add(s);
                         unitOfWork.Save();
-                        return RedirectToAction("_PartialWork", new { id = scenarioId });
+                        if (semesterId.HasValue)
+                            return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+                        else
+                            return RedirectToAction("_PartialWork", new { id = scenarioId });
                     }
                     else
                         return RedirectToAction("Index", "Scenario");
@@ -124,13 +133,17 @@ namespace CollaborativeLearning.WebUI.Controllers
 
 
         [HttpGet]
-        public ActionResult _PartialWorkUpdate(int id, int scenarioId)
+        public ActionResult _PartialWorkUpdate(int id, int scenarioId, int? semesterId)
         {
             if (id != null)
             {
                 Work Work = unitOfWork.WorkRepository.GetByID(id);
                 if (scenarioId != null)
                     ViewBag.scenarioId = scenarioId;
+                if (semesterId.HasValue)
+                    ViewBag.semesterId = semesterId;
+                else
+                    ViewBag.semesterId = 0;
                 Work.Description = WebUtility.HtmlDecode(Work.Description);
                 return PartialView(Work);
             }
@@ -142,7 +155,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _PartialWorkUpdate(Work Work,int scenarioId)
+        public ActionResult _PartialWorkUpdate(Work Work,int scenarioId, int semesterId)
         {
             try
             {
@@ -156,7 +169,12 @@ namespace CollaborativeLearning.WebUI.Controllers
                     unitOfWork.WorkRepository.Update(t);
                     unitOfWork.Save();
                     if (scenarioId != null)
-                        return RedirectToAction("_PartialWork", new { id = scenarioId });
+                    {
+                        if (semesterId != 0)
+                            return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+                        else
+                            return RedirectToAction("_PartialWork", new { id = scenarioId });
+                    }
                     else
                         return RedirectToAction("Index", "Scenario");
                 }

@@ -318,6 +318,9 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.scenarioId = scenarioId;
             ViewBag.semesterId = semesterId;
 
+            ViewBag.semesterName = unitOfWork.SemesterRepository.GetByID(semesterId).semesterName;
+            ViewBag.scenarioName = unitOfWork.ScenarioRepository.GetByID(scenarioId).Name;
+
             return View();
         }
 
