@@ -1,0 +1,111 @@
+﻿@model ICollection<CollaborativeLearning.Entities.StudentCourseRequest>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.Action("_PartialSelectStudents", "Semester", new { id = ViewBag.semesterId })
+    </div>
+</div>
+<div class="modal-footer"></div>
+
+
+
+
+
+
+@{
+    if (Model.Count != 0)
+    {
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
+            <thead>
+                <tr>
+                    <th width="10%">Name
+                    </th>
+                    <th width="10%">Username
+                    </th>
+                    <th width="10%">Email
+                    </th>
+                    <th width="10%">Gender
+                    </th>
+                    <th width="10%">PhoneNumber
+                    </th>
+                    <th width="10%">Group
+                    </th>
+                    <th width="10%">Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.User.FullName
+                        </td>
+                        <td>
+                            @item.User.Username
+                        </td>
+                        <td>
+                            @item.User.Email
+                        </td>
+                        <td>
+                            @item.User.Gender
+                        </td>
+                        <td>
+                            @item.User.PhoneNumber
+                        </td>
+                        <td>
+                            @{if (item.User.Groups.Count > 0)
+                                {
+                                    @item.User.Groups.FirstOrDefault().GroupName
+                                }
+                                else
+                                {
+                                  <text>-</text>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Remove", "RemoveUserSemester", "User", new { userId = item.User.Id, semesterId = ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to remove this user from this semester?",
+                                    UpdateTargetId = "studentsTable",
+                                    LoadingElementId = "loadingSemesterStudents",
+                                },new{ @class="btn btn-danger btn-sm"
+                                }
+                             )
+                                    
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        <text>This semester does not have a student yet!</text>
+    }
+}
+
+ @*@Html.Action("_PartialSelectScenarios", "Semester", new { id = ViewBag.semesterId })*@
+
+<div id = "loadingSemesterStudents">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingSemesterStudents {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
