@@ -58,7 +58,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                 unitOfWork.UserRepository.Update(user);
                 unitOfWork.Save();
-                return RedirectToAction("Index", "Home");
+                return View(profile);
+                //return RedirectToAction("Index", "Home");
             }
             return View(profile);
 

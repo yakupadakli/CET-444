@@ -4,110 +4,166 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/Template/css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+<script src="~/Content/Template/js/bootstrap-formhelpers.min.js"></script>
 
 <div class="container" style="margin-top: 2%">
-        
-    @using (Html.BeginForm("Profile", "User",
-            FormMethod.Post, new { @class = "form-horizontal form-signin", @style = "max-width:600px;" }))
-    {
-            @Html.ValidationSummary(true, "There has been some errors. Please try again later.")
-            <fieldset>
-                <!-- Form Name -->
-                <legend>Edit Form</legend>
-
-                <!-- Text input-->
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Profile</div>
+            <div class="panel-body">
                 <div class="control-group">
-                    @Html.LabelFor(m => m.FirsName, new { @class = "control-label" })
-                    <div class="controls">
-                        @Html.EditorFor(m => m.FirsName, new
-                                                            {
-                                                                @class = "input-large form-control",
-                                                                @placeholder = "Enter First Name",
-                                                                required = "required "
-                                                            })
-                        @Html.ValidationMessageFor(m => m.FirsName)
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="control-group">
-                    @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-                    <div class="controls">
-                        @Html.EditorFor(m => m.LastName, new
-                                                           {
-                                                               @class = "input-large form-control",
-                                                               @placeholder = "Enter Last Name",
-                                                               required = "required "
-                                                           })
-                        @Html.ValidationMessageFor(m => m.LastName)
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="control-group">
-                  @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                  <div class="controls">
-                     @Html.EditorFor(m => m.Email, new
-                                                    {
-                                                        @class = "input-large form-control",
-                                                        @placeholder = "Enter Email",
-                                                        required = "required ",
-                                                        @type = "email"
-                                                    })
-                    @Html.ValidationMessageFor(m => m.Email)
-                  </div>
-                </div>
-
-                    <!-- Text input-->
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                    <div id="profileContainer">
                         <div class="controls">
-                            @*<input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" />*@
-                            @Html.EditorFor(m => m.PhoneNumber, new
-                                                                   {
-                                                                       @class = "input-large form-control bfh-phone",
-                                                                       @placeholder = "Enter phone",
-                                                                       required = "required ",
-                                                                       data_format="+90 (ddd) ddd-dddd"
-                                                                   })
-          
+                            @Html.LabelFor(m => m.FirsName, new { @class = "control-label" }) : 
+                            @Model.FirsName
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="registr_code">Gender</label>
-                        <div class="radio">
-                           @Html.RadioButtonFor(m => m.Gender, "Male", new
-                                                                          {
-                                                                              @class = "input-large",
-                                                                              required = "required ",
-                                                                              type = "radio"
-                                                                          }) Male
+                        <div class="controls">
+                            @Html.LabelFor(m => m.LastName, new { @class = "control-label" }) : 
+                            @Model.LastName
                         </div>
-                        <div class="radio">
-                           @Html.RadioButtonFor(m => m.Gender, "Female", new
-                                                                          {
-                                                                              @class = "input-large",
-                                                                              required = "required ",
-                                                                              type = "radio"
-                                                                          })Female
-
+                        <div class="controls">
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" }) : 
+                            @Model.Email
                         </div>
-                    </div>
-
-                <!-- Button -->
-                <div class="control-group">
-                    <label class="control-label" for="register_btn"></label>
-                    <div class="controls">
-                        <button id="register_btn" name="register_btn" class="btn btn-success">Save</button>
-                        @*@Html.ActionLink("Cancel", "Index", "Home", new { @class = "btn btn-danger" })*@
-                        <a class = "btn btn-danger" href="/Home/Index">Cancel</a>
-                        
+                        <div class="controls">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" }) : 
+                            @Model.PhoneNumber
+                        </div>
+                        <div class="controls">
+                            @Html.LabelFor(m => m.Gender, new { @class = "control-label" }) : 
+                            @Model.Gender
+                        </div>
+                        <div class="modal-footer" style="padding: 20px 20px 0px;">
+                            <button id="edit_btn" name="edit_btn" class="btn btn-primary">Edit</button>
+                            <a class="btn btn-danger" href="/Home/Index">Back</a>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-            </fieldset>
-    }
-    
+            <div class="panel-body">
+                <div id="editUserProfileContainer" style="display:none;">
+                    @using (Html.BeginForm("Profile", "User",
+                            FormMethod.Post, new { @class = "form-horizontal form-signin", @style = "max-width:600px;" }))
+                    {
+                            @Html.ValidationSummary(true, "There has been some errors. Please try again later.")
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Edit Profile</legend>
+
+                                <!-- Text input-->
+                                <div class="control-group">
+                                    @Html.LabelFor(m => m.FirsName, new { @class = "control-label" })
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.FirsName, new
+                                                                            {
+                                                                                @class = "input-large form-control",
+                                                                                @placeholder = "Enter First Name",
+                                                                                required = "required "
+                                                                            })
+                                        @Html.ValidationMessageFor(m => m.FirsName)
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="control-group">
+                                    @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.LastName, new
+                                                                           {
+                                                                               @class = "input-large form-control",
+                                                                               @placeholder = "Enter Last Name",
+                                                                               required = "required "
+                                                                           })
+                                        @Html.ValidationMessageFor(m => m.LastName)
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="control-group">
+                                  @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                                  <div class="controls">
+                                     @Html.TextBoxFor(m => m.Email, new
+                                                                    {
+                                                                        @class = "input-large form-control",
+                                                                        @placeholder = "Enter Email",
+                                                                        required = "required ",
+                                                                        @type = "email"
+                                                                    })
+                                    @Html.ValidationMessageFor(m => m.Email)
+                                  </div>
+                                </div>
+
+                                    <!-- Text input-->
+                                    <div class="control-group">
+                                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                                        <div class="controls">
+                                            @*<input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" />*@
+                                            @Html.TextBoxFor(m => m.PhoneNumber, new
+                                                                                   {
+                                                                                       @class = "input-large form-control bfh-phone",
+                                                                                       @placeholder = "Enter phone",
+                                                                                       required = "required ",
+                                                                                       data_format="+90 (ddd) ddd-dddd"
+                                                                                   })
+          
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="registr_code">Gender</label>
+                                        <div class="radio">
+                                           @Html.RadioButtonFor(m => m.Gender, "Male", new
+                                                                                          {
+                                                                                              @class = "input-large",
+                                                                                              required = "required ",
+                                                                                              type = "radio"
+                                                                                          }) Male
+                                        </div>
+                                        <div class="radio">
+                                           @Html.RadioButtonFor(m => m.Gender, "Female", new
+                                                                                          {
+                                                                                              @class = "input-large",
+                                                                                              required = "required ",
+                                                                                              type = "radio"
+                                                                                          })Female
+
+                                        </div>
+                                    </div>
+
+                                <!-- Button -->
+                                <div class="control-group modal-footer" style="padding: 20px 20px 0px;">
+                                    <label class="control-label" for="register_btn"></label>
+                                    <div class="controls">
+                                        <button id="register_btn" name="register_btn" class="btn btn-success">Save</button>
+                                        @*@Html.ActionLink("Cancel", "Index", "Home", new { @class = "btn btn-danger" })*@
+                                        @*<a id="cancelUpdate" class="btn btn-danger" href="/Home/Index">Cancel</a>*@
+                                        <button id="cancelUpdate" class="btn btn-danger">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div> 
+   
 </div> <!-- /container -->
 
 
+<script>
+    $("#edit_btn").click(function () {
+        $("#profileContainer").hide(100);
+        $("#editUserProfileContainer").show(100);
+    });
+    $("#register_btn").click(function () {
+        $("#editUserProfileContainer").hide(100);
+        $("#profileContainer").show(100);
+    });
+    $("#cancelUpdate").click(function () {
+        $("#profileContainer").hide(100);
+        $("#editUserProfileContainer").show(100);
+    });
+    
+</script>

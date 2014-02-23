@@ -79,7 +79,9 @@
                     @CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser().FullName<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="glyphicon glyphicon-user" href="/User/Profile"> Profile</a></li>
+                    <li><a class="glyphicon glyphicon-user" href="
+                        @Url.Action("Profile", "User", 
+                        new { returnUrl=ViewContext.HttpContext.Request.Url.PathAndQuery})"> Profile</a></li>
                     <li><a class="glyphicon glyphicon-pencil" href="#"> Change Password</a></li>
                     <li class="divider"></li>
                     <li><a class="glyphicon glyphicon-log-out" href="/Account/LogOff"> Logout</a></li>
