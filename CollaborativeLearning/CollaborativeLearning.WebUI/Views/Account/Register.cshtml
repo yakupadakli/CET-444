@@ -13,15 +13,6 @@
 <script src="~/Content/Template/js/bootstrap-formhelpers.min.js"></script>
 
 
- <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <h1 class="navbar-brand" style="padding:0px;" >
-            <a href="/">
-                CET 314: Computer Networks & Commuication
-            </a>        
-        </h1>
-    </div><!-- /.container -->
-</nav>
 <div class="container" style="margin-top: 5%; width:50%">
     <div class="alert alert-success" id="SuccessRegister" style="display:none">
         <div class="col-lg-12"><div class="glyphicon glyphicon-ok "> </div> @ViewBag.success</div>
@@ -187,9 +178,10 @@
                 <div class="control-group">
                     <label class="control-label" for="register_btn"></label>
                     <div class="controls">
-                        <button id="register_btn" name="register_btn" class="btn btn-primary">Register</button>
-                        @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-success" })
+                        <button id="register_btn" name="register_btn" class="btn btn-success">Register</button>
                         <span>Already have an account?</span>
+                        @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-primary" })
+                       
                     </div>
                 </div>
 

@@ -13,15 +13,17 @@ using CollaborativeLearning.WebUI.Models;
 
 namespace CollaborativeLearning.WebUI.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        //
-        // GET: /User/
+      
 
-        public ActionResult Index()
+        public ActionResult Index()  //initial action for students
         {
-            return View();
+            unitOfWork = new UnitOfWork();
+            User model = unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId());
+            return View(model);
         }
 
         public ActionResult Profile()
@@ -35,7 +37,6 @@ namespace CollaborativeLearning.WebUI.Controllers
             profile.Gender = user.Gender;
             profile.LastName = user.LastName;
             profile.PhoneNumber = user.PhoneNumber;
-
             return View(profile);
         }
 
@@ -63,6 +64,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+
+        #region Semester Operation
         public ActionResult _PartialGetStudentsBySemester(int id)
         {
             var studentsList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id  && s.RoleID == 3).Count() > 0);
@@ -79,6 +82,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             return RedirectToAction("_PartialGetStudentsBySemester", new { id = semesterId });
         }
+        #endregion
+
 
         public ActionResult _PartialSelectStudents(int id)
         {
@@ -110,8 +115,6 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.AllStudents = UserList;
             return PartialView();
         }
-
-
         public ActionResult _PartialSelectUsers()
         {
             var AllStudents = unitOfWork.UserRepository.Get().Where(m => m.RoleID == 3).ToList();
