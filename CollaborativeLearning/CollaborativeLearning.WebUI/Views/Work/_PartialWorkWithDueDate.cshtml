@@ -69,7 +69,10 @@
             Work : @item.Description
         </div>
         <div class="panel-body" id="updateWorkForm_@item.Id" style="display:none;">
-            @Html.Action("_PartialWorkWithDueDateUpdate", "Work", new { id = item.WorkID, scenarioId = item.ScenarioID, semesterId = item.SemesterID })
+            @Html.Action("_PartialWorkUpdate", "Work", new { id = item.WorkID, scenarioId = item.ScenarioID})
+        </div>
+        <div class="panel-body" id="updateWorkForm_@item.Id" style="display:none;">
+            @Html.Action("_PartialWorkWithDueDateUpdate", "Work", new { id = item.WorkID, scenarioId = item.ScenarioID, semesterId=item.SemesterID})
         </div>
     </div>       
     
