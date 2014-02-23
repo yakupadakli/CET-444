@@ -26,6 +26,25 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View(model);
         }
 
+        public ActionResult _PartialAddCourse() {
+            unitOfWork = new UnitOfWork();
+            
+            var SemesterList = unitOfWork.SemesterRepository.Get(s => s.isActive == true).ToList();
+            List<Semester> semesters = new List<Semester>();
+            foreach (var semester in Semester)
+            {
+                foreach (var userSemester in HelperController.GetCurrentUser().Semesters)
+                {
+                    if (semester!=userSemester)
+                    {
+                        semesters.Add(semester);
+                    }
+                }
+            }
+
+            return PartialView(semesters);
+        }
+
         public ActionResult Profile()
         {
             int userId = HelperController.GetCurrentUserId();
