@@ -35,7 +35,6 @@ namespace CollaborativeLearning.WebUI.Controllers
                     group = user.Groups.Where(g => g.SemesterID == semester.Id).FirstOrDefault();
                     ViewBag.Error = "True";
                     ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
-                    ViewData["semester"] = semester;
                     ViewBag.SelecteGroupID = 0;
                     return View();
                 }
@@ -56,9 +55,11 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 ViewBag.SelecteGroupID = group.Id;
                 ViewBag.SemesterID = group.SemesterID;
+                ViewData["semester"] = group.Semester;
                 return View(group);
             }
             else {
+
                 return RedirectToAction("index","Home");
             }
 
