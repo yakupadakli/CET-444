@@ -29,49 +29,8 @@
                         
                     </div>
                     <div class="panel-body" id="UserCourseContainner">
-                        <div id="UserAddCourseContainner">
-                            @Html.Action("_PartialAddCourse", "User");
-                        </div>
-                        <div>
-                            <table class="table table-hover" align="center">
-                                <thead>
-                                    <tr>
-                                        <th>Course Name</th>
-                                        <th>Semester Name</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.Semesters.Where(s => s.isActive == true).ToList().Count > 0)
-                                    {
-                                        foreach (var item in Model.Semesters.Where(s => s.isActive == true))
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.ActionLink(item.CourseName + "." + item.Section, "Index", "Groups", new { userID = Model.Id, semesterID = item.Id }, new { })
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        @Html.ActionLink(item.year + "-" + item.semester, "Index", "Groups", new { userID = Model.Id, semesterID = item.Id }, new { })
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="@Url.Action("Index", "Groups", new { userID = Model.Id, semesterID = item.Id})" class="btn-sm btn-primary"><i class="glyphicon glyphicon-align-right glyphicon-arrow-right"> Go</i> </a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <tr>
-                                            <td colspan="3">
-                                                You don't have any course yet!
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                        @Html.Partial("_PartialUserCourse")
+                        
 
                     </div>
                 </div>
@@ -91,12 +50,5 @@
         z-index: 1000;
         height: 64px;
         width: 64px;
-    }
-</style>
-<style>
-    table tr td a {
-        display: block;
-        height: 100%;
-        width: 100%;
     }
 </style>
