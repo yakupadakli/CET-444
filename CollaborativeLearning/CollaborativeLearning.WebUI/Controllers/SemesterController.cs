@@ -287,13 +287,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult AddStudentsToSemester(int SemesterID, string[] StudentMultiSelect)
         {
+            unitOfWork = new UnitOfWork();
             var semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
             foreach (var item in StudentMultiSelect)
             {
                 var s = unitOfWork.UserRepository.GetByID(int.Parse(item));
                 semester.Users.Add(s);
+                unitOfWork.Save();
+                var a = unitOfWork.StudentCourseRequestRepository.GetByID(int.Parse(item));
+                a.isApproved = true;
+                unitOfWork.Save();
+
             }
-            unitOfWork.Save();
             ViewBag.ID = SemesterID;
             ViewBag.AllStudents = unitOfWork.UserRepository.Get();
             return RedirectToAction("_PartialGetStudentsBySemester", "User", new { id = SemesterID });
@@ -322,6 +327,29 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.scenarioName = unitOfWork.ScenarioRepository.GetByID(scenarioId).Name;
 
             return View();
+        }
+
+
+
+        public ActionResult _PartialGetStudentsBySemester(int id)
+        {
+            ICollection<StudentCourseRequest> UserList = unitOfWork.StudentCourseRequestRepository.Get(s => s.Semester.Id == id && s.isApproved == true).ToList();
+
+            //var studentsList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id  && s.RoleID == 3 && s.IsApproved == true).Count() > 0);
+            ViewBag.semesterId = id;
+            return PartialView(UserList);
+        }
+
+        public ActionResult _PartialSelectStudents(int id)
+        {
+            ViewBag.ID = id;
+
+            ICollection<StudentCourseRequest> UserList = unitOfWork.StudentCourseRequestRepository.Get(s => s.Semester.Id == id && s.isApproved == false).ToList();
+
+
+
+            ViewBag.AllStudents = UserList;
+            return PartialView();
         }
 
 
