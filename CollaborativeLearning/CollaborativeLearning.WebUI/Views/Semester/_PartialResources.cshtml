@@ -1,0 +1,70 @@
+﻿@model ICollection<CollaborativeLearning.Entities.Resource>
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.Action("_PartialSelectResourcesBySemester", "Semester", new {id = ViewBag.semesterId})
+    </div>
+</div>
+<div class="modal-footer"></div>
+
+
+@{
+    if (Model.Count != 0)
+    {
+    <div class="table-responsive">
+        <table class="table-striped table table-hover">
+            <thead>
+                <tr>
+                    <th width="30%">Resource Name
+                    </th>
+                    <th width="15%">Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Remove", "DeleteResourceFromSemester", "Semester", new { resourceId = item.Id, semesterId = ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    Confirm = "Are you sure to delete this resource?",
+                                    UpdateTargetId = "SemesterResourcesContainer",
+                                    LoadingElementId = "loadingSemesterResourcesDelete",
+                                },new{ @class="btn btn-danger btn-sm"
+                                }
+                               )
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        <text>This semester does not have a resource yet!</text>
+    }
+}
+
+<div id = "loadingSemesterResourcesDelete">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#loadingSemesterResourcesDelete {
+        display:none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

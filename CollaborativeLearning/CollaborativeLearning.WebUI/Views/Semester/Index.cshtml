@@ -30,9 +30,10 @@
 <br />
 
 <ul class="nav nav-tabs">
-    <li><a id="groups_tab" href="#Groups" data-toggle="tab">Groups</a></li>
-    <li class="active"><a id="scenarios_tab" href="#Scenarios" data-toggle="tab">Scenarios</a></li>
+    <li class="active"><a id="groups_tab" href="#Groups" data-toggle="tab">Groups</a></li>
+    <li ><a id="scenarios_tab" href="#Scenarios" data-toggle="tab">Scenarios</a></li>
     <li><a id="works_tab" href="#Works" data-toggle="tab">Submitted Works</a></li>
+  <li><a id="resourcesSemester_tab" href="#resourceSemester" data-toggle="tab">Resources</a></li>
     <li><a id="feedbacks_tab" href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
     <li><a id="reflections_tab" href="#Reflections" data-toggle="tab">Reflections</a></li>
     <li><a id="mentors_tab" href="#Mentors" data-toggle="tab">Mentors</a></li>
@@ -63,6 +64,11 @@
     </div>
     <div class="tab-pane clearfix" id="Works">
         Submitted
+    </div>
+    <div class="tab-pane clearfix" id="resourceSemester">
+        <div id="SemesterResourcesContainer">
+      @Html.Action("_PartialResources", "Semester", new { id = Model.Id })
+    </div>
     </div>
     <div class="tab-pane clearfix" id="Feedbacks">
             @Html.Action("_PartialGetGroupsBySemesterForFeedback", "Feedback", new { id = Model.Id })
