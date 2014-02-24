@@ -1,9 +1,8 @@
 ﻿@model  ICollection<CollaborativeLearning.Entities.Group>
 
-
 @{
     foreach (var item in Model)
     {
-          <li><a tabindex="-1" href="@Url.Action("Index","Groups",new{id=item.Id})">@item.GroupName</a></li>
+          <li>@Html.ActionLink(item.GroupName,"Show", "Groups", new {GroupId = item.Id }, new { tabindex = "-1" })</li>
     }
 }

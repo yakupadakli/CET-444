@@ -1,11 +1,45 @@
-﻿@{
+﻿@model CollaborativeLearning.Entities.Group
+@{
     ViewBag.Title = "Show";
     Layout = "~/Views/Shared/_GroupLayout.cshtml";
 }
 
 <h2>Show</h2>
 
-@section GroupShoNav{
-    
+@section GroupShowNav{
+    <div id="GroupShowNav" class="list-group" style="">
+    <br />
+    <div class="main_title"><h4>@Model.GroupName:</h4></div>
+
+    <a href="@Url.Action("Index", "Home")#semesters" class="list-group-item">
+        Semesters
+    </a>
+    <a href="@Url.Action("Index", "Home")#scenarios" class="list-group-item">
+        Scenarios
+    </a>
+    <a href="@Url.Action("Index", "Home")#resources" class="list-group-item">
+        Resources
+    </a>
+</div>
 
     }
+@section BreadCrump{
+   
+     @if (user.Groups.Count > 0)
+    {
+        <li>@Html.ActionLink("Home", "Index", "Groups", new { id = user.Groups.FirstOrDefault().Id })</li>
+
+    }
+    else
+    {
+        <li>@Html.ActionLink("Home", "Index", "Groups", new { id = 0 })</li>
+
+    }
+    @if (Model != null)
+    {
+        <li class="active">@Model.GroupName</li>
+    }
+
+}
+
+@ViewBag.SemesterID

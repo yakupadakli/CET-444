@@ -24,7 +24,10 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (user.Groups.Count() > 0)
                 {
+                    group = user.Groups.FirstOrDefault();
                     ViewBag.SelecteGroupID = group.Id;
+                    ViewBag.SemesterID = semester.Id;
+                    ViewData["semester"] = semester;
                     return View(group);
                 }
                 else
@@ -32,6 +35,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                     group = user.Groups.Where(g => g.SemesterID == semester.Id).FirstOrDefault();
                     ViewBag.Error = "True";
                     ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
+                    ViewData["semester"] = semester;
                     ViewBag.SelecteGroupID = 0;
                     return View();
                 }
@@ -42,18 +46,20 @@ namespace CollaborativeLearning.WebUI.Controllers
                                            
            
         }
-        public ActionResult Show(int ID)
+        public ActionResult Show(int GroupId)
         {
 
             unitOfWork = new UnitOfWork();
-            Group group = unitOfWork.GroupRepository.GetByID(ID);
+            User user = HelperController.GetCurrentUser();
+            Group group = unitOfWork.GroupRepository.GetByID(GroupId);
             if (group != null)
             {
                 ViewBag.SelecteGroupID = group.Id;
+                ViewBag.SemesterID = group.SemesterID;
                 return View(group);
             }
             else {
-                return RedirectToAction("index", new { id = 0 });
+                return RedirectToAction("index","Home");
             }
 
         }
@@ -67,7 +73,16 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialGetGroupScenarios()
         {
             unitOfWork = new UnitOfWork();
-            List<Scenario> groupScenarios = HelperController.GetCurrentUser().Groups.FirstOrDefault().Scenarios.ToList();
+            List<Scenario> groupScenarios = new List<Scenario>();
+            User user = HelperController.GetCurrentUser();
+            if (user.Groups.FirstOrDefault() !=null)
+            {
+                if (user.Groups.FirstOrDefault().Scenarios!=null)
+                {
+                    groupScenarios = HelperController.GetCurrentUser().Groups.FirstOrDefault().Scenarios.OrderByDescending(s=>s.RegDate).ToList();
+                }
+
+            }
             return PartialView(groupScenarios);
         }
         public ActionResult _PartialGetOtherGroupsForMenu()
