@@ -1,0 +1,6 @@
+﻿<div id="UserAddCourseContainner">
+    @Html.Action("_PartialAddCourse", "User")
+</div>
+<div id="CourseListContainner">
+    @Html.Action("_PartialStudentsCourseList", "User", new { id = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId() })
+</div>

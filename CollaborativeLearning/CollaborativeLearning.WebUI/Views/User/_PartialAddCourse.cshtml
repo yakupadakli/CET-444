@@ -1,15 +1,49 @@
-﻿<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="form-inline">
-            @Ajax.BeginForm("AddCourseRequest","User",
-            new AjaxOptions{
-                HttpMethod="POST",
-                UpdateTargetId="UserCourseContainner"
-                LoadingElementId="loadingIndicator"
+﻿@model ICollection<CollaborativeLearning.Entities.Semester>
+@{
+
+    List<SelectListItem> semesteerList = new List<SelectListItem>();
+
+    foreach (var item in Model)
+    {
+        semesteerList.Add(new SelectListItem { Text = item.semesterName, Value = item.Id.ToString() });
+    }
+
+
+}
+<div class="panel panel-default">
+    <div class="panel-body clearfix">
+        @using (Ajax.BeginForm("AddCourseRequest", "User",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "UserCourseContainner",
+                LoadingElementId = "loadingIndicator"
             },
-            new {@class="form form-inline"}){
-               
-            }
-        </div>
+            new { @class = "form form-inline" }))
+        {
+            <div class="input-group">
+                @Html.Hidden("UserID", CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId())
+                <select multiple="multiple" style="min-width:150px" id="AddCourse" name="CourseID" class="form-control">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id ">@item.semesterName</option>
+                    }
+                </select>
+                <span class="input-group-addon" style="padding:1px;">
+                    <button type="submit" class="btn btn-primary" ><i class="glyphicon glyphicon-plus"></i>Add Course</button>
+                </span>
+            </div>
+        }
+
+
+
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#AddCourse").select2({
+            placeholder: "Type CourseName",
+            allowClear: true
+        });
+    });
+</script>

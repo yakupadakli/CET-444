@@ -18,11 +18,25 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         private UnitOfWork unitOfWork = new UnitOfWork();
 
-        [Authorize(Roles="Instructor")]
+        [Authorize]
         public ActionResult Index()
         {
+            if (HelperController.GetCurrentUser().RoleID == 1)
+            {
+                return View();
+            }
+            else if (HelperController.GetCurrentUser().RoleID == 2)
+            {
+                return RedirectToAction("Index", "Mentor");
+            }
+            else if (HelperController.GetCurrentUser().RoleID == 3)
+            {
+                return RedirectToAction("Index", "User");
+            }
+            else {
+                return RedirectToAction("Login", "Account");
+            }
             
-            return View();
         }
         
 

@@ -1,0 +1,84 @@
+﻿@model ICollection<CollaborativeLearning.Entities.StudentCourseRequest>
+@{
+
+}
+<table class="table table-hover" align="center">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Semester Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Semester.CourseName + "." + item.Semester.Section, "Index", "Groups", new
+                   {
+                       userID = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId()
+                       ,
+                       semesterID = item.SemesterId
+                   }, new { id = "full" })
+                    </td>
+                    <td>
+
+                        @Html.ActionLink(item.Semester.year + "-" + item.Semester.semester, "Index", "Groups",
+                            new { userID = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId(), semesterID = item.SemesterId },
+                            new { id = "full" })
+
+                    </td>
+                    <td>
+                        <span>
+                            @*<a href="@Url.Action("Index", "Groups", new { userID = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId(), semesterID = item.Id })" class="btn-sm btn-primary">
+                                <i class="glyphicon glyphicon-align-right glyphicon-circle-arrow-right"> Go</i>
+                            </a>*@
+                        </span>
+                        <span>
+                            @if (item.isApproved)
+                            {
+                                 @Ajax.ActionLink("Drop Course", "DropCourse", "User",new{id=item.SemesterId},
+                            new AjaxOptions {
+                                Confirm="Are you sure DROP this course",
+                                HttpMethod="POST",
+                                LoadingElementId = "loadingIndicator",
+                                UpdateTargetId = "UserCourseContainner"
+                                
+                            }, new { @class = "btn-sm btn-danger" })
+                            }else{
+                                 @Ajax.ActionLink("Cancel Concent", "CancelConcent", "User", new { id = item.Id },
+                            new AjaxOptions {
+                                Confirm="Are you sure CANCEL CONCENT!",
+                                HttpMethod="POST",
+                                LoadingElementId = "loadingIndicator",
+                                UpdateTargetId = "UserCourseContainner"
+                                
+                            }, new { @class = "btn-sm btn-danger" })
+                            }
+                           
+                        </span>
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">
+                    You don't have any course yet!
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    table tr td a#full {
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+</style>

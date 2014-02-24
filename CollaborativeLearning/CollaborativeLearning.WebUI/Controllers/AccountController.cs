@@ -115,7 +115,7 @@ public class AccountController : Controller
     //
     // POST: /Account/Register
 
-    [HttpPost]
+    [HttpPost]   // Bu register kullanılıyor.
     public ActionResult Register(CollaborativeLearning.WebUI.Models.AccountModels.RegisterModel model, string registr_code)
     {
         if (ModelState.IsValid)
@@ -180,7 +180,14 @@ public class AccountController : Controller
                         user.StudentNo = model.StudentNumber;
 
                         user.Semesters.Add(s);
-
+                        StudentCourseRequest scr = new StudentCourseRequest();
+                        scr.SemesterId = s.Id;
+                        scr.UserId = user.Id;
+                        scr.isApproved = true;
+                        scr.regDate = DateTime.Now;
+                        scr.regUserID = user.Id;
+                        scr.reqDate = DateTime.Now;
+                        unitOfWork.StudentCourseRequestRepository.Insert(scr);
                         unitOfWork.Save();
 
                     }
