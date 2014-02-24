@@ -11,39 +11,42 @@ namespace CollaborativeLearning.WebUI.Controllers
     public class GroupsController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        public ActionResult Index(int id = 0)
-        {  
-            int groupID=id;
-            if (id == 0 ){
-                 groupID = HelperController.GetCurrentUser().Groups.FirstOrDefault().Id;
-            }   
+        public ActionResult Index(int semesterID)
+        {
+            int userID = HelperController.GetCurrentUserId();
             unitOfWork = new UnitOfWork();
+
+            User user = unitOfWork.UserRepository.GetByID(userID);
+            Semester semester = unitOfWork.SemesterRepository.GetByID(semesterID);
+            StudentCourseRequest scr = unitOfWork.StudentCourseRequestRepository.Get(s => s.UserId == user.Id && s.SemesterId == semesterID).FirstOrDefault();
             Group group = new Group();
-            group = unitOfWork.GroupRepository.GetByID(groupID);
-           
-            if (group == null)
-            {   ViewBag.Error = "True";
-                ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
-                ViewBag.SelecteGroupID = 0;
-                 return View();
-            }
-            else 
+            if (user != null && semester != null && semester.isActive == true & scr.isApproved == true)
             {
-                if (group.Id == HelperController.GetCurrentUser().Groups.FirstOrDefault().Id)
+                if (user.Groups.Count() > 0)
                 {
                     ViewBag.SelecteGroupID = group.Id;
                     return View(group);
-
                 }
-                else {
-                    return RedirectToAction("Show", group);
+                else
+                {
+                    group = user.Groups.Where(g => g.SemesterID == semester.Id).FirstOrDefault();
+                    ViewBag.Error = "True";
+                    ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
+                    ViewBag.SelecteGroupID = 0;
+                    return View();
                 }
             }
+            else {
+                return RedirectToAction("Index", "User");
+            }
+                                           
+           
         }
-        public ActionResult Show(Group group)
+        public ActionResult Show(int ID)
         {
 
             unitOfWork = new UnitOfWork();
+            Group group = unitOfWork.GroupRepository.GetByID(ID);
             if (group != null)
             {
                 ViewBag.SelecteGroupID = group.Id;
