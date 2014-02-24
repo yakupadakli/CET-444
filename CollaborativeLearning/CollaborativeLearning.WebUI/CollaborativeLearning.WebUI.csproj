@@ -54,6 +54,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1345,6 +1347,9 @@
     <Content Include="Content\Template\js\bootstrap.js" />
     <Content Include="Content\Template\js\jquery-1.10.2.js" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\3-Resource 3-23.02.2014\deneme.txt" />
+    <Content Include="Resources\3-Resource 3-23.02.2014\program.jpg" />
+    <Content Include="Resources\4-Resource 4-23.02.2014\1366x768_coffee-1573338.jpg" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -1378,6 +1383,7 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Resources\3-Resource 3-23.02.2014\program.xlsx" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
@@ -1616,6 +1622,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\Archive\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
