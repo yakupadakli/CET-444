@@ -324,6 +324,64 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
+        //Semester'a resource atama sayfası
+        public ActionResult _PartialResources(int id)
+        {
+            var resourceList = unitOfWork.ResourceRepository.Get(s => s.Semesters.Where(se => se.Id == id).Count() > 0);
+            ViewBag.semesterId = id;
+            return PartialView(resourceList);
+        }
+
+        //Semester seçme listesi dolduruluyor
+        public ActionResult _PartialSelectResourcesBySemester(int id)
+        {
+            ViewBag.semesterId = id;
+            var ResourceSemesterList = unitOfWork.SemesterRepository.GetByID(id).Resources.ToList();
+            var AllList = unitOfWork.ResourceRepository.Get();
+            bool t = false;
+            List<Resource> ResourceList = new List<Resource>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in ResourceSemesterList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    ResourceList.Add(listItem);
+                }
+            }
+            ViewBag.AllSemesterResources = ResourceList;
+            return PartialView();
+        }
+
+        public ActionResult AddResourcesToSemester(int SemesterId, string[] ResourceMultiSelect)
+        {
+            var scenario = unitOfWork.SemesterRepository.GetByID(SemesterId);
+            foreach (var item in ResourceMultiSelect)
+            {
+                var s = unitOfWork.ResourceRepository.GetByID(int.Parse(item));
+                scenario.Resources.Add(s);
+            }
+            unitOfWork.Save();
+            ViewBag.SemesterId = SemesterId;
+            ViewBag.AllSemesterResources = unitOfWork.ResourceRepository.Get();
+            return RedirectToAction("_PartialResources", "Semester", new { id = SemesterId });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteResourceFromSemester(int resourceId, int semesterId)
+        {
+            Resource s = unitOfWork.ResourceRepository.GetByID(resourceId);
+            unitOfWork.SemesterRepository.GetByID(semesterId).Resources.Remove(s);
+
+            unitOfWork.Save();
+            return RedirectToAction("_PartialResources", "Semester", new { id = semesterId });
+        }
 
     }
 }
