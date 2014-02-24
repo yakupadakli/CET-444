@@ -5,7 +5,7 @@
 }
 @section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li ><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
+    <li><a href="@Url.Action("Index", "Semester", new { id = 0 })">Semester</a></li>
     <li class="active">@Model.semesterName</li>
 }
 @section Header{
@@ -13,17 +13,17 @@
         @{
             if (Model.semester == 1)
             {
-                <h3>Fall - @Model.year Semester</h3>        
+            <h3>Fall - @Model.year Semester</h3>        
             }
             else if (Model.semester == 2)
             {
-                <h3>Spring - @Model.year Semester</h3>        
+            <h3>Spring - @Model.year Semester</h3>        
             }
             else if (Model.semester == 3)
             {
-                <h3>Summer - @Model.year Semester</h3>        
+            <h3>Summer - @Model.year Semester</h3>        
             }
-         }
+        }
     </div>
 }
 
@@ -65,7 +65,7 @@
         Submitted
     </div>
     <div class="tab-pane clearfix" id="Feedbacks">
-        Reflections
+            @Html.Action("_PartialGetGroupsBySemesterForFeedback", "Feedback", new { id = Model.Id })
     </div>
     <div class="tab-pane clearfix" id="Meetings">
         Group meetings

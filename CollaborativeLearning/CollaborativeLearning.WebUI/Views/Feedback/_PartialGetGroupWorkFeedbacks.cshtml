@@ -1,0 +1,77 @@
+﻿@model CollaborativeLearning.Entities.GroupWork
+
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+
+        <span style="float: left">@Model.Work.Name</span>
+        <input onclick='@(Html.Raw(String.Format("WorkComment({0})", Model.Id)))' 
+                                    type="button" id="WorkCommentButton-@Model.Id" class="btn btn-primary btn-sm" style="float: right" value="Comment" />
+    </div>
+    <br />
+    <div id="WorkCommnetField-@Model.Id" style="display: none">
+        <div class="input-group">
+            <div class="form-control">
+                <input id="groupName" name="groupName" type="text"
+                    placeholder="Enter Comment Here" value=""
+                    class="input-large form-control" required />
+            </div>
+            <span class="input-group-addon" style="padding: 1px;">
+                @*<input type="submit" value="Add" class="btn btn-primary btn-sm" onclick="HideComment()" />*@
+                @Ajax.ActionLink("Add", "_PartialGetGroupWorkFeedbacks", "Feedback", new { id = Model.Id }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "Work-" + Model.Id.ToString()
+                })
+                <input type="button" value="Cancel" class="btn btn-danger btn-sm" onclick='@(Html.Raw(String.Format("WorkHideComment({0})", Model.Id)))' />
+            </span>
+        </div>
+    </div>
+    <div class="panel-body">
+        @foreach (var feedback in Model.Feedbacks.Where(s => s.parentID == null))
+        {
+            <span style="float: left">@feedback.Content</span>
+            <input onclick='@(Html.Raw(String.Format("FeedbackComment({0})", feedback.Id)))' 
+                                    type="button" id="CommentButton-@feedback.Id" class="btn btn-primary btn-sm" style="float: right" value="Comment" />
+            <br />
+            <div id="FeedbackCommnetField-@feedback.Id" style="display: none">
+                <div class="input-group">
+                    <div class="form-control">
+                        <input id="groupName" name="groupName" type="text"
+                            placeholder="Enter Comment Here" value=""
+                            class="input-large form-control" required />
+                    </div>
+                    <span class="input-group-addon" style="padding: 1px;">
+                        @*<input type="submit" value="Add" class="btn btn-primary btn-sm" onclick="HideComment()" />*@
+                        @Ajax.ActionLink("Add", "_PartialGetGroupWorkFeedbacks", "Feedback", new { id = Model.Id, parentId= feedback.Id }, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "Work-" + Model.Id.ToString()
+                        })
+                        <input type="button" value="Cancel" class="btn btn-danger btn-sm" onclick='@(Html.Raw(String.Format("FeedbackHideComment({0})", Model.Id)))' />
+                    </span>
+                </div>
+            </div>
+            <div id="Feedback-@feedback.Id">
+            @Html.Action("_PartialGetFeedbacksByGroupWorkId", "Feedback", new { id = feedback.Id })    
+                </div>
+        }
+    </div>
+
+</div>
+
+<script>
+    function WorkComment(id) {
+        $("#WorkCommnetField-" + id).show();
+    };
+    
+    function FeedbackComment(id) {
+        $("#FeedbackCommnetField-" + id).show();
+    };
+    
+    function FeedbackHideComment(id) {
+        $("#FeedbackCommnetField-" + id).hide();
+    };
+    function WorkHideComment(id) {
+        $("#WorkCommnetField-" + id).hide();
+    };
+</script>

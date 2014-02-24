@@ -10,6 +10,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 {
     public class FeedbackController : Controller
     {
+        private UnitOfWork unitOfWork = new UnitOfWork();
         //
         // GET: /Feedback/
 
@@ -103,5 +104,48 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return View();
             }
         }
+        public ActionResult _PartialGetGroupWorkFeedbacks(int id)
+        {
+            GroupWork work = unitOfWork.GroupWorkRepository.GetByID(id);
+            return PartialView(work);
+        }
+
+        [HttpPost]
+        public ActionResult _PartialGetGroupWorkFeedbacks(int id, int? parentId = null)
+        {
+
+
+                //id= groupwork id 
+
+
+
+            GroupWork work = unitOfWork.GroupWorkRepository.GetByID(id);
+            return PartialView(work);
+        }
+
+        public ActionResult _PartialGetGroupsBySemesterForFeedback(int id)
+        {
+            ViewBag.ID = id;
+
+            ICollection<Group> groupList = unitOfWork.GroupRepository.Get(s => s.SemesterID == id).OrderByDescending(c => c.RegDate).ToList();
+            return PartialView(groupList);
+        }
+
+        public ActionResult _PartialGetFeedbacksByGroupWorkId(int id)
+        {
+            Feedback feedback = unitOfWork.FeedbackRepository.GetByID(id);
+
+            return PartialView(feedback.Feedbacks);
+        }
+
+        [HttpPost]
+        public ActionResult AddFeedback(int id)
+        {
+
+                //id = feedback parentid   -----  groupwork id parent'ın groupwork id'si ile aynı
+
+            return RedirectToAction("_PartialGetFeedbacksByGroupWorkId", "Feedback", new { id = id });
+        }
+
     }
 }
