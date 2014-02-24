@@ -11,6 +11,7 @@ using CollaborativeLearning.WebUI.Filters;
 using System.Text.RegularExpressions;
 using CollaborativeLearning.WebUI.Membership;
 using System.Web.Helpers;
+using CollaborativeLearning.WebUI.Controllers;
 
 
 
@@ -26,7 +27,10 @@ public class AccountController : Controller
     {
         return View();
     }
-
+    public ActionResult ProfileSegments()
+    {
+        return PartialView();
+    }
     //
     // POST: /Account/LogOn
 
@@ -91,6 +95,10 @@ public class AccountController : Controller
 
     public ActionResult LogOff()
     {
+        int userId = HelperController.GetCurrentUserId();
+        User u = unitOfWork.UserRepository.GetByID(userId);
+        u.LastLockoutDate = DateTime.UtcNow;
+        unitOfWork.Save();
         FormsAuthentication.SignOut();
 
         return RedirectToAction("Index", "Home");

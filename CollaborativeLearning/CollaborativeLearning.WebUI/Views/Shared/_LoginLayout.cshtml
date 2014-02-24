@@ -64,6 +64,11 @@
             <div style="float:initial">
                 <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
             </div>
+            @{if(WebSecurity.IsAuthenticated)
+            {
+                @Html.Action("ProfileSegments","Account",null)
+            }
+            }
         </div>
     </nav>
     <section id="main">

@@ -41,17 +41,8 @@
             <div style="float:initial">
                 <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
             </div>
-            <div class="btn-group" style="float:right; margin-top:10px">
-              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                @User.Identity.Name<span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" style="margin: 0px -117px 0px;">
-                  <li><a class="glyphicon glyphicon-user" href="/User/Profile"> Profile</a></li>
-                  <li><a class="glyphicon glyphicon-pencil" href="#"> Change Password</a></li>
-                  <li class="divider"></li>
-                  <li><a class="glyphicon glyphicon-log-out" href="/Account/LogOff"> Logout</a></li>
-              </ul>
-            </div>
+            @Html.Action("ProfileSegments","Account",null)
+            
         </div><!-- /.container -->
         </nav>
         <div class="container">

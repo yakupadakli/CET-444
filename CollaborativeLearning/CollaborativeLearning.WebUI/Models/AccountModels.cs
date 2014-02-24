@@ -13,35 +13,35 @@ namespace CollaborativeLearning.WebUI.Models
         {
 
             [DataType(DataType.Password)]
-            [Required(ErrorMessage = "Şu anki şifrenizi giriniz.")]
-            [Display(Name = "Şu anki şifre")]
+            [Required(ErrorMessage = "Please enter current password.")]
+            [Display(Name = "Current Password")]
             public string OldPassword { get; set; }
 
 
-            [StringLength(100, ErrorMessage = "{0} en az {2} karatkterden oluşmalı.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} must contain at least {2} characters.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Required(ErrorMessage = "Yeni şifrenizi giriniz.")]
-            [Display(Name = "Yeni şifre")]
+            [Required(ErrorMessage = "Please enter new password.")]
+            [Display(Name = "New Password")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Yeni şifre tekrar")]
-            [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "Şifreniz ve onaylama şifreniz birbiriyle uyuşmuyor.")]
+            [Display(Name = "Confirm New Password")]
+            [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "New password and Confirm password are not same.")]
             public string ConfirmPassword { get; set; }
         }
 
         public class LoginModel
         {
             [Required]
-            [Display(Name = "Kullanıcı Adı")]
+            [Display(Name = "User Name")]
             public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Şifre")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
-            [Display(Name = "Beni hatırla?")]
+            [Display(Name = "Remember me")]
             public bool RememberMe { get; set; }
         }
 
