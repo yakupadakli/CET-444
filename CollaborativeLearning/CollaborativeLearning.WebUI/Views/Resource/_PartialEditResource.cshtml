@@ -11,7 +11,6 @@
     ResourceCategoryEdit.Add(new SelectListItem { Text = "File/Zip", Value = "File/Zip" });
     ResourceCategoryEdit.Add(new SelectListItem { Text = "File/Document", Value = "File/Document" });
     ResourceCategoryEdit.Add(new SelectListItem { Text = "File/Other", Value = "File/Other" });
-    ResourceCategoryEdit.Add(new SelectListItem { Text = "Other", Value = "Other" });
 
 }
 @if (ViewBag.ErrorType == "ResourceEdit")
@@ -125,9 +124,12 @@ HATA:
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div>
-                        @Html.Action("_PartialFileList", "Resource", new { id = Model.Id });
+                <div class="panel-body clearfix">
+                    <div id="PartialFileListContainer" class="clearfix">
+                        <div class="col-lg-12">
+                            @Html.Action("_PartialFileList", "Resource", new { id = Model.Id })
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -168,6 +170,11 @@ HATA:
 </script>
 <script>
     $(document).ready(function () {
-        $(".resourceFileUploadCB").colorbox({ iframe: true, width: "50%", height: "60%" });
+        $(".resourceFileUploadCB").colorbox({
+            iframe: true, width: "50%", height: "60%",
+            onClosed: function () {
+                $('#PartialFileListContainer').load('/Resource/_PartialFileList/@Model.Id');
+            }
+        });
     });
 </script>

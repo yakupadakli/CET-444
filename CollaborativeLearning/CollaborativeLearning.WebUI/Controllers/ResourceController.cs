@@ -7,6 +7,7 @@ using CollaborativeLearning.Entities;
 using CollaborativeLearning.DataAccess;
 using CollaborativeLearning.WebUI.Filters;
 using System.IO;
+using System.IO.Compression;
 namespace CollaborativeLearning.WebUI.Controllers
 {
     public class ResourceController : Controller
@@ -102,36 +103,91 @@ namespace CollaborativeLearning.WebUI.Controllers
             
         }
 
-      
+        public ActionResult DeleteFile(int id)
+        {
+            ResourceFile resourceFile = unitOfWork.ResourceFileRepository.GetByID(id);
+            if (resourceFile != null)
+            {
+                var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), resourceFile.FileUrl);
+                FileInfo fi = new FileInfo(directoryPath);
+                if (fi.Exists)
+                {
+                    fi.Delete();
+                }
+                unitOfWork = new UnitOfWork();
+                unitOfWork.ResourceFileRepository.Delete(id);
+                unitOfWork.Save();
+            }
+            return RedirectToAction("_PartialFileList", new { id = resourceFile.ResourceID });
+        }
 
         public ActionResult Delete(int id)
         {
-            Resource re = unitOfWork.ResourceRepository.GetByID(id);
-
-            if (re != null)
+            try
             {
-                try
+
+                unitOfWork = new UnitOfWork();
+                Resource resource = unitOfWork.ResourceRepository.GetByID(id);
+                if (resource.type != "Text" && resource.type != "Link")
                 {
-                    unitOfWork = new UnitOfWork();
-                    unitOfWork.ResourceRepository.Delete(id);
-                    unitOfWork.Save();
+                    if (resource != null)
+                    {
+                        IEnumerable<ResourceFile> resourceFile = unitOfWork.ResourceFileRepository.Get(r => r.ResourceID == resource.Id);
+
+                        if (resourceFile.Count() > 0)
+                        {
+                            string[] fileUrl = resourceFile.FirstOrDefault().FileUrl.Split('\\');
+                            var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), fileUrl[0]);
+                            DirectoryInfo di = new DirectoryInfo(directoryPath);
+                            if (di != null)
+                            {
+                                Directory.Delete(directoryPath, true);
+                            }
+                            unitOfWork = new UnitOfWork();
+                            unitOfWork.ResourceRepository.Delete(id);
+                            unitOfWork.Save();
+                        }
+                        else
+                        {
+                            var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), resource.Id +"-"+resource.Name);
+                            DirectoryInfo di = new DirectoryInfo(directoryPath);
+                            if (di != null)
+                            {
+                                Directory.Delete(directoryPath, true);
+                            }
+                            unitOfWork = new UnitOfWork();
+                            unitOfWork.ResourceRepository.Delete(id);
+                            unitOfWork.Save();
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The Resource cannot find to delete");
+                        ViewBag.ErrorType = "ResourceAdd";
+                        ViewBag.Message = "The Resource cannot find to delete";
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
+                    if (resource != null)
+                    {
+                        unitOfWork = new UnitOfWork();
+                        unitOfWork.ResourceRepository.Delete(id);
+                        unitOfWork.Save();
+                    }
 
-                    ModelState.AddModelError("", ex);
-                    ViewBag.ErrorType = "ResourceAdd";
-                    ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
-                        + " Detail Error: " + ex.Message;
-                };
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "The Resource cannot find to delete");
+
+                ModelState.AddModelError("", ex);
                 ViewBag.ErrorType = "ResourceAdd";
-                ViewBag.Message = "The Resource cannot find to delete";
+                ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
+                    + " Detail Error: " + ex.Message;
             }
-            return RedirectToAction("_PartialResourceList");
+
+            return RedirectToAction("_PartialAddResource");
         }
         public ActionResult ChangeActiveStatus(int id, string Active)
         {
@@ -165,7 +221,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 model = m;
                 if (model.type.Contains("File"))
                 {
-                    string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), model.Id.ToString() + "-" + model.Name + "-" + DateTime.Today.ToShortDateString());
+                    string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), model.Id.ToString() + "-" + model.Name);
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
@@ -258,7 +314,9 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 unitOfWork = new UnitOfWork();
                 Resource Resourcemodel = unitOfWork.ResourceRepository.GetByID(ResourceID);
-                string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), Resourcemodel.Id.ToString() + "-" + Resourcemodel.Name + "-" + DateTime.Today.ToShortDateString());
+                string urlPath = Path.Combine(Resourcemodel.Id.ToString() + "-" + Resourcemodel.Name);
+
+                string directoryPath = Path.Combine(Server.MapPath("~/Resources/"), Resourcemodel.Id.ToString() + "-" + Resourcemodel.Name);
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
@@ -275,7 +333,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                         resourceFile.FileName = fileName;
                         resourceFile.FileSize = file.ContentLength;
                         resourceFile.FileType = exten;
-                        resourceFile.FileUrl = fullPath;
+                        resourceFile.FileUrl = Path.Combine(urlPath, fileNameEncoded);
                         resourceFile.regDate = DateTime.Now;
                         resourceFile.regUserID = HelperController.GetCurrentUserId();
                         resourceFile.ResourceID = ResourceID;
@@ -287,10 +345,12 @@ namespace CollaborativeLearning.WebUI.Controllers
 
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
-                        throw;
+                        ModelState.AddModelError("", ex);
+                        ViewBag.ErrorType = "ResourceAdd";
+                        ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
+                            + " Detail Error: " + ex.Message;
                     }
                 }
             }
@@ -298,6 +358,42 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
        
+        #endregion
+
+        #region Download Files
+        public ActionResult DownloadAllResourceFiles(int id)
+        {
+            Resource resource = unitOfWork.ResourceRepository.GetByID(id);
+            if (resource != null)
+            {
+                ResourceFile resourceFile = unitOfWork.ResourceFileRepository.Get(r => r.ResourceID == resource.Id).FirstOrDefault();
+                if (resourceFile != null)
+                {
+                    string[] file = resourceFile.FileUrl.Split('\\');
+                    var directoryPath = Path.Combine(Server.MapPath("~/Resources/"), file[0]);
+                    var archivePath = Path.Combine(Server.MapPath("~/Resources/"), "Archive", resource.Name + ".zip");
+                    FileInfo fi = new FileInfo(archivePath);
+                    if (fi.Exists)
+                    {
+                        fi.Delete();
+                    }
+                    if (Directory.Exists(directoryPath))
+                    {
+                        ZipFile.CreateFromDirectory(directoryPath, archivePath);
+
+                        return File(archivePath, "Application/x-zip-compressed", resource.Name + ".zip");
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+
+                }
+            }
+            return View();
+        }
+
         #endregion
 
     }

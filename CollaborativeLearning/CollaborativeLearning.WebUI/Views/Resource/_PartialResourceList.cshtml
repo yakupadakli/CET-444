@@ -12,19 +12,19 @@
         <table class="table table-hover table-responsive table-striped">
             <thead>
                 <tr>
-                    <td align="center" class="col-sm-1">
+                    <td align="left" class="col-sm-1">
                         <b>Active</b>
                     </td>
-                    <td align="center">
+                    <td align="left">
                         <b>Resource Name</b>
                     </td>
-                    <td align="center">
+                    <td align="left">
                         <b>Category</b>
                     </td>
-                    <td align="center">
+                    <td align="left">
                         <b>Content</b>
                     </td>
-                    <td align="center" class="col-sm-2">
+                    <td align="left" class="col-sm-2">
                         <b>Action</b>
                     </td>
                 </tr>
@@ -89,21 +89,15 @@
 
                         @if (item.type.Substring(0, 3) == "Fil")
                         {
-                        @Ajax.ActionLink(" ", "DownloadAllResourceFiles", "Resource", new { id = item.Id },
-                                new AjaxOptions
-                                {                                   
-                                    UpdateTargetId = "ResourceTableContianner",
-                                    LoadingElementId = "loadingResourceOps"
-                                },
-                            new { @class = "btn-sm btn-primary glyphicon glyphicon-download-alt",alt="All Files Download",title="Download all files" })
+                        @Html.ActionLink(" ", "DownloadAllResourceFiles", "Resource", new { id = item.Id }, new {@class = "btn-sm btn-primary glyphicon glyphicon-download-alt",alt="All Files Download",title="Download all files" })
+                       
                         }
-                        
                         @Ajax.ActionLink(" ", "Delete", "Resource", new { id = item.Id },
                                 new AjaxOptions
                                 {
                                     
                                     Confirm = "Are you sure to delete this resource",
-                                    UpdateTargetId = "ResourceTableContianner",
+                                    UpdateTargetId = "ResourcePartialContainner",
                                     LoadingElementId = "loadingResourceOps"
                                 },
                                 new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "All Files Download", title = "Delete Resource" })
