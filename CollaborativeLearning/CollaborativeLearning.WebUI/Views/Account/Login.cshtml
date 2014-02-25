@@ -16,7 +16,7 @@
         {
         <h2 class="form-signin-heading">Please sign in</h2>
         
-        <font color="red">@Html.ValidationSummary()</font>
+        @*<font color="red">@Html.ValidationSummary()</font>*@
         @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level form-control", @placeholder = "Enter First Name", required = "required " })
         @Html.ValidationMessageFor(m => m.UserName)
         @Html.PasswordFor(m => m.Password, new { @class = "input-block-level form-control", @placeholder = "Enter Password", required = "required " })        
@@ -41,6 +41,14 @@
         <div class="alert alert-danger" id="Failure" style="display:none">
                 <div class="col-lg-12"><div class="glyphicon glyphicon-ban-circle"> </div> @TempData["failed"]</div>
         </div>
+        <div class="alert alert-danger" id="Failed" style="display:none">
+                <div class="col-lg-12"><div class="glyphicon glyphicon-ban-circle"> </div> @ViewBag.failed</div>
+        </div>
+        <div class="alert alert-danger" id="Lockout" style="display:none">
+                <div class="col-lg-12"><div class="glyphicon glyphicon-ban-circle"> </div> 
+                    Your account is temporarily locked. Please reset your password. Please click @Html.ActionLink("here","ForgetPassword","Account") to reset your password.
+                </div>
+        </div>
     </div>
 
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -48,12 +56,19 @@
     $(document).ready(function () {
         $("#Successful").hide();
         $("#Failure").hide();
+        $("#Lockout").hide();
 
         if ('@TempData["success"]' != "") {
             $("#Successful").show();
         }
         if ('@TempData["failed"]' != "") {
             $("#Failure").show();
+        }
+        if ('@ViewBag.failed' != "") {
+            $("#Failed").show();
+        }
+        if ('@ViewBag.lockout' == "lockout") {
+            $("#Lockout").show();
         }
     });
 

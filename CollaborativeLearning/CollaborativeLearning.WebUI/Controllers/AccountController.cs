@@ -82,7 +82,15 @@ public class AccountController : Controller
             }
             else
             {
-                ModelState.AddModelError("", "The user name or password provided is invalid.");
+                unitOfWork = new UnitOfWork();
+
+                User user = unitOfWork.UserRepository.Get(u => u.Username == model.UserName).FirstOrDefault();
+                if (user.IsLockedOut)
+                {
+                    ViewBag.lockout = "lockout";
+                }
+                else
+                    ViewBag.failed = "The user name or password provided is invalid.";
             }
         }
 
@@ -429,8 +437,8 @@ public class AccountController : Controller
             {
                 WebMail.SmtpServer = "smtp.gmail.com";
                 WebMail.EnableSsl = true;
-                WebMail.UserName = "oguzhankml@gmail.com";
-                WebMail.Password = "080990Oguzhan";
+                WebMail.UserName = "cetyool@gmail.com";
+                WebMail.Password = "Cl2Kb0Boun08!Ayoo";
                 WebMail.SmtpPort = 587;
 
                 string mesaj = "Recovering the password";
@@ -439,8 +447,8 @@ public class AccountController : Controller
                 mesaj += "<p><a href='" + passwordLink + "'> Click here to change your password.</a></p>";
                 mesaj += "<p> If you didn't request a new password, let us know immediately.</p>";
 
-                mesaj += "<p>CET 314: Computer Networks & Commuication</p>";
-                mesaj += "<p>" + helpLink + "</p>";
+                mesaj += "<p>CET YOOL</p>";
+                mesaj += "<p><a href='" + helpLink + "'> Help</a></p>";
 
                 user.PasswordVerificationToken = encrypted;
                 user.PasswordVerificationTokenExpirationDate = DateTime.Now.AddHours(1);
@@ -448,9 +456,9 @@ public class AccountController : Controller
 
                 WebMail.Send(
                         user.Email,
-                        "Cet 314 Somebody requested a new password for your account‏",
+                        "Somebody requested a new password for your CET YOOL account‏",
                         mesaj,
-                        "oguzhankml@gmail.com"
+                        "cetyool@gmail.com"
                     );
 
                 TempData["success"] = "A link which is valid for next one hour to reset your password has been sent.";
@@ -512,7 +520,10 @@ public class AccountController : Controller
                 if (true)
                 {
                     u.Password = CollaborativeLearning.WebUI.Membership.Crypto.HashPassword(model.NewPassword);
-
+                    u.IsLockedOut = false;
+                    u.PasswordVerificationToken = null;
+                    u.PasswordVerificationTokenExpirationDate = null;
+                    u.PasswordFailuresSinceLastSuccess = 0;
                     unitOfWork.UserRepository.Update(u);
                     unitOfWork.Save();
 
