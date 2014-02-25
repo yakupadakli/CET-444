@@ -1,4 +1,4 @@
-﻿@model ICollection<CollaborativeLearning.Entities.StudentCourseRequest>
+﻿@model ICollection<CollaborativeLearning.Entities.User>
 
 
 <div class="panel panel-default">
@@ -41,24 +41,24 @@
                 {
                     <tr>
                         <td>
-                            @item.User.FullName
+                            @item.FullName
                         </td>
                         <td>
-                            @item.User.Username
+                            @item.Username
                         </td>
                         <td>
-                            @item.User.Email
+                            @item.Email
                         </td>
                         <td>
-                            @item.User.Gender
+                            @item.Gender
                         </td>
                         <td>
-                            @item.User.PhoneNumber
+                            @item.PhoneNumber
                         </td>
                         <td>
-                            @{if (item.User.Groups.Count > 0)
+                            @{if (item.Groups.Count > 0)
                                 {
-                                    @item.User.Groups.FirstOrDefault().GroupName
+                                    @item.Groups.FirstOrDefault().GroupName
                                 }
                                 else
                                 {
@@ -67,7 +67,7 @@
                             }
                         </td>
                         <td>
-                            @Ajax.ActionLink("Remove", "RemoveUserSemester", "User", new { userId = item.User.Id, semesterId = ViewBag.semesterId },
+                            @Ajax.ActionLink("Remove", "RemoveUserSemester", "User", new { userId = item.Id, semesterId = ViewBag.semesterId },
                                 new AjaxOptions
                                 {
                                     HttpMethod = "POST",

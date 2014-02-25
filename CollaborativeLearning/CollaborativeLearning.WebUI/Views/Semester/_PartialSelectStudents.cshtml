@@ -14,9 +14,9 @@
 
     <div class="input-group">
         <select multiple="multiple" style="min-width:150px" id="StudentMultiSelect" name="StudentMultiSelect" class="form-control">
-            @foreach (var item in ViewBag.AllStudents as List<CollaborativeLearning.Entities.StudentCourseRequest>)
+            @foreach (var item in ViewBag.AllStudents as List<CollaborativeLearning.Entities.User>)
             {
-                <option value="@item.Id">@item.User.FullName</option>
+                <option value="@item.Id">@item.FullName</option>
             }
         </select>
         <span class="input-group-addon" style="padding:1px;">
