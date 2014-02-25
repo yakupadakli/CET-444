@@ -12,7 +12,9 @@
 }
 <div class="panel panel-default">
     <div class="panel-body clearfix">
-        @using (Ajax.BeginForm("AddCourseRequest", "User",
+       
+
+        @using (Ajax.BeginForm("AddCourse", "User",
             new AjaxOptions
             {
                 HttpMethod = "POST",
@@ -23,14 +25,9 @@
         {
             <div class="input-group">
                 @Html.Hidden("UserID", CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId())
-                <select multiple="multiple" style="min-width:150px" id="AddCourse" name="CourseID" class="form-control">
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.Id ">@item.semesterName</option>
-                    }
-                </select>
+                @Html.TextBox("CourseID", null, new { id = "CourseID", @class = "form-control", placeholder = "Enter Course Registration Code" })
                 <span class="input-group-addon" style="padding:1px;">
-                    <button type="submit" class="btn btn-primary" ><i class="glyphicon glyphicon-plus"></i>Add Course</button>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Add Course</button>
                 </span>
             </div>
         }
@@ -39,11 +36,3 @@
 
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $("#AddCourse").select2({
-            placeholder: "Type CourseName",
-            allowClear: true
-        });
-    });
-</script>
