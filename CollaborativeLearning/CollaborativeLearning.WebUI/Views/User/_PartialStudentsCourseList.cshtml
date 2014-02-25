@@ -1,4 +1,4 @@
-﻿@model ICollection<CollaborativeLearning.Entities.StudentCourseRequest>
+﻿@model ICollection<CollaborativeLearning.Entities.Semester>
 @{
 
 }
@@ -13,49 +13,40 @@
     <tbody>
         @if (Model.Count > 0)
         {
-            foreach (var item in Model.Where(s=>s.Semester.isActive==true))
+            foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Semester.CourseName + "." + item.Semester.Section, "Index", "Groups",
-                            new{semesterID = item.SemesterId}, 
+                        @Html.ActionLink(item.CourseName + "." + item.Section, "Index", "Groups",
+                            new { semesterID = item.Id },
                             new { id = "full" })
                     </td>
                     <td>
 
-                        @Html.ActionLink(item.Semester.year + "-" + item.Semester.semester, "Index", "Groups",
-                            new {semesterID = item.SemesterId },
+                        @Html.ActionLink(item.year + "-" + item.semester, "Index", "Groups",
+                            new { semesterID = item.Id },
                             new { id = "full" })
 
                     </td>
                     <td>
                         <span>
                             @*<a href="@Url.Action("Index", "Groups", new { userID = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId(), semesterID = item.Id })" class="btn-sm btn-primary">
-                                <i class="glyphicon glyphicon-align-right glyphicon-circle-arrow-right"> Go</i>
-                            </a>*@
+                                    <i class="glyphicon glyphicon-align-right glyphicon-circle-arrow-right"> Go</i>
+                                </a>*@
                         </span>
                         <span>
-                            @if (item.isApproved)
-                            {
-                                 @Ajax.ActionLink("Drop Course", "DropCourse", "User",new{id=item.SemesterId},
-                            new AjaxOptions {
-                                Confirm="Are you sure DROP this course",
-                                HttpMethod="POST",
-                                LoadingElementId = "loadingIndicator",
-                                UpdateTargetId = "UserCourseContainner"
-                                
-                            }, new { @class = "btn-sm btn-danger" })
-                            }else{
-                                 @Ajax.ActionLink("Cancel Concent", "CancelConcent", "User", new { id = item.Id },
-                            new AjaxOptions {
-                                Confirm="Are you sure CANCEL CONCENT!",
-                                HttpMethod="POST",
-                                LoadingElementId = "loadingIndicator",
-                                UpdateTargetId = "UserCourseContainner"
-                                
-                            }, new { @class = "btn-sm btn-danger" })
-                            }
                            
+                                @Ajax.ActionLink("Drop Course", "DropCourse", "User", new { id = item.Id },
+                            new AjaxOptions
+                            {
+                                Confirm = "Are you sure DROP this course",
+                                HttpMethod = "POST",
+                                LoadingElementId = "loadingIndicator",
+                                UpdateTargetId = "UserCourseContainner"
+
+                            }, new { @class = "btn-sm btn-danger" })
+                            
+
                         </span>
 
                     </td>

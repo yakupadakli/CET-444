@@ -55,47 +55,26 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialStudentsCourseList(int id)
         {
             unitOfWork = new UnitOfWork();
-            List<StudentCourseRequest> scr = unitOfWork.StudentCourseRequestRepository.Get(s => s.UserId == id).ToList();
-            List<Semester> semesters = unitOfWork.SemesterRepository.Get().ToList();
-            List<StudentCourseRequest> model = new List<StudentCourseRequest>();
-            foreach (var semester in semesters)
-            {
-                foreach (var item in scr)
-                {
-                    if (semester.Id==item.SemesterId)
-                    {
-                        model.Add(item);
-                        
-                    }
-                }
-            }
-
-            return PartialView(model);
+            User user = unitOfWork.UserRepository.GetByID(id);
+            
+            return PartialView(user.Semesters.Where(s=>s.isActive==true).ToList());
         }
 
-        public ActionResult AddCourseRequest(int UserID, int CourseID)
+        public ActionResult AddCourse(int UserID, string CourseID)
         {
             unitOfWork = new UnitOfWork();
             User user = unitOfWork.UserRepository.GetByID(UserID);
-            StudentCourseRequest userAprovalList = unitOfWork.StudentCourseRequestRepository.Get(ua => ua.UserId == UserID && ua.SemesterId == CourseID).FirstOrDefault();
-            if (userAprovalList==null)
-            {
-                var semester = unitOfWork.SemesterRepository.GetByID(CourseID);
-                if (semester!=null)
+            
+                var semester = unitOfWork.SemesterRepository.Get(s=>s.registerCode==CourseID).FirstOrDefault();
+                if (semester!=null && semester.isActive==true )
                 {
-                    StudentCourseRequest scr = new StudentCourseRequest();
-                    scr.SemesterId = semester.Id;
-                    scr.UserId = user.Id;
-                    scr.isApproved = false;
-                    scr.regDate = DateTime.Now;
-                    scr.reqDate = DateTime.Now;
-                    scr.regUserID = HelperController.GetCurrentUserId();
-                    unitOfWork.StudentCourseRequestRepository.Insert(scr);
-                    user.Semesters.Add(semester);
-                    unitOfWork.Save();
-
+                        user.Semesters.Add(semester);
+                        unitOfWork.Save();
+                        ViewBag.AddCourseSuccess = "true";
+                }else{
+                    ViewBag.AddCourseSuccess = "false";
                 }
-            }
+            
             return PartialView("_PartialUserCourse");
         }
         public ActionResult DropCourse(int id)
@@ -108,8 +87,6 @@ namespace CollaborativeLearning.WebUI.Controllers
                 try
                 {
                     user.Semesters.Remove(semester);
-                    StudentCourseRequest userAproval = unitOfWork.StudentCourseRequestRepository.Get(s => s.UserId == user.Id && s.SemesterId == semester.Id).FirstOrDefault();
-                    unitOfWork.StudentCourseRequestRepository.Delete(userAproval.Id);
                     unitOfWork.Save();
                 }
                 catch (Exception ex)
