@@ -5,7 +5,7 @@
     int presentYear = DateTime.Now.Year;
     for (int i = 0; i < 10; i++)
     {
-        yearList.Add(new SelectListItem { Text = (presentYear - 1 + i).ToString(), Value = ((presentYear - 1) + i).ToString() });
+        yearList.Add(new SelectListItem { Text = (presentYear+ i).ToString(), Value = ((presentYear) + i).ToString() });
     }
     List<SelectListItem> semesterList = new List<SelectListItem>();
     semesterList.Add(new SelectListItem { Text = "Fall", Value = "1" });
