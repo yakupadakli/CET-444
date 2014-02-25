@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CET 314: Computer Networks & Commuication</title>
+    <title>YOOL</title>
     <script src="~/Content/Template/js/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -72,7 +72,11 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div style="float:initial">
-                <h1 class="navbar-brand" style="padding:0px;">CET 314: Computer Networks & Commuication</h1>
+                <h1 class="navbar-brand" style="padding:0px;">
+                    <a href="@Url.Action("Index", "Home")" style="text-decoration:none;">
+                        YOOL
+                    </a>
+                </h1>
             </div>
             @Html.Action("ProfileSegments","Account",null)
         </div><!-- /.container -->
