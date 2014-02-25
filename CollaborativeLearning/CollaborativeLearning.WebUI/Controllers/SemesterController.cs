@@ -391,9 +391,9 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult _PartialGetStudentsBySemester(int id)
         {
-            ICollection<StudentCourseRequest> UserList = unitOfWork.StudentCourseRequestRepository.Get(s => s.Semester.Id == id && s.isApproved == true).ToList();
+            //ICollection<User> UserList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id )).ToList();
 
-            //var studentsList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id  && s.RoleID == 3 && s.IsApproved == true).Count() > 0);
+            var UserList = unitOfWork.UserRepository.Get(s => s.Semesters.Where(se => se.Id == id && s.RoleID == 3).Count() > 0);
             ViewBag.semesterId = id;
             return PartialView(UserList);
         }
@@ -401,12 +401,30 @@ namespace CollaborativeLearning.WebUI.Controllers
         public ActionResult _PartialSelectStudents(int id)
         {
             ViewBag.ID = id;
+            unitOfWork = new UnitOfWork();
+            var StudentSemesterList = unitOfWork.SemesterRepository.GetByID(id).Users.ToList();
+            var AllList = unitOfWork.UserRepository.Get();
+            bool t = false;
+            List<User> StudentList = new List<User>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                foreach (var ss in StudentSemesterList)
+                {
+                    if (listItem.Id == ss.Id)
+                    {
+                        t = true;
+                    }
+                }
+                if (!t)
+                {
+                    StudentList.Add(listItem);
+                }
+            }
 
-            ICollection<StudentCourseRequest> UserList = unitOfWork.StudentCourseRequestRepository.Get(s => s.Semester.Id == id && s.isApproved == false).ToList();
 
 
-
-            ViewBag.AllStudents = UserList;
+            ViewBag.AllStudents = StudentList;
             return PartialView();
         }
 

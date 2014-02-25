@@ -5,7 +5,7 @@
 }
 @section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li><a href="@Url.Action("Index", "Semester", new { id = 0 })">Semester</a></li>
+    <li><a href="@Url.Action("Index", "Semester", new { id = 0 })">Courses</a></li>
     <li class="active">@Model.semesterName</li>
 }
 @section Header{
@@ -13,15 +13,15 @@
         @{
             if (Model.semester == 1)
             {
-            <h3>Fall - @Model.year Semester</h3>        
+            <h3>Fall - @Model.semesterName Course</h3>        
             }
             else if (Model.semester == 2)
             {
-            <h3>Spring - @Model.year Semester</h3>        
+            <h3>Spring - @Model.semesterName Course</h3>        
             }
             else if (Model.semester == 3)
             {
-            <h3>Summer - @Model.year Semester</h3>        
+            <h3>Summer - @Model.semesterName Course</h3>        
             }
         }
     </div>
@@ -30,8 +30,8 @@
 <br />
 
 <ul class="nav nav-tabs">
-    <li class="active"><a id="groups_tab" href="#Groups" data-toggle="tab">Groups</a></li>
-    <li ><a id="scenarios_tab" href="#Scenarios" data-toggle="tab">Scenarios</a></li>
+    <li ><a id="groups_tab" href="#Groups" data-toggle="tab">Groups</a></li>
+    <li class="active"><a id="scenarios_tab" href="#Scenarios" data-toggle="tab">Scenarios</a></li>
     <li><a id="works_tab" href="#Works" data-toggle="tab">Submitted Works</a></li>
   <li><a id="resourcesSemester_tab" href="#resourceSemester" data-toggle="tab">Resources</a></li>
     <li><a id="feedbacks_tab" href="#Feedbacks" data-toggle="tab">Feedbacks</a></li>
