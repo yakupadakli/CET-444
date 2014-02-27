@@ -285,6 +285,20 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetScenariosBySemester", "Scenario", new { id = SemesterID });
         }
 
+        public ActionResult AddScenarioToSemester(int SemesterID, int scenarioId)
+        {
+            var semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+
+            var s = unitOfWork.ScenarioRepository.GetByID(scenarioId);
+                semester.Scenarios.Add(s);
+
+            unitOfWork.Save();
+            ViewBag.ID = SemesterID;
+            ViewBag.AllScenarios = unitOfWork.ScenarioRepository.Get();
+            return RedirectToAction("_PartialGetScenariosBySemester", "Scenario", new { id = SemesterID });
+        }
+
+
         public ActionResult AddStudentsToSemester(int SemesterID, string[] StudentMultiSelect)
         {
             unitOfWork = new UnitOfWork();
