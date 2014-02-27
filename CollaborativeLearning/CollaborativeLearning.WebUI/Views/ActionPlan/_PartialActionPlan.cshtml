@@ -30,11 +30,11 @@
       </div> 
 @foreach (var item in Model)
 {
-    <div class="panel panel-primary">
+    <div class="@{if(item.isActive){<text>panel-primary</text>}else{<text>panel-info </text>}}">
         <div class="panel-heading">
             <div class="col-lg-4">
                 <div>
-                    <a class="studentActionPlanCollapse" id="@item.Id" href="#collapseActionPlan_@item.Id" data-toggle="collapse" style="color:white;text-decoration:none;">
+                    <a class="studentActionPlanCollapse" id="@item.Id" href="#collapseActionPlan_@item.Id" data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
                         Action Plan @item.Id
                         <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                     </a>
@@ -54,6 +54,33 @@
                             LoadingElementId = "loadingACDelete",
                         },
                         new {@class="btn btn-danger btn-sm" })
+                    
+                    @if (item.isActive)
+                    {
+
+                    @Ajax.ActionLink("Inactive", "ChangeActiveStatus", "ActionPlan", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "studentActionPlanContainer",
+                                    LoadingElementId = "loadingACDelete"
+                                },
+                        new { @class = "btn btn-sm btn-danger ", @id="actionPlanChangesStatusOff_"+item.Id  })
+                        
+                    }
+                    else
+                    {
+                    @Ajax.ActionLink("Active", "ChangeActiveStatus", "ActionPlan", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "studentActionPlanContainer",
+                                    LoadingElementId = "loadingACDelete"
+                                },
+                                    new { @class = "btn btn-sm btn-success", @id="actionPlanChangesStatusOn_"+item.Id })
+                    }
+                    <script>
+                        $("#actionPlanChangesStatusOff_@item.Id").html("<span class='glyphicon glyphicon-off'></span> Deactivate");
+                        $("#actionPlanChangesStatusOn_@item.Id").html("<span class='glyphicon glyphicon-play-circle'></span> Activate");
+                    </script>
                     @*<a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                         <span class='glyphicon glyphicon-remove'></span> Delete 
                     </a>*@
@@ -64,7 +91,6 @@
         <div class="panel-body collapse" id="collapseActionPlan_@item.Id">
             @Html.Raw(HttpUtility.HtmlDecode(item.Content))
             <br />
-            Is Active : @item.isActive
         </div>
         <div class="panel-body" id="updateActionPlanForm_@item.Id" style="display:none;">
             @Html.Action("_PartialActionPlanUpdate", "ActionPlan", new {

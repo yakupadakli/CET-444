@@ -144,5 +144,26 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return PartialView(ActionPlan);
         }
+
+        public ActionResult ChangeActiveStatus(int id, string Active, int scenarioId)
+        {
+            unitOfWork = new UnitOfWork();
+            if (Active == "True")
+            {
+                unitOfWork.ActionPlanRepository.GetByID(id).isActive = false;
+
+            }
+            else
+            {
+                unitOfWork.ActionPlanRepository.GetByID(id).isActive = true;
+
+            }
+            unitOfWork.Save();
+            if (scenarioId != null)
+                return RedirectToAction("_PartialActionPlan", new { id = scenarioId });
+            else
+                return RedirectToAction("Index", "Scenario");
+        }
+
     }
 }

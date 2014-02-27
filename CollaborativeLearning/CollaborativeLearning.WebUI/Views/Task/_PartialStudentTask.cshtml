@@ -29,15 +29,19 @@
             </div>
         </div>
 <div id="contentStudentTask">
+    @{
+        int i = 0;
+    }
     @foreach (var item in Model)
     {
+        i++;
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="col-lg-4">
                     <div>
                         <a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id" 
                             data-toggle="collapse" style="color:white;text-decoration:none;">
-                            @item.TaskName 
+                            @item.TaskName
                             <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                         </a>
                     </div>
@@ -56,6 +60,38 @@
                                     LoadingElementId = "loadingDelete",
                                 },
                                new {@class="btn btn-danger btn-sm" })
+                        @if(i < Model.Count())
+                        {
+                            @Ajax.ActionLink(" ", "TaskDown", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "studentTaskContainer",
+                                    LoadingElementId = "loadingDelete",
+                                },
+                               new {@class="btn btn-primary glyphicon glyphicon-chevron-down"})
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                        }
+                        @if(i > 1)
+                        {
+                            @Ajax.ActionLink(" ", "TaskUp", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "studentTaskContainer",
+                                    LoadingElementId = "loadingDelete",
+                                },
+                               new {@class="btn btn-primary glyphicon glyphicon-chevron-up" })
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                        }
                        @* <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                             <span class='glyphicon glyphicon-remove'></span> Delete 
                         </a>*@

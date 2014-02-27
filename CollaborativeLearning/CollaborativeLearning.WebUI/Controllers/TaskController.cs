@@ -63,12 +63,12 @@ namespace CollaborativeLearning.WebUI.Controllers
             
             if (id.HasValue)
             {
-                tasks = unitOfWork.ScenarioRepository.GetByID(id).Tasks.OrderBy(t => t.RegDateTime);
+                tasks = unitOfWork.ScenarioRepository.GetByID(id).Tasks.OrderBy(t => t.OrderID);
                 
             }
             else
             {
-                tasks = unitOfWork.TaskRepository.Get().OrderByDescending(t => t.RegDateTime);
+                tasks = unitOfWork.TaskRepository.Get().OrderBy(t => t.OrderID);
             }
 
             return tasks;
@@ -94,8 +94,16 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (task != null)
                 {
+                    int orderId = 1;
+                    if (scenarioId != null)
+                    {
+                        Task t = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.OrderByDescending(ta=>ta.OrderID).FirstOrDefault();
+                        if(t != null)
+                            orderId = t.OrderID + 1;
+                    }
                     task.RegUserId = HelperController.GetCurrentUserId();
                     task.RegDateTime = DateTime.Now;
+                    task.OrderID = orderId;
                     unitOfWork.TaskRepository.Insert(task);
                     unitOfWork.Save();
 
@@ -105,6 +113,8 @@ namespace CollaborativeLearning.WebUI.Controllers
                         Scenario s = unitOfWork.ScenarioRepository.GetByID(scenarioId);
                         unitOfWork.TaskRepository.GetByID(task.Id).Scenarios.Add(s);
                         unitOfWork.Save();
+                        unitOfWork = new UnitOfWork();
+                        
                         return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
                         
                     }
@@ -127,6 +137,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id, int? scenarioId = null)
         {
+            if (scenarioId != null)
+            {
+                Task task = unitOfWork.TaskRepository.GetByID(id);
+
+                IEnumerable<Task> nextTasks = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.Where(t => t.OrderID > task.OrderID);
+                foreach (var item in nextTasks)
+                {
+                    item.OrderID--;
+                }
+
+                unitOfWork.Save();
+            }
             unitOfWork.TaskRepository.Delete(id);
             unitOfWork.Save();
             return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
@@ -173,16 +195,6 @@ namespace CollaborativeLearning.WebUI.Controllers
                     unitOfWork.Save();
                     return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
 
-                    //if (TempData["scenarioId"] != null)
-                    //{
-                    //    int id = (int)TempData["scenarioId"];
-                    //    IEnumerable<Task> Tasks;
-                    //    Tasks = GetTask(id);
-                    //    //return Json(Tasks, JsonRequestBehavior.AllowGet);
-                    //    return PartialView("_PartialTaskUpdate", task);
-                    //    //return RedirectToAction("Index", "Scenario", new {id= id });
-                    //}
-                    //return PartialView("_PartialStudentTask");
                 }
             }
             catch
@@ -190,6 +202,48 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return PartialView(task);
             }
             return PartialView(task);
+        }
+
+        public ActionResult TaskDown(int id, int? scenarioId = null)
+        {
+            if (scenarioId != null)
+            {
+                Task lastTask = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.OrderByDescending(ta => ta.OrderID).FirstOrDefault();
+                int lastOrderId = lastTask.OrderID;
+
+                Task t1 = unitOfWork.TaskRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId < lastOrderId)
+                {
+                    int newId = oldId + 1;
+                    Task t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
+        }
+
+        public ActionResult TaskUp(int id, int? scenarioId = null)
+        {
+            if (scenarioId != null)
+            {
+                Task firstTask = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.OrderBy(ta => ta.OrderID).FirstOrDefault();
+                int firstOrderId = firstTask.OrderID;
+
+                Task t1 = unitOfWork.TaskRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId > firstOrderId)
+                {
+                    int newId = oldId - 1;
+                    Task t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).Tasks.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            return RedirectToAction("_PartialStudentTask", new { id = scenarioId });
         }
     }
 }
