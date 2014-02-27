@@ -3,16 +3,19 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_GroupLayout.cshtml";
     CollaborativeLearning.Entities.User user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
+
     CollaborativeLearning.Entities.Semester Semester = ViewData["semester"] as CollaborativeLearning.Entities.Semester;
 
 }
-
+@section OwnGroupLink{
+    <h4>My Group</h4>
+    }
 @section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     
     @if (Model != null)
     {
-        <li>@Semester.CourseName.@Semester.Section</li>
+        <li>@Model.Semester.CourseName.@Model.Semester.Section</li>
         <li class="active">@Model.GroupName</li>
     }else{
         <li class="active">@Semester.CourseName.@Semester.Section</li>
@@ -77,7 +80,7 @@ else
                 <div class="panel panel-default">
                     <div class="panel-heading">Group List</div>
                     <div class="panel-body">
-                        @*@Html.Action("GetGroupListTable", "Groups", new { SemesterID = Semester.Id })*@
+                        @Html.Action("GetGroupListTable", "Groups", new { SemesterID = Semester.Id })
                     </div>
                 </div>
             </div>
@@ -85,7 +88,7 @@ else
                 <div class="panel panel-default">
                     <div class="panel-heading">Scenario List</div>
                     <div class="panel-body">
-                        @*@Html.Action("GetScenarioListTable")*@
+                        @Html.Action("GetScenarioListTable", "Groups", new {SemesterID =Semester.Id })
                     </div>
                 </div>
             </div>

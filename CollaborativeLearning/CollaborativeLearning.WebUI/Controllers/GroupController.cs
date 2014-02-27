@@ -79,7 +79,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 }
             }
             ViewBag.AllUsers = userlist;
-
+        
             var groupUserList = unitOfWork.GroupRepository.Get(s => s.Id == id).FirstOrDefault().Users.Where(u => u.RoleID == 3).ToList();
 
             ViewBag.ID = id;
