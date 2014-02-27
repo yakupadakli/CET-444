@@ -87,22 +87,22 @@
             <div class="col-md-3">
 
                 <div id="groupScenariosNav" class="list-group" style="">
-                    <div class="main_title"><h4>My Group</h4></div>
+                    <div class="main_title">@RenderSection("OwnGroupLink",true)</div>
                     @{
-                        CollaborativeLearning.Entities.User  user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
+                        CollaborativeLearning.Entities.User user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
                         if (user.Groups.Count > 0)
                         {
 
-                            <a id="group" href="#Groups" class="list-group-item" data-toggle="tab">Group Scenario(s)</a>
-                            @Html.Action("_PartialGetGroupScenarios", "Groups")
+                           <a id="group" href="" class="list-group-item" data-toggle="tab">Group Scenario(s)</a>
+                            @Html.Action("_PartialGetGroupScenarios", "Groups", new { SemesterID = ViewBag.SemesterID })
                             <a id="meeting" href="#Groups" class="list-group-item" data-toggle="tab">Group Meetings</a>
                         }
                         else
                         {
                             <span>You don't have group yet!</span>
+                        }
                     }
-                    }
-               </div>
+                </div>
                 <div id="groupGeneralNav" class="list-group" style="">
                     <div class="main_title"><h4>Course</h4></div>
                     <span class="dropdown-submenu ">
@@ -123,7 +123,7 @@
 
                         </ul>
                     </span>
-                    <a id="works" href="#Groups" class="list-group-item" data-toggle="tab">Submitted Works</a>
+                    <a id="works" href="#Groups" class="list-group-item" data-toggle="tab">All Submitted Works</a>
                     <a id="reflections" href="#Groups" class="list-group-item" data-toggle="tab">Reflection</a>
                 </div>
 

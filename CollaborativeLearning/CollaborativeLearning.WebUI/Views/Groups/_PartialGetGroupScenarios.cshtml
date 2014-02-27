@@ -2,14 +2,23 @@
 
 
 @{
-    foreach (var item in Model)
+    if (Model.Count > 0)
     {
-        <a href="@Url.Action("Scenario","Group",new {id = @item.Id})" class="list-group-item" style="padding-left: 30px;">
-
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            @item.Name
-        </a>
+        foreach (var item in Model)
+        {
+            <a href="@Url.Action("Scenario","Groups",new {id = @item.Id,GroupID=ViewBag.SemesterID})" class="list-group-item" style="padding-left: 30px;">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                @item.Name
+            </a>
+        }
     }
+    else
+    {
+        <a href="" class="list-group-item" style="padding-left: 30px;">
+
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                Any Scenario is not assigned to your group yet.
+            </a>
+    }
+
 }
-
-

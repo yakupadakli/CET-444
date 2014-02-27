@@ -18,24 +18,22 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             User user = unitOfWork.UserRepository.GetByID(userID);
             Semester semester = unitOfWork.SemesterRepository.GetByID(semesterID);
-            StudentCourseRequest scr = unitOfWork.StudentCourseRequestRepository.Get(s => s.UserId == user.Id && s.SemesterId == semesterID).FirstOrDefault();
             Group group = new Group();
-            if (user != null && semester != null && semester.isActive == true & scr.isApproved == true)
+            if (user != null && semester != null && semester.isActive == true)
             {
+                ViewData["semester"] = semester;
+                ViewBag.SemesterID = semester.Id;
                 if (user.Groups.Count() > 0)
                 {
+                    ViewBag.SelectedGroupID = group.Id;
                     group = user.Groups.FirstOrDefault();
-                    ViewBag.SelecteGroupID = group.Id;
-                    ViewBag.SemesterID = semester.Id;
-                    ViewData["semester"] = semester;
                     return View(group);
                 }
                 else
                 {
-                    group = user.Groups.Where(g => g.SemesterID == semester.Id).FirstOrDefault();
                     ViewBag.Error = "True";
                     ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
-                    ViewBag.SelecteGroupID = 0;
+                    ViewBag.SelectedGroupID = 0;
                     return View();
                 }
             }
@@ -65,13 +63,26 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         }
 
+        public ActionResult Scenario(int id, int GroupID) {
+            return View();
+        }
         public ActionResult GetGroupListTable(int SemesterID)
         {
             ICollection<Group> model = unitOfWork.GroupRepository.Get(g => g.SemesterID == SemesterID).ToList();
             return PartialView(model);
 
         }
-        public ActionResult _PartialGetGroupScenarios()
+        public ActionResult GetScenarioListTable(int SemesterID)
+        {
+            Semester semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            List<Scenario> model = new List<Scenario>();
+            if (semester != null)
+            {
+                model = semester.Scenarios.Where(Sc => Sc.isActive == true).ToList();
+            }
+            return PartialView(model);
+        }
+        public ActionResult _PartialGetGroupScenarios(int SemesterID)
         {
             unitOfWork = new UnitOfWork();
             List<Scenario> groupScenarios = new List<Scenario>();
@@ -82,10 +93,12 @@ namespace CollaborativeLearning.WebUI.Controllers
                 {
                     groupScenarios = HelperController.GetCurrentUser().Groups.FirstOrDefault().Scenarios.OrderByDescending(s=>s.RegDate).ToList();
                 }
-
+                
             }
+            ViewBag.SemesterID = SemesterID;
             return PartialView(groupScenarios);
         }
+       
         public ActionResult _PartialGetOtherGroupsForMenu()
         {
             unitOfWork = new UnitOfWork();
