@@ -1,5 +1,35 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Scenario>
 
+<div class="panel panel-default" id="ScenarioAddContainer">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="span6">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        data-toggle="modal" data-target="#modal_scenarioCreate" id="scenarioAdd">
+                        <span class="glyphicon glyphicon-plus"></span>Add a New Scenario
+                    </button>
+
+                    <button type="button" class="btn-sm btn-danger" id="scenarioRemove" style="display: none;">
+                        <span class="glyphicon glyphicon-remove"></span>Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="CreateScenarioPartialDiv" style="display: none;">
+            <div class="col-lg-12 clearfix" style="margin-left: 10px;">
+                <div style="padding-bottom: 10px">
+                    @Html.Action("_PartialSemesterScenarioCreate", "Scenario", new { id = ViewBag.semesterId })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br />
+
 
 <div class="panel panel-default">
     <div class="panel-body">
@@ -90,3 +120,24 @@
         width: 64px;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#ScenarioEditPartialContainer").hide();
+    });
+
+    $("#scenarioAdd").click(function () {
+        $("#CreateScenarioPartialDiv").show(100, function () {
+            $("#scenarioAdd").hide(100);
+            $("#scenarioRemove").show(100);
+        });
+    });
+
+    $("#scenarioRemove").click(function () {
+        $("#CreateScenarioPartialDiv").hide(100, function () {
+            $("#scenarioRemove").hide(100);
+            $("#scenarioAdd").show(100);
+        });
+    });
+</script>

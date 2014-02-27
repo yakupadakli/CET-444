@@ -88,6 +88,38 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return RedirectToAction("_PartialGetScenarioGrid");
         }
+
+        public ActionResult _PartialSemesterScenarioCreate(int id)
+        {
+            ViewBag.semesterId = id;
+            return PartialView();
+
+        }
+
+        //
+        // POST: /Scenario/Create
+
+        [HttpPost]
+        public ActionResult _PartialSemesterScenarioCreate(Scenario scenario, int semesterId)
+        {
+            try
+            {
+                if (scenario != null)
+                {
+                    scenario.RegUserID = HelperController.GetCurrentUserId();
+                    scenario.RegDate = DateTime.Now;
+                    unitOfWork.ScenarioRepository.Insert(scenario);
+                    unitOfWork.Save();
+                }
+            }
+            catch
+            {
+                return View();
+            }
+            return RedirectToAction("AddScenarioToSemester", "Semester", new { SemesterID = semesterId, scenarioId = scenario.Id });
+        }
+
+
         //
         // GET: /Scenario/Edit/5
 
