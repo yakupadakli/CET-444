@@ -1,7 +1,26 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Group>
 
-@foreach (var item in Model)
-{
-    @item.GroupName
-    <br>
-}
+
+    <table class="table table-hover">
+        <thead>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Student No</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        Deneme
+                    </td>
+                    <td>
+                        Deneme
+                    </td>
+                    <td>
+                        Deneme
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

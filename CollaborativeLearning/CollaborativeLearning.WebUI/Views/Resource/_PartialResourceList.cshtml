@@ -71,7 +71,7 @@
                         @item.type
                     </td>
                     <td>
-                        @item.Description
+                        @Html.Raw(HttpUtility.HtmlDecode(item.Description))
                     </td>
                     <td align="center">
                         

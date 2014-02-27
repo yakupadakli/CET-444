@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CollaborativeLearning.Entities;
@@ -25,6 +26,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             return PartialView("Index");
         }
+        [ValidateInput(false)]
         public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, String FileUpload)
         {
             
@@ -216,6 +218,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             Resource model = new Resource();
             Resource m = unitOfWork.ResourceRepository.GetByID(id);
+            m.Description= WebUtility.HtmlDecode(m.Description);
             if (m != null)
             {
                 model = m;

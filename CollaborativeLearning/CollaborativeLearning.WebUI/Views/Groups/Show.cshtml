@@ -32,7 +32,7 @@
 
     @if (Model != null)
     {
-        <li>@Semester.CourseName.@Semester.Section</li>
+        <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
         <li class="active">@Model.GroupName</li>
     }
     else

@@ -93,7 +93,16 @@ HATA:
                 <div class="panel panel-success clearfix" id="ResourceLinkEditor">
                     <div class="panel-heading">Rich Text Editor</div>
                     <div class="panel-body">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "3", autofocus = "autofocus", contenteditable = "true", placeholder = "Enter Your Text" })
+                        @Html.TextAreaFor(m => m.Description,
+                        new
+                        {
+                            @class = "form-control",
+                            @id="resourceEditContent",
+                            rows = "3",
+                            autofocus = "autofocus",
+                            contenteditable = "true",
+                            placeholder = "Enter Your Text"
+                        })
                     </div>
                 </div>
             }
@@ -134,7 +143,6 @@ HATA:
                 </div>
             </div>
         }
-
     </div>
 </div>
 
@@ -176,5 +184,14 @@ HATA:
                 $('#PartialFileListContainer').load('/Resource/_PartialFileList/@Model.Id');
             }
         });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("resourceEditContent");
     });
 </script>
