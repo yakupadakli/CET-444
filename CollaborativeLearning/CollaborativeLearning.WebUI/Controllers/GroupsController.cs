@@ -112,15 +112,17 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork = new UnitOfWork();
             List<Scenario> groupScenarios = new List<Scenario>();
             User user = HelperController.GetCurrentUser();
-            if (user.Groups.FirstOrDefault() !=null)
+            Group group = user.Groups.Where(s => s.SemesterID == SemesterID).FirstOrDefault();
+            if (group != null)
             {
-                if (user.Groups.FirstOrDefault().Scenarios!=null)
-                {
-                    groupScenarios = HelperController.GetCurrentUser().Groups.FirstOrDefault().Scenarios.OrderByDescending(s=>s.RegDate).ToList();
-                }
-                
+                groupScenarios = group.Scenarios.Where(s => s.isActive == true).ToList();
             }
-            ViewBag.SemesterID = SemesterID;
+
+            
+            ViewBag.SelecteGroupID = group.Id;
+            ViewBag.SemesterID = group.SemesterID;
+            ViewData["semester"] = group.Semester;
+       
             return PartialView(groupScenarios);
         }
        

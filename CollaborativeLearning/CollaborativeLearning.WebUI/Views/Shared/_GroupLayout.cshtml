@@ -90,7 +90,7 @@
                     <div class="main_title">@RenderSection("OwnGroupLink",true)</div>
                     @{
                         CollaborativeLearning.Entities.User user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
-                        if (user.Groups.Count > 0)
+                        if (user.Groups.Where(s=>s.SemesterID==ViewBag.SemesterID).Count()>0)
                         {
 
                            <a id="group" href="" class="list-group-item" data-toggle="tab">Group Scenario(s)</a>

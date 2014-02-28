@@ -279,7 +279,25 @@ namespace CollaborativeLearning.WebUI.Controllers
         #endregion Admin
 
         #region Student
+        public ActionResult Group(int id, int GroupID){
+            unitOfWork = new UnitOfWork();
+            Scenario model = new Scenario();
+            Group group = unitOfWork.GroupRepository.GetByID(GroupID);
+            if (group != null && group.Scenarios.Where(s => s.Id == id).Count() > 0)
+            {
+                model = unitOfWork.GroupRepository.GetByID(GroupID).Scenarios.Where(s => s.Id == id).FirstOrDefault();
+                ViewBag.SelecteGroupID = group.Id;
+                ViewBag.SemesterID = group.SemesterID;
+                ViewData["semester"] = group.Semester;
+                ViewData["group"] = group;
+            }
+            else {
+                return RedirectToAction("Index", "Home", null);
+            }
 
+            
+            return View(model);
+        }
         #endregion
     }
 }
