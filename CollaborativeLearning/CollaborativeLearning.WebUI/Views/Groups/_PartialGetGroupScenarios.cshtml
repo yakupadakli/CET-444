@@ -6,7 +6,7 @@
     {
         foreach (var item in Model)
         {
-            <a href="@Url.Action("Scenario","Groups",new {id = @item.Id,GroupID=ViewBag.SemesterID})" class="list-group-item" style="padding-left: 30px;">
+            <a href="@Url.Action("Group", "Scenario", new { id = @item.Id, GroupID = ViewBag.SelecteGroupID })" class="list-group-item" style="padding-left: 30px;">
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 @item.Name
             </a>

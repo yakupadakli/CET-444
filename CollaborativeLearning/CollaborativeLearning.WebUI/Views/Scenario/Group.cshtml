@@ -1,0 +1,131 @@
+﻿@model CollaborativeLearning.Entities.Scenario
+@{
+    ViewBag.Title = "YOOL - Scenario";
+    Layout = "~/Views/Shared/_GroupLayout.cshtml";
+    CollaborativeLearning.Entities.User user = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUser();
+    CollaborativeLearning.Entities.Semester Semester = ViewData["semester"] as CollaborativeLearning.Entities.Semester;
+    CollaborativeLearning.Entities.Group Group = ViewData["group"] as CollaborativeLearning.Entities.Group;
+
+}
+@section OwnGroupLink{
+    <h4>My Group</h4>
+}
+@section BreadCrump{
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
+    <li><a href="/Groups?semesterID=@Semester.Id">@Group.GroupName</a></li>
+    <li class="active">@Model.Name</li>
+
+
+}
+@section Header{
+    <h3>
+        @Model.Name
+    </h3>
+}
+<ul class="nav nav-tabs">
+    <li class="active"><a id="tasks_tab" href="#task" data-toggle="tab">Tasks</a></li>
+    <li><a id="actionPlan_tab" href="#action" data-toggle="tab">Action Plan</a></li>
+    <li><a id="resources_tab" href="#resource" data-toggle="tab">Resources</a></li>
+    <li><a id="works_tab" href="#work" data-toggle="tab">Submit Your Works</a></li>
+    <li><a id="feedback_tab" href="#feedbacks" data-toggle="tab">Feedbacks</a></li>
+    <li><a id="meetings_tab" href="#meetings" data-toggle="tab">Meetings</a></li>
+
+</ul>
+
+<!-- Tab panes -->
+
+<div class="tab-content">
+    <div class="tab-pane active" id="task">
+        <div id="studentTaskContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Your Tasks
+                </div>
+                <div class="panel-body">
+                    Task 1
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    @*Action Plan*@
+    <div class="tab-pane clearfix" id="action">
+        <div id="studentActionPlanContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   Action Plan
+                </div>
+                <div class="panel-body">
+                    Action Plan
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Scenario Resources*@
+
+    <div class="tab-pane clearfix" id="resource">
+        <div id="ScenariosResourcesContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   Scenario Resources
+                </div>
+                <div class="panel-body">
+                    Scenario Resources
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*Submit Your Work*@
+    <div class="tab-pane clearfix" id="work">
+        <div id="WorkContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Submit Your Work
+                </div>
+                <div class="panel-body">
+                    Submit Your Work
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Feedbacks*@
+    <div class="tab-pane clearfix" id="feedbacks">
+        <div id="FeedbackContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Feedbacks
+                </div>
+                <div class="panel-body">
+                    Feedbacks
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Meetings*@
+    <div class="tab-pane clearfix" id="meetings">
+        <div id="FeedbackContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Meetings
+                </div>
+                <div class="panel-body">
+                    Meetings
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchAdmin() {
+        var URL = "Task/_PartialStudentTask";
+
+        $.get(URL, function (data) {
+            $("#myPartialViewDiv").html(data);
+        })
+    }
+</script>
+

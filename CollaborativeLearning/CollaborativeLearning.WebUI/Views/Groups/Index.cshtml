@@ -60,39 +60,7 @@
                 }
             </div>
         </div>
-        <div class="col-lg-5" id="groupMembers">
-            <div class="panel panel-default">
-                <div class="panel-heading">Group Members</div>
-                <div class="panel-body">
-                    <table class="table table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Student No
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Users.Where(st=>st.RoleID==3))
-                            {
-                            <tr>
-                                <td>
-                                    @item.StudentNo
-                                </td>
-                                <td>
-                                    @item.FullName
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
+       
 
     }
 
@@ -101,6 +69,61 @@
 
 @if (Model != null)         //if student is a member of any group
 {
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-12" id="groupMembers">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Group Members</div>
+                    <div class="panel-body clearfix">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Student No
+                                    </th>
+                                    <th>
+                                        Username
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Phone
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Users.Where(st => st.RoleID == 3))
+                            {
+                                    <tr>
+                                        <td>
+                                            @item.StudentNo
+                                        </td>
+                                        <td>
+                                            @item.Username
+                                        </td>
+                                        <td>
+                                            @item.FullName
+                                        </td>
+                                        <td>
+                                            @item.Email
+                                        </td>
+                                        <td>
+                                            @item.PhoneNumber
+                                        </td>
+                                    </tr>
+                            }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             <div class="col-lg-12">

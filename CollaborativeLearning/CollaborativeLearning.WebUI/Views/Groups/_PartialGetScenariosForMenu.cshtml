@@ -6,7 +6,7 @@
     {
         foreach (var item in Model)
         {
-            <li><a tabindex="-1" href="@Url.Action("Scenario","Groups",new{id=item.Id})">@item.Name</a></li>
+            <li><a tabindex="-1" href="@Url.Action("Scenario","Groups",new{id=item.Id, GroupID=ViewBag.Selecte})">@item.Name</a></li>
         }
     }
     else
