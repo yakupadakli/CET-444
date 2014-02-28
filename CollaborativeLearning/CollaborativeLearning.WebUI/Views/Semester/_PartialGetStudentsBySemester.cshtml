@@ -8,7 +8,12 @@
 </div>
 <div class="modal-footer"></div>
 
-
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4>Copy users from another course</h4>
+        @Html.Action("_PartialSelectStudentsFromSemester", "Semester", new { id = ViewBag.semesterId })
+    </div>
+</div>
 
 
 
