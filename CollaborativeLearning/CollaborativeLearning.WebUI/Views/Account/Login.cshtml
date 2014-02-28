@@ -8,8 +8,8 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-
-    <div class="container" style="margin-top: 5%">
+    <div class="container" style="margin-top: 2%; width:10%"><h2>YOOL</h2></div>
+    <div class="container" style="margin-top: 2%;">
     @using (Html.BeginForm("Login", "Account",
         new { ReturnUrl = ViewBag.ReturnUrl },
         FormMethod.Post, new { @class = "form-signin"}))
@@ -22,8 +22,9 @@
         @Html.PasswordFor(m => m.Password, new { @class = "input-block-level form-control", @placeholder = "Enter Password", required = "required " })        
         @Html.ValidationMessageFor(m => m.Password)
         
+        <div>
         <button class="btn btn-large btn-success" type="submit">Login</button>
-
+        
         @Html.ActionLink("Register", "Register", "Account", new { @class = "btn btn-large btn-primary" })
         @*<a href="register.html" class="btn btn-large btn-primary">Register</a>*@
         <br/><br/>
@@ -31,10 +32,11 @@
             @Html.ActionLink("Forget Password?", "ForgetPassword", "Account")
 @*          <a href="forget_password.html"> Forget Password? </a>*@
         </label>
+        </div>
         }
     </div> <!-- /container -->
 
-    <div class="container" style="margin-top: 5%; width:60%">
+    <div class="container" style="width:60%">
         <div class="alert alert-success" id="Successful" style="display:none">
             <div class="col-lg-12"><div class="glyphicon glyphicon-ok "> </div> @TempData["success"]</div>
         </div>
