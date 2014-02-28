@@ -317,8 +317,30 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             ViewBag.ID = SemesterID;
             ViewBag.AllStudents = unitOfWork.UserRepository.Get();
-            return RedirectToAction("_PartialGetStudentsBySemester", "User", new { id = SemesterID });
+            return RedirectToAction("_PartialGetStudentsBySemester", "Semester", new { id = SemesterID });
         }
+
+        public ActionResult CopyStudentsFromSemester(int SemesterID, string[] SemesterMultiSelect)
+        {
+            unitOfWork = new UnitOfWork();
+            var currentSemester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            foreach (var item in SemesterMultiSelect)
+            {
+                var s = unitOfWork.SemesterRepository.GetByID(int.Parse(item)).Users.ToList();
+                foreach (var st in s) 
+                {
+
+
+                    currentSemester.Users.Add(st);
+                    unitOfWork.Save();
+                }
+
+            }
+            ViewBag.ID = SemesterID;
+            ViewBag.AllStudents = unitOfWork.UserRepository.Get();
+            return RedirectToAction("_PartialGetStudentsBySemester", "Semester", new { id = SemesterID });
+        }
+
 
         public ActionResult AddMentorsToSemester(int SemesterID, string[] MentorMultiSelect)
         {
@@ -443,6 +465,34 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.AllStudents = StudentList;
             return PartialView();
         }
+
+        public ActionResult _PartialSelectStudentsFromSemester(int id)
+        {
+            ViewBag.ID = id;
+            unitOfWork = new UnitOfWork();
+            var currentSemester = unitOfWork.SemesterRepository.GetByID(id);
+            var AllList = unitOfWork.SemesterRepository.Get();
+            bool t = false;
+            List<Semester> SemesterList = new List<Semester>();
+            foreach (var listItem in AllList)
+            {
+                t = false;
+                if (listItem.Id == currentSemester.Id)
+                    {
+                        t = true;
+                    }
+                if (!t)
+                {
+                    SemesterList.Add(listItem);
+                }
+            }
+
+
+
+            ViewBag.AllSemesters = SemesterList;
+            return PartialView();
+        }
+
 
 
     }
