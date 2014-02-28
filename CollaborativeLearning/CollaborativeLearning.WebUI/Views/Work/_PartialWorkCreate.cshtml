@@ -25,7 +25,7 @@
                 <div class="controls">
                     @Html.TextBoxFor(m => m.Name, new
                                            {
-                                               @class = "form-control",
+                                               @class = "form-control required",
                                                id = "exampleInputEmail1",
                                                placeholder = "Enter Work Name"
                                            }) 
@@ -37,7 +37,7 @@
                 <div class="controls">
                     @Html.TextAreaFor(m => m.Description, new
                                                             {
-                                                                @class = "form-control",
+                                                                @class = "form-control required",
                                                                 id="workContent",
                                                                 placeholder = "Description"
                                                             }) 

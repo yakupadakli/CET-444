@@ -58,11 +58,11 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             if (id.HasValue)
             {
-                Works = unitOfWork.ScenarioRepository.GetByID(id).Works.OrderByDescending(t => t.RegDate);
+                Works = unitOfWork.ScenarioRepository.GetByID(id).Works.OrderBy(t => t.OrderID);
             }
             else
             {
-                Works = unitOfWork.WorkRepository.Get().OrderByDescending(t => t.RegDate);
+                Works = unitOfWork.WorkRepository.Get().OrderBy(t => t.OrderID);
             }
 
             return Works;
@@ -89,10 +89,18 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             try
             {
-                if (Work != null)
+                if (Work.Name != null && Work.Description != null )
                 {
+                    int orderId = 1;
+                    if (scenarioId != null)
+                    {
+                        Work t = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.OrderByDescending(ta => ta.OrderID).FirstOrDefault();
+                        if (t != null)
+                            orderId = t.OrderID + 1;
+                    }
                     Work.RegUserID = HelperController.GetCurrentUserId();
                     Work.RegDate = DateTime.Now;
+                    Work.OrderID = orderId;
                     unitOfWork.WorkRepository.Insert(Work);
                     unitOfWork.Save();
 
@@ -123,6 +131,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id, int scenarioId)
         {
+            if (scenarioId != null)
+            {
+                Work Work = unitOfWork.WorkRepository.GetByID(id);
+
+                IEnumerable<Work> nextWorks = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.Where(t => t.OrderID > Work.OrderID);
+                foreach (var item in nextWorks)
+                {
+                    item.OrderID--;
+                }
+
+                unitOfWork.Save();
+            }
             unitOfWork.WorkRepository.Delete(id);
             unitOfWork.Save();
             if (scenarioId != null)
@@ -283,8 +303,67 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             }
             unitOfWork.Save();
-            if (scenarioId != null)
+            if (scenarioId != null && semesterId != null)
                 return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+            else if (scenarioId != null)
+                return RedirectToAction("_PartialWork", new { id = scenarioId});
+            else
+                return RedirectToAction("Index", "Scenario");
+        }
+        public ActionResult WorkDown(int id, int? scenarioId = null,int semesterId=0)
+        {
+            if (scenarioId != null)
+            {
+                Work lastWork = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.OrderByDescending(ta => ta.OrderID).FirstOrDefault();
+                int lastOrderId = lastWork.OrderID;
+
+                Work t1 = unitOfWork.WorkRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId < lastOrderId)
+                {
+                    int newId = oldId + 1;
+                    Work t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            if (scenarioId != null)
+            {
+                if (semesterId != 0)
+                    return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+                else
+                    return RedirectToAction("_PartialWork", new { id = scenarioId });
+            }
+            else
+                return RedirectToAction("Index", "Scenario");
+        }
+
+        public ActionResult WorkUp(int id, int? scenarioId = null, int semesterId=0)
+        {
+            if (scenarioId != null)
+            {
+                Work firstWork = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.OrderBy(ta => ta.OrderID).FirstOrDefault();
+                int firstOrderId = firstWork.OrderID;
+
+                Work t1 = unitOfWork.WorkRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId > firstOrderId)
+                {
+                    int newId = oldId - 1;
+                    Work t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).Works.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            if (scenarioId != null)
+            {
+                if (semesterId != 0)
+                    return RedirectToAction("_PartialWork", new { id = scenarioId, semesterId = semesterId });
+                else
+                    return RedirectToAction("_PartialWork", new { id = scenarioId });
+            }
             else
                 return RedirectToAction("Index", "Scenario");
         }
