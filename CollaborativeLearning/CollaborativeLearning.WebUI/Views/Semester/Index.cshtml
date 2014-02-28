@@ -67,8 +67,8 @@
     </div>
     <div class="tab-pane clearfix" id="resourceSemester">
         <div id="SemesterResourcesContainer">
-      @Html.Action("_PartialResources", "Semester", new { id = Model.Id })
-    </div>
+            @Html.Action("_PartialSemesterResourceList", "Resource", new { id = Model.Id })
+        </div>
     </div>
     <div class="tab-pane clearfix" id="Feedbacks">
             @Html.Action("_PartialGetGroupsBySemesterForFeedback", "Feedback", new { id = Model.Id })

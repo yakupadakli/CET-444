@@ -62,7 +62,6 @@
                                     },
                                      new { @class = "btn-sm btn-success glyphicon glyphicon-play-circle" })
                         }
-
                     </td>
                     <td>
                         @item.Name
@@ -71,7 +70,13 @@
                         @item.type
                     </td>
                     <td>
-                        @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                        @{
+                          if (item.Description.Length <= 140){
+                              @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                          }else{
+                              @Html.Raw(HttpUtility.HtmlDecode(item.Description.Substring(0, 140)))
+                          }
+                        }
                     </td>
                     <td align="center">
                         

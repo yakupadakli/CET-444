@@ -35,7 +35,7 @@
                     </div>
                 }
                 <br /><br />
-                <b>@ViewBag.MentorName</b><b>'s Current Semesters</b>
+                <b>@ViewBag.MentorName</b><b>'s Current Courses</b>
                 @if (Model != null)
                 {
                     foreach (var item in Model)
@@ -64,7 +64,7 @@
                 {
                     <tr>
                         <td colspan="4" width="100%">
-                            Could not found any semester!
+                            Could not found any course!
                         </td>
                     </tr>
                 }
@@ -110,7 +110,7 @@
 <script>
     $(document).ready(function () {
         $("#SemesterMultiSelect-@ViewBag.ID").select2({
-            placeholder: "Type Semester",
+            placeholder: "Type Course",
             allowClear: true
         });
     });

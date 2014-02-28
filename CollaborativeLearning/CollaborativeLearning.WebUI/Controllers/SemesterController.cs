@@ -244,8 +244,10 @@ namespace CollaborativeLearning.WebUI.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult _PartialSelectScenarios(int id) {
+        public ActionResult _PartialSelectScenarios(int id) 
+        {
             ViewBag.ID = id;
+            unitOfWork = new UnitOfWork();
             var ScenarioSemesterList = unitOfWork.SemesterRepository.GetByID(id).Scenarios.ToList();
             var AllList = unitOfWork.ScenarioRepository.Get();
             bool t = false;

@@ -214,6 +214,14 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return PartialView(Model);
         }
+        public ActionResult _PartialSemesterResourceList(int id)
+        {
+            unitOfWork = new UnitOfWork();
+            List<Resource> model = unitOfWork.SemesterRepository.GetByID(id).Resources.ToList();
+            
+            return PartialView("_PartialResourceList", model);
+            
+        }
         public ActionResult _PartialEditResource(int id)
         {
             Resource model = new Resource();
