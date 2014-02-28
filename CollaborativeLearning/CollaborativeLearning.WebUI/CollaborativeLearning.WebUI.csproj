@@ -387,8 +387,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\bg-BG\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\ckeditor3.dll" />
     <Content Include="bin\CollaborativeLearning.DataAccess.dll" />
     <Content Include="bin\CollaborativeLearning.DataAccess.pdb" />
     <Content Include="bin\CollaborativeLearning.Entities.dll" />
@@ -397,71 +395,35 @@
     <Content Include="bin\CollaborativeLearning.WebUI.OpenAccess.dll" />
     <Content Include="bin\CollaborativeLearning.WebUI.OpenAccess.pdb" />
     <Content Include="bin\CollaborativeLearning.WebUI.pdb" />
-    <Content Include="bin\da-DK\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\de-DE\Kendo.Mvc.resources.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
     <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
     <Content Include="bin\EntityFramework.dll" />
     <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\es-ES\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\fr-FR\Kendo.Mvc.resources.dll" />
     <Content Include="bin\Kendo.Mvc.dll" />
-    <Content Include="bin\Kendo.Mvc.xml" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\Microsoft.Web.WebPages.OAuth.dll" />
-    <Content Include="bin\Microsoft.Web.WebPages.OAuth.xml" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\nl-NL\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\pl-PL\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\pt-BR\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\pt-PT\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\ro-RO\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\ru-RU\Kendo.Mvc.resources.dll" />
-    <Content Include="bin\sv-SE\Kendo.Mvc.resources.dll" />
     <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
     <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
     <Content Include="bin\System.Web.Http.dll" />
     <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
     <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
     <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
     <Content Include="bin\System.Web.WebPages.dll" />
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
     <Content Include="bin\Telerik.OpenAccess.35.Extensions.dll" />
     <Content Include="bin\Telerik.OpenAccess.35.Extensions.xml" />
     <Content Include="bin\Telerik.Web.Mvc.dll" />
-    <Content Include="bin\Telerik.Web.Mvc.pdb" />
-    <Content Include="bin\Telerik.Web.Mvc.xml" />
-    <Content Include="bin\uk-UA\Kendo.Mvc.resources.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="bin\WebMatrix.Data.dll" />
-    <Content Include="bin\WebMatrix.Data.xml" />
     <Content Include="bin\WebMatrix.WebData.dll" />
-    <Content Include="bin\WebMatrix.WebData.xml" />
-    <Content Include="bin\zh-CN\Kendo.Mvc.resources.dll" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Black\loading.gif" />
@@ -1347,9 +1309,7 @@
     <Content Include="Content\Template\js\bootstrap.js" />
     <Content Include="Content\Template\js\jquery-1.10.2.js" />
     <Content Include="Global.asax" />
-    <Content Include="Resources\3-Resource 3-23.02.2014\deneme.txt" />
-    <Content Include="Resources\3-Resource 3-23.02.2014\program.jpg" />
-    <Content Include="Resources\4-Resource 4-23.02.2014\1366x768_coffee-1573338.jpg" />
+    <Content Include="Properties\PublishProfiles\YOOL.pubxml.user" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.all.min.js" />
@@ -1383,7 +1343,7 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Resources\3-Resource 3-23.02.2014\program.xlsx" />
+    <None Include="Properties\PublishProfiles\YOOL.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
@@ -1507,8 +1467,16 @@
     <Content Include="Views\ActionPlan\_PartialActionPlan.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanCreate.cshtml" />
     <Content Include="Views\ActionPlan\_PartialActionPlanUpdate.cshtml" />
+    <Content Include="Views\Feedback\_PartialGetFeedbacksByGroupWorkId.cshtml" />
+    <Content Include="Views\Feedback\_PartialGetGroupsBySemesterForFeedback.cshtml" />
+    <Content Include="Views\Feedback\_PartialGetGroupWorkFeedbacks.cshtml" />
     <Content Include="Views\Groups\GetGroupListTable.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Groups\Show.cshtml" />
+    <Content Include="Views\Groups\_PartialGetGroupScenarios.cshtml" />
+    <Content Include="Views\Groups\_PartialGetOtherGroupsForMenu.cshtml" />
+    <Content Include="Views\Groups\_PartialGetScenariosForMenu.cshtml" />
+    <Content Include="Views\Groups\_PartialHeaderSemeterInfo.cshtml" />
     <Content Include="Views\Group\Index.cshtml" />
     <Content Include="Views\Group\_PartialAddGroup.cshtml" />
     <Content Include="Views\Group\_PartialGetGroupsBySemester.cshtml" />
@@ -1529,9 +1497,9 @@
     <Content Include="Views\Resource\Index.cshtml" />
     <Content Include="Views\Resource\_PartialAddResource.cshtml" />
     <Content Include="Views\Resource\_PartialEditResource.cshtml" />
+    <Content Include="Views\Resource\_PartialFileList.cshtml" />
     <Content Include="Views\Resource\_PartialFileUploadToResource.cshtml" />
     <Content Include="Views\Resource\_PartialResourceList.cshtml" />
-    <Content Include="Views\Scenario\Details.cshtml" />
     <Content Include="Views\Scenario\Edit.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -1549,6 +1517,8 @@
     <Content Include="Views\Scenario\_PartialScenarioGrid.cshtml" />
     <Content Include="Views\Scenario\_PartialSelectedScenario.cshtml" />
     <Content Include="Views\Scenario\_PartialSelectedScenarioStudent.cshtml" />
+    <Content Include="Views\Scenario\_PartialSelectResourcesByScenario.cshtml" />
+    <Content Include="Views\Scenario\_PartialSemesterScenarioCreate.cshtml" />
     <Content Include="Views\Scenario\_PartialSubmitedWorks.cshtml" />
     <Content Include="Views\Semester\Create.cshtml" />
     <Content Include="Views\Semester\Dashboard.cshtml" />
@@ -1579,6 +1549,8 @@
     <Content Include="Views\Shared\_GroupLayout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_PartialStudentInfo.cshtml" />
+    <Content Include="Views\Shared\_ScenarioLayout.cshtml" />
     <Content Include="Views\Shared\_SemesterLayout.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -1596,6 +1568,8 @@
     <Content Include="Views\Work\_PartialWork.cshtml" />
     <Content Include="Views\Work\_PartialWorkCreate.cshtml" />
     <Content Include="Views\Work\_PartialWorkUpdate.cshtml" />
+    <Content Include="Views\Work\_PartialWorkWithDueDate.cshtml" />
+    <Content Include="Views\Work\_PartialWorkWithDueDateUpdate.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1608,20 +1582,25 @@
     </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\kendo\2013.2.918\jquery.min.map" />
-    <Content Include="Views\Groups\Show.cshtml" />
-    <Content Include="Views\Groups\_PartialGetGroupScenarios.cshtml" />
-    <Content Include="Views\Groups\_PartialGetOtherGroupsForMenu.cshtml" />
-    <Content Include="Views\Groups\_PartialGetScenariosForMenu.cshtml" />
-    <Content Include="Views\Groups\_PartialHeaderSemeterInfo.cshtml" />
-    <Content Include="Views\Resource\_PartialFileList.cshtml" />
-    <Content Include="Views\Scenario\_PartialSelectResourcesByScenario.cshtml" />
-    <Content Include="Views\Shared\_PartialStudentInfo.cshtml" />
-    <Content Include="Views\Shared\_ScenarioLayout.cshtml" />
-    <Content Include="Views\Work\_PartialWorkWithDueDate.cshtml" />
-    <Content Include="Views\Work\_PartialWorkWithDueDateUpdate.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Account\ProfileSegments.cshtml" />
+    <Content Include="Views\Groups\GetScenarioListTable.cshtml" />
+    <Content Include="Views\Semester\_PartialGetStudentsBySemester.cshtml" />
+    <Content Include="Views\Semester\_PartialResources.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectResourcesBySemester.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectStudents.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectUsers.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\_PartialAddCourse.cshtml" />
+    <Content Include="Views\User\_PartialStudentsCourseList.cshtml" />
+    <Content Include="Views\User\_PartialUserCourse.cshtml" />
+    <Content Include="Views\Groups\GetCourseResourceListTable.cshtml" />
+    <Content Include="Views\Groups\GetMentorListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\bg-BG\" />
     <Folder Include="Resources\Archive\" />
   </ItemGroup>
   <ItemGroup>

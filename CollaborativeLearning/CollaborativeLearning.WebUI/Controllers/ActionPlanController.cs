@@ -30,11 +30,11 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             if (id.HasValue)
             {
-                actionPlans = unitOfWork.ScenarioRepository.GetByID(id).ActionPlans.OrderByDescending(t => t.RegDate);
+                actionPlans = unitOfWork.ScenarioRepository.GetByID(id).ActionPlans.OrderBy(t => t.OrderID);
             }
             else
             {
-                actionPlans = unitOfWork.ActionPlanRepository.Get().OrderByDescending(t => t.RegDate);
+                actionPlans = unitOfWork.ActionPlanRepository.Get().OrderBy(t => t.OrderID);
             }
 
             return actionPlans;
@@ -60,8 +60,16 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (ActionPlan != null)
                 {
+                    int orderId = 1;
+                    if (scenarioId != null)
+                    {
+                        ActionPlan t = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.OrderByDescending(ta => ta.OrderID).FirstOrDefault();
+                        if (t != null)
+                            orderId = t.OrderID + 1;
+                    }
                     ActionPlan.RegUserId = HelperController.GetCurrentUserId();
                     ActionPlan.RegDate = DateTime.Now;
+                    ActionPlan.OrderID = orderId;
                     unitOfWork.ActionPlanRepository.Insert(ActionPlan);
                     unitOfWork.Save();
 
@@ -89,6 +97,18 @@ namespace CollaborativeLearning.WebUI.Controllers
 
         public ActionResult Delete(int id, int scenarioId)
         {
+            if (scenarioId != null)
+            {
+                ActionPlan AP= unitOfWork.ActionPlanRepository.GetByID(id);
+
+                IEnumerable<ActionPlan> nextAPs = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.Where(t => t.OrderID > AP.OrderID);
+                foreach (var item in nextAPs)
+                {
+                    item.OrderID--;
+                }
+
+                unitOfWork.Save();
+            }
             unitOfWork.ActionPlanRepository.Delete(id);
             unitOfWork.Save();
 
@@ -165,5 +185,46 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return RedirectToAction("Index", "Scenario");
         }
 
+        public ActionResult ActionPlanDown(int id, int? scenarioId = null)
+        {
+            if (scenarioId != null)
+            {
+                ActionPlan lastAP = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.OrderByDescending(ta => ta.OrderID).FirstOrDefault();
+                int lastOrderId = lastAP.OrderID;
+
+                ActionPlan t1 = unitOfWork.ActionPlanRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId < lastOrderId)
+                {
+                    int newId = oldId + 1;
+                    ActionPlan t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            return RedirectToAction("_PartialActionPlan", new { id = scenarioId });
+        }
+
+        public ActionResult ActionPlanUp(int id, int? scenarioId = null)
+        {
+            if (scenarioId != null)
+            {
+                ActionPlan firstAC = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.OrderBy(ta => ta.OrderID).FirstOrDefault();
+                int firstOrderId = firstAC.OrderID;
+
+                ActionPlan t1 = unitOfWork.ActionPlanRepository.GetByID(id);
+                int oldId = t1.OrderID;
+                if (oldId > firstOrderId)
+                {
+                    int newId = oldId - 1;
+                    ActionPlan t2 = unitOfWork.ScenarioRepository.GetByID(scenarioId).ActionPlans.Where(tt => tt.OrderID == newId).FirstOrDefault();
+                    t1.OrderID = newId;
+                    t2.OrderID = oldId;
+                    unitOfWork.Save();
+                }
+            }
+            return RedirectToAction("_PartialActionPlan", new { id = scenarioId });
+        }
     }
 }

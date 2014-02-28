@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionPlan.cs" />
+    <Compile Include="Crypto.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataContextInitializer.cs" />
     <Compile Include="Feedback.cs" />
@@ -59,6 +60,12 @@
     <Compile Include="MeetingNote.cs" />
     <Compile Include="MeetingNoteFile.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Reflection.cs" />
     <Compile Include="ResourceFile.cs" />
     <Compile Include="Resource.cs" />
@@ -75,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bin\Debug\CollaborativeLearning.Entities.dll.config" />
     <None Include="CollaborativeEntities.cd" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -82,6 +90,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\CollaborativeLearning.Entities.dll" />
+    <Content Include="bin\Debug\CollaborativeLearning.Entities.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Release\CollaborativeLearning.Entities.dll" />
+    <Content Include="bin\Release\CollaborativeLearning.Entities.pdb" />
     <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />

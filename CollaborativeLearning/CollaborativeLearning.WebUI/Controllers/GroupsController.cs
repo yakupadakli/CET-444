@@ -68,12 +68,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
         public ActionResult GetGroupListTable(int SemesterID)
         {
+            unitOfWork = new UnitOfWork();
             ICollection<Group> model = unitOfWork.GroupRepository.Get(g => g.SemesterID == SemesterID).ToList();
             return PartialView(model);
 
         }
         public ActionResult GetScenarioListTable(int SemesterID)
         {
+            unitOfWork = new UnitOfWork();
             Semester semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
             List<Scenario> model = new List<Scenario>();
             if (semester != null)
@@ -82,6 +84,29 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return PartialView(model);
         }
+        public ActionResult GetCourseResourceListTable(int SemesterID)
+        {
+            unitOfWork = new UnitOfWork();
+            Semester semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            List<Resource> model = new List<Resource>();
+            if (semester != null)
+            {
+                model = semester.Resources.Where(Sc => Sc.isActive == true).ToList();
+            }
+            return PartialView(model);
+        }
+        public ActionResult GetMentorListTable(int SemesterID)
+        {
+            unitOfWork = new UnitOfWork();
+            Semester semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            List<User> model = new List<User>();
+            if (semester != null)
+            {
+                model = semester.Users.Where(Sc => Sc.RoleID==2).ToList();
+            }
+            return PartialView(model);
+        }
+
         public ActionResult _PartialGetGroupScenarios(int SemesterID)
         {
             unitOfWork = new UnitOfWork();

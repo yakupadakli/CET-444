@@ -178,3 +178,4 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Newtonsoft.Json.xml
