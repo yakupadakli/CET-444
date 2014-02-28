@@ -28,8 +28,12 @@
                 </div>
             </div>
       </div> 
+@{
+    int i = 0;
+}
 @foreach (var item in Model)
 {
+    i++;
     <div class="@{if(item.isActive){<text>panel-primary</text>}else{<text>panel-info </text>}}">
         <div class="panel-heading">
             <div class="col-lg-4">
@@ -81,6 +85,38 @@
                         $("#actionPlanChangesStatusOff_@item.Id").html("<span class='glyphicon glyphicon-off'></span> Deactivate");
                         $("#actionPlanChangesStatusOn_@item.Id").html("<span class='glyphicon glyphicon-play-circle'></span> Activate");
                     </script>
+                    @if(i < Model.Count())
+                        {
+                            @Ajax.ActionLink(" ", "ActionPlanDown", "ActionPlan", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "studentActionPlanContainer",
+                                    LoadingElementId = "loadingACDelete",
+                                },
+                               new {@class="btn btn-primary glyphicon glyphicon-chevron-down"})
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                        }
+                        @if(i > 1)
+                        {
+                            @Ajax.ActionLink(" ", "ActionPlanUp", "ActionPlan", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "studentActionPlanContainer",
+                                    LoadingElementId = "loadingACDelete",
+                                },
+                               new {@class="btn btn-primary glyphicon glyphicon-chevron-up" })
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                        }
                     @*<a href='../../ActionPlan/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
                         <span class='glyphicon glyphicon-remove'></span> Delete 
                     </a>*@
