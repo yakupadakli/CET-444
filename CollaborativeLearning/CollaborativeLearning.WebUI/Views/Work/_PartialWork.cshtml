@@ -38,26 +38,34 @@
             </div>
       </div>
 
-@foreach (var item in Model)
-{
-    Boolean semesterDueDate = false;
-    {
-        CollaborativeLearning.DataAccess.UnitOfWork u = new CollaborativeLearning.DataAccess.UnitOfWork();
-        CollaborativeLearning.Entities.WorkSemesterDueDate wordDueDate = u.WorkSemesterDueDateRepository.Get(w => w.WorkID == item.Id).FirstOrDefault();
-        
-        if (ViewBag.semesterId != null)
-        {
-            semesterDueDate = true;
-        }
-            
-        
+    @{
+        int i = 0;
     }
+    @foreach (var item in Model)
+    {
+        i++;
+        Boolean semesterDueDate = false;
+        {
+            CollaborativeLearning.DataAccess.UnitOfWork u = new CollaborativeLearning.DataAccess.UnitOfWork();
+            CollaborativeLearning.Entities.WorkSemesterDueDate wordDueDate = u.WorkSemesterDueDateRepository.Get(w => w.WorkID == item.Id).FirstOrDefault();
+
+            if (ViewBag.semesterId != null)
+            {
+                semesterDueDate = true;
+            }
+
+
+        }
     
-    <div class="panel @{if(item.isActive){<text>panel-primary</text>}else{<text>panel-info </text>}}">
+    <div class="panel @{if (item.isActive)
+                        {<text>panel-primary</text>}
+                        else
+                        {<text>panel-info </text>}}">
         <div class="panel-heading">
             <div class="col-lg-4">
                 <div>
-                <a class="studentWorkCollapse" id="@item.Id" href="#collapseWork_@item.Id" data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
+                <a class="studentWorkCollapse" id="@item.Id" href="#collapseWork_@item.Id" data-toggle="collapse" style="text-decoration:none; @{if (item.isActive)
+                                                                                                                                                 {<text>color:white;</text>}}">
                     @item.Name
                     <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
                 </a>
@@ -88,25 +96,57 @@
                     @if (item.isActive)
                     {
 
-                    @Ajax.ActionLink("Inactive", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId, ViewBag.semesterId },
+                    @Ajax.ActionLink("Inactive", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId = ViewBag.scenarioId, ViewBag.semesterId },
                                 new AjaxOptions
                                 {
                                     UpdateTargetId = "WorkContainer",
                                     LoadingElementId = "loadingWorkDelete"
                                 },
-                        new { @class = "btn btn-sm btn-danger ", @id="workChangesStatusOff_"+item.Id  })
+                        new { @class = "btn btn-sm btn-danger ", @id = "workChangesStatusOff_" + item.Id })
                         
                     }
                     else
                     {
-                    @Ajax.ActionLink("Active", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId =ViewBag.scenarioId, ViewBag.semesterId },
+                    @Ajax.ActionLink("Active", "ChangeActiveStatus", "Work", new { id = item.Id, Active = item.isActive, scenarioId = ViewBag.scenarioId, ViewBag.semesterId },
                                 new AjaxOptions
                                 {
                                     UpdateTargetId = "WorkContainer",
                                     LoadingElementId = "loadingWorkDelete"
                                 },
-                                    new { @class = "btn btn-sm btn-success", @id="workChangesStatusOn_"+item.Id })
+                                    new { @class = "btn btn-sm btn-success", @id = "workChangesStatusOn_" + item.Id })
                     }
+                    @if (i < Model.Count())
+                    {
+                            @Ajax.ActionLink(" ", "WorkDown", "Work", new { id = item.Id, scenarioId = @ViewBag.scenarioId, semesterId = @ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "WorkContainer",
+                                    LoadingElementId = "loadingWorkDelete",
+                                },
+                               new { @class = "btn btn-primary glyphicon glyphicon-chevron-down" })
+                    }
+                    else
+                    {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                    }
+                        @if (i > 1)
+                        {
+                            @Ajax.ActionLink(" ", "WorkUp", "Work", new { id = item.Id, scenarioId = @ViewBag.scenarioId,semesterId= @ViewBag.semesterId },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "WorkContainer",
+                                    LoadingElementId = "loadingWorkDelete",
+                                },
+                               new { @class = "btn btn-primary glyphicon glyphicon-chevron-up" })
+                        }
+                        else
+                        {
+                            <span class="btn btn-primary glyphicon glyphicon-stop" >
+                                </span>
+                        }
                     <script>
                         $("#workChangesStatusOff_@item.Id").html("<span class='glyphicon glyphicon-off'></span> Deactivate");
                         $("#workChangesStatusOn_@item.Id").html("<span class='glyphicon glyphicon-play-circle'></span> Activate");
@@ -118,14 +158,14 @@
             @Html.Raw(HttpUtility.HtmlDecode(item.Description))
         </div>
         <div class="panel-body" id="updateWorkForm_@item.Id" style="display:none;">
-            @{if(ViewBag.semesterId != null)
-                {
+            @{if (ViewBag.semesterId != null)
+              {
                     @Html.Action("_PartialWorkUpdate", "Work", new { id = item.Id, scenarioId = ViewBag.scenarioId, semesterId = ViewBag.semesterId })
-                }
-                else
-                {
+              }
+              else
+              {
                     @Html.Action("_PartialWorkUpdate", "Work", new { id = item.Id, scenarioId = ViewBag.scenarioId })
-                }
+              }
             }
         </div>
         
