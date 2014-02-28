@@ -1,26 +1,69 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.Group>
 
 
-    <table class="table table-hover">
-        <thead>
+<table class="table table-hover">
+    <thead>
+        <tr>
             <th>Name</th>
-            <th>Surname</th>
-            <th>Student No</th>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        Deneme
-                    </td>
-                    <td>
-                        Deneme
-                    </td>
-                    <td>
-                        Deneme
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <th>Members</th>
+            <th>Scenarios</th>
+            <th>Mentors</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.GroupName, "Show", "Groups", new { GroupId = item.Id }, null)
+                </td>
+                <td>
+                    @if (item.Users.Count > 0)
+                    {
+                        foreach (var stds in item.Users.Where(u=>u.RoleID==3))
+                        {
+                            @stds.FullName <br>
+                        }
+                    }
+                    else
+                    {
+                        <b>
+                            No Members
+                        </b>
+                    }
+
+                </td>
+                <td>
+                    @if (item.Scenarios.Count > 0)
+                    {
+                        foreach (var sc in item.Scenarios)
+                        {
+                            @sc.Name; <br>
+                        }
+                    }
+                    else
+                    {
+                        <b>
+                            No Scenario
+                        </b>
+                    }
+                </td>
+                <td>
+                    @if (item.Users.Count > 0)
+                    {
+                        foreach (var stds in item.Users.Where(u=>u.RoleID==2))
+                        {
+                            @stds.FullName <br>
+                        }
+                    }
+                    else
+                    {
+                        <b>
+                            No Mentor
+                        </b>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

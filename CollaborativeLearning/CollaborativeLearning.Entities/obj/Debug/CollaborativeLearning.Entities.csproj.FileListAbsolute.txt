@@ -11,8 +11,6 @@ D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\Col
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll.config
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.xml
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll

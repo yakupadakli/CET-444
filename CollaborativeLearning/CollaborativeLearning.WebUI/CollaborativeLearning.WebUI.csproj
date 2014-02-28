@@ -1595,6 +1595,8 @@
     <Content Include="Views\User\_PartialAddCourse.cshtml" />
     <Content Include="Views\User\_PartialStudentsCourseList.cshtml" />
     <Content Include="Views\User\_PartialUserCourse.cshtml" />
+    <Content Include="Views\Groups\GetCourseResourceListTable.cshtml" />
+    <Content Include="Views\Groups\GetMentorListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

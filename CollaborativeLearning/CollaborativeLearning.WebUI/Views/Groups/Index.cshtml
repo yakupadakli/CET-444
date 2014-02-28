@@ -9,15 +9,17 @@
 }
 @section OwnGroupLink{
     <h4>My Group</h4>
-    }
+}
 @section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    
+
     @if (Model != null)
     {
         <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
         <li class="active">@Model.GroupName</li>
-    }else{
+    }
+    else
+    {
         @*<li class="active">@Semester.CourseName. @Semester.Section</li>*@
 
     }
@@ -34,13 +36,14 @@
     }
     else
     {
-        <div class="col-lg-4 pull-left text-right"><h3><span class="small">Group Name:</span></h3></div>
-        <div class="col-lg-8 pull-right">
-
-            <h3>
-                <span id="GroupNameLabel">@Model.GroupName</span>
+        <div class="col-lg-2"><h3><span class="small">Group Name:</span></h3></div>
+        <div class="col-lg-5">
+            <h3 id="GroupNameLabel">
+                <span>@Model.GroupName</span>
+                <br />
             </h3>
             <div id="GroupNameEditFormContainner">
+                <br />
                 @using (Ajax.BeginForm("_ChangeGroupName", "Groups", new { groupId = Model.Id }, new AjaxOptions
                 {
                     UpdateTargetId = "GroupNameLabel",
@@ -51,10 +54,43 @@
 
                 }, new { @class = "form" }))
                 {
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.TextBoxFor(model => model.GroupName, new { @class = "form-group" })
-                    <input type="submit" class="btn btn-primary form-group" />
+                @Html.HiddenFor(model => model.Id)
+                @Html.TextBoxFor(model => model.GroupName, new { @class = "form-group" })
+                <input type="submit" class="btn btn-primary form-group" />
                 }
+            </div>
+        </div>
+        <div class="col-lg-5" id="groupMembers">
+            <div class="panel panel-default">
+                <div class="panel-heading">Group Members</div>
+                <div class="panel-body">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Student No
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users.Where(st=>st.RoleID==3))
+                            {
+                            <tr>
+                                <td>
+                                    @item.StudentNo
+                                </td>
+                                <td>
+                                    @item.FullName
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
 
@@ -63,21 +99,15 @@
 
 }
 
-@if (Model != null)
+@if (Model != null)         //if student is a member of any group
 {
-    @*<div class="panel panel-default">
-        <div class="panel-heading">Group Titile</div>
-        <div class="panel-body">
-
-        </div>
-    </div>*@
     <div class="row">
         <div class="col-lg-6">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Group Member</div>
+                    <div class="panel-heading">Oncomming Work</div>
                     <div class="panel-body">
-                        @Html.Action("GetGroupListTable", "Groups", new { SemesterID = Semester.Id })
+                        Oncomming Work
                     </div>
                 </div>
             </div>
@@ -85,22 +115,48 @@
         <div class="col-lg-6">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Group List</div>
+                    <div class="panel-heading">
+                        Group Mentors
+                    </div>
                     <div class="panel-body">
-                        @*@Html.Action("GetGroupListTable", "Groups", new { SemesterID = Semester.Id })*@
+                        Group Mentors
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Feedbacks</div>
+                    <div class="panel-body">
+                        Feedbacks
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Section
+                    </div>
+                    <div class="panel-body">
+                        Section
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
-else
-{
+else  // if student is not a member of any group
+{  @*start  1st row*@
     <div class="row">
         <div class="col-lg-12">
             <div class="col-lg-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Group Member</div>
+                    <div class="panel-heading">Groups</div>
                     <div class="panel-body">
                         @Html.Action("GetGroupListTable", "Groups", new { SemesterID = Semester.Id })
                     </div>
@@ -108,14 +164,37 @@ else
             </div>
             <div class="col-lg-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Scenario List</div>
+                    <div class="panel-heading">Course Scenarios</div>
                     <div class="panel-body">
-                        @Html.Action("GetScenarioListTable", "Groups", new {SemesterID =Semester.Id })
+                        @Html.Action("GetScenarioListTable", "Groups", new { SemesterID = Semester.Id })
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>   @**end 1st row *@
+    @*start  2nd row*@
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Course Resources</div>
+                    <div class="panel-body">
+                        @Html.Action("GetCourseResourceListTable", "Groups", new { SemesterID = Semester.Id })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Course Mentors</div>
+                    <div class="panel-body">
+                        @Html.Action("GetMentorListTable", "Groups", new { SemesterID = Semester.Id })
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>@**end 2nd row *@
 }
 
 <div id="AjaxFormProccessIcon">
@@ -137,7 +216,7 @@ else
     $(document).ready(function () {
         $("#GroupNameEditFormContainner").hide();
 
-        $("#GroupNameLabel").click(function () {
+        $("#GroupNameLabel").dblclick(function () {
             $("#GroupNameLabel").hide();
             $("#GroupNameEditFormContainner").show();
         })

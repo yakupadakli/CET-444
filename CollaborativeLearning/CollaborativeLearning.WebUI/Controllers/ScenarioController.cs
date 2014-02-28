@@ -15,7 +15,7 @@ namespace CollaborativeLearning.WebUI.Controllers
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
 
-        
+        #region Admin Section
         public ActionResult _PartialGetScenarioGrid()
         {
             var allScenario = unitOfWork.ScenarioRepository.Get().ToList();
@@ -276,7 +276,10 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.AllResources = unitOfWork.ResourceRepository.Get();
             return RedirectToAction("_PartialResources", "Scenario", new { id = ScenarioID });
         }
+        #endregion Admin
 
+        #region Student
 
+        #endregion
     }
 }
