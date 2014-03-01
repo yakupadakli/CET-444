@@ -67,6 +67,13 @@
     </div>
     <div class="tab-pane clearfix" id="resourceSemester">
         <div id="SemesterResourcesContainer">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.Action("_PartialSelectResourcesBySemester", "Semester", new { id = Model.Id })
+
+
+                </div>
+            </div>
             @Html.Action("_PartialSemesterResourceList", "Resource", new { id = Model.Id })
         </div>
     </div>
