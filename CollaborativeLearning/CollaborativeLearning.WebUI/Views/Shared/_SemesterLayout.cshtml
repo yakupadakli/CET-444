@@ -53,6 +53,21 @@
             width:266px;
             margin-bottom: 25px;
         }
+        .main_title {
+            margin-left: 0;
+            margin-right: 0;
+            background-color: #fff;
+            border-width: 1px;
+            border-color: #ddd;
+            border-radius: 4px 4px 0 0;
+            box-shadow: none;
+            position: relative;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            padding-left: 12px;
+        }
     </style>
 </head>
 
@@ -76,8 +91,9 @@
             <div class="col-md-3">
 
                 <div id="semesterNav" class="list-group" style="">
-                    Courses Operations
-                    
+                    <a href="@Url.Action("Index", "Home")" class="list-group-item">Home</a>
+                    <br />
+                    <div class="main_title"><h4>Courses Operations</h4></div>
                     <a id="groups" href="#Groups" class="list-group-item" data-toggle="tab">Groups</a>
                     <a id="scenarios" href="#Scenarios" class="list-group-item active" data-toggle="tab">Scenarios</a>
                     <a id="works" href="#Works" class="list-group-item" data-toggle="tab">Submitted Works</a>
@@ -85,16 +101,6 @@
                     <a id="reflections" href="#Reflections" class="list-group-item" data-toggle="tab">Reflections</a>
                     <a id="mentors" href="#Mentors" class="list-group-item" data-toggle="tab">Mentors</a>
                     <a id="students" href="#Students" class="list-group-item" data-toggle="tab">Students</a>
-                </div>
-                <div id="semesterNavAdmin" class="list-group" style="">
-                    Admininstrative Operations
-                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Courses</a>
-                    @*<a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>*@
-                    <a href="#" class="list-group-item">Scenarios</a>
-
-                    @*<a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>*@
-                    <a href="#" class="list-group-item">Resources</a>
-
                 </div>
             </div>
             <div class="col-md-9">

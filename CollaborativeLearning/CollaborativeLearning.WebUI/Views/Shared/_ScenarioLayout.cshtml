@@ -86,20 +86,17 @@
         <div class="row" style="min-height:480px;">
 
             <div class="col-md-3">
-
                 <div id="scenarioNav" class="list-group" style="">
+                    
+                    <a href="@Url.Action("Index", "Home")" class="list-group-item">Home</a>
+                    <br />
                     <div class="main_title"><h4>Scenarios Operations</h4></div>
                     <a id="tasks" href="#tasks" class="list-group-item active" data-toggle="tab">Students Task</a>
                     <a id="actionPlan" href="#action" class="list-group-item " data-toggle="tab">Action Plan</a>
                     <a id="resources" href="#resource" class="list-group-item" data-toggle="tab">Resources</a>
                     <a id="works" href="#work" class="list-group-item" data-toggle="tab">Works</a>
                 </div>
-                <div id="scenarioNavAdmin" class="list-group" style="">
-                    <div class="main_title"><h4>Admininstrative Operations</h4></div>
-                    <a href="@Url.Action("Index", "Semester", new {id=0})" class="list-group-item active">Courses</a>
-                    <a href="@Url.Action("Index", "Scenario", new {id=0})" class="list-group-item">Scenarios</a>
-                    <a href="@Url.Action("Index", "Resource", new {id=0})" class="list-group-item">Resources</a>
-                </div>
+                
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
