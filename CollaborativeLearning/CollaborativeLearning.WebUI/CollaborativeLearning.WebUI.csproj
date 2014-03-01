@@ -352,22 +352,54 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ActionPlanController.cs" />
-    <Compile Include="Controllers\FeedbackController.cs" />
-    <Compile Include="Controllers\GroupController.cs" />
-    <Compile Include="Controllers\GroupsController.cs" />
-    <Compile Include="Controllers\HelperController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MentorController.cs" />
-    <Compile Include="Controllers\ReflectionController.cs" />
-    <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="Controllers\ScenarioController.cs" />
-    <Compile Include="Controllers\SemesterController.cs" />
-    <Compile Include="Controllers\TaskController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\WorkController.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ActionPlanController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FeedbackController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\GroupController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\GroupsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\HelperController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MentorController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ReflectionController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ResourceController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ScenarioController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SemesterController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TaskController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UploadController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UserController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\WorkController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -378,6 +410,7 @@
     <Compile Include="Membership\WebSecurity.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ForgotPassword.cs" />
+    <Compile Include="Models\GroupScenarioWork.cs" />
     <Compile Include="Models\SemesterModels.cs" />
     <Compile Include="Models\WorkWithDueDate.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -1458,8 +1491,11 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\ForgetPassword.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ProfileSegments.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\_PartialMentorsGrid.cshtml" />
@@ -1470,7 +1506,10 @@
     <Content Include="Views\Feedback\_PartialGetFeedbacksByGroupWorkId.cshtml" />
     <Content Include="Views\Feedback\_PartialGetGroupsBySemesterForFeedback.cshtml" />
     <Content Include="Views\Feedback\_PartialGetGroupWorkFeedbacks.cshtml" />
+    <Content Include="Views\Groups\GetCourseResourceListTable.cshtml" />
     <Content Include="Views\Groups\GetGroupListTable.cshtml" />
+    <Content Include="Views\Groups\GetMentorListTable.cshtml" />
+    <Content Include="Views\Groups\GetScenarioListTable.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\Show.cshtml" />
     <Content Include="Views\Groups\_PartialGetGroupScenarios.cshtml" />
@@ -1529,8 +1568,13 @@
     <Content Include="Views\Semester\_PartialCreate.cshtml" />
     <Content Include="Views\Semester\_PartialEdit.cshtml" />
     <Content Include="Views\Semester\_PartialGetSemesterGrid.cshtml" />
+    <Content Include="Views\Semester\_PartialGetStudentsBySemester.cshtml" />
     <Content Include="Views\Semester\_PartialGoToSemester.cshtml" />
+    <Content Include="Views\Semester\_PartialResources.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectResourcesBySemester.cshtml" />
     <Content Include="Views\Semester\_PartialSelectScenarios.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectStudents.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectUsers.cshtml" />
     <Content Include="Views\Semester\_PartialSemesterDataTable.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
@@ -1560,10 +1604,14 @@
     <Content Include="Views\Task\_PartialTaskCreate.cshtml" />
     <Content Include="Views\Task\_PartialTaskShow.cshtml" />
     <Content Include="Views\Task\_PartialTaskUpdate.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\User\_PartialAddCourse.cshtml" />
     <Content Include="Views\User\_PartialGetStudentsBySemester.cshtml" />
     <Content Include="Views\User\_PartialSelectStudents.cshtml" />
     <Content Include="Views\User\_PartialSelectUsers.cshtml" />
+    <Content Include="Views\User\_PartialStudentsCourseList.cshtml" />
+    <Content Include="Views\User\_PartialUserCourse.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Work\_PartialWork.cshtml" />
     <Content Include="Views\Work\_PartialWorkCreate.cshtml" />
@@ -1582,21 +1630,12 @@
     </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\kendo\2013.2.918\jquery.min.map" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Views\Account\ProfileSegments.cshtml" />
-    <Content Include="Views\Groups\GetScenarioListTable.cshtml" />
-    <Content Include="Views\Semester\_PartialGetStudentsBySemester.cshtml" />
-    <Content Include="Views\Semester\_PartialResources.cshtml" />
-    <Content Include="Views\Semester\_PartialSelectResourcesBySemester.cshtml" />
-    <Content Include="Views\Semester\_PartialSelectStudents.cshtml" />
-    <Content Include="Views\Semester\_PartialSelectUsers.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\_PartialAddCourse.cshtml" />
-    <Content Include="Views\User\_PartialStudentsCourseList.cshtml" />
-    <Content Include="Views\User\_PartialUserCourse.cshtml" />
-    <Content Include="Views\Groups\GetCourseResourceListTable.cshtml" />
-    <Content Include="Views\Groups\GetMentorListTable.cshtml" />
+    <Content Include="Views\Resource\_PartialShowResource.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Scenario\Group.cshtml" />
+    <Content Include="Views\Semester\_PartialSelectStudentsFromSemester.cshtml" />
+    <Content Include="Views\Work\_PartialGetWorkForGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
