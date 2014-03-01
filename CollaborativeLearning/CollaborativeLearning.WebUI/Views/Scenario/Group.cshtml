@@ -8,7 +8,7 @@
 
 }
 @section OwnGroupLink{
-    <h4>My Group</h4>
+    <h4>@Html.ActionLink("My Group", "Index", "Groups", new { semesterID = Semester.Id }, new { })</h4>
 }
 @section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -166,31 +166,9 @@
                 <div class="panel-body">
                     @if (Model.Works.Where(t => t.isActive == true).Count() > 0)
                     {
-                        foreach (var item in Model.Works.Where(t => t.isActive == true).OrderBy(w => w.OrderID))
-                        {
-                            <div class="panel panel-info">
-                                <div class="panel-heading clearfix">
-                                    <a class="scenarioWorkCollapse" id="@item.Id" href="collapseScenarioWork_@item.Id"
-                                       data-toggle="collapse" style="text-decoration:none;">
-
-                                        <div class="col-lg-6">
-                                            @item.Name
-                                            <i class="indicator glyphicon glyphicon-chevron-down  pull-left" style="margin-right:20px;margin-left:-20px;margin-top:4px;"></i>
-                                        </div>
-                                        <div class="col-lg-6 text-right">
-                                            Due Date : 05/06/2014 15:00
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="panel-body collapse clearfix" id="collapseScenarioWork_@item.Id" style="height:auto;">
-                                    @Html.Raw(HttpUtility.HtmlDecode(item.Description))
-                                    <div class="modal-footer" style="background-color:none">
-                                        <button class="btn btn-sm btn-primary">Submit Your Work</button>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+                       
+                        @Html.Action("_PartialGetWorkForGroup", "Work", new { GroupID = Group.Id, ScenarioID = Model.Id })
+                       
                     }
                 </div>
             </div>

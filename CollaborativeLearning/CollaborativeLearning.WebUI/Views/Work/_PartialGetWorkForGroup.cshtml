@@ -1,0 +1,52 @@
+﻿@model ICollection<CollaborativeLearning.WebUI.Models.GroupScenarioWork>
+
+
+@foreach (var item in Model)
+{
+   
+<div class="panel @{if (item.GroupWork==null)
+                    {
+                        if (item.WorkSemesterDueDate.DueDate > DateTime.Now)
+                        {
+                            <text>panel-info</text>
+                        }else{
+                           <text>panel-danger</text>
+                        }
+                    }else{
+                        <text>panel-success</text>
+                    } }">
+    
+    <div class="panel-heading clearfix">
+        <a class="scenarioWorkCollapse" id="@item.WorkSemesterDueDate.WorkID" href="collapseScenarioWork_@item.WorkSemesterDueDate.WorkID"
+           data-toggle="collapse" style="text-decoration:none;">
+
+            <div class="col-lg-6">
+                @item.WorkSemesterDueDate.Work.Name
+                <i class="indicator glyphicon glyphicon-chevron-down  pull-left" style="margin-right:20px;margin-left:-20px;margin-top:4px;"></i>
+            </div>
+            <div class="col-lg-6 text-right">
+                Due Date : @item.WorkSemesterDueDate.DueDate.ToString()
+            </div>
+        </a>
+    </div>
+
+    <div class="panel-body collapse clearfix" id="collapseScenarioWork_@item.WorkSemesterDueDate.WorkID" style="height:auto;">
+        @Html.Raw(HttpUtility.HtmlDecode(item.WorkSemesterDueDate.Work.Description))
+        <div class="modal-footer" style="background-color:none">
+            @if (item.GroupWork!=null)
+            {
+               <span>Your work is submitted by</span> @CollaborativeLearning.WebUI.Controllers.HelperController.GetUserByID(item.GroupWork.regUserID).FullName<span> at</span> @item.GroupWork.regDate.ToString()
+                <a class="btn btn-sm btn-primary"> Resubmit Your Work </a> 
+            }
+            else { 
+               <span class="alert-danger">Your group don't submit this work yet!</span>
+              <a class="btn btn-sm btn-primary"> Submit Your Work </a> 
+
+            }
+           
+        </div>
+    </div>
+</div>
+}
+
+
