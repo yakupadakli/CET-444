@@ -1,0 +1,189 @@
+﻿@model CollaborativeLearning.Entities.Resource
+
+<link href="~/Content/Template/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Template/css/bootstrap-responsive.css" rel="stylesheet" />
+<script src="~/Content/Template/js/jquery-1.10.2.js"></script>
+<script src="~/Content/Template/js/bootstrap.js"></script>
+@{
+	CollaborativeLearning.Entities.User RegUser = ViewData["RegUser"] as CollaborativeLearning.Entities.User;
+}
+<br />
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 clearfix">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Resource Name : @Model.Name</h3>
+				</div>
+
+				<br />
+				<div class="panel-body">
+					<div class="col-lg-5">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Resources Info
+							</div>
+							<div class="panel-body">
+								<table class="table">
+									<thead>
+										<tr>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>File Type</th>
+											<th> : </th>
+											<td>@Model.Description</td>
+										</tr>
+										<tr>
+											<th>Create Date</th>
+											<th> : </th>
+											<td>@Model.RegDate</td>
+										</tr>
+										<tr>
+											<th>Owner</th>
+											<th> : </th>
+											<td>@RegUser.FullName</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 clearfix">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Scenario Info
+							</div>
+							<div class="panel-body">
+								<table class="table">
+									<thead></thead>
+									<tbody>
+										@{foreach (var item in Model.Scenarios.ToList())
+										{
+										<tr>
+											<th>Scenario Name</th>
+											<th> : </th>
+											<td>@item.Name</td>
+										</tr>
+										}
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 clearfix">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Course Info
+							</div>
+							<div class="panel-body">
+
+								<table class="table">
+									<thead></thead>
+									<tbody>
+										@{foreach (var item in Model.Semesters.ToList())
+										{
+										<tr>
+											<th>Course Name</th>
+											<th> : </th>
+											<td>@item.CourseName</td>
+										</tr>
+										}
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					@if (Model.type.Contains("File"))
+					{
+						<div class="panel panel-default clearfix">
+							<div class="panel-heading clearfix">
+								<div class="col-lg-12">
+									<div class="col-lg-8">
+										Files
+									</div>
+								</div>
+							</div>
+
+							<div class="panel panel-body">
+								<div id="PartialFileListContainer" class="clearfix">
+									<div class="col-lg-12">
+										<table class="table table-hover table-responsive table-striped">
+											<thead>
+												<tr>
+													<td class="col-sm-1">
+														<b>File Name</b>
+													</td>
+													<td>
+														<b>Size</b>
+													</td>
+													<td>
+														<b>File Type</b>
+													</td>
+													<td class="col-sm-2">
+														<b>Action</b>
+													</td>
+												</tr>
+											</thead>
+											<tbody>
+												@if (Model.ResourceFiles.Count != 0)
+												{
+													foreach (var item in Model.ResourceFiles.ToList())
+													{
+
+														<tr>
+															<td class="col-sm-2">
+																@item.FileName
+															</td>
+															<td>
+																@((item.FileSize/1024.0/1024.0).ToString("0.00")) MB
+															</td>
+															<td>
+																@item.FileType
+															</td>
+															<td class="col-sm-1">
+																@Ajax.ActionLink(" ", "DownloadFile", "Resource", new { id = item.Id },
+																new AjaxOptions
+																{
+
+																	Confirm = "Are you sure to delete this File",
+																	UpdateTargetId = "PartialFileListContainer",
+																	LoadingElementId = "loadingResourceOps"
+																},
+																new
+																{
+																	@class = "btn-sm btn-primary ",
+																	@id = "resouceDownload_" + item.Id,
+																	alt = "Download File",
+																	title = "Download File"
+																})
+																<script>
+																	$("#resouceDownload_@item.Id").html("<span class='glyphicon glyphicon-download-alt'></span> Download")
+																</script>
+															</td>
+														</tr>
+													}
+												}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+
+					@if (Model.type.Contains("Text"))
+					{
+						<h1>Tee</h1>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
