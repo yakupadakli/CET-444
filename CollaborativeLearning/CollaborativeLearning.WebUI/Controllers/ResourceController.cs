@@ -11,21 +11,28 @@ using System.IO;
 using System.IO.Compression;
 namespace CollaborativeLearning.WebUI.Controllers
 {
+    [Authorize]
     public class ResourceController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
+        [Authorize(Roles = "Instructor")]
+
         public ActionResult Index()
         {
             return View();
         }
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialAddResource()
         {
             return PartialView("_PartialAddResource");
         }
+        [Authorize(Roles="Instructor")]
+
         public ActionResult _PartialGetResourceGrid()
         {
             return PartialView("Index");
         }
+        [Authorize(Roles="Instructor")]
         [ValidateInput(false)]
         public ActionResult AddResource(Resource model, string ResourceText, string ResourceUrl, String FileUpload)
         {
@@ -104,7 +111,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             
         }
-
+        [Authorize(Roles="Instructor")]
         public ActionResult DeleteFile(int id)
         {
             ResourceFile resourceFile = unitOfWork.ResourceFileRepository.GetByID(id);
@@ -122,7 +129,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return RedirectToAction("_PartialFileList", new { id = resourceFile.ResourceID });
         }
-
+        [Authorize(Roles="Instructor")]
         public ActionResult Delete(int id)
         {
             try
@@ -191,6 +198,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return RedirectToAction("_PartialAddResource");
         }
+        [Authorize(Roles="Instructor")]
         public ActionResult ChangeActiveStatus(int id, string Active)
         {
             unitOfWork = new UnitOfWork();
@@ -207,13 +215,14 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             return RedirectToAction("_PartialResourceList");
         }
-
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialResourceList()
         {
             var Model = unitOfWork.ResourceRepository.Get().OrderBy(m => m.Name).ToList();
 
             return PartialView(Model);
         }
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialSemesterResourceList(int id)
         {
             unitOfWork = new UnitOfWork();
@@ -222,6 +231,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView("_PartialResourceList", model);
             
         }
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialEditResource(int id)
         {
             Resource model = new Resource();
@@ -249,7 +259,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 return null;
             }
         }
-
+        [Authorize(Roles="Instructor")]
         private static List<SelectListItem> GetResourceTypesSelectList()
         {
             List<SelectListItem> ResourceCategory = new List<SelectListItem>();
@@ -263,7 +273,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ResourceCategory.Add(new SelectListItem { Text = "Other", Value = "Other" });
             return ResourceCategory;
         }
-
+        [Authorize(Roles="Instructor")]
         public ActionResult Edit(Resource model)
         {
             unitOfWork = new UnitOfWork();
@@ -301,7 +311,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialEditResource", new { id = model.Id });
 
         }
-
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialFileList(int id) { 
             unitOfWork = new UnitOfWork();
             ICollection<ResourceFile> model = unitOfWork.ResourceRepository.GetByID(id).ResourceFiles.ToList();
@@ -313,12 +323,14 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
         #region ResourceUpload
+        [Authorize(Roles="Instructor")]
         public ActionResult _PartialFileUploadToResource(int id)
         {
             ViewBag.ResourceID = id;
             ViewBag.ResourceName = "Resoruce";
             return View();
         }
+        [Authorize(Roles="Instructor")]
         public ActionResult UploadHandler(HttpPostedFileBase file, int ResourceID)
         {
             if (file!=null)
@@ -372,6 +384,8 @@ namespace CollaborativeLearning.WebUI.Controllers
         #endregion
 
         #region Download Files
+        [Authorize(Roles="Instructor,Student,Mentor")]
+
         public ActionResult DownloadAllResourceFiles(int id)
         {
             Resource resource = unitOfWork.ResourceRepository.GetByID(id);

@@ -38,9 +38,10 @@
         <div class="panel-heading">
             <div class="col-lg-4">
                 <div>
-                    <a class="studentActionPlanCollapse" id="@item.Id" href="#collapseActionPlan_@item.Id" data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
+                    <a class="studentActionPlanCollapse" id="@item.Id" href="#collapseActionPlan_@item.Id" 
+                       data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
                         Action Plan @item.Id
-                        <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+                        <i class="indicator glyphicon glyphicon-chevron-down  pull-left" style="margin-right:20px;margin-left:-20px;margin-top:4px;"></i>
                     </a>
                 </div>
             </div>
