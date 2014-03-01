@@ -39,9 +39,28 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
+            unitOfWork = new UnitOfWork();
+            User user2 = unitOfWork.UserRepository.Get(u => u.Username == model.UserName).FirstOrDefault();
+            if (user2 !=null)
+            {
+                if (user2.IsLockedOut)
+                {
+                    ViewBag.lockout = "lockout";
+                    return View(model);
+                }
+                if (!user2.IsApproved)
+                {
+                    ViewBag.failed = "Your account is not approved. Please contact your course instructor.";
+                    return View(model);
+                }
+
+            }
+
             if (Membership.ValidateUser(model.UserName, model.Password))
             {
+
                 User user = unitOfWork.UserRepository.Get(u => u.Username == model.UserName).FirstOrDefault();
+
                 bool activeSemester = false;
                 if (user.RoleID == unitOfWork.RoleRepository.Get(r => r.RoleName == "Instructor").FirstOrDefault().RoleId)
                     activeSemester = true;
@@ -82,16 +101,9 @@ public class AccountController : Controller
             }
             else
             {
-                unitOfWork = new UnitOfWork();
-
-                User user = unitOfWork.UserRepository.Get(u => u.Username == model.UserName).FirstOrDefault();
-                if (user.IsLockedOut)
-                {
-                    ViewBag.lockout = "lockout";
-                }
-                else
-                    ViewBag.failed = "The user name or password provided is invalid.";
+                ViewBag.failed = "The user name or password provided is invalid.";
             }
+            
         }
 
         // If we got this far, something failed, redisplay form
