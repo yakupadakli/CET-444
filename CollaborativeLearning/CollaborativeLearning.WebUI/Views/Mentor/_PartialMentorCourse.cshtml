@@ -1,0 +1,22 @@
+﻿@if (ViewBag.AddCourseSuccess != null)
+{
+    if (ViewBag.AddCourseSuccess == "true")
+    {
+        <div class="alert alert-dismissable alert-success">
+            You added course successfuly.
+        </div>
+
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissable">
+            Semester which you want to add, is not found or passive.
+        </div>
+    }
+}
+<div id="UserAddCourseContainner">
+    @Html.Action("_PartialAddCourse", "Mentor")
+</div>
+<div id="CourseListContainner">
+    @Html.Action("_PartialMentorsCourseList", "Mentor", new { id = CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId()})
+</div>

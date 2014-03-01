@@ -10,20 +10,91 @@ namespace CollaborativeLearning.WebUI.Controllers
 {
     public class MentorController : Controller
     {
-        //
-        // GET: /Mentor/
 
+        #region Mentor Side
         private UnitOfWork unitOfWork = new UnitOfWork();
 
-
+        [Authorize(Roles="Mentor")]
         public ActionResult Index()
         {
-            return View();
+            unitOfWork = new UnitOfWork();
+            User model = unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId());
+            return View(model);
         }
 
-        //
-        // GET: /Mentor/Details/5
+        public ActionResult _PartialAddCourse()
+        {
+            unitOfWork = new UnitOfWork();
 
+            var SemesterList = unitOfWork.SemesterRepository.Get().ToList();
+            User user = unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId());
+            List<Semester> semesters = new List<Semester>();
+
+            if (user.Semesters.Count() > 0)
+            {
+                foreach (var semester in SemesterList)
+                {
+                    if (user.Semesters.Where(s => s.Id == semester.Id).Count() == 0)
+                    {
+                        semesters.Add(semester);
+                    }
+                }
+
+            }
+            else
+            {
+                semesters = SemesterList;
+            }
+
+            return PartialView(semesters);
+        }
+        public ActionResult _PartialMentorsCourseList(int id)
+        {
+            unitOfWork = new UnitOfWork();
+            User user = unitOfWork.UserRepository.GetByID(id);
+
+            return PartialView(user.Semesters.ToList());
+        }
+        public ActionResult AddCourse(int UserID, string CourseID)
+        {
+            unitOfWork = new UnitOfWork();
+            User user = unitOfWork.UserRepository.GetByID(UserID);
+
+            var semester = unitOfWork.SemesterRepository.Get(s => s.mentorRegisterCode == CourseID).FirstOrDefault();
+            if (semester != null )
+            {
+                user.Semesters.Add(semester);
+                unitOfWork.Save();
+                ViewBag.AddCourseSuccess = "true";
+            }
+            else
+            {
+                ViewBag.AddCourseSuccess = "false";
+            }
+
+            return PartialView("_PartialMentorCourse");
+        }
+        public ActionResult DropCourse(int id)
+        {
+            unitOfWork = new UnitOfWork();
+            Semester semester = unitOfWork.SemesterRepository.GetByID(id);
+            User user = unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId());
+            if (user.Semesters.Where(sem => sem.Id == semester.Id).Count() > 0)
+            {
+                try
+                {
+                    user.Semesters.Remove(semester);
+                    unitOfWork.Save();
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+            }
+            return PartialView("_PartialMentorCourse");
+        }
         public ActionResult Details(int id)
         {
             return View();
@@ -37,8 +108,9 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
-        //
-        // POST: /Mentor/Create
+        #endregion
+
+        #region Admin Side
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -259,7 +331,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
             return RedirectToAction("_PartialGetMentorGrid", "Mentor");
         }
-
+        #endregion
 
 
     }
