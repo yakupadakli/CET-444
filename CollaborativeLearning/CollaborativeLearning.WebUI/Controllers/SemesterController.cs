@@ -310,6 +310,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 var s = unitOfWork.UserRepository.GetByID(int.Parse(item));
                 semester.Users.Add(s);
                 unitOfWork.Save();
+                unitOfWork = new UnitOfWork();
                 var a = unitOfWork.StudentCourseRequestRepository.GetByID(int.Parse(item));
                 a.isApproved = true;
                 unitOfWork.Save();
@@ -441,7 +442,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.ID = id;
             unitOfWork = new UnitOfWork();
             var StudentSemesterList = unitOfWork.SemesterRepository.GetByID(id).Users.ToList();
-            var AllList = unitOfWork.UserRepository.Get();
+            var AllList = unitOfWork.UserRepository.Get(u=>u.RoleID == 3);
             bool t = false;
             List<User> StudentList = new List<User>();
             foreach (var listItem in AllList)

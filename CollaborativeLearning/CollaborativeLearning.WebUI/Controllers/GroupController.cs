@@ -71,7 +71,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 if (item.Semesters.Contains(unitOfWork.SemesterRepository.GetByID(semesterId)))
                 {
-                    Group g = item.Groups.FirstOrDefault();
+                    Group g = item.Groups.Where(group => group.SemesterID == semesterId).FirstOrDefault();
                     if (g == null)
                     {
                         userlist.Add(item);
