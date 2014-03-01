@@ -1,0 +1,79 @@
+﻿@model CollaborativeLearning.Entities.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<style>
+    #studentInfoTable tbody th:first-child
+    {
+        min-width: 100px;
+    }
+</style>
+<div class="container" style="margin-top: 2%;">
+    <div class="row" style="margin-left:10%;margin-right:10%; width:80%">
+        <div class="col-lg-12 panel panel-default clearfix">
+            <br />
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-left">
+                        <h5 class="text-info">Profile</h5>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="studentInfoTable">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>:</th>
+                                    <td>@Model.FirstName</td>
+                                </tr>
+                                <tr>
+                                    <th>Surname</th>
+                                    <th>:</th>
+                                    <td>@Model.LastName</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Login</th>
+                                    <th>:</th>
+                                    <td>@Model.LastLoginDate</td>
+                                </tr>
+                                <tr>
+                                    <th>Current Ip</th>
+                                    <th>:</th>
+                                    <td>@HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 pull-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h4 class="text-warning">Registered Courses</h4>
+                        
+                    </div>
+                    <div class="panel-body" id="MentorCourseContainner">
+                        @Html.Partial("_PartialMentorCourse")
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingIndicator">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+<style>
+    div#loadingIndicator {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>

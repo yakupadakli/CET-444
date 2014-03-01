@@ -1,0 +1,38 @@
+﻿@model ICollection<CollaborativeLearning.Entities.Semester>
+@{
+
+    List<SelectListItem> semesteerList = new List<SelectListItem>();
+
+    foreach (var item in Model)
+    {
+        semesteerList.Add(new SelectListItem { Text = item.semesterName, Value = item.Id.ToString() });
+    }
+
+
+}
+<div class="panel panel-default">
+    <div class="panel-body clearfix">
+       
+
+        @using (Ajax.BeginForm("AddCourse", "Mentor",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "MentorCourseContainner",
+                LoadingElementId = "loadingIndicator"
+            },
+            new { @class = "form form-inline" }))
+        {
+            <div class="input-group">
+                @Html.Hidden("UserID", CollaborativeLearning.WebUI.Controllers.HelperController.GetCurrentUserId())
+                @Html.TextBox("CourseID", null, new { id = "CourseID", @class = "form-control", placeholder = "Enter Course Registration Code" })
+                <span class="input-group-addon" style="padding:1px;">
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Add Course</button>
+                </span>
+            </div>
+        }
+
+
+
+    </div>
+</div>
