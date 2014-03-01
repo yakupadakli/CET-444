@@ -35,6 +35,11 @@ namespace CollaborativeLearning.WebUI.Controllers
             return null;
 
         }
+        public static User GetUserByID(int id) {  
+            User user = unitOfWork.UserRepository.Get(u =>u.Id==id).FirstOrDefault();
+            if (user != null)
+                return user;
+            return null; }
         public static string GetRandomString(int length)    //Random String Producer
         {
             //rastgele stringimizin oluşturulacağı karakter dizisi

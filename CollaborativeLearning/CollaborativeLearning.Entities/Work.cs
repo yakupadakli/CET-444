@@ -34,6 +34,7 @@ namespace CollaborativeLearning.Entities
 
         public virtual ICollection<Scenario> Scenarios { get; set; }
         public virtual ICollection<GroupWork> GroupWorks { get; set; }
+        public virtual ICollection<WorkSemesterDueDate> WorkSemesterDueDates { get; set; }
 
     }
 }

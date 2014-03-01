@@ -23,10 +23,10 @@ namespace CollaborativeLearning.WebUI.Controllers
             {
                 ViewData["semester"] = semester;
                 ViewBag.SemesterID = semester.Id;
-                if (user.Groups.Count() > 0)
+                if (user.Groups.Where(g => g.SemesterID == semesterID).Count() > 0)
                 {
                     ViewBag.SelectedGroupID = group.Id;
-                    group = user.Groups.FirstOrDefault();
+                    group = user.Groups.Where(g => g.SemesterID == semesterID).FirstOrDefault();
                     return View(group);
                 }
                 else

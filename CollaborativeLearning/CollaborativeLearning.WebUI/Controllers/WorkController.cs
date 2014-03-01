@@ -310,6 +310,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             else
                 return RedirectToAction("Index", "Scenario");
         }
+
+        #region Change OrderID
         public ActionResult WorkDown(int id, int? scenarioId = null,int semesterId=0)
         {
             if (scenarioId != null)
@@ -367,5 +369,48 @@ namespace CollaborativeLearning.WebUI.Controllers
             else
                 return RedirectToAction("Index", "Scenario");
         }
+        #endregion
+
+        #region StudentArea
+        public ActionResult _PartialGetWorkForGroup(int GroupID,int ScenarioID) {
+            unitOfWork = new UnitOfWork();
+           List<GroupScenarioWork> model = new List<GroupScenarioWork>();
+            
+            Group group = unitOfWork.GroupRepository.GetByID(GroupID);
+            ICollection<Work> worklist = unitOfWork.ScenarioRepository.GetByID(ScenarioID).Works.ToList();
+            List<WorkSemesterDueDate> scenarioWork = new List<WorkSemesterDueDate>();
+            
+            foreach (var item in worklist.Where(w=>w.isActive==true))
+            {
+                var wsd = unitOfWork.WorkSemesterDueDateRepository.Get(s => s.WorkID == item.Id).FirstOrDefault();
+                if (wsd!=null)
+                {
+                    scenarioWork.Add(wsd);
+                }
+            }
+
+            foreach (var item in scenarioWork)
+            {         
+                var groupWork = unitOfWork.GroupWorkRepository.Get(g=>g.GroupID==GroupID && g.WorkId==item.WorkID).LastOrDefault();
+                GroupScenarioWork gsw = new GroupScenarioWork
+                {
+                    GroupID = group.Id,
+                    Group = group,
+                    WorkSemesterDueDateID = item.Id,
+                    WorkSemesterDueDate = item
+                };
+                if (groupWork !=null)
+                {
+                    gsw.GroupWorkID = groupWork.Id;
+                    gsw.GroupWork = groupWork;
+                }
+
+                model.Add(gsw);
+            }
+            
+            return PartialView(model.OrderBy(s=>s.WorkSemesterDueDate.DueDate).ToList());
+            
+        }
+        #endregion
     }
 }
