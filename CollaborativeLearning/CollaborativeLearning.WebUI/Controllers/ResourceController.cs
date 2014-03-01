@@ -353,13 +353,14 @@ namespace CollaborativeLearning.WebUI.Controllers
                     try
                     {
                         ResourceFile resourceFile = new ResourceFile();
-                        resourceFile.FileName = fileName;
+                        resourceFile.FileName = fileNameEncoded;
                         resourceFile.FileSize = file.ContentLength;
-                        resourceFile.FileType = exten;
+                        resourceFile.FileType = file.ContentType;
                         resourceFile.FileUrl = Path.Combine(urlPath, fileNameEncoded);
                         resourceFile.regDate = DateTime.Now;
                         resourceFile.regUserID = HelperController.GetCurrentUserId();
                         resourceFile.ResourceID = ResourceID;
+
 
                         unitOfWork = new UnitOfWork();
                         unitOfWork.ResourceFileRepository.Insert(resourceFile);
@@ -419,7 +420,39 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View();
         }
 
+        [Authorize(Roles="Instructor,Student,Mentor")]
+        public ActionResult DownloadFile(int id)
+        {
+            ResourceFile resourceFile = unitOfWork.ResourceFileRepository.GetByID(id);
+            if (resourceFile != null)
+            {
+                string[] file = resourceFile.FileUrl.Split('\\');
+                var directoryPath = Path.Combine(Server.MapPath("~/Resources/" + resourceFile.FileUrl));
+                FileInfo fi = new FileInfo(directoryPath);
+                if (fi.Exists)
+                {
+                    return File(directoryPath, resourceFile.FileType, resourceFile.FileName);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
         #endregion
 
+        [Authorize(Roles = "Instructor,Student,Mentor")]
+        public ActionResult _PartialShowResource(int id)
+        {
+            unitOfWork = new UnitOfWork();
+            Resource model = unitOfWork.ResourceRepository.GetByID(id);
+            if (model != null)
+            {
+                ViewData["RegUser"] = unitOfWork.UserRepository.GetByID(model.RegUserID) as User;
+                return PartialView(model);
+            }
+            return null;
+        }
     }
 }

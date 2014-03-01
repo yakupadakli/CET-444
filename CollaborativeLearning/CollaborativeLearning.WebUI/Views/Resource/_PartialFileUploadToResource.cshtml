@@ -55,7 +55,8 @@
     Dropzone.options.ResourceUpload = {
         paramName: "file",// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
         addRemoveLinks: true,
-        dictRemoveFile: "Remove File(notWork)",
+        maxFilesize: 100,
+        dictRemoveFile: "Hide",
         init: function () {
             this.on("success", function (file) {
                 $("#WarnContainner").show(100);
