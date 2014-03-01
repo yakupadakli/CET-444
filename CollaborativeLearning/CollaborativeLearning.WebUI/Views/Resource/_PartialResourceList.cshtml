@@ -75,6 +75,7 @@
                         @{
                           if (item.Description.Length <= 140){
                               @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+							
                           }else{
                               @Html.Raw(HttpUtility.HtmlDecode(item.Description.Substring(0, 140)))
                           }
@@ -82,7 +83,10 @@
                     </td>
                     <td align="center">
                         
-                       
+                       @Html.ActionLink(" ", "_PartialShowResource", "Resource", 
+					   new { id = item.Id },
+					 new { @class = "resourceShowFileCB btn-sm btn-primary glyphicon glyphicon-eye-open", alt = "See Details", title = "See Details" })
+
                         @Ajax.ActionLink(" ", "_PartialEditResource", "Resource", new { id = item.Id },
                                 new AjaxOptions
                                 {
@@ -169,7 +173,7 @@
 <script>
     $(document).ready(function () {
     	$(".resourceShowFileCB").colorbox({
-            iframe: true, width: "90%", height: "90%",
+            iframe: true, width: "80%", height: "80%",
         });
     });
 </script>
