@@ -17,14 +17,14 @@
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(item.CourseName + "." + item.Section, "Index", "Groups",
-                            new { semesterID = item.Id },
+                        @Html.ActionLink(item.CourseName + "." + item.Section, "Semester", "Mentor",
+                            new { id=item.Id },
                             new { id = "full" })
                     </td>
                     <td>
 
-                        @Html.ActionLink(item.year + "-" + item.semester, "Index", "Groups",
-                            new { semesterID = item.Id },
+                        @Html.ActionLink(item.year + "-" + item.semester, "Semester", "Mentor",
+						 new { id = item.Id },
                             new { id = "full" })
 
                     </td>

@@ -24,6 +24,10 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             User model = unitOfWork.UserRepository.GetByID(HelperController.GetCurrentUserId());
+            if (model.RoleID == 2)
+            {
+                return RedirectToAction("Index", "Mentor");
+            }
             return View(model);
         }
     

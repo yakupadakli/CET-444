@@ -11,7 +11,7 @@ namespace CollaborativeLearning.WebUI.Controllers
     public class GroupsController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        public ActionResult Index(int semesterID)
+        public ActionResult Index(int semesterID, int? groupID)
         {
             int userID = HelperController.GetCurrentUserId();
             unitOfWork = new UnitOfWork();
@@ -26,7 +26,15 @@ namespace CollaborativeLearning.WebUI.Controllers
                 if (user.Groups.Where(g => g.SemesterID == semesterID).Count() > 0)
                 {
                     ViewBag.SelectedGroupID = group.Id;
-                    group = user.Groups.Where(g => g.SemesterID == semesterID).FirstOrDefault();
+                    if (groupID == null)
+                    {
+                        group = user.Groups.Where(g => g.SemesterID == semesterID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        group = user.Groups.Where(g => g.SemesterID == semesterID && g.Id == groupID).FirstOrDefault();
+                    }
+                    
                     return View(group);
                 }
                 else

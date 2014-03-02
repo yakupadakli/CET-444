@@ -95,11 +95,72 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return PartialView("_PartialMentorCourse");
         }
-        public ActionResult Details(int id)
+        public ActionResult Semester(int id)
         {
-            return View();
+            ViewBag.SemesterID = id;
+            Semester semester = unitOfWork.SemesterRepository.GetByID(id);
+            User user = HelperController.GetCurrentUser();
+            List<Group> groups = new List<Group>();
+            foreach (var group in semester.Groups)
+            {
+                foreach (var u in group.Users)
+                {
+                    if(u.Id == user.Id)
+                    {
+                        groups.Add(group);
+                    }
+                }
+            }
+
+            ViewData["groups"] = groups.ToList();
+
+            return View(semester);
         }
 
+        public ActionResult _PartialGetMentorScenarios(int SemesterID)
+        {
+            unitOfWork = new UnitOfWork();
+            List<Scenario> groupScenarios = new List<Scenario>();
+            User user = HelperController.GetCurrentUser();
+            ICollection<Group> groups = user.Groups.Where(s => s.SemesterID == SemesterID).ToList();
+            
+            ViewBag.SemesterID = SemesterID;
+
+            return PartialView(groups);
+        }
+
+        public ActionResult _PartialHeaderSemeterInfo(int semesterId)
+        {
+            unitOfWork = new UnitOfWork();
+            User user = HelperController.GetCurrentUser();
+            ViewBag.CurrentSemester = unitOfWork.SemesterRepository.GetByID(semesterId).semesterName;
+            return PartialView();
+        }
+
+        public ActionResult _PartialGetOtherGroupsForMenu(int SemesterID)
+        {
+            unitOfWork = new UnitOfWork();
+            Semester Semester = unitOfWork.SemesterRepository.GetByID(SemesterID);
+            List<Group> groupLists = Semester.Groups.ToList();
+            User CurrentUser = HelperController.GetCurrentUser();
+            List<Group> groups = new List<Group>();
+            if (CurrentUser.Groups.Count > 0)
+            {
+              
+                    foreach (var item2 in CurrentUser.Groups.Where(g => g.SemesterID == SemesterID).ToList())
+                    {
+                        groupLists.Remove(groupLists.Where(s=>s.Id == item2.Id).FirstOrDefault());
+                    }
+               
+            }
+            else
+            {
+                groups = groupLists;
+            }
+
+            return PartialView(groupLists);
+
+        }
         //
         // GET: /Mentor/Create
 
