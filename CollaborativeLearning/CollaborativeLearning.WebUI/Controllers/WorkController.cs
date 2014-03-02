@@ -14,7 +14,7 @@ namespace CollaborativeLearning.WebUI.Controllers
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: /Work/
-
+        #region Admin
         public ActionResult _PartialWork(int id, int? semesterId)
         {
             ViewBag.id = id;
@@ -310,7 +310,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             else
                 return RedirectToAction("Index", "Scenario");
         }
-
+        #endregion
         #region Change OrderID
         public ActionResult WorkDown(int id, int? scenarioId = null,int semesterId=0)
         {
@@ -407,7 +407,8 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                 model.Add(gsw);
             }
-            
+            ViewBag.GroupID = GroupID;
+            ViewBag.ScenarioID = ScenarioID;
             return PartialView(model.OrderBy(s=>s.WorkSemesterDueDate.DueDate).ToList());
             
         }

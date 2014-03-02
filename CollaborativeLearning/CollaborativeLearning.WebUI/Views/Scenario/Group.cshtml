@@ -166,8 +166,10 @@
                 <div class="panel-body">
                     @if (Model.Works.Where(t => t.isActive == true).Count() > 0)
                     {
-                       
-                        @Html.Action("_PartialGetWorkForGroup", "Work", new { GroupID = Group.Id, ScenarioID = Model.Id })
+                       <div id="workContainner">
+                           @Html.Action("_PartialGetWorkForGroup", "Work", new { GroupID = Group.Id, ScenarioID = Model.Id })
+
+                       </div>
                        
                     }
                 </div>
@@ -211,9 +213,6 @@
         })
     }
 </script>
-<script>
-    $('.scenarioWorkCollapse').click(function (e) {
-        $(e.currentTarget).find("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
-        $("#collapseScenarioWork_" + e.currentTarget.id).toggle(100);
-    });
-</script>
+
+
+
