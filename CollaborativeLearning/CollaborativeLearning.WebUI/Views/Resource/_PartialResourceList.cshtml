@@ -21,10 +21,7 @@
                     <td align="left">
                         <b>Category</b>
                     </td>
-                    <td align="left">
-                        <b>Content</b>
-                    </td>
-                    <td align="left" class="col-sm-2">
+                    <td align="left" class="col-sm-3">
                         <b>Action</b>
                     </td>
                 </tr>
@@ -70,16 +67,6 @@
                     </td>
                     <td>
                         @item.type
-                    </td>
-                    <td>
-                        @{
-                          if (item.Description.Length <= 140){
-                              @Html.Raw(HttpUtility.HtmlDecode(item.Description))
-							
-                          }else{
-                              @Html.Raw(HttpUtility.HtmlDecode(item.Description.Substring(0, 140)))
-                          }
-                        }
                     </td>
                     <td align="center">
                         
