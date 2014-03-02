@@ -8,23 +8,187 @@
 <link href="~/Content/Template/css/bootstrap-responsive.css" rel="stylesheet" />
 <script src="~/Content/Template/js/bootstrap.js"></script>
 
-
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 
 <link href="~/Content/DropZone/css/dropzone.css" rel="stylesheet" />
 <script src="~/Content/DropZone/dropzone.js"></script>
 <br />
 
 <div class="col-lg-12">
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            Submit Your Work : @Model.Work.Name
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <div class="col-lg-12">
+                <div class="col-lg-6 pull-right">
+                    <button class="btn btn-info" onclick="parent.jQuery.colorbox.close()">Finish Upload File</button>
+                </div>
+                <div class="col-lg-6 text-left">
+                    Submit Your Work : @Model.Work.Name
+                </div>
+
+            </div>
+
         </div>
         <div class="panel-body">
-           
-        </div>
-        <div>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a data-toggle="collapse" href="#writePost" data-parent="#accordion">
+                            Write post for your work
+                        </a>
+                    </div>
+                    <div id="writePost" class="panel-collapse collapse">
 
-        </div>
+                        @using (Ajax.BeginForm("GroupWorkSubmitPost", "GroupWork", new { id = Model.Id }, new AjaxOptions { }, new { }))
+                        {
 
+
+                            @Html.HiddenFor(m => m.GroupID)
+                            @Html.HiddenFor(m => m.WorkId)
+
+                            <div class="panel-body">
+
+                                <div class="alert-success" id="groupWorkPostSuccess"><br />You have submited your work successfully</div>
+                                <div class="alert-warning" id="groupWorkPostFail"><br />ERROR:Please try again</div>
+
+                                @Html.TextAreaFor(m => m.Content, new { id = "SubmitWorkCKEditor" })
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-floppy-disk"></i> Save</button>
+                            </div>
+                        }
+                    </div>
+                </div>@*Panel end*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a data-toggle="collapse" href="#filePost" data-parent="#accordion">
+                            Or post your work file(s)
+                        </a>
+                    </div>
+                    <div id="filePost" class="panel-collapse collapse">
+                        <div class="col-lg-12 alert-warning" style="display:none" id="WarnContainner">
+                            File(s) uploaded is successful
+                        </div>
+                        <div class="panel-body">
+                            @if (Model.GroupWorkFiles != null)
+                            {
+                                <div class="panel panel-default" id="groupWorkFileList">
+                                    <div class="panel-heading">
+
+
+
+                                        @Ajax.ActionLink("Reset", "DeleteAllFiles", "GroupWork", new { id = Model.Id }, new AjaxOptions { LoadingElementId = "groupWorkFileList" }, new { @class = "btn btn-danger" })
+
+
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        File Name
+                                                    </th>
+                                                    <th>
+                                                        Size
+                                                    </th>
+                                                    <th>
+                                                        Submission Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.GroupWorkFiles.ToList())
+                                                {
+                                                <tr>
+                                                    <td>
+                                                        @item.FileName
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                    (item.FileSize / 1024.0 / 1024.0).ToString("0.00");
+                                                        } mb
+                                                    </td>
+                                                    <td>
+                                                        @item.regDate.ToString()
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                            @using (Html.BeginForm("GroupWorkSubmitFile", "GroupWork",new { id = Model.Id }, FormMethod.Post, new
+                                                                                            {
+                                                                                                enctype = "multipart/form-data",
+                                                                                                id = "GroupWorkUpload",
+                                                                                                @class = "dropzone",
+                                                                                                style = "min-height:150px"
+                                                                                            }))
+                            {
+                                
+                                @Html.HiddenFor(m => m.GroupID)
+                                @Html.HiddenFor(m => m.WorkId)
+                                @Html.HiddenFor(m => m.Content)
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+<script>
+    $(document).ready(function () {
+        $("#groupWorkPostSuccess").hide();
+        $("#groupWorkPostFail").hide();
+    })
+    function GroupWorkSubmitSuccess() {
+        $("#groupWorkPostSuccess").show();
+    }
+    function GroupWorkSubmitFail() {
+        $("#groupWorkPostFail").show();
+    }
+    function ResetSuccess() {
+        $("#groupWorkFileList").hide(100);
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.replace("SubmitWorkCKEditor");
+        CKEDITOR.config.height = 300;
+    });
+</script>
+<style>
+
+</style>
+<script type="text/javascript">
+    // "uploadDemo" is the camelized version of the HTML form's ID
+    Dropzone.options.GroupWorkUpload = {
+        paramName: "file",// Must match the name of the HttpPostedFileBase argument that the Upload action expects.
+        addRemoveLinks: true,
+        maxFilesize: 100,
+        dictRemoveFile: "Hide",
+        init: function () {
+            this.on("success", function (file) {
+                $("#WarnContainner").show(100);
+            });
+        }
+    };
+
+
+</script>
