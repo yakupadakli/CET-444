@@ -22,3 +22,5 @@ C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\Col
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
 C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.liveInitial.resources
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache

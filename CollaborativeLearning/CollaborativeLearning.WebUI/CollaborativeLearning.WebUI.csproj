@@ -2208,8 +2208,16 @@
     </Content>
     <Content Include="Views\Home\LogOn.cshtml" />
     <Content Include="Views\Mentor\Edit.cshtml" />
+    <Content Include="Views\Mentor\Index.cshtml" />
+    <Content Include="Views\Mentor\Semester.cshtml" />
+    <Content Include="Views\Mentor\_PartialAddCourse.cshtml" />
     <Content Include="Views\Mentor\_PartialGetMentorGrid.cshtml" />
     <Content Include="Views\Mentor\_PartialGetMentorsBySemester.cshtml" />
+    <Content Include="Views\Mentor\_PartialGetMentorScenarios.cshtml" />
+    <Content Include="Views\Mentor\_PartialGetOtherGroupsForMenu.cshtml" />
+    <Content Include="Views\Mentor\_PartialHeaderSemeterInfo.cshtml" />
+    <Content Include="Views\Mentor\_PartialMentorCourse.cshtml" />
+    <Content Include="Views\Mentor\_PartialMentorsCourseList.cshtml" />
     <Content Include="Views\Mentor\_PartialSelectMentors.cshtml" />
     <Content Include="Views\Mentor\_SemesterToMentor.cshtml" />
     <Content Include="Views\Resource\Index.cshtml" />
@@ -2277,6 +2285,7 @@
     <Content Include="Views\Shared\_GroupLayout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_MentorLayout.cshtml" />
     <Content Include="Views\Shared\_PartialStudentInfo.cshtml" />
     <Content Include="Views\Shared\_ScenarioLayout.cshtml" />
     <Content Include="Views\Shared\_SemesterLayout.cshtml">
@@ -2573,15 +2582,7 @@
     <Content Include="Scripts\kendo\2013.3.1119\cultures\kendo.culture.quz-BO.min.js.map" />
     <Content Include="Scripts\kendo\2013.3.1119\cultures\kendo.culture.quz-EC.min.js.map" />
     <Content Include="Scripts\kendo\2013.3.1119\cultures\kendo.culture.quz.min.js.map" />
-    <Content Include="Views\Mentor\Index.cshtml" />
-    <Content Include="Views\Mentor\Semester.cshtml" />
-    <Content Include="Views\Mentor\_PartialAddCourse.cshtml" />
-    <Content Include="Views\Mentor\_PartialGetMentorScenarios.cshtml" />
-    <Content Include="Views\Mentor\_PartialGetOtherGroupsForMenu.cshtml" />
-    <Content Include="Views\Mentor\_PartialHeaderSemeterInfo.cshtml" />
-    <Content Include="Views\Mentor\_PartialMentorCourse.cshtml" />
-    <Content Include="Views\Mentor\_PartialMentorsCourseList.cshtml" />
-    <Content Include="Views\Shared\_MentorLayout.cshtml" />
+    <Content Include="Views\Scenario\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,28 @@ namespace CollaborativeLearning.Entities.Migrations
                     RoleID = 1
                 }
                 );
+            context.Users.AddOrUpdate
+                (
+                new CollaborativeLearning.Entities.User
+                {
+                    Username = "SuperAdmin",
+                    FirstName = "Super",
+                    LastName = "Admin",
+                    Email = "cetyool@gmail.com",
+                    PhoneNumber = "05009990909",
+                    Gender = "Male",
+                    IsApproved = true,
+                    IsLockedOut = false,
+                    LastLockoutDate = DateTime.UtcNow,
+                    LastActivityDate = DateTime.UtcNow,
+                    LastPasswordChangedDate = DateTime.UtcNow,
+                    LastPasswordFailureDate = DateTime.UtcNow,
+                    Password = CollaborativeLearning.WebUI.Membership.Crypto.HashPassword("123asd"),
+                    CreateDate = DateTime.UtcNow,
+                    PasswordFailuresSinceLastSuccess = 0,
+                    RoleID = 1
+                }
+                );
             context.Roles.AddOrUpdate(
                 new CollaborativeLearning.Entities.Role { RoleName = "Instructor", Description = "Teacher" },
                 new CollaborativeLearning.Entities.Role { RoleName = "Mentor", Description = "Assistant" },
