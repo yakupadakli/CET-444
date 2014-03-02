@@ -33,83 +33,109 @@
         int i = 0;
     }
     @foreach (var item in Model)
-    {
-        i++;
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="col-lg-4">
-                    <div>
-                        <a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id" 
-                            data-toggle="collapse" style="color:white;text-decoration:none;">
-                            @item.TaskName
-                            <i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <div class="btn-group ">
-                        <a class='deneme btn btn-success btn-sm' onclick="editStudentTask(@item.Id)">
-                            <span class='glyphicon glyphicon-pencil'></span> Edit 
-                        </a>
-                         @Ajax.ActionLink("Delete", "Delete", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    Confirm = "Are you sure to delete this task?",
-                                    UpdateTargetId = "studentTaskContainer",
-                                    LoadingElementId = "loadingDelete",
-                                },
-                               new {@class="btn btn-danger btn-sm" })
-                        @if(i < Model.Count())
-                        {
-                            @Ajax.ActionLink(" ", "TaskDown", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    UpdateTargetId = "studentTaskContainer",
-                                    LoadingElementId = "loadingDelete",
-                                },
-                               new {@class="btn btn-primary glyphicon glyphicon-chevron-down"})
-                        }
-                        else
-                        {
-                            <span class="btn btn-primary glyphicon glyphicon-stop" >
-                                </span>
-                        }
-                        @if(i > 1)
-                        {
-                            @Ajax.ActionLink(" ", "TaskUp", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    UpdateTargetId = "studentTaskContainer",
-                                    LoadingElementId = "loadingDelete",
-                                },
-                               new {@class="btn btn-primary glyphicon glyphicon-chevron-up" })
-                        }
-                        else
-                        {
-                            <span class="btn btn-primary glyphicon glyphicon-stop" >
-                                </span>
-                        }
-                       @* <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
-                            <span class='glyphicon glyphicon-remove'></span> Delete 
-                        </a>*@
-                    </div>
+{
+	i++;
+	<div class="panel @{if(item.isActive){<text>panel-primary</text>}else{<text>panel-info </text>}}">
+		<div class="panel-heading">
+			<div class="col-lg-4">
+				<div>
+					<a class="studentTaskCollapse" id="@item.Id" href="#collapse_@item.Id"
+					   data-toggle="collapse" style="text-decoration:none; @{if(item.isActive){<text>color:white;</text>}}">
+						@item.TaskName
+						<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+					</a>
+				</div>
+			</div>
+			<div class="text-right">
+				<div class="btn-group ">
+					<a class='deneme btn btn-success btn-sm' onclick="editStudentTask(@item.Id)">
+						<span class='glyphicon glyphicon-pencil'></span> Edit
+					</a>
+					@Ajax.ActionLink("Delete", "Delete", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+								new AjaxOptions
+								{
+									HttpMethod = "POST",
+									Confirm = "Are you sure to delete this task?",
+									UpdateTargetId = "studentTaskContainer",
+									LoadingElementId = "loadingDelete",
+								},
+							   new { @class = "btn btn-danger btn-sm" })
+					@if (item.isActive)
+					{
 
-                </div>
-            </div>
-            <div class="panel-body collapse" id="collapse_@item.Id">
-                @Html.Raw(HttpUtility.HtmlDecode(item.Content))
-            </div>
-            <div class="panel-body" id="updateTaskForm_@item.Id" style="display:none;">
-                @Html.Action("_PartialTaskUpdate", "Task", new {
-                                                                    @id = item.Id,
-                                                                    @scenarioId = TempData["scenarioId"]
-                                                                })
-            </div>
-        </div>      
-    }
+						@Ajax.ActionLink("Inactive", "ChangeActiveStatus", "Task", new { id = item.Id, Active = item.isActive, scenarioId = ViewBag.scenarioId },
+								new AjaxOptions
+								{
+									UpdateTargetId = "studentTaskContainer",
+									LoadingElementId = "loadingDelete"
+								},
+						new { @class = "btn btn-sm btn-danger ", @id = "taskChangesStatusOff_" + item.Id })
+
+					}
+					else
+					{
+						@Ajax.ActionLink("Active", "ChangeActiveStatus", "Task", new { id = item.Id, Active = item.isActive, scenarioId = ViewBag.scenarioId },
+								new AjaxOptions
+								{
+									UpdateTargetId = "studentTaskContainer",
+									LoadingElementId = "loadingDelete"
+								},
+									new { @class = "btn btn-sm btn-success", @id = "taskChangesStatusOn_" + item.Id })
+					}
+					<script>
+						$("#taskChangesStatusOff_@item.Id").html("<span class='glyphicon glyphicon-off'></span> Deactivate");
+						$("#taskChangesStatusOn_@item.Id").html("<span class='glyphicon glyphicon-play-circle'></span> Activate");
+					</script>
+					@if (i < Model.Count())
+					{
+						@Ajax.ActionLink(" ", "TaskDown", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+								new AjaxOptions
+								{
+									HttpMethod = "POST",
+									UpdateTargetId = "studentTaskContainer",
+									LoadingElementId = "loadingDelete",
+								},
+							   new { @class = "btn btn-primary glyphicon glyphicon-chevron-down" })
+					}
+					else
+					{
+						<span class="btn btn-primary glyphicon glyphicon-stop">
+						</span>
+					}
+					@if (i > 1)
+					{
+						@Ajax.ActionLink(" ", "TaskUp", "Task", new { id = item.Id, scenarioId = @ViewBag.scenarioId },
+								new AjaxOptions
+								{
+									HttpMethod = "POST",
+									UpdateTargetId = "studentTaskContainer",
+									LoadingElementId = "loadingDelete",
+								},
+							   new { @class = "btn btn-primary glyphicon glyphicon-chevron-up" })
+					}
+					else
+					{
+						<span class="btn btn-primary glyphicon glyphicon-stop">
+						</span>
+					}
+					@* <a href='../../Task/Delete/@item.Id' onclick='return confirm_click();' class='btn btn-danger btn-sm'>
+							<span class='glyphicon glyphicon-remove'></span> Delete
+						</a>*@
+				</div>
+			</div>
+		</div>
+		<div class="panel-body collapse" id="collapse_@item.Id">
+			@Html.Raw(HttpUtility.HtmlDecode(item.Content))
+		</div>
+		<div class="panel-body" id="updateTaskForm_@item.Id" style="display:none;">
+			@Html.Action("_PartialTaskUpdate", "Task", new
+		   {
+			   @id = item.Id,
+			   @scenarioId = TempData["scenarioId"]
+		   })
+		</div>
+	</div>
+}
 </div>
 <script type="text/javascript">
     function confirm_click() {
