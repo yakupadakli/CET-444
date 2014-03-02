@@ -15,33 +15,68 @@
     <div class="table-responsive">
         <table class="table-striped table table-hover">
             <thead>
-                <tr>
-                    <th width="30%">Resource Name
-                    </th>
-                    <th width="15%">Action
-                    </th>
-                </tr>
+				<tr>
+					<td align="left" class="col-sm-1">
+						<b>Active</b>
+					</td>
+					<td align="left">
+						<b>Resource Name</b>
+					</td>
+					<td align="left">
+						<b>Category</b>
+					</td>
+					<td align="left" class="col-sm-3">
+						<b>Action</b>
+					</td>
+				</tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @Ajax.ActionLink("Remove", "DeleteResourceFromScenario", "Scenario", new { resourceId = item.Id, scenarioId = ViewBag.ScenarioId },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    Confirm = "Are you sure to delete this resource?",
-                                    UpdateTargetId = "ScenariosResourcesContainer",
-                                    LoadingElementId = "loadingSemesterScenarios",
-                                },new{ @class="btn btn-danger btn-sm"
-                                }
-                               )
-                        </td>
-                    </tr>
+                    <tr class="@if (item.isActive) {  <text> success </text>   } else { <text> danger </text>   }">
+
+                    <td align="center">
+                        @if (item.isActive)
+                        {
+							<text>Active</text>
+                        }
+                        else
+                        {
+							<text>InActive</text>
+                        }
+                    </td>
+                    <td>
+						<a href="@Url.Action("_PartialShowResource", "Resource", new { id = item.Id })" class="resourceShowFileCB">
+							@item.Name
+						</a>
+                    </td>
+                    <td>
+                        @item.type
+                    </td>
+                    <td>
+                        
+                       @Html.ActionLink(" ", "_PartialShowResource", "Resource", 
+					   new { id = item.Id },
+					 new { @class = "resourceShowFileCB btn-sm btn-primary glyphicon glyphicon-eye-open", alt = "See Details", title = "See Details" })
+
+                        
+                        @if (item.type.Substring(0, 3) == "Fil")
+                        {
+                        @Html.ActionLink(" ", "DownloadAllResourceFiles", "Resource", new { id = item.Id }, new {@class = "btn-sm btn-primary glyphicon glyphicon-download-alt",alt="All Files Download",title="Download all files" })
+                       
+                        }
+                        @Ajax.ActionLink(" ", "DeleteResourceFromScenario", "Scenario", 
+						new { resourceId = item.Id, scenarioId = ViewBag.ScenarioId },
+                        new AjaxOptions
+                        {
+							HttpMethod = "POST",
+							Confirm = "Are you sure to remove this resource?",
+							UpdateTargetId = "ScenariosResourcesContainer",
+							LoadingElementId = "loadingSemesterScenarios",
+                        },
+							new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "Remove", title = "Remove Resource from Scenario" })
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -52,3 +87,10 @@
         <text>This scenario does not have a resource yet!</text>
     }
 }
+<script>
+	$(document).ready(function () {
+		$(".resourceShowFileCB").colorbox({
+			iframe: true, width: "80%", height: "80%",
+		});
+	});
+</script>
