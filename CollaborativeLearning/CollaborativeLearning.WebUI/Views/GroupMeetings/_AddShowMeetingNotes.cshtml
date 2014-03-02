@@ -1,0 +1,37 @@
+﻿@model CollaborativeLearning.Entities.Group
+<div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  + Add new meeting note
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body">
+                    @Html.Action("_AddNewMeeting", "GroupMeetings", new {groupId=Model.Id})
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  Old Meetings Notes
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+              <div class="panel-body">
+                @{
+                    foreach (var item in Model.MeetingNotes)
+                    {
+                        @item.Description;
+                        <br />
+                    }
+                }
+              </div>
+            </div>
+          </div>
+        </div>
