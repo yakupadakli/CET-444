@@ -53,7 +53,7 @@
                     <td>
                         @item.type
                     </td>
-                    <td align="center">
+                    <td>
                         
                        @Html.ActionLink(" ", "_PartialShowResource", "Resource", 
 					   new { id = item.Id },
@@ -69,9 +69,10 @@
 						new { resourceId = item.Id, scenarioId = ViewBag.ScenarioId },
                         new AjaxOptions
                         {
-                            Confirm = "Are you sure to delete this resource",
-                            UpdateTargetId = "ResourcePartialContainner",
-                            LoadingElementId = "loadingResourceOps"
+							HttpMethod = "POST",
+							Confirm = "Are you sure to remove this resource?",
+							UpdateTargetId = "ScenariosResourcesContainer",
+							LoadingElementId = "loadingSemesterScenarios",
                         },
 							new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "Remove", title = "Remove Resource from Scenario" })
                     </td>
