@@ -137,7 +137,7 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                 unitOfWork = new UnitOfWork();
                 Resource resource = unitOfWork.ResourceRepository.GetByID(id);
-                if (resource.type != "Text" && resource.type != "Link")
+                if (resource.type != "Text" && resource.type != "URL")
                 {
                     if (resource != null)
                     {

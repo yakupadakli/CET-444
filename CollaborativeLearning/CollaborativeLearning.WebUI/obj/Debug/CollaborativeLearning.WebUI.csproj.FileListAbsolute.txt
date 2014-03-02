@@ -75,20 +75,6 @@ D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\Col
 D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\sv-SE\Kendo.Mvc.resources.dll
 D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\uk-UA\Kendo.Mvc.resources.dll
 D:\Dropbox\Projeler\4-CollaborationNetwork.com\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\zh-CN\Kendo.Mvc.resources.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.xml
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Antlr3.Runtime.dll
@@ -165,7 +151,6 @@ C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\Collabor
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Patasana\Documents\Cet-444-Proje\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
-C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Newtonsoft.Json.xml
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
@@ -180,3 +165,17 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\Telerik.OpenAccess.35.Extensions.xml
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
+C:\Users\MustafaOzan\Google Drive\CET444-PROJE\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
