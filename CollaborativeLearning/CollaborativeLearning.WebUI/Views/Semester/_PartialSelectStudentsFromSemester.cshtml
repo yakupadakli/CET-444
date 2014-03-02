@@ -16,7 +16,7 @@
         <select multiple="multiple" style="min-width:150px" id="SemesterMultiSelect" name="SemesterMultiSelect" class="form-control">
             @foreach (var item in ViewBag.AllSemesters as List<CollaborativeLearning.Entities.Semester>)
             {
-                <option value="@item.Id">@item.CourseName</option>
+                <option value="@item.Id">@item.semesterName &nbsp @item.CourseName </option>
             }
         </select>
         <span class="input-group-addon" style="padding:1px;">
