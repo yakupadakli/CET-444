@@ -19,6 +19,5 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\bin\Debug\CollaborativeLearning.WebUI.OpenAccess.pdb
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\bin\Debug\Telerik.OpenAccess.35.Extensions.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\bin\Debug\Telerik.OpenAccess.35.Extensions.xml
-C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\obj\Debug\CollaborativeLearning.WebUI.OpenAccess.csprojResolveAssemblyReference.cache
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\obj\Debug\CollaborativeLearning.WebUI.OpenAccess.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI.OpenAccess\obj\Debug\CollaborativeLearning.WebUI.OpenAccess.pdb

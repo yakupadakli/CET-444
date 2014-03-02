@@ -364,6 +364,7 @@
     <Compile Include="Controllers\GroupController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\GroupMeetingsController.cs" />
     <Compile Include="Controllers\GroupsController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1636,6 +1637,7 @@
     <Content Include="Views\Scenario\Group.cshtml" />
     <Content Include="Views\Semester\_PartialSelectStudentsFromSemester.cshtml" />
     <Content Include="Views\Work\_PartialGetWorkForGroup.cshtml" />
+    <Content Include="Views\GroupMeetings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
