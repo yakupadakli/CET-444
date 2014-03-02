@@ -299,5 +299,16 @@ namespace CollaborativeLearning.WebUI.Controllers
             return View(model);
         }
         #endregion
+
+        #region Ortak
+        public ActionResult Detail(int id, int semesterId)
+        {
+            unitOfWork = new UnitOfWork();
+            Scenario model = new Scenario();
+            Semester semester = unitOfWork.SemesterRepository.GetByID(semesterId);
+            
+            return View(model);
+        }
+        #endregion
     }
 }

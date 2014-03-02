@@ -165,6 +165,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork = new UnitOfWork();
             Semester Semester = HelperController.GetUserActiveSemester(HelperController.GetCurrentUserId());
             ICollection<Scenario> scenarios = Semester.Scenarios.ToList();
+            ViewBag.SemesterID = Semester.Id;
             return PartialView(scenarios);
 
         }
