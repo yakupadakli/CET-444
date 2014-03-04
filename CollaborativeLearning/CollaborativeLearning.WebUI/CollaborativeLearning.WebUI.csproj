@@ -364,6 +364,7 @@
     <Compile Include="Controllers\GroupController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\GroupMeetingsController.cs" />
     <Compile Include="Controllers\GroupsController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1425,6 +1426,7 @@
     <Content Include="Content\Template\js\bootstrap.js" />
     <Content Include="Content\Template\js\jquery-1.10.2.js" />
     <Content Include="Global.asax" />
+    <Content Include="GroupMeetingsFiles\MeetingPhotos\CET314\19.JPG" />
     <Content Include="Properties\PublishProfiles\YOOL.pubxml.user" />
     <None Include="Properties\PublishProfiles\YOOL.pubxml" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
@@ -2583,6 +2585,9 @@
     <Content Include="Scripts\kendo\2013.3.1119\cultures\kendo.culture.quz-EC.min.js.map" />
     <Content Include="Scripts\kendo\2013.3.1119\cultures\kendo.culture.quz.min.js.map" />
     <Content Include="Views\Scenario\Detail.cshtml" />
+    <Content Include="Views\GroupMeetings\Index.cshtml" />
+    <Content Include="Views\GroupMeetings\_AddNewMeeting.cshtml" />
+    <Content Include="Views\GroupMeetings\_AddShowMeetingNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
