@@ -21,6 +21,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         //
         // GET: /GroupBySemester
 
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialGetGroupsBySemester(int id)
         {
             ViewBag.ID = id;
@@ -29,11 +30,13 @@ namespace CollaborativeLearning.WebUI.Controllers
             return PartialView(groupList);
         }
 
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialAddGroup(int id)
         {
             ViewBag.ID = id;
             return PartialView();
         }
+        [Authorize(Roles = "Instructor")]
         public ActionResult AddGroupsToSemester(int Id, string groupName)
         {
             var semester = unitOfWork.SemesterRepository.GetByID(Id);
@@ -54,6 +57,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = Id });
         }
+        [Authorize(Roles = "Instructor")]
         public ActionResult Delete(int id)
         {
             int semesterId = unitOfWork.GroupRepository.GetByID(id).SemesterID;
@@ -62,7 +66,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.ID = semesterId;
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = semesterId });
         }
-
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialGetGroupsUsers(int id,int semesterId)
         {
             IEnumerable<User> users = unitOfWork.UserRepository.Get(u => u.RoleID == 3);
@@ -86,7 +90,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.groupId = id;
             return PartialView(groupUserList);
         }
-
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialGetGroupsMentors(int id, int semesterId)
         {
             IEnumerable<User> users = unitOfWork.UserRepository.Get(u => u.RoleID == 2);
@@ -111,7 +115,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.groupId = id;
             return PartialView(groupMentorList);
         }
-
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialGetGroupsScenarios(int id, int semesterId)
         {
             IEnumerable<Scenario> scenarios = unitOfWork.ScenarioRepository.Get();
@@ -136,7 +140,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.groupId = id;
             return PartialView(groupScenarioList);
         }
-
+        [Authorize(Roles = "Instructor")]
         public ActionResult _PartialGetGroupsWorks(int id, int semesterId)
         {
             int currentUserId = HelperController.GetCurrentUserId();
@@ -164,7 +168,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             //return PartialView(groupScenarioList);
             return PartialView(groupWorklist);
         }
-
+        
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public ActionResult _UserToGroup(int id, string[] UserMultiSelect)
         {
@@ -178,7 +183,8 @@ namespace CollaborativeLearning.WebUI.Controllers
             ViewBag.AllGroups = unitOfWork.GroupRepository.Get();
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID});
         }
-
+        
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public ActionResult _ScenarioToGroup(int id, string[] ScenarioMultiSelect)
         {
@@ -193,6 +199,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
         }
 
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public ActionResult DeleteUserFromGroup(int userId, string groupId)
         {
@@ -202,6 +209,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
         }
 
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public ActionResult DeleteScenarioFromGroup(int scenarioId, string groupId)
         {
@@ -211,6 +219,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.SemesterID });
         }
 
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public void UpdateGroupName(int id, string text)
         {
@@ -219,7 +228,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             unitOfWork.Save();
             //return RedirectToAction("_PartialGetGroupsBySemester", "Group", new { id = group.semesterID });
         }
-
+        [Authorize(Roles = "Instructor")]
         [HttpPost]
         public ActionResult DeleteGroup(int groupId)
         {
