@@ -85,63 +85,75 @@ namespace CollaborativeLearning.WebUI.Controllers
 
                 if (filePicture != null)
                 {
-                    unitOfWork = new UnitOfWork();
+                    string Folder = "MeetingPhotos";
+                    SaveFile(model, filePicture, Folder);
+                }
 
-                    MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(model.Id);
-
-                    string directoryPath = Path.Combine(Server.MapPath("~/"),"GroupMeetings","MeetingPhotos", meetingNote.Group.Semester.CourseName);
-                    if (!Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-                    string[] file = filePicture.FileName.Split('.');
-                    string uzanti = file[1];
-                    var fileName = meetingNote.Id.ToString() + "." + uzanti;
-                    var fileNameEncoded = fileName.ToString();
-                    if (fileName != null)
-                    {
-                        var fullPath = Path.Combine(directoryPath, fileNameEncoded);
-                        try
-                        {
-                            MeetingNoteFile meetingNoteFile = new MeetingNoteFile();
-                            meetingNoteFile.MeetingNoteID = meetingNote.Id;
-                            meetingNoteFile.FileName = fileNameEncoded;
-                            meetingNoteFile.FileSize = filePicture.ContentLength;
-                            meetingNoteFile.FileType = filePicture.ContentType;
-                            meetingNoteFile.FileUrl = Path.Combine(fileNameEncoded);
-                            meetingNoteFile.regDate = DateTime.Now;
-                            meetingNoteFile.regUserID = HelperController.GetCurrentUserId();
-
-
-                            unitOfWork = new UnitOfWork();
-                            unitOfWork.MeetingNoteFileRepository.Insert(meetingNoteFile);
-                            unitOfWork.Save();
-                            filePicture.SaveAs(fullPath);
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            ModelState.AddModelError("", ex);
-                            ViewBag.ErrorType = "ResourceAdd";
-                            ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
-                                + " Detail Error: " + ex.Message;
-                        }
-                    }
+                if (fileRar != null)
+                {
+                    string Folder = "MeetingAttachment";
+                    SaveFile(model, filePicture, Folder);
                 }
 
                 int roleId = HelperController.GetCurrentUser().RoleID;
                 if (roleId == 3)
                 {
                     groupId = 0;
-                    return RedirectToAction("_AddShowMeetingNotes", new { group.SemesterID, groupId });
+                    return RedirectToAction("Index", new { group.SemesterID, groupId });
                 }
                 else
-                    return RedirectToAction("_AddShowMeetingNotes", new { group.SemesterID, groupId });
+                    return RedirectToAction("Index", new { group.SemesterID, groupId });
 
 
             }
             return PartialView(model);
+        }
+
+        private void SaveFile(MeetingNote model, HttpPostedFileBase savedFile, string Folder)
+        {
+            unitOfWork = new UnitOfWork();
+            MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(model.Id);
+            string directoryPath = Path.Combine(Server.MapPath("~/"), "GroupMeetings", Folder, meetingNote.Group.Semester.CourseName);
+            //string directoryPath = Path.Combine(Server.MapPath("~/Resources"));
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string[] file = savedFile.FileName.Split('.');
+            string uzanti = file[1];
+            var fileName = meetingNote.Id.ToString() + "." + uzanti;
+            var fileNameEncoded = fileName.ToString();
+            if (fileName != null)
+            {
+                var fullPath = Path.Combine(directoryPath, fileNameEncoded);
+                try
+                {
+                    MeetingNoteFile meetingNoteFile = new MeetingNoteFile();
+                    meetingNoteFile.MeetingNoteID = meetingNote.Id;
+                    meetingNoteFile.FileName = fileNameEncoded;
+                    meetingNoteFile.FileSize = savedFile.ContentLength;
+                    meetingNoteFile.FileType = savedFile.ContentType;
+                    meetingNoteFile.FileUrl = Path.Combine(Folder,fileNameEncoded);
+                    meetingNoteFile.regDate = DateTime.Now;
+                    meetingNoteFile.regUserID = HelperController.GetCurrentUserId();
+
+
+                    unitOfWork = new UnitOfWork();
+                    unitOfWork.MeetingNoteFileRepository.Insert(meetingNoteFile);
+                    unitOfWork.Save();
+                    savedFile.SaveAs(fullPath);
+
+
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex);
+                    ViewBag.ErrorType = "ResourceAdd";
+                    ViewBag.Message = "The system error. It can be database connection problem or anythin about server-side! Please try again. If this situation continue, Ask your system administrator."
+                        + " Detail Error: " + ex.Message;
+                }
+            }
         }
 
     }
