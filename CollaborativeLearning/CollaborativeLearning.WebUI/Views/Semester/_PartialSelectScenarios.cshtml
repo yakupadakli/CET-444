@@ -11,17 +11,20 @@
 ))
 {  
     @Html.Hidden("SemesterID", (int)ViewBag.ID)
-
+<div class="col-lg-12">
     <div class="input-group">
-        <select multiple="multiple" style="min-width:150px" id="ScenarioMultiSelect" name="ScenarioMultiSelect" class="form-control">
-            @foreach (var item in ViewBag.AllScenarios as List<CollaborativeLearning.Entities.Scenario>)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-        <span class="input-group-addon" style="padding:1px;">
-            <input type="submit" value="Add" class="btn btn-primary btn-sm" />
-        </span>
+		
+			<select multiple="multiple" style="min-width:150px" id="ScenarioMultiSelect" name="ScenarioMultiSelect" class="form-control">
+				@foreach (var item in ViewBag.AllScenarios as List<CollaborativeLearning.Entities.Scenario>)
+				{
+					<option value="@item.Id">@item.Name</option>
+				}
+			</select>
+			<span class="input-group-addon" style="padding:1px;">
+				<input type="submit" value="Add" class="btn btn-primary btn-sm" />
+			</span>
+		</div>
+
     </div>
 }
 <div id = "loading">
