@@ -305,10 +305,13 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             Scenario model = new Scenario();
+            model = unitOfWork.ScenarioRepository.GetByID(id);
             Semester semester = unitOfWork.SemesterRepository.GetByID(semesterId);
-            
+            ViewBag.SemesterId = semester.Id;
+            ViewBag.SemesterName = semester.semesterName;
             return View(model);
         }
         #endregion
+
     }
 }
