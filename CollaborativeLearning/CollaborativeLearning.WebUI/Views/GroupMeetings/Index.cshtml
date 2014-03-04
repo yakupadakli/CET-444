@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_GroupLayout.cshtml";
+}
+
+@section OwnGroupLink{
+	<h4>My Group</h4>
+}
+@section BreadCrump{
+	<li>@Html.ActionLink("Home", "Index", "Home")</li>
+}
+@section Header{
+    <div name="AddShowMeetingNotesContainer" id="AddShowMeetingNotesContainer">
+        @Html.Action("_AddShowMeetingNotes", "GroupMeetings", new {SemesterID=ViewBag.SemesterID,groupId=ViewBag.groupId })
+    </div>
+
+}
+
+
+<div id="MeetingAjaxLoading">
+    <img src="~/Content/Template/img/loader.gif" />
+</div>
+
+<style>
+    div#MeetingAjaxLoading {
+        display: none;
+        position: absolute;
+        left: 42%;
+        top: 76%;
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+    }
+</style>
+
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#CreateScenarioSuccess").hide();
+        $("#CreateScenarioFailure").hide();
+        
+    });
+    function CreateScenarioSuccess() {
+        alert("success");
+     }
+    function CreateScenarioFailure() {
+        alert("fail");
+    }
+</script>
