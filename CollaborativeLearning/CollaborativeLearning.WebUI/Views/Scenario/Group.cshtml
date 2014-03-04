@@ -113,7 +113,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Resources.OrderBy(r => r.Name))
+                            @foreach (var item in Model.Resources.Where(r => r.isActive).OrderBy(r => r.Name).ToList())
                             {
                                 <tr>
                                     <td>
@@ -134,18 +134,18 @@
                                         }
                                     </td>
                                     <td>
-                                        <a class="btn btn-xs btn-success" style="width:100px;">
-                                            <i class="glyphicon glyphicon-eye-open"></i> Show
-                                        </a>
+                                        <a href="@Url.Action("_PartialShowResource", "Resource", new { id = item.Id })" class="btn btn-xs btn-info resourceShowFileCB" style="width: 100px; margin-top:5px;"><i class="glyphicon glyphicon-eye-open"></i> Show</a>
+
+                                       
                                         @if (item.type.Contains("File"))
                                         {
                                             <br />
-                                            <a href="@Url.Action("DownloadAllResourceFiles", "Resource", new { id = item.Id })" class="btn btn-xs btn-primary" style="width: 100px; margin-top:5px;">
+                                            <a href="@Url.Action("DownloadAllResourceFiles", "Resource", new { id = item.Id })" class="btn btn-xs btn-warning" style="width: 100px; margin-top:5px;">
                                                 <i class="glyphicon glyphicon-download-alt"></i> Download
                                             </a>
-                                        } 
+                                        }
                                     </td>
-                                    
+
                                 </tr>
                             }
                         </tbody>
@@ -165,11 +165,11 @@
                 <div class="panel-body">
                     @if (Model.Works.Where(t => t.isActive == true).Count() > 0)
                     {
-                       <div id="workContainner">
-                           @Html.Action("_PartialGetWorkForGroup", "Work", new { GroupID = Group.Id, ScenarioID = Model.Id })
+                        <div id="workContainner">
+                            @Html.Action("_PartialGetWorkForGroup", "Work", new { GroupID = Group.Id, ScenarioID = Model.Id })
 
-                       </div>
-                       
+                        </div>
+
                     }
                 </div>
             </div>
@@ -189,7 +189,7 @@
         </div>
     </div>
 
-  
+
 </div>
 
 <script>
@@ -201,6 +201,12 @@
         })
     }
 </script>
-
+<script>
+    $(document).ready(function () {
+        $(".resourceShowFileCB").colorbox({
+            iframe: true, width: "80%", height: "80%",
+        });
+    });
+</script>
 
 
