@@ -99,10 +99,10 @@ namespace CollaborativeLearning.WebUI.Controllers
                 if (roleId == 3)
                 {
                     groupId = 0;
-                    return RedirectToAction("Index", new { group.SemesterID, groupId });
+                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID, groupId });
                 }
                 else
-                    return RedirectToAction("Index", new { group.SemesterID, groupId });
+                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID, groupId });
 
 
             }
@@ -113,7 +113,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(model.Id);
-            string directoryPath = Path.Combine(Server.MapPath("~/"), "GroupMeetings", Folder, meetingNote.Group.Semester.CourseName);
+            string directoryPath = Path.Combine(Server.MapPath("~/"), "GroupMeetingsFiles", Folder, meetingNote.Group.Semester.CourseName);
             //string directoryPath = Path.Combine(Server.MapPath("~/Resources"));
 
             if (!Directory.Exists(directoryPath))
