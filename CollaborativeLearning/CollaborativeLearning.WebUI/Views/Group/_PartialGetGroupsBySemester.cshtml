@@ -171,7 +171,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Group/UpdateGroupName",
+            url: "@Url.Action("UpdateGroupName", "Group")",
             data: { id: id, text: txt }
         }).done(function () {
             $("#groupNameLabel-" + id).find("span").html(txt);
