@@ -98,7 +98,7 @@
 
                            <a id="group" href="" class="list-group-item" data-toggle="tab">Group Scenario(s)</a>
                             @Html.Action("_PartialGetGroupScenarios", "Groups", new { SemesterID = ViewBag.SemesterID })
-                            <a id="meeting" href="#Groups" class="list-group-item" data-toggle="tab">Group Meetings</a>
+							@Html.ActionLink("Group Meetings", "Index", "GroupMeetings", new { SemesterID = ViewBag.SemesterID}, new { id = "meeting", @class = "list-group-item" })
                         }
                         else
                         {
@@ -122,7 +122,6 @@
                         </a>
                         <ul class="dropdown-menu" style="margin-top: -40px;margin-left: 265px;">
                             @Html.Action("_PartialGetScenariosForMenu", "Groups")
-
                         </ul>
                     </span>
                     <a id="works" href="#Groups" class="list-group-item" data-toggle="tab">Course Resources</a>
