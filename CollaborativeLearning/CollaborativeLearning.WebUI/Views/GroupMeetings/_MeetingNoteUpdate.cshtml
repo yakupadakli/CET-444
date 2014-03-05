@@ -2,20 +2,21 @@
 
 
     <div class="modal-header">
-        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
         <h3 class="modal-title">Add Meeting Note</h3>
     </div>
-    @using (Html.BeginForm("_AddNewMeeting", "GroupMeetings", 
-    new { groupId = ViewBag.groupId },FormMethod.Post,
+    @using (Html.BeginForm("_MeetingNoteUpdate", "GroupMeetings", 
+    null,FormMethod.Post,
     new { enctype = "multipart/form-data" }))
     {
         <div class="modal-body">
 
-            <section id="CreateMeetingNoteForm">
+            <section id="UpdateMeetingNoteForm">
 
 
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
+                @Html.HiddenFor(m=>m.Id)
+                @Html.HiddenFor(m=>m.GroupID)
                 
                 <div class="grid">
                     <div class="col-lg-12">
@@ -32,7 +33,7 @@
                         <div class="dropdown">
                             Meeting Photo
                             <div class="controls">
-                                <input type="file" id="filePicture" name="filePicture" />
+                                <input type="file" id="filePictureUpdate" name="filePictureUpdate" />
                             </div>
                         </div>
                     </div>
@@ -41,7 +42,7 @@
                         <div class="dropdown">
                             @Html.LabelFor(m => m.Description, new { @class = "control-label" })
                             <div class="controls">
-                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "addNote", placeholder = "Enter Meeting Note" })
+                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "updateNote", placeholder = "Enter Meeting Note" })
                                 @Html.ValidationMessageFor(m => m.Description)
                             </div>
                         </div>
@@ -50,7 +51,7 @@
                         <div class="dropdown">
                             Attachment
                             <div class="controls">
-                                <input type="file" id="fileRar" name="fileRar" />
+                                <input type="file" id="fileRarUpdate" name="fileRarUpdate" />
                             </div>
                         </div>
                     </div>
@@ -59,7 +60,7 @@
             </section>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Add Note</button>
+            <button type="submit" class="btn btn-primary">Update Note</button>
                     
         </div>
     }
@@ -69,7 +70,7 @@
         CKEDITOR.config.htmlEncodeOutput = true;
         CKEDITOR.config.autoParagraph = false;
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-        CKEDITOR.replace("addNote");
+        CKEDITOR.replace("updateNote");
     });
 </script>
 

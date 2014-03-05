@@ -1,5 +1,7 @@
 ﻿@model CollaborativeLearning.Entities.Group
 <div class="panel-group" id="accordion">
+    
+        @{if (CollaborativeLearning.WebUI.Controllers.HelperController.IsMemberOfTheGroup(Model.Id)) { 
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
@@ -10,10 +12,13 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
               <div class="panel-body">
-                    @Html.Action("_AddNewMeeting", "GroupMeetings", new {groupId=Model.Id})
+                    @Html.Action("_AddNewMeeting", "GroupMeetings", new {groupId=Model.Id})   
               </div>
             </div>
           </div>
+        }}
+
+		
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
@@ -25,13 +30,44 @@
             <div id="collapseTwo" class="panel-collapse collapse in">
               <div class="panel-body">
                 @{
-                    foreach (var item in Model.MeetingNotes)
+                    int i = 0;
+                    foreach (var item in Model.MeetingNotes.OrderByDescending(o=>o.regDate))
                     {
-                        @item.Description;
+                        int no = Model.MeetingNotes.Count() - i;
+                        string url = @item.MeetingNoteFiles.Where(m=>m.FileType == "image/jpeg").FirstOrDefault().FileUrl;
+                        <div class="panel panel-info" id="contentMeetingNote_@item.Id">
+                          <div class="panel-heading">Meeting No: @no (@item.regDate) 
+                              @{if (CollaborativeLearning.WebUI.Controllers.HelperController.IsMemberOfTheGroup(item.GroupID)) 
+                                { 
+                                    <a class='deneme btn btn-success btn-sm' onclick="editMeeting(@item.Id)">
+						                <span class='glyphicon glyphicon-pencil'></span> Edit
+					                </a>                                                    
+                                }}</div>
+                          <div class="panel-body">
+                              @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                           <div class="panel-body">
+                            <img src="~/GroupMeetingsFiles/@url" class="img-responsive" style="max-width: 60%;" alt="Responsive image"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel-body" id="updateMeetingNote_@item.Id" style="display:none;">
+			                @Html.Action("_MeetingNoteUpdate", "GroupMeetings", new
+		                    {
+			                   @id = item.Id
+		                    })
+		                </div>
                         <br />
+                        i++;
                     }
                 }
               </div>
             </div>
           </div>
         </div>
+
+<script>
+    function editMeeting(id) {
+        $("#updateMeetingNote_" + id).toggle(100);
+        $("#contentMeetingNote_" + id).hide(100);
+    }
+</script>

@@ -92,14 +92,14 @@ namespace CollaborativeLearning.WebUI.Controllers
                 if (fileRar != null)
                 {
                     string Folder = "MeetingAttachment";
-                    SaveFile(model, filePicture, Folder);
+                    SaveFile(model, fileRar, Folder);
                 }
 
                 int roleId = HelperController.GetCurrentUser().RoleID;
                 if (roleId == 3)
                 {
                     groupId = 0;
-                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID, groupId });
+                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID });
                 }
                 else
                     return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID, groupId });
@@ -113,7 +113,7 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(model.Id);
-            string directoryPath = Path.Combine(Server.MapPath("~/"), "GroupMeetingsFiles", Folder, meetingNote.Group.Semester.CourseName);
+            string directoryPath = Path.Combine(Server.MapPath("~/"), "GroupMeetingsFiles", Folder, meetingNote.Group.Semester.semesterName);
             //string directoryPath = Path.Combine(Server.MapPath("~/Resources"));
 
             if (!Directory.Exists(directoryPath))
@@ -129,17 +129,21 @@ namespace CollaborativeLearning.WebUI.Controllers
                 var fullPath = Path.Combine(directoryPath, fileNameEncoded);
                 try
                 {
+
                     MeetingNoteFile meetingNoteFile = new MeetingNoteFile();
                     meetingNoteFile.MeetingNoteID = meetingNote.Id;
                     meetingNoteFile.FileName = fileNameEncoded;
                     meetingNoteFile.FileSize = savedFile.ContentLength;
                     meetingNoteFile.FileType = savedFile.ContentType;
-                    meetingNoteFile.FileUrl = Path.Combine(Folder,fileNameEncoded);
+                    meetingNoteFile.FileUrl = Path.Combine(Folder, meetingNote.Group.Semester.semesterName,fileNameEncoded);
                     meetingNoteFile.regDate = DateTime.Now;
                     meetingNoteFile.regUserID = HelperController.GetCurrentUserId();
 
 
                     unitOfWork = new UnitOfWork();
+                    MeetingNoteFile mf = unitOfWork.MeetingNoteFileRepository.Get(m => m.MeetingNoteID == meetingNote.Id && m.FileName == fileNameEncoded).FirstOrDefault();
+                    if (mf != null)
+                        unitOfWork.MeetingNoteFileRepository.Delete(mf);
                     unitOfWork.MeetingNoteFileRepository.Insert(meetingNoteFile);
                     unitOfWork.Save();
                     savedFile.SaveAs(fullPath);
@@ -154,6 +158,68 @@ namespace CollaborativeLearning.WebUI.Controllers
                         + " Detail Error: " + ex.Message;
                 }
             }
+        }
+
+        public ActionResult _MeetingNoteUpdate(int id)
+        {
+            if (id != 0)
+            {
+                MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(id);
+                return PartialView(meetingNote);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult _MeetingNoteUpdate(MeetingNote model, HttpPostedFileBase filePictureUpdate, HttpPostedFileBase fileRarUpdate)
+        {
+            try
+            {
+                if (model != null)
+                {
+                    int roleId = HelperController.GetCurrentUser().RoleID;
+                    if (HelperController.IsMemberOfTheGroup(model.GroupID) && roleId == 3)
+                    {
+                        Group group = unitOfWork.GroupRepository.GetByID(model.GroupID);
+                        MeetingNote content = unitOfWork.MeetingNoteRepository.GetByID(model.Id);
+                        content.regDate = DateTime.Now;
+                        content.regUserID = HelperController.GetCurrentUser().Id;
+                        content.Description = model.Description;
+                        content.Name = model.Name;
+
+                        if (ModelState.IsValid)
+                        {
+                            unitOfWork.MeetingNoteRepository.Update(content);
+                            unitOfWork.Save();
+
+                            if (filePictureUpdate != null)
+                            {
+                                string Folder = "MeetingPhotos";
+                                SaveFile(model, filePictureUpdate, Folder);
+                            }
+
+                            if (fileRarUpdate != null)
+                            {
+                                string Folder = "MeetingAttachment";
+                                SaveFile(model, fileRarUpdate, Folder);
+                            }
+
+                            return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID });
+
+
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            return PartialView(model);
         }
 
     }

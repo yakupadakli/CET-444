@@ -100,6 +100,17 @@ namespace CollaborativeLearning.WebUI.Controllers
             return false;
         }
 
+        //Return if the current user is a member of the group
+        public static Boolean IsMemberOfTheGroup(int GroupId)
+        {
+            unitOfWork = new UnitOfWork();
+            User user = unitOfWork.UserRepository.Get(u => u.Username == WebSecurity.User.Identity.Name).FirstOrDefault();
+            if (user.Groups.Where(g => g.Id == GroupId).Count() != 0)
+                return true;
+            else 
+                return false;
+
+        }
 
     }
 }
