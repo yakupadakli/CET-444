@@ -34,20 +34,60 @@
                     foreach (var item in Model.MeetingNotes.OrderByDescending(o=>o.regDate))
                     {
                         int no = Model.MeetingNotes.Count() - i;
-                        string url = @item.MeetingNoteFiles.Where(m=>m.FileType == "image/jpeg").FirstOrDefault().FileUrl;
+                        string url = null;
+                        string FileUrl = null;
+                        if(item.MeetingNoteFiles.Where(m => m.FileType == "image/jpeg").Count()>0)
+                        {
+                            url = item.MeetingNoteFiles.Where(m => m.FileType == "image/jpeg").FirstOrDefault().FileUrl;
+                        }
+                        if (item.MeetingNoteFiles.Where(m => m.FileType == "application/octet-stream").Count() > 0)
+                        {
+                            FileUrl = item.MeetingNoteFiles.Where(m => m.FileType == "application/octet-stream").FirstOrDefault().FileUrl;
+                        }
                         <div class="panel panel-info" id="contentMeetingNote_@item.Id">
                           <div class="panel-heading">Meeting No: @no (@item.regDate) 
                               @{if (CollaborativeLearning.WebUI.Controllers.HelperController.IsMemberOfTheGroup(item.GroupID)) 
                                 { 
                                     <a class='deneme btn btn-success btn-sm' onclick="editMeeting(@item.Id)">
 						                <span class='glyphicon glyphicon-pencil'></span> Edit
-					                </a>                                                    
-                                }}</div>
+					                </a>   
+                                    @Ajax.ActionLink(" ", "DeleteFile", "GroupMeetings", new { id = item.Id },
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod ="Get",
+                                        Confirm = "Are you sure to delete this meeting and all files.",
+                                        UpdateTargetId = "AddShowMeetingNotesContainer",
+                                        LoadingElementId = "loadingResourceOps"
+                                    },
+                                    new { @class = "btn-sm btn-danger glyphicon glyphicon-trash", alt = "Delete Resource", title = "Delete Resource" })                                                 
+                                }}
+
+                              
+
+                          </div>
                           <div class="panel-body">
                               @Html.Raw(HttpUtility.HtmlDecode(item.Description))
-                           <div class="panel-body">
-                            <img src="~/GroupMeetingsFiles/@url" class="img-responsive" style="max-width: 60%;" alt="Responsive image"/>
-                            </div>
+                              @{if(url != null)
+                                 {
+                                   <div class="well text-center">
+                                    <img src="~/GroupMeetingsFiles/@url" class="img-responsive center-block" style="max-width: 60%;" alt="Responsive image"/>
+                                       Meeting Photo (@item.regDate)
+                                   </div>
+                                 }
+                               }
+                               @{if(FileUrl != null)
+                                 {
+                                   <div class="well text-center">
+                                       @Html.ActionLink("Download Attachment", "DownloadFile", "GroupMeetings", new { id = item.Id },new
+											{
+                                                @class = "btn-sm btn-primary ",
+												@id = "resouceDownload_" + item.Id,
+												alt = "Download File",
+												title = "Download File"
+											})                                       
+                                   </div>
+                                 }
+                               }
                           </div>
                         </div>
                         <div class="panel-body" id="updateMeetingNote_@item.Id" style="display:none;">
@@ -69,5 +109,16 @@
     function editMeeting(id) {
         $("#updateMeetingNote_" + id).toggle(100);
         $("#contentMeetingNote_" + id).hide(100);
+    }
+    function cancelEditMeeting(id) {
+        $("#updateMeetingNote_" + id).hide();
+        $("#contentMeetingNote_" + id).toggle(100);
+    }
+    function cancelAddMeeting(id) {
+        $("#collapseOne").removeClass("panel-collapse in");
+        $("#collapseOne").addClass("panel-collapse collapse");
+        $("#collapseTwo").removeClass("panel-collapse collapse");
+        $("#collapseTwo").addClass("panel-collapse in");
+        $("#collapseTwo").height('auto');
     }
 </script>

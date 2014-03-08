@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -165,6 +166,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             if (id != 0)
             {
                 MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(id);
+                meetingNote.Description = WebUtility.HtmlDecode(meetingNote.Description);
                 return PartialView(meetingNote);
             }
             else
@@ -221,6 +223,84 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             return PartialView(model);
         }
+
+
+        #region DownloadFile
+
+        [Authorize(Roles="Instructor,Student,Mentor")]
+        public FilePathResult DownloadFile(int id)
+        {
+            MeetingNoteFile resourceFile = unitOfWork.MeetingNoteRepository.GetByID(id).MeetingNoteFiles.Where(m => m.FileType == "application/octet-stream").FirstOrDefault();
+
+            if (resourceFile != null)
+            {
+                string[] file = resourceFile.FileUrl.Split('\\');
+                var directoryPath = Path.Combine(Server.MapPath("~/GroupMeetingsFiles/" + resourceFile.FileUrl));
+                FileInfo fi = new FileInfo(directoryPath);
+                if (fi.Exists)
+                {
+                    return File(directoryPath, resourceFile.FileType, resourceFile.FileName);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+
+        #region DeleteFile
+
+        [Authorize(Roles = "Student")]
+        public ActionResult DeleteFile(int id)
+        {
+            try
+            {
+                MeetingNote meetingNote = unitOfWork.MeetingNoteRepository.GetByID(id);
+                if (meetingNote != null)
+                {
+                    int groupId = meetingNote.GroupID;
+                    int SemesterID = meetingNote.Group.SemesterID;
+
+                    int roleId = HelperController.GetCurrentUser().RoleID;
+                    if (HelperController.IsMemberOfTheGroup(groupId) && roleId == 3)
+                    {
+                        MeetingNoteFile[] resourceFiles = unitOfWork.MeetingNoteFileRepository.Get(f => f.MeetingNoteID == id).ToArray();
+                        if (resourceFiles.Count() > 0)
+                        {
+                            foreach (var resourceFile in resourceFiles)
+                            {
+                                var directoryPath = Path.Combine(Server.MapPath("~/GroupMeetingsFiles/"), resourceFile.FileUrl);
+                                FileInfo fi = new FileInfo(directoryPath);
+                                if (fi.Exists)
+                                {
+                                    fi.Delete();
+                                }
+                            }
+                            unitOfWork = new UnitOfWork();
+                            unitOfWork.MeetingNoteRepository.Delete(id);
+                            unitOfWork.Save();
+                            return RedirectToAction("_AddShowMeetingNotes", new { SemesterID, groupId });
+                        }
+                        else
+                            return RedirectToAction("Index", "GroupMeetings", new { SemesterID });
+                    }
+                    else
+                        return RedirectToAction("Index", "GroupMeetings", new { SemesterID });
+                }
+                else
+                    return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
 
     }
 }

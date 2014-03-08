@@ -34,6 +34,12 @@
                             Meeting Photo
                             <div class="controls">
                                 <input type="file" id="filePictureUpdate" name="filePictureUpdate" />
+                                @{if(Model.MeetingNoteFiles.Where(f=>f.FileType == "image/jpeg").Count()>0)
+                                  {
+                                    string url = Model.MeetingNoteFiles.Where(m=>m.FileType == "image/jpeg").FirstOrDefault().FileUrl;
+                                    <img src="~/GroupMeetingsFiles/@url" class="img-responsive" style="max-width: 20%;" alt="Responsive image"/>
+                                  }
+                                }
                             </div>
                         </div>
                     </div>
@@ -42,7 +48,10 @@
                         <div class="dropdown">
                             @Html.LabelFor(m => m.Description, new { @class = "control-label" })
                             <div class="controls">
-                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "updateNote", placeholder = "Enter Meeting Note" })
+                                @Html.TextAreaFor(m => m.Description, new { 
+                                                @class = "form-control updateNote", 
+                                                @id = "updateNote", 
+                                                placeholder = "Enter Meeting Note" })
                                 @Html.ValidationMessageFor(m => m.Description)
                             </div>
                         </div>
@@ -61,6 +70,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Update Note</button>
+            <button type="button" onclick="cancelEditMeeting(@Model.Id)" class="btn btn-danger">Cancel</button>
                     
         </div>
     }
