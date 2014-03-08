@@ -34,7 +34,7 @@
         }
 
 
-        <a href="@Url.Action("Index", "Home")" class="list-group-item">
+        <a href="@Url.Action("Index", "GroupMeetings", new { SemesterID=@Semester.Id, groupId=Model.Id })" class="list-group-item">
             Meetings
         </a>
         <a href="@Url.Action("Index", "Home")" class="list-group-item">
