@@ -30,7 +30,7 @@
 						<div class="control-group">
 							<label style="font-weight: bold;">Meeting Photo</label> 
 							<div class="controls">
-								<input type="file" id="filePictureUpdate" name="filePictureUpdate" accept="image/*" required="required" />
+								<input type="file" id="filePictureUpdate" name="filePictureUpdate" accept="image/*"/>
 								@{if (Model.MeetingNoteFiles.Where(f => f.FileType == "image/jpeg").Count() > 0)
 								{
 									string url = Model.MeetingNoteFiles.Where(m => m.FileType == "image/jpeg").FirstOrDefault().FileUrl;
