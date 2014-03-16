@@ -58,6 +58,61 @@ namespace CollaborativeLearning.WebUI.Controllers
         }
 
         // Return add meeting note partial
+        public ActionResult AddNewMeeting(int groupId)
+        {
+            if (groupId != 0)
+            {
+                ViewBag.groupId = groupId;
+                return PartialView();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddNewMeeting(MeetingNote model, int groupId, HttpPostedFileBase filePicture, HttpPostedFileBase fileRar)
+        {
+            Group group = unitOfWork.GroupRepository.GetByID(groupId);
+            model.GroupID = groupId;
+            model.regDate = DateTime.Now;
+            model.regUserID = HelperController.GetCurrentUser().Id;
+
+            if (ModelState.IsValid)
+            {
+                unitOfWork.MeetingNoteRepository.Insert(model);
+                unitOfWork.Save();
+
+                if (filePicture != null)
+                {
+                    string Folder = "MeetingPhotos";
+                    SaveFile(model, filePicture, Folder);
+                }
+
+                if (fileRar != null)
+                {
+                    string Folder = "MeetingAttachment";
+                    SaveFile(model, fileRar, Folder);
+                }
+
+                int roleId = HelperController.GetCurrentUser().RoleID;
+                if (roleId == 3)
+                {
+                    groupId = 0;
+                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID });
+                }
+                else
+                    return RedirectToAction("Index", "GroupMeetings", new { group.SemesterID, groupId });
+
+
+            }
+            ViewBag.groupId = groupId;
+            ViewBag.SemesterID = group.SemesterID;
+            return PartialView(model);
+        }
+
+        // Return add meeting note partial
         public ActionResult _AddNewMeeting(int groupId)
         {
             if (groupId != 0)
@@ -107,7 +162,9 @@ namespace CollaborativeLearning.WebUI.Controllers
 
 
             }
-            return PartialView(model);
+            ViewBag.groupId = groupId;
+            ViewBag.SemesterID = group.SemesterID;
+            return View("AddNewMeeting",model);
         }
 
         private void SaveFile(MeetingNote model, HttpPostedFileBase savedFile, string Folder)
@@ -279,13 +336,11 @@ namespace CollaborativeLearning.WebUI.Controllers
                                     fi.Delete();
                                 }
                             }
-                            unitOfWork = new UnitOfWork();
-                            unitOfWork.MeetingNoteRepository.Delete(id);
-                            unitOfWork.Save();
-                            return RedirectToAction("_AddShowMeetingNotes", new { SemesterID, groupId });
                         }
-                        else
-                            return RedirectToAction("Index", "GroupMeetings", new { SemesterID });
+                        unitOfWork = new UnitOfWork();
+                        unitOfWork.MeetingNoteRepository.Delete(id);
+                        unitOfWork.Save();
+                        return RedirectToAction("Index", "GroupMeetings", new { SemesterID, groupId });
                     }
                     else
                         return RedirectToAction("Index", "GroupMeetings", new { SemesterID });

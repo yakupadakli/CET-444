@@ -53,7 +53,8 @@
 						  		<a class='deneme btn btn-success btn-sm' onclick="editMeeting(@item.Id)">
 						  			<span class='glyphicon glyphicon-pencil'></span> Edit
 						  		</a>
-						  		@Ajax.ActionLink("Delete", "DeleteFile", "GroupMeetings", new { id = item.Id },
+                                @Html.ActionLink("Delete", "DeleteFile", "GroupMeetings", new { id = item.Id },new { @class = "btn btn-sm btn-danger", @id = "groupMeetingDelete_" + item.Id, alt = "Delete Resource", title = "Delete Resource",onclick = "return confirm('Are you sure you want to Delete?')" })
+						  		@*@Ajax.ActionLink("Delete", "DeleteFile", "GroupMeetings", new { id = item.Id },
 									new AjaxOptions
 									{
 										HttpMethod = "Get",
@@ -62,7 +63,7 @@
 										LoadingElementId = "loadingResourceOps"
 									},
 										 new { @class = "btn btn-sm btn-danger", @id = "groupMeetingDelete_" + item.Id, alt = "Delete Resource", title = "Delete Resource" })
-						  		<script>
+						  		*@<script>
 							  	$("#groupMeetingDelete_@item.Id").html("<span class='glyphicon glyphicon-trash'></span> Delete");
 						  		</script>
 								}}
