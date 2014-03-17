@@ -2588,6 +2588,8 @@
     <Content Include="Views\GroupMeetings\Index.cshtml" />
     <Content Include="Views\GroupMeetings\_AddNewMeeting.cshtml" />
     <Content Include="Views\GroupMeetings\_AddShowMeetingNotes.cshtml" />
+    <Content Include="Views\GroupMeetings\AddNewMeeting.cshtml" />
+    <Content Include="Views\GroupMeetings\_MeetingNoteUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
