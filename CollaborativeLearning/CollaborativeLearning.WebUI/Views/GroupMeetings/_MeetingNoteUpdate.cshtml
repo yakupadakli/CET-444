@@ -60,7 +60,7 @@
 						<div class="control-group">
 							Attachment
 							<div class="controls">
-								<input type="file" id="fileRarUpdate" name="fileRarUpdate" accept="application/zip" />
+								<input type="file" id="fileRarUpdate" name="fileRarUpdate" accept='application/zip,application/rar' />
 							</div>
 						</div>
                     </div>
@@ -79,6 +79,7 @@
         CKEDITOR.config.htmlEncodeOutput = true;
         CKEDITOR.config.autoParagraph = false;
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.config.removePlugins = 'save, newpage, about';
         CKEDITOR.replace("updateNote");
     });
 </script>
