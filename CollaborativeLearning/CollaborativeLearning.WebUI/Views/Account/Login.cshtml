@@ -16,10 +16,10 @@
         new { ReturnUrl = ViewBag.ReturnUrl },
         FormMethod.Post, new { @class = "form-signin"}))
         {
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Please Sign In or Sign Up</h2>
         
         @*<font color="red">@Html.ValidationSummary()</font>*@
-        @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level form-control", @placeholder = "Enter First Name", required = "required " })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level form-control", @placeholder = "Enter Username", required = "required " })
         @Html.ValidationMessageFor(m => m.UserName)
         @Html.PasswordFor(m => m.Password, new { @class = "input-block-level form-control", @placeholder = "Enter Password", required = "required " })        
         @Html.ValidationMessageFor(m => m.Password)
