@@ -42,7 +42,7 @@
         </a>
     </div>
 }
-@section BreadCrump{
+@*@section BreadCrump{
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
     @if (Model != null)
@@ -55,7 +55,7 @@
         <li class="active">@Semester.CourseName.@Semester.Section</li>
 
     }
-}
+}*@
 
 @section Header{
 
@@ -192,9 +192,9 @@
         <div class="col-lg-6">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Submitted Work</div>
+                    <div class="panel-heading">Work submitted by group</div>
                     <div class="panel-body">
-                        is Processing...
+                        work in progress
                     </div>
                 </div>
             </div>
@@ -204,7 +204,7 @@
         <div class="col-lg-6">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Meetings</div>
+                    <div class="panel-heading">Last three meetings</div>
                     <div class="panel-body">
                         <table class="table table-responsive">
                             <thead>

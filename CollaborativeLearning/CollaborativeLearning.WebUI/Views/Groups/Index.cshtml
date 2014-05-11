@@ -10,21 +10,7 @@
 @section OwnGroupLink{
     <h4>My Group</h4>
 }
-@section BreadCrump{
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-    @if (Model != null)
-    {
-        <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
-        <li class="active">@Model.GroupName</li>
-    }
-    else
-    {
-        @*<li class="active">@Semester.CourseName. @Semester.Section</li>*@
-
-    }
-
-}
 @section Header{
 
 
@@ -79,13 +65,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Student No
+                                        Student Number
                                     </th>
                                     <th>
                                         Username
                                     </th>
                                     <th>
-                                        Name
+                                        Full Name
                                     </th>
                                     <th>
                                         Email
@@ -128,7 +114,7 @@
         <div class="col-lg-6">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Oncomming Work</div>
+                    <div class="panel-heading">Oncoming Work</div>
                     <div class="panel-body">
                         OnComing Work Module is processing...
                     </div>
