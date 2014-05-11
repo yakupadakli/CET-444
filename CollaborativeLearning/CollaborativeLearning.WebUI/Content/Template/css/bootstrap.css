@@ -4122,32 +4122,46 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .nav-tabs {
   border-bottom: 1px solid #dddddd;
+
 }
 
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
+  text-transform:uppercase;
+  margin-top:0;
 }
 
 .nav-tabs > li > a {
-  margin-right: 2px;
-  line-height: 1.428571429;
+  margin-left: 5px;
+  line-height: 15px;
   border: 1px solid transparent;
-  border-radius: 4px 4px 0 0;
+  border-radius: 2px 2px 0 0;
+  background-color:#2a6496;
+  font-family:'Segoe UI',Arial,Verdana;
+  color: #ffffff;
+    height:70px;
+    width:140px;
+
 }
 
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #dddddd;
+  background-color:#57b8e2;
+  color:#000;
+  height:70px;
 }
 
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555555;
+  color: #ffffff;
   cursor: default;
-  background-color: #ffffff;
+  background-color: #f57800;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
+  font-weight:bolder;
+  height:70px;
 }
 
 .nav-tabs.nav-justified {

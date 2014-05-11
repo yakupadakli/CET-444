@@ -16,7 +16,7 @@
         new { ReturnUrl = ViewBag.ReturnUrl },
         FormMethod.Post, new { @class = "form-signin"}))
         {
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h4 class="form-signin-heading">Please sign in / sign up</h4>
         
         @*<font color="red">@Html.ValidationSummary()</font>*@
         @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level form-control", @placeholder = "Enter First Name", required = "required " })
@@ -29,9 +29,9 @@
         
         @Html.ActionLink("Register", "Register", "Account", new { @class = "btn btn-large btn-primary" })
         @*<a href="register.html" class="btn btn-large btn-primary">Register</a>*@
-        <br/><br/>
+       <br/><hr />
         <label class="control-label" for="firstname">
-            @Html.ActionLink("Forget Password?", "ForgetPassword", "Account")
+            @Html.ActionLink("Forgot Password?", "ForgetPassword", "Account")
 @*          <a href="forget_password.html"> Forget Password? </a>*@
         </label>
         </div>
