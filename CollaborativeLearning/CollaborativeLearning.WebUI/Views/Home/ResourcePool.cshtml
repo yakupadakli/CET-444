@@ -1,0 +1,23 @@
+﻿@*<ul class="nav nav-tabs">
+      <li class="active"><a id="semesters_tab" href="#semesters" data-toggle="tab">Course  Pool</a></li>
+      <li><a id="scenarios_tab" href="#scenarios" data-toggle="tab">Scenario Pool</a></li>
+      <li><a id="resources_tab" href="#resources" data-toggle="tab">Resource  Pool</a></li>
+      <li><a id="mentors_tab" href="#mentors" data-toggle="tab">Mentor  Pool</a></li>
+    </ul>*@
+<ul class="nav nav-tabs">
+    <li>
+        <a id="scenarios_tab" href="@Url.Action("index", new { s = "Courses" })" data-toggle=" tab">Course Pool</a>
+
+    </li>
+    <li><a id="scenarios_tab" href="@Url.Action("index", new { s = "Scenarios" })" data-toggle=" tab">Sceneario Pool</a></li>
+    <li class="active"><a id="scenarios_tab" href="@Url.Action("index", new { s = "Resources" })" data-toggle=" tab">Reource Pool</a></li>
+    <li><a id="scenarios_tab" href="@Url.Action("index", new { s = "Mentors" })" data-toggle=" tab">Mentor Pool</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+   
+        @Html.Action("_PartialGetResourceGrid", "Resource")
+    
+</div>
+

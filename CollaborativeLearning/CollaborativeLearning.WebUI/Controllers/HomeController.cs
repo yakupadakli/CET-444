@@ -19,11 +19,41 @@ namespace CollaborativeLearning.WebUI.Controllers
         private UnitOfWork unitOfWork = new UnitOfWork();
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string s)
         {
             if (HelperController.GetCurrentUser().RoleID == 1)
             {
-                return View();
+                if (s==null)
+                {
+                    return View();
+                }
+                else
+                {
+                    if (s == "Courses")
+                    {
+                        return View("CoursePool");
+                    }else
+                    if (s== "Scenarios")
+                    {
+                        return View("ScenarioPool");
+                    }
+                    else
+                    if (s=="Resources")
+                    {
+                        return View("ResourcePool");
+                    }
+                    else
+                    if (s=="Mentors")
+                    {
+                        return View("MentorPool");
+
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                
             }
             else if (HelperController.GetCurrentUser().RoleID == 2)
             {
@@ -39,7 +69,6 @@ namespace CollaborativeLearning.WebUI.Controllers
             
         }
         
-
         
         public ActionResult About()
         {
