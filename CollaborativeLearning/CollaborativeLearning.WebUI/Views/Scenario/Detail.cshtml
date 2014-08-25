@@ -6,20 +6,6 @@
 @section OwnGroupLink{
 	<h4>My Group</h4>
 }
-
-@section BreadCrump{
-	<li>@Html.ActionLink("Home", "Index", "Home")</li>
-	@if (Model != null)
-	{
-		<li><a href="@Url.Action("Detail", "Scenario", new { id = Model.Id, semesterId = ViewBag.SemesterId })">@ViewBag.SemesterName</a></li>
-		<li class="active">@Model.Name</li>
-	}
-	else
-	{
-		@*<li class="active">@Semester.CourseName. @Semester.Section</li>*@
-
-	}
-}
 @section Header{
 	<h4>@Model.Name</h4>	
 }

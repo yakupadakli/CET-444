@@ -42,20 +42,6 @@
         </a>
     </div>
 }
-@section BreadCrump{
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-
-    @if (Model != null)
-    {
-        <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
-        <li class="active">@Model.GroupName</li>
-    }
-    else
-    {
-        <li class="active">@Semester.CourseName.@Semester.Section</li>
-
-    }
-}
 
 @section Header{
 

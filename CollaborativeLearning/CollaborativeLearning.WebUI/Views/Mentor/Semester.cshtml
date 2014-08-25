@@ -3,18 +3,6 @@
 	ViewBag.Title = "Semester";
 	Layout = "~/Views/Shared/_MentorLayout.cshtml";
 }
-@section BreadCrump{
-	<li>@Html.ActionLink("Home", "Index", "Mentor")</li>
-	@if (Model != null)
-	{
-		<li class="active">@Model.CourseName.@Model.Section</li>
-	}
-	else
-	{
-		@*<li class="active">@Semester.CourseName. @Semester.Section</li>*@
-
-	}
-}
 
 @*@section Header{
 

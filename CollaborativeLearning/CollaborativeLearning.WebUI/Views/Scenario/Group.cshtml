@@ -10,14 +10,6 @@
 @section OwnGroupLink{
     <h4>@Html.ActionLink("My Group", "Index", "Groups", new { semesterID = Semester.Id }, new { })</h4>
 }
-@section BreadCrump{
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li><a href="/Groups?semesterID=@Semester.Id">@Semester.CourseName.@Semester.Section</a></li>
-    <li><a href="/Groups?semesterID=@Semester.Id">@Group.GroupName</a></li>
-    <li class="active">@Model.Name</li>
-
-
-}
 @section Header{
     <h3>
         @Model.Name

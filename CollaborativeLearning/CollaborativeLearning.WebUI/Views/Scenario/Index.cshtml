@@ -3,11 +3,6 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_ScenarioLayout.cshtml";
 }
-@section BreadCrump{
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li ><a href="@Url.Action("Index", "Scenario", new {id=0})">Scenario</a></li>
-    <li class="active">@Model.Name</li>
-}
 @section Header{
     <div class="page-header" style="margin: -20px 0 20px;">
         @Model.Name

@@ -7,9 +7,6 @@
 @section OwnGroupLink{
 	<h4>My Group</h4>
 }
-@section BreadCrump{
-	<li>@Html.ActionLink("Home", "Index", "Home")</li>
-}
 @section Header{
     <div name="AddShowMeetingNotesContainer" id="AddShowMeetingNotesContainer">
         @Html.Action("_AddShowMeetingNotes", "GroupMeetings", new {SemesterID=ViewBag.SemesterID,groupId=ViewBag.groupId })

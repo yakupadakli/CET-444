@@ -2,13 +2,6 @@
     ViewBag.Title = "Scenario";
     Layout = "~/Views/Shared/_SemesterLayout.cshtml";
 }
-
-@section BreadCrump{
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li><a href="@Url.Action("Index", "Semester", new {id=0})">Semester</a></li>
-    <li><a href="@Url.Action("Index", "Semester", new {id=ViewBag.semesterId})"> @ViewBag.semesterName </a></li>
-    <li class="active">@ViewBag.scenarioName</li>
-}
 @section Header{
     <div class="page-header" style="margin: -20px 0 20px;">
         @{
