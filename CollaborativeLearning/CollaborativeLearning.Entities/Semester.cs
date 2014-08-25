@@ -40,6 +40,7 @@ namespace CollaborativeLearning.Entities
         public string registerCode { get; set; }
         public string mentorRegisterCode{get; set;}
 
+        [Display(Name = "Status")]
         public bool isActive { get; set; }
 
         [Required(ErrorMessage = "Register Date cannot be empty!")]

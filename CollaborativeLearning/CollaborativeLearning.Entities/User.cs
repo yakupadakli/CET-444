@@ -48,10 +48,10 @@ namespace CollaborativeLearning.Entities
         [Display(Name = "Phone")]
         public String PhoneNumber{get; set;}      
   
-        [Display(Name = "Is Approved")]
+        [Display(Name = "Approval Status")]
         public virtual Boolean IsApproved { get; set; }
 
-        [Display(Name = "Is Active")]
+        [Display(Name = "Status")]
         public virtual Boolean IsLockedOut { get; set; }
 
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }

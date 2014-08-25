@@ -26,7 +26,7 @@ namespace CollaborativeLearning.Entities
         [Required]
         public DateTime RegDate { get; set; }
 
-        [Display(Name = "Is Active")]
+        [Display(Name = "Status")]
         public bool isActive { get; set; }
 
         [Required]
