@@ -179,3 +179,15 @@ C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\Collabora
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup\Documents\Cet-444-Project\CET-444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
+C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
