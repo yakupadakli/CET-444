@@ -36,3 +36,13 @@ C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearni
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll.config
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.xml
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.xml
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.liveInitial.resources
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb

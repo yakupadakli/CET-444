@@ -138,6 +138,8 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             Semester Semester = HelperController.GetUserActiveSemester(HelperController.GetCurrentUserId());
+            if (Semester == null) return PartialView();
+
             List<Group> groupLists = Semester.Groups.ToList();
             User CurrentUser = HelperController.GetCurrentUser();
             List<Group> groups = new List<Group>();
@@ -164,6 +166,8 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             Semester Semester = HelperController.GetUserActiveSemester(HelperController.GetCurrentUserId());
+            if (Semester == null) return PartialView();
+
             ICollection<Scenario> scenarios = Semester.Scenarios.ToList();
             ViewBag.SemesterID = Semester.Id;
             return PartialView(scenarios);
@@ -173,7 +177,10 @@ namespace CollaborativeLearning.WebUI.Controllers
         {
             unitOfWork = new UnitOfWork();
             User user = HelperController.GetCurrentUser();
-            ViewBag.CurrentSemester = HelperController.GetUserActiveSemester(user.Id).semesterName;
+            Semester Semester = HelperController.GetUserActiveSemester(user.Id);
+            if (Semester == null) return PartialView();
+
+            ViewBag.CurrentSemester = Semester.semesterName;
             if (user.Groups.Count > 0)
             {
                 ViewBag.GroupName = user.Groups.FirstOrDefault().GroupName;

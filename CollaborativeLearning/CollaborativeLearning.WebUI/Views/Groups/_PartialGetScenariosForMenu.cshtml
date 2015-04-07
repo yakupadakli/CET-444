@@ -1,15 +1,20 @@
 ﻿@model  ICollection<CollaborativeLearning.Entities.Scenario>
 
 @{
-    if (Model.Count > 0)
+    if (Model != null)
     {
-        foreach (var item in Model)
+
+        if (Model.Count > 0)
         {
-            <li><a tabindex="-1" href="@Url.Action("Detail", "Scenario", new { id = item.Id, semesterId = ViewBag.SemesterID })">@item.Name</a></li>
+            foreach (var item in Model)
+            {
+                <li><a tabindex="-1" href="@Url.Action("Detail", "Scenario", new { id = item.Id, semesterId = ViewBag.SemesterID })">@item.Name</a></li>
+            }
         }
-    }
-    else
-    {
-        <li> No Scenario</li>
+        else
+        {
+            <li> No Scenario</li>
+
+        }
     }
 }

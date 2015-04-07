@@ -191,3 +191,15 @@ C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearni
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
+E:\My_Projects\Viusal_Studio_Projects\Yool\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
