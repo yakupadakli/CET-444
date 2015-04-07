@@ -36,3 +36,15 @@ C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearni
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll.config
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\CollaborativeLearning.Entities.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.xml
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csprojResolveAssemblyReference.cache
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.Migrations.liveInitial.resources
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.csproj.GenerateResource.Cache
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.Entities\obj\Debug\CollaborativeLearning.Entities.pdb

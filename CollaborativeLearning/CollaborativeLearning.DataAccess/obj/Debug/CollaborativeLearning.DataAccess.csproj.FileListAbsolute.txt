@@ -46,3 +46,11 @@ C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearni
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.csprojResolveAssemblyReference.cache
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.dll
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.dll.config
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.DataAccess.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\bin\Debug\CollaborativeLearning.Entities.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.csprojResolveAssemblyReference.cache
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.DataAccess\obj\Debug\CollaborativeLearning.DataAccess.pdb

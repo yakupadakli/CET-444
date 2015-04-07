@@ -191,3 +191,15 @@ C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearni
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
 C:\Users\Yakup Adaklı\Dropbox\Cet 444\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll.config
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.DataAccess.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.Entities.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\bin\CollaborativeLearning.WebUI.OpenAccess.pdb
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.csprojResolveAssemblyReference.cache
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.dll
+D:\Projects\YOOL\CollaborativeLearning\CollaborativeLearning.WebUI\obj\Debug\CollaborativeLearning.WebUI.pdb
