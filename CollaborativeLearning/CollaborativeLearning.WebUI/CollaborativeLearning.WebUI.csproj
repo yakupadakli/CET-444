@@ -421,6 +421,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\cet_314KBDB.mdf" />
+    <Content Include="App_Data\cet_314KBDB_log.ldf">
+      <DependentUpon>cet_314KBDB.mdf</DependentUpon>
+    </Content>
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\CollaborativeLearning.DataAccess.dll" />
     <Content Include="bin\CollaborativeLearning.DataAccess.pdb" />
@@ -2594,7 +2598,6 @@
     <Content Include="Views\Account\_PartialEditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="bin\bg-BG\" />
     <Folder Include="Resources\Archive\" />
   </ItemGroup>
