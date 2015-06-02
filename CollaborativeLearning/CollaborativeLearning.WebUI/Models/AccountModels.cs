@@ -28,6 +28,22 @@ namespace CollaborativeLearning.WebUI.Models
             [Display(Name = "Confirm New Password")]
             [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "New password and Confirm password are not same.")]
             public string ConfirmPassword { get; set; }
+
+            public int? UserId { get; set; }
+        }
+
+        public class ChangeRoleModel
+        {
+            public int UserId { get; set; }
+            [Required]
+            [Display(Name = "Role")]
+            public int RoleId { get; set; }
+        }
+
+        public class EditUserModel
+        {
+            public ChangePasswordModel ChangePasswordModel { get; set; }
+            public ChangeRoleModel ChangeRoleModel { get; set; }
         }
 
         public class LoginModel

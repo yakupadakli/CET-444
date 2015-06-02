@@ -62,6 +62,7 @@
                 <a href="#scenarios" class="list-group-item" id="scenario" data-toggle="tab">Scenario  Pool</a>
                 <a href="#resources" class="list-group-item" id="resource" data-toggle="tab">Resource  Pool</a>
                 <a href="#mentors" class="list-group-item" id="mentor" data-toggle="tab">Mentor  Pool</a>
+                <a href="#members" class="list-group-item" id="member" data-toggle="tab">Member  Pool</a>
                 <a href="http://cet.boun.edu.tr" target="_blank" class="list-group-item">Cet Department</a>
             </div>
             </div>
@@ -96,51 +97,72 @@
         
     @RenderSection("scripts", required: false)
     </body>
-    <script>
+    <script type="text/javascript">
         
         $("#semester").click(function () {
             $("#semester").addClass("active");
             $("#scenario").removeClass("active");
             $("#resource").removeClass("active");
             $("#mentor").removeClass("active");
+            $("#members").removeClass("active");
 
             $("#semesters_tab").parent().addClass("active");
             $("#scenarios_tab").parent().removeClass("active");
             $("#resources_tab").parent().removeClass("active");
             $("#mentors_tab").parent().removeClass("active");
+            $("#members_tab").parent().removeClass("active");
         });
         $("#scenario").click(function () {
             $("#semester").removeClass("active");
             $("#scenario").addClass("active");
             $("#resource").removeClass("active");
             $("#mentor").removeClass("active");
+            $("#member").removeClass("active");
 
-            $("#semesters_tab").parent().removeClass("active")
-            $("#scenarios_tab").parent().addClass("active")
-            $("#resources_tab").parent().removeClass("active")
-            $("#mentors_tab").parent().removeClass("active")
+            $("#semesters_tab").parent().removeClass("active");
+            $("#scenarios_tab").parent().addClass("active");
+            $("#resources_tab").parent().removeClass("active");
+            $("#mentors_tab").parent().removeClass("active");
+            $("#members_tab").parent().removeClass("active");
         });
         $("#resource").click(function () {
             $("#semester").removeClass("active");
             $("#scenario").removeClass("active");
             $("#resource").addClass("active");
             $("#mentor").removeClass("active");
+            $("#member").removeClass("active");
 
-            $("#semesters_tab").parent().removeClass("active")
-            $("#scenarios_tab").parent().removeClass("active")
-            $("#resources_tab").parent().addClass("active")
-            $("#mentors_tab").parent().removeClass("active")
+            $("#semesters_tab").parent().removeClass("active");
+            $("#scenarios_tab").parent().removeClass("active");
+            $("#resources_tab").parent().addClass("active");
+            $("#mentors_tab").parent().removeClass("active");
+            $("#members_tab").parent().removeClass("active");
         });
         $("#mentor").click(function () {
             $("#semester").removeClass("active");
             $("#scenario").removeClass("active");
             $("#resource").removeClass("active");
             $("#mentor").addClass("active");
+            $("#member").removeClass("active");
 
-            $("#semesters_tab").parent().removeClass("active")
-            $("#scenarios_tab").parent().removeClass("active")
-            $("#resources_tab").parent().removeClass("active")
-            $("#mentors_tab").parent().addClass("active")
+            $("#semesters_tab").parent().removeClass("active");
+            $("#scenarios_tab").parent().removeClass("active");
+            $("#resources_tab").parent().removeClass("active");
+            $("#mentors_tab").parent().addClass("active");
+            $("#members_tab").parent().removeClass("active");
+        });
+        $("#member").click(function () {
+            $("#semester").removeClass("active");
+            $("#scenario").removeClass("active");
+            $("#resource").removeClass("active");
+            $("#mentor").removeClass("active");
+            $("#member").addClass("active");
+
+            $("#semesters_tab").parent().removeClass("active");
+            $("#scenarios_tab").parent().removeClass("active");
+            $("#resources_tab").parent().removeClass("active");
+            $("#mentors_tab").parent().removeClass("active");
+            $("#members_tab").parent().addClass("active");
         });
     </script>
 </html>

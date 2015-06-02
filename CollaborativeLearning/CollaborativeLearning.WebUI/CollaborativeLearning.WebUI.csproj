@@ -2590,6 +2590,8 @@
     <Content Include="Views\GroupMeetings\_AddShowMeetingNotes.cshtml" />
     <Content Include="Views\GroupMeetings\AddNewMeeting.cshtml" />
     <Content Include="Views\GroupMeetings\_MeetingNoteUpdate.cshtml" />
+    <Content Include="Views\Account\_PartialAllUsers.cshtml" />
+    <Content Include="Views\Account\_PartialEditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

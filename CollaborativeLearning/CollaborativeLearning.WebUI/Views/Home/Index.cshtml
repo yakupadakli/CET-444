@@ -1,50 +1,58 @@
 ﻿<ul class="nav nav-tabs">
-  <li class="active"><a id="semesters_tab" href="#semesters" data-toggle="tab">Course  Pool</a></li>
-  <li><a id="scenarios_tab" href="#scenarios" data-toggle="tab">Scenario Pool</a></li>
-  <li><a id="resources_tab" href="#resources" data-toggle="tab">Resource  Pool</a></li>
-  <li><a id="mentors_tab" href="#mentors" data-toggle="tab">Mentor  Pool</a></li>
+    <li class="active"><a id="semesters_tab" href="#semesters" data-toggle="tab">Course  Pool</a></li>
+    <li><a id="scenarios_tab" href="#scenarios" data-toggle="tab">Scenario Pool</a></li>
+    <li><a id="resources_tab" href="#resources" data-toggle="tab">Resource  Pool</a></li>
+    <li><a id="mentors_tab" href="#mentors" data-toggle="tab">Mentor  Pool</a></li>
+    <li><a id="members_tab" href="#members" data-toggle="tab">Member  Pool</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="semesters">
-      @Html.Action("_PartialGetSemesterGrid", "Semester")
-  </div>
-  <div class="tab-pane clearfix" id="scenarios">
-      @Html.Action("_PartialGetScenarioGrid", "Scenario")
-  </div>
-  <div class="tab-pane" id="resources">
-    @Html.Action("_PartialGetResourceGrid", "Resource")
-  </div>
-  <div class="tab-pane" id="mentors">
-      @Html.Action("_PartialGetMentorGrid", "Mentor")
-  </div>
+    <div class="tab-pane active" id="semesters">
+        @Html.Action("_PartialGetSemesterGrid", "Semester")
+    </div>
+    <div class="tab-pane clearfix" id="scenarios">
+        @Html.Action("_PartialGetScenarioGrid", "Scenario")
+    </div>
+    <div class="tab-pane" id="resources">
+        @Html.Action("_PartialGetResourceGrid", "Resource")
+    </div>
+    <div class="tab-pane" id="mentors">
+        @Html.Action("_PartialGetMentorGrid", "Mentor")
+    </div>
+    <div class="tab-pane" id="members">
+        @Html.Action("_PartialAllUsers", "Account")
+    </div>
 </div>
 
 <script>
-    $("#semesters_tab").click(function () {
-        $("#semester").addClass("active");
+    function removeAllActives() {
+        $("#semester").removeClass("active");
         $("#scenario").removeClass("active");
         $("#mentor").removeClass("active");
         $("#resource").removeClass("active");
+        $("#member").removeClass("active");
+    }
+
+    $("#semesters_tab").click(function () {
+        removeAllActives();
+        $("#semester").addClass("active");
     });
     $("#scenarios_tab").click(function () {
-        $("#semester").removeClass("active");
+        removeAllActives();
         $("#scenario").addClass("active");
-        $("#mentor").removeClass("active");
-        $("#resource").removeClass("active");
     });
     $("#resources_tab").click(function () {
-        $("#semester").removeClass("active");
-        $("#scenario").removeClass("active");
-        $("#mentor").removeClass("active");
+        removeAllActives();
         $("#resource").addClass("active");
     });
     $("#mentors_tab").click(function () {
-        $("#semester").removeClass("active");
-        $("#scenario").removeClass("active");
+        removeAllActives();
         $("#mentor").addClass("active");
-        $("#resource").removeClass("active");
     });
-    
+    $("#members_tab").click(function () {
+        removeAllActives();
+        $("#member").addClass("active");
+    });
+
 </script>

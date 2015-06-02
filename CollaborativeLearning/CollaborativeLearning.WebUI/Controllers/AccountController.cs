@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 using CollaborativeLearning.WebUI.Membership;
 using System.Web.Helpers;
 using CollaborativeLearning.WebUI.Controllers;
-
+using CollaborativeLearning.WebUI.Models;
 
 
 [InitializeSimpleMembership]
@@ -41,7 +41,7 @@ public class AccountController : Controller
         {
             unitOfWork = new UnitOfWork();
             User user2 = unitOfWork.UserRepository.Get(u => u.Username == model.UserName).FirstOrDefault();
-            if (user2 !=null)
+            if (user2 != null)
             {
                 if (user2.IsLockedOut)
                 {
@@ -103,7 +103,7 @@ public class AccountController : Controller
             {
                 ViewBag.failed = "The user name or password provided is invalid.";
             }
-            
+
         }
 
         // If we got this far, something failed, redisplay form
@@ -513,7 +513,7 @@ public class AccountController : Controller
     {
         if (model.NewPassword == null)
         {
-            TempData["failed"] = "Please enrty a new password.";
+            TempData["failed"] = "Please enter a new password.";
             return ResetPassword(digest);
         }
 
@@ -566,6 +566,101 @@ public class AccountController : Controller
         TempData["success"] = "";
         return ResetPassword(digest);
     }
+
+
+    public ActionResult _PartialAllUsers()
+    {
+        var allUsers = unitOfWork.UserRepository.Get().ToList();
+
+        return PartialView(allUsers);
+    }
+
+   
+    public ActionResult _PartialEditUser(int userId)
+    {
+        ViewBag.Roles = unitOfWork.RoleRepository.Get().ToList();
+
+        AccountModels.EditUserModel editUserModel = new AccountModels.EditUserModel()
+        {
+            ChangePasswordModel = new AccountModels.ChangePasswordModel()
+            {
+                UserId = userId,
+                OldPassword = "justToMakeModelValid"
+            },
+            ChangeRoleModel = new AccountModels.ChangeRoleModel()
+            {
+                UserId = userId
+            }
+        };
+
+        return PartialView(editUserModel);
+    }
+
+    [HttpPost]
+    public ActionResult _PartialEditUser(AccountModels.EditUserModel editUserModel, string changePasswordSubmit)
+    {
+        bool editUserSucceeded = false;
+
+        if (!String.IsNullOrEmpty(changePasswordSubmit))
+        {
+            if (ChangePasswordOfUser(editUserModel.ChangePasswordModel))
+            {
+                var allUsers = unitOfWork.UserRepository.Get().ToList();
+                return PartialView("_PartialAllUsers", allUsers);
+            }
+        }
+        else
+        {
+            if (ChangeRoleOfUser(editUserModel.ChangeRoleModel))
+            {
+
+                var allUsers = unitOfWork.UserRepository.Get().ToList();
+                return PartialView("_PartialAllUsers", allUsers);
+            }
+        }
+
+
+        ViewBag.Roles = unitOfWork.RoleRepository.Get().ToList();
+
+        return PartialView(editUserModel);
+    }
+
+    public bool ChangePasswordOfUser(AccountModels.ChangePasswordModel changePasswordModel)
+    {
+        try
+        {
+            var user = unitOfWork.UserRepository.Get().SingleOrDefault(m => m.Id == changePasswordModel.UserId);
+            user.Password = CollaborativeLearning.WebUI.Membership.Crypto.HashPassword(changePasswordModel.NewPassword);
+            unitOfWork.UserRepository.Update(user);
+            unitOfWork.Save();
+
+            return true;
+        }
+        catch (Exception)
+        {
+        }
+
+        return false;
+    }
+
+    public bool ChangeRoleOfUser(AccountModels.ChangeRoleModel changeRoleModel)
+    {
+        try
+        {
+            var user = unitOfWork.UserRepository.Get().SingleOrDefault(m => m.Id == changeRoleModel.UserId);
+            user.RoleID = changeRoleModel.RoleId;
+            unitOfWork.UserRepository.Update(user);
+            unitOfWork.Save();
+
+            return true;
+        }
+        catch (Exception)
+        {
+        }
+
+        return false;
+    }
+
 
     #region Status Codes
     private static string ErrorCodeToString(MembershipCreateStatus createStatus)
