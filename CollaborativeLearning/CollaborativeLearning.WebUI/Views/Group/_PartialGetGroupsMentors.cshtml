@@ -1,30 +1,30 @@
 ﻿@model ICollection<CollaborativeLearning.Entities.User>
-<table class="table table-hover table-responsive">
-    <tbody class="table-striped">
-        
+<div>
+    <div>
+
         @using (Ajax.BeginForm("_UserToGroup", "Group",
-        new { id = ViewBag.groupId },
-        new AjaxOptions
-        {
-            HttpMethod = "POST",
-            UpdateTargetId = "SemesterGroups",
-            LoadingElementId = "loading",
-            //OnBegin = "ProcessUserAddAcitive",
-            //OnComplete = "CompleteUserAddAcitive",
-            //OnSuccess = "SuccessUserAddGroup"
-        }))
+            new { id = ViewBag.groupId },
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "SemesterGroups",
+                LoadingElementId = "loading",
+                //OnBegin = "ProcessUserAddAcitive",
+                //OnComplete = "CompleteUserAddAcitive",
+                //OnSuccess = "SuccessUserAddGroup"
+            }))
         {
             <div class="input-group">
-                <select multiple="multiple" style="min-width:150px" 
-                                    id="MentorMultiSelect-@ViewBag.groupId" name="UserMultiSelect" class="form-control">
+                <select multiple="multiple" style="min-width: 150px"
+                        id="MentorMultiSelect-@ViewBag.groupId" name="UserMultiSelect" class="form-control">
                     @{
-                        if (ViewBag.AllMentors != null)
-                        {
-                            foreach (var user in ViewBag.AllMentors as List<CollaborativeLearning.Entities.User>)
-                            {
-                                <option value="@user.Id">@user.FullName</option>
-                            }
-                        }
+            if (ViewBag.AllMentors != null)
+            {
+                foreach (var user in ViewBag.AllMentors as List<CollaborativeLearning.Entities.User>)
+                {
+                    <option value="@user.Id">@user.FullName</option>
+                }
+            }
                     }
                 </select>
 
@@ -36,16 +36,22 @@
             </div>
             <br />
         }
+
+    </div>
+</div>
+
+<table class="table table-hover table-responsive">
+    <tbody class="table-striped">
         @if (Model.Count != 0)
         {
             foreach (var item in Model)
             {
-            <tr class="success">
-                <td>
-                    @item.FullName
-                </td>
-                <td>
-                    @Ajax.ActionLink("Remove", "DeleteUserFromGroup", "Group",
+                <tr class="success">
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Remove", "DeleteUserFromGroup", "Group",
                         new { userId = item.Id, groupId = ViewBag.groupId },
                         new AjaxOptions
                         {
@@ -54,8 +60,8 @@
                             UpdateTargetId = "SemesterGroups",
                             LoadingElementId = "loading",
                         })
-                </td>
-            </tr>
+                    </td>
+                </tr>
             }
         }
         else

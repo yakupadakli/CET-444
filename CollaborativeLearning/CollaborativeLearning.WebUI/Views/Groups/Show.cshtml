@@ -19,7 +19,7 @@
         {
             foreach (var item in Model.Scenarios)
             {
-                <a href="@Url.Action("Scenario","Group",new {id = @item.Id,groupID=Model.Id})" class="list-group-item" style="padding-left: 30px;">
+                <a href="@Url.Action("Group","Scenario",new {id = @item.Id,groupID=Model.Id})" class="list-group-item" style="padding-left: 30px;">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     @item.Name
                 </a>

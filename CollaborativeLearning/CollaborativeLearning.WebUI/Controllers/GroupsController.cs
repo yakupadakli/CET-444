@@ -40,7 +40,7 @@ namespace CollaborativeLearning.WebUI.Controllers
                 else
                 {
                     ViewBag.Error = "True";
-                    ViewBag.Message = "You don't assigned any group yet! Please contact your instructor.";
+                    ViewBag.Message = "You are NOT assigned to any group yet! Please contact your instructor.";
                     ViewBag.SelectedGroupID = 0;
                     return View();
                 }
@@ -180,7 +180,7 @@ namespace CollaborativeLearning.WebUI.Controllers
             }
             else
             {
-                ViewBag.GroupName = "You don't assigned any group yet!";
+                ViewBag.GroupName = "You are NOT assigned to any group yet!";
             }
             return PartialView();
         }
